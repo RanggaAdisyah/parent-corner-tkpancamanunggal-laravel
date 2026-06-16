@@ -14,7 +14,7 @@
         {{-- Sidebar Orang Tua --}}
         @include('partials.sidebar-orang-tua', ['active' => 'pengumuman'])
 
-        <main class="main ot-main">
+        <main class="main">
 
             {{-- Top Header Bar --}}
             <header class="pengumuman-header">

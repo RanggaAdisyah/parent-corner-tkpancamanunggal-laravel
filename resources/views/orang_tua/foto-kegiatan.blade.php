@@ -14,7 +14,7 @@
         {{-- Sidebar Orang Tua --}}
         @include('partials.sidebar-orang-tua', ['active' => 'foto-kegiatan'])
 
-        <main class="main ot-main">
+        <main class="main">
 
             {{-- Top Bar --}}
             <div class="galeri-top-bar">

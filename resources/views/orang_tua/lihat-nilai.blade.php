@@ -14,7 +14,7 @@
         {{-- Sidebar Orang Tua --}}
         @include('partials.sidebar-orang-tua', ['active' => 'lihat-nilai'])
 
-        <main class="main ot-main">
+        <main class="main">
 
             <header class="page-header">
                 <div>

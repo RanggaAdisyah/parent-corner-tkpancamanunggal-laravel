@@ -1,9 +1,9 @@
 /* ============================================
    ORANG TUA MAIN CONTENT AREA
-   Override .dashboard-guru .main dengan .ot-main
+   Override .dashboard-guru .main
    ============================================ */
 
-.dashboard-guru .ot-main {
+.dashboard-guru .main {
   background-color: #f1f5f9;
   gap: 32px;
   padding: 32px 40px 48px;
@@ -13,7 +13,7 @@
    SIDEBAR — reuse existing aside styles
    ============================================ */
 
-.ot-nav-icon {
+.nav-icon {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
@@ -23,7 +23,7 @@
    MAIN CONTENT AREA
    ============================================ */
 
-.ot-main {
+.main {
   flex: 1;
   overflow-y: auto;
   background-color: #f1f5f9;

@@ -14,7 +14,7 @@
         {{-- Sidebar Orang Tua --}}
         @include('partials.sidebar-orang-tua', ['active' => 'unduh-laporan'])
 
-        <main class="main ot-main">
+        <main class="main">
 
             {{-- Top Bar: Breadcrumb + Icons --}}
             <div class="top-bar">

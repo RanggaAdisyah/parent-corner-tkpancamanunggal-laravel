@@ -15,7 +15,7 @@
         {{-- Sidebar Orang Tua --}}
         @include('partials.sidebar-orang-tua', ['active' => 'beranda'])
 
-        <main class="main ot-main">
+        <main class="main">
 
             {{-- ===== HERO BANNER ===== --}}
             <section class="hero-banner">

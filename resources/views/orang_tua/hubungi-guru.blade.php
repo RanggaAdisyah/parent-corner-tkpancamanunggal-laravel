@@ -14,7 +14,7 @@
         {{-- Sidebar Orang Tua --}}
         @include('partials.sidebar-orang-tua', ['active' => 'hubungi-guru'])
 
-        <main class="main ot-main">
+        <main class="main">
 
             {{-- Top Bar --}}
             <div class="hubungi-top-bar">
