@@ -1,0 +1,2255 @@
+.kelola-akun-siswa {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  align-items: flex-start;
+  position: relative;
+  background-color: #f3f4f6;
+}
+
+.kelola-akun-siswa .aside {
+  display: flex;
+  flex-direction: column;
+  width: 256px;
+  height: 100vh;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+  background-color: #ffffff;
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-color: #e2e8f0;
+}
+
+.kelola-akun-siswa .horizontal-border {
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  flex: 0 0 auto;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #f1f5f9;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+}
+
+.kelola-akun-siswa .overlay {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px;
+  position: relative;
+  flex: 0 0 auto;
+  background-color: #0ea5e91a;
+  border-radius: 8px;
+}
+
+.kelola-akun-siswa .icon {
+  position: relative;
+  width: 20.92px;
+  height: 17.46px;
+}
+
+.kelola-akun-siswa .div-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 0px 0px 12px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .div {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .div-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  width: 100%;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .text {
+  position: relative;
+  width: 76.94px;
+  height: 35px;
+  margin-top: -1px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 17.5px;
+}
+
+.kelola-akun-siswa .text-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 85.08px;
+  height: 16px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #64748b;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 24px 12px;
+  position: relative;
+  flex: 1;
+  align-self: stretch;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.kelola-akun-siswa .link {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  background-color: #0ea5e91a;
+  border-radius: 8px;
+}
+
+.kelola-akun-siswa .img {
+  position: relative;
+  width: 18px;
+  height: 18px;
+}
+
+.kelola-akun-siswa .text-2 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 83.45px;
+  height: 24px;
+  margin-top: -1px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #0ea5e9;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 12px 8px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .text-wrapper-2 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Inter-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #94a3b8;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  line-height: 16px;
+}
+
+.kelola-akun-siswa .link-2 {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  border-radius: 8px;
+}
+
+.kelola-akun-siswa .icon-2 {
+  position: relative;
+  width: 22.03px;
+  height: 16.03px;
+}
+
+.kelola-akun-siswa .text-wrapper-3 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 119.67px;
+  height: 24px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #475569;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .icon-3 {
+  position: relative;
+  width: 18px;
+  height: 19.97px;
+}
+
+.kelola-akun-siswa .text-3 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 128.02px;
+  height: 24px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #475569;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .icon-4 {
+  position: relative;
+  width: 19.97px;
+  height: 15.21px;
+}
+
+.kelola-akun-siswa .text-4 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 104.13px;
+  height: 24px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #475569;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .icon-5 {
+  position: relative;
+  width: 19.97px;
+  height: 19.97px;
+}
+
+.kelola-akun-siswa .text-5 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 114.55px;
+  height: 24px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #475569;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .container-wrapper {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-color: #e2e8f0;
+  display: flex;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .container-2 {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  border-radius: 8px;
+}
+
+.kelola-akun-siswa .admin-profile {
+  position: relative;
+  max-width: 223px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background-image: url(./img/admin-profile.png);
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.kelola-akun-siswa .margin {
+  display: flex;
+  padding: 0px 0px 0px 12px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.kelola-akun-siswa .text-wrapper-4 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #0f172a;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+
+.kelola-akun-siswa .text-wrapper-5 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #64748b;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+
+.kelola-akun-siswa .button {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .icon-wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .icon-6 {
+  position: relative;
+  width: 14.84px;
+  height: 15px;
+}
+
+.kelola-akun-siswa .main {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  flex: 1;
+  align-self: stretch;
+  flex-grow: 1;
+  z-index: 0;
+}
+
+.kelola-akun-siswa .background {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+  flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+  align-self: stretch;
+  background-color: #f9fafb;
+}
+
+.kelola-akun-siswa .container-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  flex: 1;
+  align-self: stretch;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.kelola-akun-siswa .container-4 {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.kelola-akun-siswa .container-5 {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.kelola-akun-siswa .container-6 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.kelola-akun-siswa .text-6 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 215.3px;
+  height: 32px;
+  margin-top: -1px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #111827;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: 32px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .p {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 270.88px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #6b7280;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .button-2 {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #f63b3b;
+  border-radius: 8px;
+  box-shadow: 0px 1px 2px #0000000d;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .text-wrapper-6 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 97.06px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .button-3 {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #3b82f6;
+  border-radius: 8px;
+  box-shadow: 0px 1px 2px #0000000d;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .container-7 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .icon-7 {
+  position: relative;
+  width: 10.5px;
+  height: 10.5px;
+}
+
+.kelola-akun-siswa .background-border {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: 12px 12px 0px 0px;
+  border: 1px solid #e5e7eb;
+}
+
+.kelola-akun-siswa .container-8 {
+  display: flex;
+  flex-direction: column;
+  width: 372.67px;
+  align-items: flex-start;
+  position: relative;
+}
+
+.kelola-akun-siswa .input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 9px 12px 10px 40px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid;
+  border-color: #e5e7eb;
+}
+
+.kelola-akun-siswa .text-wrapper-7 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #6b7280;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.kelola-akun-siswa .container-9 {
+  display: inline-flex;
+  height: 100%;
+  align-items: center;
+  padding: 0px 0px 0px 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.kelola-akun-siswa .icon-8 {
+  position: relative;
+  width: 17.57px;
+  height: 17.57px;
+}
+
+.kelola-akun-siswa .options-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .options {
+  position: relative;
+  width: 153.33px;
+  height: 38px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid;
+  border-color: #e5e7eb;
+}
+
+.kelola-akun-siswa .image-fill {
+  display: flex;
+  flex-direction: column;
+  width: 153px;
+  height: 38px;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 8.5px 9px 8.5px 123.33px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.kelola-akun-siswa .SVG {
+  position: relative;
+  width: 21px;
+  height: 21px;
+}
+
+.kelola-akun-siswa .vector {
+  position: absolute;
+  width: 73.75%;
+  height: 63.75%;
+  top: 36.25%;
+  left: 26.25%;
+}
+
+.kelola-akun-siswa .container-10 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 14.17px 0px 0px;
+  position: absolute;
+  top: calc(50.00% - 10px);
+  left: 13px;
+}
+
+.kelola-akun-siswa .text-7 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 85.16px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #111827;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .table-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border-radius: 0px 0px 12px 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-top: none;
+  box-shadow: 0px 1px 2px #0000000d;
+}
+
+.kelola-akun-siswa .table {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 576px;
+  align-items: flex-start;
+  position: relative;
+  flex: 0 0 auto;
+  margin-right: -1px;
+}
+
+.kelola-akun-siswa .header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  background-color: #f9fafb;
+}
+
+.kelola-akun-siswa .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .cell {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: flex-start;
+  padding: 0;
+  position: relative;
+}
+
+.kelola-akun-siswa .text-8 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 85.77px;
+  height: 16px;
+  margin-top: -1px;
+  font-family: "Inter-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .cell-2 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  position: relative;
+}
+
+.kelola-akun-siswa .text-9 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 41.91px;
+  height: 16px;
+  margin-top: -1px;
+  font-family: "Inter-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .cell-3 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0;
+  position: relative;
+}
+
+.kelola-akun-siswa .text-10 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 50.44px;
+  height: 16px;
+  margin-top: -1px;
+  font-family: "Inter-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  margin-top: -1px;
+  background-color: #ffffff;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-color: #e5e7eb;
+}
+
+.kelola-akun-siswa .row-2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .data {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  position: relative;
+}
+
+.kelola-akun-siswa .container-11 {
+  display: flex;
+  flex-direction: column;
+  width: 40px;
+  height: 40px;
+  align-items: flex-start;
+  position: relative;
+}
+
+.kelola-akun-siswa .background-border-2 {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: #dbeafe;
+  border-radius: 9999px;
+  border: 2px solid;
+  border-color: #bfdbfe;
+}
+
+.kelola-akun-siswa .text-11 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22.45px;
+  height: 20px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #2563eb;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.kelola-akun-siswa .margin-2 {
+  display: inline-flex;
+  padding: 0px 0px 0px 16px;
+  position: relative;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.kelola-akun-siswa .text-12 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 93.95px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #111827;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .text-13 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 76.44px;
+  height: 16px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #6b7280;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .data-2 {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  display: flex;
+  position: relative;
+}
+
+.kelola-akun-siswa .text-14 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 103.81px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #374151;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .background-wrapper {
+  flex: 1;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.kelola-akun-siswa .background-2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  position: relative;
+  flex: 0 0 auto;
+  background-color: #dcfce7;
+  border-radius: 9999px;
+}
+
+.kelola-akun-siswa .background-3 {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  background-color: #22c55e;
+  border-radius: 9999px;
+}
+
+.kelola-akun-siswa .text-15 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 26.89px;
+  height: 16px;
+  margin-top: -1px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #166534;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .img-wrapper {
+  width: 50px;
+  align-items: flex-end;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.kelola-akun-siswa .icon-9 {
+  position: relative;
+  width: 6.55px;
+  height: 11.15px;
+  margin-left: -4.55px;
+}
+
+.kelola-akun-siswa .row-3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  margin-top: -1px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-color: #e5e7eb;
+}
+
+.kelola-akun-siswa .siswa-cantika {
+  background-image: url(./img/siswa-cantika.png);
+  position: relative;
+  max-width: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.kelola-akun-siswa .text-16 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 85.67px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #111827;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .text-17 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 78.88px;
+  height: 16px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #6b7280;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .text-18 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 103.81px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #4b5563;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .background-4 {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: #f3e8ff;
+  border-radius: 9999px;
+}
+
+.kelola-akun-siswa .text-19 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22.83px;
+  height: 20px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #9333ea;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.kelola-akun-siswa .text-20 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 102.25px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #111827;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .text-21 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 78.86px;
+  height: 16px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #6b7280;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .text-22 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 91.45px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #4b5563;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .background-5 {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  position: relative;
+  flex: 0 0 auto;
+  background-color: #f3f4f6;
+  border-radius: 9999px;
+}
+
+.kelola-akun-siswa .background-6 {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  background-color: #6b7280;
+  border-radius: 9999px;
+}
+
+.kelola-akun-siswa .text-23 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 48.73px;
+  height: 16px;
+  margin-top: -1px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #1f2937;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .siswa-fajar {
+  background-image: url(./img/siswa-fajar.png);
+  position: relative;
+  max-width: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.kelola-akun-siswa .text-24 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 87.55px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #111827;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .text-25 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 78.69px;
+  height: 16px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #6b7280;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .data-3 {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  display: flex;
+  position: relative;
+}
+
+.kelola-akun-siswa .text-26 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 101.84px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #4b5563;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .data-4 {
+  flex: 1;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.kelola-akun-siswa .data-5 {
+  width: 50px;
+  align-items: flex-end;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.kelola-akun-siswa .background-7 {
+  display: none; /* Hide by default */
+  flex-direction: column;
+  width: 384px;
+  height: 100vh;
+  overflow: hidden;
+  align-items: flex-start;
+  position: relative;
+  align-self: stretch;
+  background-color: #ffffff;
+  border-left: 1px solid #e5e7eb;
+}
+
+.kelola-akun-siswa .background-7.active {
+  display: flex; /* Show when active */
+}
+
+.kelola-akun-siswa .overlay-shadow {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  width: 384px;
+  background-color: #ffffff01;
+  box-shadow:
+    0px 8px 10px -6px #0000001a,
+    0px 20px 25px -5px #0000001a;
+  pointer-events: none;
+  z-index: 10;
+  display: none;
+}
+
+.kelola-akun-siswa .background-7.active + .overlay-shadow,
+.kelola-akun-siswa .background-7.active .overlay-shadow {
+  display: block;
+}
+
+
+.kelola-akun-siswa .horizontal-border-2 {
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #e5e7eb;
+  display: flex;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .text-27 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 101.17px;
+  height: 28px;
+  margin-top: -1px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #111827;
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .button-4 {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 8px;
+  border-radius: 9999px; /* Bulat */
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex: 0 0 auto;
+  background-color: #ef4444 !important; /* Merah Permanen */
+  transition: background-color 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+
+
+.kelola-akun-siswa .button-4:hover {
+  background-color: #dc2626; /* Merah lebih gelap saat hover */
+  transform: scale(1.1);
+}
+
+.kelola-akun-siswa .icon-10 {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  filter: brightness(0) invert(1); /* Membuat ikon (X) menjadi putih */
+}
+
+
+.kelola-akun-siswa .container-12 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 24px;
+  position: relative;
+  flex: 1;
+  align-self: stretch;
+  width: 100%;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.kelola-akun-siswa .container-13 {
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  height: 144px;
+}
+
+.kelola-akun-siswa .heading-ananda {
+  position: absolute;
+  top: 92px;
+  left: calc(50.00% - 67px);
+  width: 134px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #111827;
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .margin-3 {
+  display: inline-flex;
+  padding: 4px 0px 0px;
+  position: absolute;
+  top: 120px;
+  left: 123px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.kelola-akun-siswa .container-14 {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .text-28 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 89.19px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #6b7280;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .container-15 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 0px 12px;
+  position: absolute;
+  top: 0;
+  left: calc(50.00% - 40px);
+}
+
+.kelola-akun-siswa .background-border-3 {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+  padding: 19.5px 0px 20.5px;
+  position: relative;
+  background-color: #dbeafe;
+  border-radius: 9999px;
+  border: 4px solid;
+  border-color: #ffffff;
+  box-shadow: 0px 1px 2px #0000000d;
+}
+
+.kelola-akun-siswa .text-29 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33.69px;
+  height: 32px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #2563eb;
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 32px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .background-border-4 {
+  position: absolute;
+  right: 0;
+  bottom: 12px;
+  width: 20px;
+  height: 20px;
+  background-color: #22c55e;
+  border-radius: 9999px;
+  border: 2px solid;
+  border-color: #ffffff;
+}
+
+.kelola-akun-siswa .horizontal-divider {
+  height: 1px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-color: #f3f4f6;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+}
+
+.kelola-akun-siswa .container-16 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  width: 100%;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .icon-11 {
+  position: relative;
+  width: 15.69px;
+  height: 13.09px;
+}
+
+.kelola-akun-siswa .text-30 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 93.84px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #3b82f6;
+  font-size: 14px;
+  letter-spacing: 0.7px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .container-17 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .text-wrapper-8 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #6b7280;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+
+.kelola-akun-siswa .text-wrapper-9 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #111827;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+
+.kelola-akun-siswa .container-18 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: 40px;
+  height: fit-content;
+  gap: 16px;
+}
+
+.kelola-akun-siswa .container-19 {
+  position: relative;
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.kelola-akun-siswa .container-20 {
+  position: relative;
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.kelola-akun-siswa .icon-12 {
+  position: relative;
+  width: 15.08px;
+  height: 15px;
+}
+
+.kelola-akun-siswa .text-31 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 180.5px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Bold", Helvetica;
+  font-weight: 700;
+  color: #3b82f6;
+  font-size: 14px;
+  letter-spacing: 0.7px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .container-21 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .text-32 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 114.47px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #111827;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .button-5 {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 6px;
+  background-color: #f0fdf4;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .icon-13 {
+  position: relative;
+  width: 13.33px;
+  height: 12.4px;
+}
+
+.kelola-akun-siswa .container-22 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.88px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .jl-merpati-no-RT-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 0px 0.62px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .jl-merpati-no-RT {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #111827;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 22.8px;
+}
+
+.kelola-akun-siswa .background-8 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 24px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  background-color: #f9fafb;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-color: #e5e7eb;
+}
+
+.kelola-akun-siswa .button-6 {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  gap: 8px;
+  padding: 10px 0px;
+  align-self: stretch;
+  width: 100%;
+  background-color: #3b82f6;
+  border-radius: 8px;
+  box-shadow: 0px 1px 2px #0000000d;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .icon-14 {
+  position: relative;
+  width: 15px;
+  height: 15.02px;
+}
+
+.kelola-akun-siswa .text-33 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70.11px;
+  height: 20px;
+  margin-top: -1px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .button-7 {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  gap: 8px;
+  padding: 10px 0px;
+  align-self: stretch;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid;
+  border-color: #fecaca;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kelola-akun-siswa .icon-15 {
+  position: relative;
+  width: 12px;
+  height: 13.5px;
+}
+
+.kelola-akun-siswa .text-34 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 81.33px;
+  height: 20px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  color: #dc2626;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.kelola-akun-siswa .row-2.selected-row,
+.kelola-akun-siswa .row-3.selected-row {
+  background-color: #eff6ff !important; /* Biru muda saat dipilih */
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 650px;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.modal-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-icon-bg {
+  width: 36px;
+  height: 36px;
+  background-color: #eff6ff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b82f6;
+}
+
+.modal-title {
+  font-family: "Inter-Bold", Helvetica;
+  font-size: 18px;
+  color: #1e293b;
+}
+
+.btn-close-modal {
+  all: unset;
+  cursor: pointer;
+  color: #94a3b8;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.btn-close-modal:hover {
+  color: #64748b;
+}
+
+.modal-body {
+  padding: 24px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.form-section {
+  margin-bottom: 24px;
+}
+
+.section-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: "Inter-Bold", Helvetica;
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-label {
+  display: block;
+  font-family: "Inter-Medium", Helvetica;
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 14px;
+  color: #1e293b;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+.input-with-icon .form-input {
+  padding-left: 36px;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.modal-footer {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background-color: #f8fafc;
+  border-top: 1px solid #f1f5f9;
+}
+
+.btn-modal-secondary {
+  all: unset;
+  padding: 10px 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #475569;
+  font-family: "Inter-SemiBold", Helvetica;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-modal-secondary:hover {
+  background-color: #f1f5f9;
+}
+
+.btn-modal-primary {
+  all: unset;
+  padding: 10px 24px;
+  background-color: #2563eb;
+  color: #ffffff;
+  border-radius: 8px;
+  font-family: "Inter-SemiBold", Helvetica;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-modal-primary:hover {
+  background-color: #1d4ed8;
+}
+
+/* Original CSS code should be injected above this comment. */
+
+.kelola-akun-siswa .link,
+.kelola-akun-siswa .link-2 {
+  color: inherit;
+}
+
+.kelola-akun-siswa .button,
+.kelola-akun-siswa .button-4,
+.kelola-akun-siswa .button-5 {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.kelola-akun-siswa .button-2,
+.kelola-akun-siswa .button-3,
+.kelola-akun-siswa .button-6,
+.kelola-akun-siswa .button-7,
+.kelola-akun-siswa .row-2,
+.kelola-akun-siswa .row-3 {
+  cursor: pointer;
+}
+
+.kelola-akun-siswa .container-5 {
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.kelola-akun-siswa .background-border {
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.kelola-akun-siswa .container-8 {
+  flex: 1 1 320px;
+  width: auto;
+  max-width: 372.67px;
+}
+
+.kelola-akun-siswa .input {
+  cursor: text;
+}
+
+.kelola-akun-siswa .text-wrapper-7 {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  padding: 0;
+  min-width: 0;
+}
+
+.kelola-akun-siswa .text-wrapper-7::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+.kelola-akun-siswa .options {
+  display: block;
+  cursor: pointer;
+}
+
+.kelola-akun-siswa .text-7 {
+  width: 100%;
+  height: 20px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.kelola-akun-siswa .table {
+  display: flex;
+  min-width: 100%;
+  width: 100%;
+}
+
+.kelola-akun-siswa .row-2,
+.kelola-akun-siswa .row-3 {
+  border: 0;
+  text-align: left;
+  font: inherit;
+}
+
+.kelola-akun-siswa .row-2:focus-visible,
+.kelola-akun-siswa .row-3:focus-visible,
+.kelola-akun-siswa .link:focus-visible,
+.kelola-akun-siswa .link-2:focus-visible,
+.kelola-akun-siswa .button:focus-visible,
+.kelola-akun-siswa .button-4:focus-visible,
+.kelola-akun-siswa .button-5:focus-visible,
+.kelola-akun-siswa .text-32:focus-visible,
+.kelola-akun-siswa .text-7:focus-visible,
+.kelola-akun-siswa .text-wrapper-7:focus-visible {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+.kelola-akun-siswa .text-32 {
+  text-decoration: none;
+}
+
+@media (max-width: 1200px) {
+  .kelola-akun-siswa {
+    flex-direction: column;
+  }
+
+  .kelola-akun-siswa .aside {
+    width: 100%;
+    height: auto;
+  }
+
+  .kelola-akun-siswa .main {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .kelola-akun-siswa .container-4 {
+    height: auto;
+    padding-bottom: 32px;
+  }
+
+  .kelola-akun-siswa .container-5,
+  .kelola-akun-siswa .background-border,
+  .kelola-akun-siswa .table-wrapper {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: calc(100% - 64px);
+  }
+
+  .kelola-akun-siswa .table-wrapper {
+    margin: 0 32px 32px;
+    overflow-x: auto;
+  }
+
+  .kelola-akun-siswa .background-7 {
+    width: 100%;
+  }
+
+  .kelola-akun-siswa .overlay-shadow {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .kelola-akun-siswa .container-5,
+  .kelola-akun-siswa .background-border,
+  .kelola-akun-siswa .table-wrapper {
+    width: calc(100% - 32px);
+  }
+
+  .kelola-akun-siswa .container-5 {
+    margin: 16px;
+  }
+
+  .kelola-akun-siswa .background-border {
+    margin: 0 16px;
+  }
+
+  .kelola-akun-siswa .table-wrapper {
+    margin: 0 16px 16px;
+  }
+
+  .kelola-akun-siswa .container-18 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ============================================================
+   DETAIL AKUN PANEL - Fixed overlay dari kanan
+   ============================================================ */
+
+/* Fix .background yang collapse jadi 0px akibat global flex-direction:column */
+.kelola-akun-siswa .main {
+  overflow: hidden;
+}
+
+.kelola-akun-siswa .background {
+  width: 100% !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+}
+
+/* Panel tersembunyi di luar layar kanan */
+.kelola-akun-siswa .background-7 {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 360px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-left: 1px solid #e2e8f0;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+}
+
+/* Panel muncul saat active */
+.kelola-akun-siswa .background-7.active {
+  right: 0;
+}
+
+/* Header panel */
+.kelola-akun-siswa .horizontal-border-2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #f1f5f9;
+  flex-shrink: 0;
+}
+
+/* Konten panel */
+.kelola-akun-siswa .container-12 {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Tombol aksi */
+.kelola-akun-siswa .background-8 {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid #f1f5f9;
+  flex-shrink: 0;
+}
+
+/* Overlay tidak digunakan */
+#detailOverlay {
+  display: none !important;
+}
+
+
+

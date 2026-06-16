@@ -1,0 +1,763 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.kelola-jadwal {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #f8fafc;
+    font-family: 'Inter', sans-serif;
+    color: #111827;
+}
+
+/* Sidebar Styles (Reused) */
+.kelola-jadwal .aside {
+    display: flex;
+    flex-direction: column;
+    width: 256px;
+    height: 100vh;
+    background-color: #ffffff;
+    border-right: 1px solid #e2e8f0;
+    flex-shrink: 0;
+}
+
+.kelola-jadwal .horizontal-border {
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.kelola-jadwal .overlay {
+    padding: 8px;
+    background-color: #0ea5e91a;
+    border-radius: 8px;
+}
+
+.kelola-jadwal .icon {
+    width: 20px;
+    height: 17px;
+}
+
+.kelola-jadwal .div-wrapper {
+    padding-left: 12px;
+}
+
+.kelola-jadwal .text {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.kelola-jadwal .text-wrapper {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.kelola-jadwal .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 24px 12px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.kelola-jadwal .link, .kelola-jadwal .link-2 {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #475569;
+}
+
+.kelola-jadwal .link {
+    background-color: #0ea5e91a;
+    color: #0ea5e9;
+    font-weight: 500;
+}
+
+.kelola-jadwal .container {
+    padding: 16px 12px 8px;
+}
+
+.kelola-jadwal .text-wrapper-2 {
+    font-weight: 600;
+    font-size: 12px;
+    color: #94a3b8;
+    letter-spacing: 0.6px;
+}
+
+.kelola-jadwal .img, .kelola-jadwal .icon-2, .kelola-jadwal .icon-3, .kelola-jadwal .icon-4, .kelola-jadwal .icon-5 {
+    width: 18px;
+    height: 18px;
+}
+
+.kelola-jadwal .text-2, .kelola-jadwal .text-3, .kelola-jadwal .text-4, .kelola-jadwal .text-5, .kelola-jadwal .text-wrapper-3 {
+    font-size: 16px;
+    padding-left: 12px;
+}
+
+.kelola-jadwal .text-2 {
+    color: #0ea5e9;
+    font-weight: 500;
+}
+
+.kelola-jadwal .container-wrapper {
+    padding: 24px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.kelola-jadwal .container-2 {
+    display: flex;
+    align-items: center;
+}
+
+.kelola-jadwal .admin-profile {
+    width: 32px;
+    height: 32px;
+    background-color: #fdbca2;
+    border-radius: 50%;
+}
+
+.kelola-jadwal .margin {
+    margin-left: 12px;
+}
+
+.kelola-jadwal .text-wrapper-4 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.kelola-jadwal .text-wrapper-5 {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.kelola-jadwal .button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Main Layout */
+.kelola-jadwal .main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden; /* Mencegah scroll global */
+    background-color: #f8fafc;
+}
+
+.kelola-jadwal .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 48px;
+    background-color: #f8fafc;
+}
+
+.kelola-jadwal .page-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: #111827;
+}
+
+.kelola-jadwal .page-subtitle {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0;
+}
+
+.kelola-jadwal .header-right {
+    display: flex;
+    gap: 12px;
+}
+
+.kelola-jadwal .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.kelola-jadwal .btn-primary {
+    background-color: #38bdf8;
+    color: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.kelola-jadwal .btn-primary:hover {
+    background-color: #0284c7;
+}
+
+.kelola-jadwal .btn-outline {
+    background-color: white;
+    border-color: #d1d5db;
+    color: #374151;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.kelola-jadwal .btn-outline:hover {
+    background-color: #f9fafb;
+}
+
+.kelola-jadwal .btn-icon-img {
+    width: 16px;
+    height: 16px;
+}
+
+.kelola-jadwal .content-wrapper {
+    display: flex;
+    gap: 24px;
+    padding: 0 48px 48px 48px;
+    flex-grow: 1;
+}
+
+/* Calendar Section */
+.kelola-jadwal .calendar-section {
+    flex-grow: 1;
+    background-color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Penting agar tidak overflow */
+}
+
+.kelola-jadwal .calendar-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f3f4f6;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.kelola-jadwal .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.kelola-jadwal .month-nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.kelola-jadwal .month-nav h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.kelola-jadwal .nav-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+.kelola-jadwal .view-toggle {
+    display: flex;
+    background-color: #f1f5f9;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.kelola-jadwal .toggle-btn {
+    background: none;
+    border: none;
+    padding: 6px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.kelola-jadwal .toggle-btn.active {
+    background-color: white;
+    color: #0f172a;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.kelola-jadwal .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: auto repeat(5, 1fr);
+    border-top: 1px solid #f3f4f6;
+    flex-grow: 1;
+}
+
+.kelola-jadwal .day-name {
+    padding: 12px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    border-bottom: 1px solid #f3f4f6;
+    border-right: 1px solid #f3f4f6;
+}
+
+.kelola-jadwal .day-name:last-child {
+    border-right: none;
+}
+
+.kelola-jadwal .day {
+    min-height: 0;
+    padding: 8px;
+    border-bottom: 1px solid #f3f4f6;
+    border-right: 1px solid #f3f4f6;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: auto;
+}
+
+.kelola-jadwal .day:nth-child(7n) {
+    border-right: none;
+}
+
+.kelola-jadwal .date {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.kelola-jadwal .weekend .date {
+    color: #ef4444; /* Red color for weekends */
+}
+
+.kelola-jadwal .disabled .date {
+    color: #d1d5db; /* Grey color for previous/next month days */
+}
+
+.kelola-jadwal .today {
+    background-color: #e0f2fe;
+    border: 2px solid #38bdf8;
+}
+
+.kelola-jadwal .date-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: #38bdf8;
+    color: white;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.kelola-jadwal .event {
+    font-size: 11px;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.kelola-jadwal .event.green { background-color: #dcfce7; color: #166534; }
+.kelola-jadwal .event.blue { background-color: #dbeafe; color: #1e40af; }
+.kelola-jadwal .event.yellow { background-color: #fef9c3; color: #854d0e; }
+.kelola-jadwal .event.purple { background-color: #f3e8ff; color: #6b21a8; }
+.kelola-jadwal .event.red { background-color: #fee2e2; color: #991b1b; }
+
+/* Sidebar Widgets */
+.kelola-jadwal .sidebar-widgets {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.kelola-jadwal .widget {
+    background-color: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.kelola-jadwal .widget-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    color: #111827;
+}
+
+.kelola-jadwal .widget-subtitle {
+    font-size: 12px;
+    font-weight: 600;
+    color: #4b5563;
+    letter-spacing: 0.05em;
+    margin: 0 0 16px 0;
+}
+
+.kelola-jadwal .timeline {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.kelola-jadwal .timeline::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 12px;
+    width: 1px;
+    background-color: #e5e7eb;
+}
+
+.kelola-jadwal .timeline-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+.kelola-jadwal .timeline-item:last-child {
+    margin-bottom: 16px;
+}
+
+.kelola-jadwal .timeline-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+}
+.kelola-jadwal .green-bg { background-color: #dcfce7; color: #22c55e; }
+.kelola-jadwal .blue-bg { background-color: #dbeafe; color: #3b82f6; }
+.kelola-jadwal .yellow-bg { background-color: #fef9c3; color: #eab308; }
+
+.kelola-jadwal .timeline-content h4 {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+}
+.kelola-jadwal .timeline-content p {
+    margin: 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.kelola-jadwal .timeline-date {
+    margin-left: auto;
+    font-size: 12px;
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+.kelola-jadwal .btn-full {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Birthday Widget */
+.kelola-jadwal .widget-birthday {
+    background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+    color: white;
+}
+
+.kelola-jadwal .widget-birthday h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.kelola-jadwal .widget-birthday p {
+    margin: 0 0 16px 0;
+    font-size: 13px;
+    color: #e0f2fe;
+    line-height: 1.5;
+}
+
+.kelola-jadwal .avatars {
+    display: flex;
+    margin-bottom: 16px;
+}
+.kelola-jadwal .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: #cbd5e1;
+    margin-left: -8px;
+}
+.kelola-jadwal .avatar:first-child {
+    margin-left: 0;
+    background: linear-gradient(45deg, #94a3b8, #e2e8f0);
+}
+.kelola-jadwal .avatar:nth-child(2) {
+    background: linear-gradient(45deg, #fcd34d, #fef3c7);
+}
+.kelola-jadwal .avatar:nth-child(3) {
+    background: linear-gradient(45deg, #818cf8, #e0e7ff);
+}
+
+.kelola-jadwal .btn-white-translucent {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.kelola-jadwal .btn-white-translucent:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Categories Widget */
+.kelola-jadwal .category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.kelola-jadwal .category-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #374151;
+}
+
+.kelola-jadwal .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.kelola-jadwal .dot-blue { background-color: #3b82f6; }
+.kelola-jadwal .dot-green { background-color: #22c55e; }
+.kelola-jadwal .dot-yellow { background-color: #eab308; }
+.kelola-jadwal .dot-purple { background-color: #a855f7; }
+.kelola-jadwal .dot-red { background-color: #ef4444; }
+
+.kelola-jadwal .footer {
+    text-align: center;
+    padding: 24px;
+    color: #6b7280;
+    font-size: 14px;
+    border-top: 1px solid #f1f5f9;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    background-color: #3b82f6;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+.btn-close-modal {
+    all: unset;
+    cursor: pointer;
+    color: #ffffff;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.btn-close-modal:hover {
+    opacity: 1;
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.form-input, .form-textarea, .form-select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #111827;
+    background-color: #f9fafb;
+    transition: all 0.2s;
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon-left {
+    position: absolute;
+    left: 12px;
+    color: #6b7280;
+}
+
+.input-with-icon .form-input {
+    padding-left: 38px;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.modal-footer {
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border-top: 1px solid #f1f5f9;
+}
+
+.footer-right {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.btn-delete-jadwal {
+    all: unset;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ef4444;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.btn-delete-jadwal:hover {
+    color: #dc2626;
+}
+
+.btn-batal {
+    all: unset;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 8px 16px;
+}
+
+.btn-batal:hover {
+    color: #374151;
+}
+
+.btn-simpan {
+    all: unset;
+    background-color: #3b82f6;
+    color: #ffffff;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-simpan:hover {
+    background-color: #2563eb;
+}
+
+.day {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.day:not(.disabled):hover {
+    background-color: #f1f5f9;
+}

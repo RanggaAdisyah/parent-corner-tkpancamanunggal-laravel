@@ -1,0 +1,152 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+* {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0px;
+  height: 100%;
+}
+/* a blue color as a generic focus style */
+button:focus-visible {
+  outline: 2px solid #4a90e2 !important;
+  outline: -webkit-focus-ring-color auto 5px !important;
+}
+a {
+  text-decoration: none;
+}
+/* @FONTWARNING[{"type": "restricted", "family": "Lexend-Bold", "weight": "700", "style": "normal", "allowsCrossOrigin": false}] */
+
+@font-face {
+  font-family: "Lexend-Bold";
+  src: local("Lexend-Bold");
+}
+/* @FONTWARNING[{"type": "restricted", "family": "Lexend-Regular", "weight": "400", "style": "normal", "allowsCrossOrigin": false}] */
+
+@font-face {
+  font-family: "Lexend-Regular";
+  src: local("Lexend-Regular");
+}
+/* @FONTWARNING[{"type": "restricted", "family": "Lexend-Medium", "weight": "500", "style": "normal", "allowsCrossOrigin": false}] */
+
+@font-face {
+  font-family: "Lexend-Medium";
+  src: local("Lexend-Medium");
+}
+/* @FONTWARNING[{"type": "restricted", "family": "Lexend-SemiBold", "weight": "600", "style": "normal", "allowsCrossOrigin": false}] */
+
+@font-face {
+  font-family: "Lexend-SemiBold";
+  src: local("Lexend-SemiBold");
+}
+
+/* Sidebar Collapse Styles */
+.aside {
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow-x: hidden !important;
+  z-index: 50;
+}
+
+.aside.collapsed {
+  width: 80px !important;
+}
+
+.aside.collapsed .text, 
+.aside.collapsed .text-wrapper,
+.aside.collapsed .text-2,
+.aside.collapsed .text-3,
+.aside.collapsed .text-4,
+.aside.collapsed .text-5,
+.aside.collapsed .text-wrapper-2,
+.aside.collapsed .text-wrapper-3,
+.aside.collapsed .text-wrapper-4,
+.aside.collapsed .text-wrapper-5,
+.aside.collapsed .margin,
+.aside.collapsed .div-wrapper:not(.toggle-wrapper) {
+  display: none !important;
+}
+
+.aside.collapsed .nav {
+  padding: 24px 8px !important;
+  align-items: center !important;
+}
+
+.aside.collapsed .link, 
+.aside.collapsed .link-2 {
+  justify-content: center !important;
+  padding: 12px 0 !important;
+  width: 48px !important;
+  margin: 0 auto !important;
+}
+
+.aside.collapsed .horizontal-border {
+  padding: 24px 8px !important;
+  justify-content: center !important;
+}
+
+.aside.collapsed .container-wrapper {
+  padding: 16px 8px !important;
+}
+
+.aside.collapsed .container-2 {
+  justify-content: center !important;
+  padding: 8px 0 !important;
+}
+
+.aside.collapsed .container {
+  display: none !important; /* Hide "KELOLA DATA" headers */
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  color: #64748b;
+}
+
+.sidebar-toggle:hover {
+  background-color: #f1f5f9;
+}
+
+.aside.collapsed .sidebar-toggle {
+  margin-top: 10px;
+}
+
+/* ============================================
+   FOOTER - Global Dashboard Style
+   ============================================ */
+
+/* Pastikan .main bisa push footer ke bawah */
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Footer selalu di paling bawah, teks center, font Lexend */
+.main .footer-copyright {
+  margin-top: auto;
+  padding: 24px 0 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.main .footer-copyright .text-8 {
+  font-family: "Lexend", "Lexend-Regular", Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  color: #94a3b8;
+  text-align: center;
+  width: auto;
+  height: auto;
+  white-space: normal;
+  line-height: 1.5;
+}
