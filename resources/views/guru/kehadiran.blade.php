@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>Input Absensi Siswa - Dashboard Guru</title>
+    <title>Input Kehadiran Siswa - Dashboard Guru</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/kehadiran.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/dashboard.css') }}">
@@ -14,13 +14,13 @@
 
         <main class="main">
             <header class="page-header">
-                <h1 class="page-title">Input Absensi Siswa</h1>
+                <h1 class="page-title">Input Kehadiran Siswa</h1>
                 <p class="page-subtitle">Kelola kehadiran siswa harian dengan mudah.</p>
             </header>
 
             <section class="filter-section">
                 <div class="filter-group">
-                    <label class="filter-label">Tanggal Absensi</label>
+                    <label class="filter-label">Tanggal Kehadiran</label>
                     <div class="filter-input-wrapper">
                         <svg class="filter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                         <input type="text" class="filter-input" value="10/24/2023" readonly>
@@ -182,7 +182,7 @@
                 <button type="button" class="btn-batal">Batal</button>
                 <button type="button" class="btn-simpan">
                     <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                    Simpan Absensi
+                    Simpan Kehadiran
                 </button>
             </footer>
 

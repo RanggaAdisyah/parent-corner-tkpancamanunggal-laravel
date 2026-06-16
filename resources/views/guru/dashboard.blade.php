@@ -56,14 +56,14 @@
             </section>
 
             <section class="guru-actions-grid" aria-label="Menu cepat guru">
-                <article class="guru-action-card" aria-label="Input Absensi">
+                <article class="guru-action-card" aria-label="Input Kehadiran">
                     <div class="guru-action-icon-bg guru-action-icon-bg--blue" aria-hidden="true">
                         <img class="guru-action-icon" src="{{ asset('img/icon-5.svg') }}" alt="" />
                     </div>
-                    <h3 class="guru-action-title">Input Absensi</h3>
+                    <h3 class="guru-action-title">Input Kehadiran</h3>
                     <p class="guru-action-desc">Catat kehadiran siswa hari ini. Pastikan data terisi sebelum jam 9 pagi.</p>
-                    <a class="guru-action-cta guru-action-cta--primary" href="#" aria-label="Buka Absensi">
-                        Buka Absensi
+                    <a class="guru-action-cta guru-action-cta--primary" href="#" aria-label="Buka Kehadiran">
+                        Buka Kehadiran
                         <span class="guru-action-cta__arrow" aria-hidden="true">→</span>
                     </a>
                 </article>
@@ -114,13 +114,6 @@
                         Galeri Foto
                         <span class="guru-action-cta__arrow" aria-hidden="true">⬆</span>
                     </a>
-                </article>
-
-                <article class="guru-widget-placeholder" aria-label="Tambah Widget">
-                    <div class="guru-widget-placeholder__inner">
-                        <div class="guru-widget-placeholder__plus" aria-hidden="true">+</div>
-                        <div class="guru-widget-placeholder__label">Tambah Widget</div>
-                    </div>
                 </article>
             </section>
 
