@@ -60,7 +60,7 @@
                             <td><span class="date-text">24 Okt 2023, 08:30</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="btn-icon" title="Edit">
+                                    <button class="btn-icon" title="Edit" onclick="openEditModal(this)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                     </button>
                                     <button class="btn-icon btn-icon-delete" title="Hapus">
@@ -77,7 +77,7 @@
                             <td><span class="date-text">20 Okt 2023, 14:15</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="btn-icon" title="Edit">
+                                    <button class="btn-icon" title="Edit" onclick="openEditModal(this)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                     </button>
                                     <button class="btn-icon btn-icon-delete" title="Hapus">
@@ -214,7 +214,15 @@
             const openModal = () => modal.classList.add('active');
             const closeModal = () => modal.classList.remove('active');
 
-            if(btnBuat) btnBuat.addEventListener('click', openModal);
+            if(btnBuat) {
+                btnBuat.addEventListener('click', function() {
+                    document.querySelector('#modalPengumuman .page-title').textContent = 'Buat Pengumuman Baru';
+                    document.querySelector('#modalPengumuman .btn-primary').textContent = 'Kirim Pengumuman';
+                    document.querySelector('#modalPengumuman .form-input').value = '';
+                    if(window.quillEditor) window.quillEditor.root.innerHTML = '';
+                    openModal();
+                });
+            }
             if(btnClose) btnClose.addEventListener('click', closeModal);
             if(btnBatal) btnBatal.addEventListener('click', closeModal);
             modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
@@ -260,15 +268,29 @@
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var quill = new Quill('#editor-pengumuman', {
+            window.quillEditor = new Quill('#editor-pengumuman', {
                 theme: 'snow',
                 placeholder: 'Tuliskan detail pengumuman yang ingin disampaikan secara lengkap...'
             });
             
             // Simpan data Quill ke hidden input saat ada perubahan
-            quill.on('text-change', function() {
-                document.getElementById('isiPesanHidden').value = quill.root.innerHTML;
+            window.quillEditor.on('text-change', function() {
+                document.getElementById('isiPesanHidden').value = window.quillEditor.root.innerHTML;
             });
+
+            // Global Edit Function
+            window.openEditModal = function(btn) {
+                const row = btn.closest('tr');
+                const title = row.querySelector('.announcement-title').textContent;
+                const preview = row.querySelector('.announcement-preview').textContent;
+                
+                document.querySelector('#modalPengumuman .page-title').textContent = 'Edit Pengumuman';
+                document.querySelector('#modalPengumuman .btn-primary').textContent = 'Simpan Perubahan';
+                document.querySelector('#modalPengumuman .form-input').value = title;
+                window.quillEditor.root.innerHTML = preview;
+                
+                document.getElementById('modalPengumuman').classList.add('active');
+            };
         });
     </script>
 </body>
