@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,19 +17,37 @@
                     <h1 class="page-title">Kelola Jadwal Sekolah</h1>
                     <p class="page-subtitle">Atur kegiatan belajar mengajar dan acara spesial TK Panca Manunggal.</p>
                 </div>
-                <div class="header-right">
-                    <button id="btnBuatJadwal" class="btn btn-primary">
-                        <span class="btn-icon">+</span> Kegiatan Baru
-                    </button>
-                    <button class="btn btn-outline">
-                        <img src="{{ asset('img/icon-print.svg') }}" alt="Cetak" class="btn-icon-img" onerror="this.style.display='none'"> Cetak Jadwal
-                    </button>
-                    <button class="btn btn-primary">
-                        <img src="{{ asset('img/icon-download.svg') }}" alt="Export" class="btn-icon-img" onerror="this.style.display='none'"> Export PDF
-                    </button>
+                <div class="header-right" id="headerActions">
+                    <!-- For Kalender Tab -->
+                    <div id="actionsKalender" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <button id="btnBuatJadwal" class="btn btn-primary">
+                            <span class="btn-icon">+</span> Kegiatan Baru
+                        </button>
+                        <button class="btn btn-outline">
+                            <img src="{{ asset('img/icon-print.svg') }}" alt="Cetak" class="btn-icon-img" onerror="this.style.display='none'"> Cetak Jadwal
+                        </button>
+                        <button class="btn btn-primary">
+                            <img src="{{ asset('img/icon-download.svg') }}" alt="Export" class="btn-icon-img" onerror="this.style.display='none'"> Export PDF
+                        </button>
+                    </div>
+                    
+                    <!-- For Jadwal Harian Tab -->
+                    <div id="actionsHarian" style="display: none; gap: 12px; flex-wrap: wrap;">
+                        <button id="btnBuatJadwalHarian" class="btn btn-primary">
+                            <span class="btn-icon">+</span> Jadwal Harian Baru
+                        </button>
+                    </div>
                 </div>
             </header>
 
+            {{-- TAB NAVIGASI UTAMA --}}
+            <div class="main-tabs">
+                <button class="main-tab active" data-tab="kalender">📅 Kalender Kegiatan</button>
+                <button class="main-tab" data-tab="harian">🕐 Jadwal Harian</button>
+            </div>
+
+            {{-- TAB PANEL: KALENDER --}}
+            <div id="tab-kalender" class="tab-panel active">
             <div class="content-wrapper">
                 <div class="calendar-section">
                     <div class="calendar-card">
@@ -178,7 +196,205 @@
             </div>
 
             @include('partials.footer')
+            </div> {{-- /tab-panel kalender --}}
+
+            {{-- TAB PANEL: JADWAL HARIAN --}}
+            <div id="tab-harian" class="tab-panel">
+                <div class="jadwal-harian-wrapper">
+
+                    {{-- Sub-tab Kelas --}}
+                    <div class="jh-kelas-tabs">
+                        <button class="jh-kelas-tab active" data-kelas="tka">TK A</button>
+                        <button class="jh-kelas-tab" data-kelas="tkb">TK B</button>
+                    </div>
+
+                    {{-- === TK A === --}}
+                    @php
+                    $tkaRows = [
+                        ['09.30 - 10.00', 'Kedatangan &amp; Doa Pagi', 'Menyapa guru, berdoa bersama', ''],
+                        ['10.00 - 10.30', 'Kegiatan Pembukaan', 'Menyanyi, senam pagi, diskusi tema hari ini', ''],
+                        ['10.30 - 11.30', 'Kegiatan Inti', 'Sentra bermain / aktivitas tematik (motorik, bahasa, seni)', ''],
+                        ['11.30 - 11.45', 'Istirahat &amp; Makan Bekal', 'Makan bersama, cuci tangan', ''],
+                        ['11.45', 'Penutup &amp; Pulang', 'Doa bersama dan pulang', 'row-pulang'],
+                    ];
+                    $tkaJumatRows = [
+                        ['09.15 - 09.30', 'Kedatangan &amp; Doa Pagi', 'Menyapa guru, berdoa bersama', ''],
+                        ['09.30 - 09.45', 'Kegiatan Pembukaan', 'Menyanyi, senam pagi, diskusi tema hari ini', ''],
+                        ['09.45 - 10.45', 'Kegiatan Inti', 'Sentra bermain / aktivitas tematik (motorik, bahasa, seni)', ''],
+                        ['10.45 - 11.00', 'Istirahat &amp; Makan Bekal', 'Makan bersama, cuci tangan', ''],
+                        ['11.00', 'Penutup &amp; Pulang', 'Doa bersama dan pulang', 'row-pulang'],
+                    ];
+                    $sabtuRows = [
+                        ['07.00 - 07.15', 'Kedatangan &amp; Doa Pagi', 'Menyapa guru, berdoa bersama', ''],
+                        ['07.15 - 07.30', 'Kegiatan Pembukaan', 'Menyanyi, senam pagi, diskusi tema hari ini', ''],
+                        ['07.30 - 08.30', 'Kegiatan Inti', 'Makan bersama / Ekstra Karate / Jalan-jalan', ''],
+                        ['08.30 - 09.00', 'Istirahat &amp; Makan Bekal', 'Makan bersama, cuci tangan', ''],
+                        ['09.00', 'Penutup &amp; Pulang', 'Doa bersama dan pulang', 'row-pulang'],
+                    ];
+                    $hariTka = [
+                        ['id'=>'tka-senin',  'label'=>'Senin',  'rows'=>$tkaRows],
+                        ['id'=>'tka-selasa', 'label'=>'Selasa', 'rows'=>$tkaRows],
+                        ['id'=>'tka-rabu',   'label'=>'Rabu',   'rows'=>$tkaRows],
+                        ['id'=>'tka-kamis',  'label'=>'Kamis',  'rows'=>$tkaRows],
+                        ['id'=>'tka-jumat',  'label'=>'Jumat',  'rows'=>$tkaJumatRows],
+                        ['id'=>'tka-sabtu',  'label'=>'Sabtu',  'rows'=>$sabtuRows],
+                    ];
+                    @endphp
+                    <div class="jh-kelas-panel active" id="panel-tka">
+                        <div class="jh-hari-tabs">
+                            @foreach($hariTka as $i => $hari)
+                                <button class="jh-hari-tab {{ $i===0?'active':'' }}" data-hari="{{ $hari['id'] }}">{{ $hari['label'] }}</button>
+                            @endforeach
+                        </div>
+                        @foreach($hariTka as $i => $hari)
+                            <div class="jh-schedule {{ $i===0?'active':'' }}" id="{{ $hari['id'] }}">
+                                <div class="jh-badge">TK A &nbsp;&middot;&nbsp; {{ $hari['label'] }}</div>
+                                <div class="jh-table-wrapper">
+                                    <table class="jh-table">
+                                        <thead><tr><th>Waktu</th><th>Kegiatan</th><th>Keterangan</th><th>Aksi</th></tr></thead>
+                                        <tbody>
+                                            @foreach($hari['rows'] as $row)
+                                                <tr class="{{ $row[3] }}">
+                                                    <td>{!! $row[0] !!}</td>
+                                                    <td>{!! $row[1] !!}</td>
+                                                    <td>{!! $row[2] !!}</td>
+                                                    <td class="td-aksi">
+                                                        <button class="btn-icon-action btn-edit" title="Ubah" onclick="openHarianModal('ubah', {waktu: '{!! $row[0] !!}', kegiatan: '{!! $row[1] !!}', keterangan: '{!! $row[2] !!}'})">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                                        </button>
+                                                        <button class="btn-icon-action btn-delete" title="Hapus" onclick="if(confirm('Apakah Anda yakin ingin menghapus jadwal ini?')) alert('Fitur Hapus Jadwal Harian belum terhubung ke backend')">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    {{-- === TK B === --}}
+                    @php
+                    $tkbRows = [
+                        ['07.00 - 07.30', 'Kedatangan &amp; Doa Pagi', 'Menyapa guru, berdoa bersama', ''],
+                        ['07.30 - 08.00', 'Kegiatan Pembukaan', 'Menyanyi, senam pagi, diskusi tema hari ini', ''],
+                        ['08.00 - 09.00', 'Kegiatan Inti', 'Sentra bermain / aktivitas tematik (motorik, bahasa, seni)', ''],
+                        ['09.00 - 09.30', 'Istirahat &amp; Makan Bekal', 'Makan bersama, cuci tangan', ''],
+                        ['09.30', 'Penutup &amp; Pulang', 'Doa bersama dan pulang', 'row-pulang'],
+                    ];
+                    $tkbJumatRows = [
+                        ['07.00 - 07.30', 'Kedatangan &amp; Doa Pagi', 'Menyapa guru, berdoa bersama', ''],
+                        ['07.30 - 07.45', 'Kegiatan Pembukaan', 'Menyanyi, senam pagi, diskusi tema hari ini', ''],
+                        ['07.45 - 08.30', 'Kegiatan Inti', 'Sentra bermain / aktivitas tematik (motorik, bahasa, seni)', ''],
+                        ['08.30 - 09.00', 'Istirahat &amp; Makan Bekal', 'Makan bersama, cuci tangan', ''],
+                        ['09.00', 'Penutup &amp; Pulang', 'Doa bersama dan pulang', 'row-pulang'],
+                    ];
+                    $hariTkb = [
+                        ['id'=>'tkb-senin',  'label'=>'Senin',  'rows'=>$tkbRows],
+                        ['id'=>'tkb-selasa', 'label'=>'Selasa', 'rows'=>$tkbRows],
+                        ['id'=>'tkb-rabu',   'label'=>'Rabu',   'rows'=>$tkbRows],
+                        ['id'=>'tkb-kamis',  'label'=>'Kamis',  'rows'=>$tkbRows],
+                        ['id'=>'tkb-jumat',  'label'=>'Jumat',  'rows'=>$tkbJumatRows],
+                        ['id'=>'tkb-sabtu',  'label'=>'Sabtu',  'rows'=>$sabtuRows],
+                    ];
+                    @endphp
+                    <div class="jh-kelas-panel" id="panel-tkb">
+                        <div class="jh-hari-tabs">
+                            @foreach($hariTkb as $i => $hari)
+                                <button class="jh-hari-tab {{ $i===0?'active':'' }}" data-hari="{{ $hari['id'] }}">{{ $hari['label'] }}</button>
+                            @endforeach
+                        </div>
+                        @foreach($hariTkb as $i => $hari)
+                            <div class="jh-schedule {{ $i===0?'active':'' }}" id="{{ $hari['id'] }}">
+                                <div class="jh-badge">TK B &nbsp;&middot;&nbsp; {{ $hari['label'] }}</div>
+                                <div class="jh-table-wrapper">
+                                    <table class="jh-table">
+                                        <thead><tr><th>Waktu</th><th>Kegiatan</th><th>Keterangan</th><th>Aksi</th></tr></thead>
+                                        <tbody>
+                                            @foreach($hari['rows'] as $row)
+                                                <tr class="{{ $row[3] }}">
+                                                    <td>{!! $row[0] !!}</td>
+                                                    <td>{!! $row[1] !!}</td>
+                                                    <td>{!! $row[2] !!}</td>
+                                                    <td class="td-aksi">
+                                                        <button class="btn-icon-action btn-edit" title="Ubah" onclick="openHarianModal('ubah', {waktu: '{!! $row[0] !!}', kegiatan: '{!! $row[1] !!}', keterangan: '{!! $row[2] !!}'})">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                                        </button>
+                                                        <button class="btn-icon-action btn-delete" title="Hapus" onclick="if(confirm('Apakah Anda yakin ingin menghapus jadwal ini?')) alert('Fitur Hapus Jadwal Harian belum terhubung ke backend')">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                </div>{{-- /jadwal-harian-wrapper --}}
+                @include('partials.footer')
+            </div>{{-- /tab-panel harian --}}
+
         </main>
+
+
+        <!-- Modal Tambah/Ubah Jadwal Harian -->
+        <div id="jadwalHarianModal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitleHarian" class="modal-title">Ubah Jadwal Harian</h3>
+                    <button type="button" class="btn-close-modal" id="btnCloseHarianX">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                
+                <form id="harianForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="form-label">Kelas</label>
+                            <select class="form-select" id="harianKelas" required style="width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                                <option value="tka">TK A</option>
+                                <option value="tkb">TK B</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div class="form-group">
+                                <label class="form-label">Waktu Mulai</label>
+                                <input type="time" class="form-input" id="harianWaktuMulai" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Waktu Selesai</label>
+                                <input type="time" class="form-input" id="harianWaktuSelesai">
+                                <small style="font-size: 11px; color: #6b7280;">*Kosongkan untuk waktu pulang</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Kegiatan</label>
+                            <input type="text" class="form-input" id="harianKegiatan" placeholder="Contoh: Kegiatan Pembukaan" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Keterangan</label>
+                            <textarea class="form-textarea" id="harianKeterangan" placeholder="Contoh: Menyanyi, senam pagi..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="footer-left"></div>
+                        <div class="footer-right">
+                            <button type="button" class="btn-batal" id="btnBatalHarian">Batal</button>
+                            <button type="submit" class="btn-simpan" id="btnSimpanHarian">Simpan Jadwal</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <!-- Modal Tambah/Ubah Jadwal -->
         <div id="jadwalModal" class="modal-overlay">
@@ -241,6 +457,60 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // =========================================
+            // TAB UTAMA: Kalender vs Jadwal Harian
+            // =========================================
+            const mainTabs = document.querySelectorAll('.main-tab');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+            const actionsKalender = document.getElementById('actionsKalender');
+            const actionsHarian = document.getElementById('actionsHarian');
+
+            mainTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    mainTabs.forEach(t => t.classList.remove('active'));
+                    tabPanels.forEach(p => p.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+                    
+                    if (tab.dataset.tab === 'harian') {
+                        actionsKalender.style.display = 'none';
+                        actionsHarian.style.display = 'flex';
+                    } else {
+                        actionsKalender.style.display = 'flex';
+                        actionsHarian.style.display = 'none';
+                    }
+                });
+            });
+
+            // =========================================
+            // SUB-TAB KELAS (TK A / TK B / Sabtu)
+            // =========================================
+            document.querySelectorAll('.jh-kelas-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const kelas = tab.dataset.kelas;
+                    document.querySelectorAll('.jh-kelas-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.jh-kelas-panel').forEach(p => p.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById('panel-' + kelas).classList.add('active');
+                });
+            });
+
+            // =========================================
+            // SUB-TAB HARI (Senin-Kamis / Jumat)
+            // =========================================
+            document.querySelectorAll('.jh-hari-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const panel = tab.closest('.jh-kelas-panel');
+                    panel.querySelectorAll('.jh-hari-tab').forEach(t => t.classList.remove('active'));
+                    panel.querySelectorAll('.jh-schedule').forEach(s => s.classList.remove('active'));
+                    tab.classList.add('active');
+                    panel.querySelector('#' + tab.dataset.hari).classList.add('active');
+                });
+            });
+
+            // =========================================
+            // MODAL KALENDER
+            // =========================================
             const modal = document.getElementById('jadwalModal');
             const btnBuatJadwal = document.getElementById('btnBuatJadwal');
             const btnCloseX = document.getElementById('btnCloseJadwalX');
@@ -255,8 +525,6 @@
                     modalTitle.innerText = 'Ubah Jadwal Kegiatan';
                     btnSubmit.innerText = 'Simpan Perubahan';
                     btnHapus.style.display = 'flex';
-                    
-                    // Fill dummy data if it's an edit
                     if (data) {
                         document.getElementById('jadwalJudul').value = data.title || '';
                         document.getElementById('jadwalTanggal').value = data.date || '2023-10-05';
@@ -272,9 +540,7 @@
                 modal.classList.add('active');
             };
 
-            const closeModal = () => {
-                modal.classList.remove('active');
-            };
+            const closeModal = () => modal.classList.remove('active');
 
             if (btnBuatJadwal) btnBuatJadwal.addEventListener('click', () => openModal('tambah'));
             if (btnCloseX) btnCloseX.addEventListener('click', closeModal);
@@ -284,7 +550,6 @@
                 day.addEventListener('click', function() {
                     const dateText = this.querySelector('.date') ? this.querySelector('.date').innerText : this.innerText;
                     const eventText = this.querySelector('.event') ? this.querySelector('.event').innerText : '';
-                    
                     openModal('ubah', {
                         title: eventText || 'Kegiatan Sekolah',
                         date: `2023-10-${dateText.padStart(2, '0')}`,
@@ -294,17 +559,62 @@
                 });
             });
 
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) closeModal();
-            });
-
-            // Prevent default form submission
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
             document.getElementById('jadwalForm').addEventListener('submit', (e) => {
                 e.preventDefault();
                 alert('Jadwal berhasil disimpan!');
                 closeModal();
             });
+            // =========================================
+            // MODAL JADWAL HARIAN
+            // =========================================
+            const harianModal = document.getElementById('jadwalHarianModal');
+            const btnBuatJadwalHarian = document.getElementById('btnBuatJadwalHarian');
+            const btnCloseHarianX = document.getElementById('btnCloseHarianX');
+            const btnBatalHarian = document.getElementById('btnBatalHarian');
+            const modalTitleHarian = document.getElementById('modalTitleHarian');
+            const btnSimpanHarian = document.getElementById('btnSimpanHarian');
+            const harianForm = document.getElementById('harianForm');
+
+            window.openHarianModal = (type = 'tambah', data = null) => {
+                if (type === 'ubah') {
+                    modalTitleHarian.innerText = 'Ubah Jadwal Harian';
+                    btnSimpanHarian.innerText = 'Simpan Perubahan';
+                    if (data) {
+                        document.getElementById('harianWaktuMulai').value = data.waktu ? data.waktu.replace('.', ':') : '';
+                        document.getElementById('harianWaktuSelesai').value = data.akhir ? data.akhir.replace('.', ':') : '';
+                        document.getElementById('harianKegiatan').value = data.kegiatan || '';
+                        
+                        // Handle escaped ampersand
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = data.keterangan || '';
+                        document.getElementById('harianKeterangan').value = tempDiv.textContent || tempDiv.innerText || '';
+                        
+                        document.getElementById('harianKelas').value = data.kelas || 'tka';
+                    }
+                } else {
+                    modalTitleHarian.innerText = 'Buat Jadwal Harian Baru';
+                    btnSimpanHarian.innerText = 'Tambahkan Jadwal';
+                    harianForm.reset();
+                }
+                harianModal.classList.add('active');
+            };
+
+            const closeHarianModal = () => harianModal.classList.remove('active');
+
+            if (btnBuatJadwalHarian) btnBuatJadwalHarian.addEventListener('click', () => openHarianModal('tambah'));
+            if (btnCloseHarianX) btnCloseHarianX.addEventListener('click', closeHarianModal);
+            if (btnBatalHarian) btnBatalHarian.addEventListener('click', closeHarianModal);
+
+            harianModal.addEventListener('click', (e) => { if (e.target === harianModal) closeHarianModal(); });
+            harianForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Jadwal Harian berhasil disimpan!');
+                closeHarianModal();
+            });
+
         });
     </script>
 </body>
 </html>
+
