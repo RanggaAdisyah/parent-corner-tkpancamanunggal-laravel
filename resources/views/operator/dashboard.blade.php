@@ -50,7 +50,7 @@
                 <a class="link-3" href="{{ route('operator.kelola-siswa') }}" aria-label="Kelola Akun Siswa" style="grid-column: auto; grid-row: auto;">
                     <div class="background-2">
                         <div class="div">
-                            <img class="icon-2" src="{{ asset('img/icon-5.svg') }}" alt="" />
+                            <img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" />
                         </div>
                     </div>
                     <div class="heading-2">
@@ -75,7 +75,7 @@
                 <a class="link-3" href="{{ route('operator.kelola-guru') }}" aria-label="Kelola Akun Guru" style="grid-column: auto; grid-row: auto;">
                     <div class="background-2" style="background-color: #fef08a;">
                         <div class="div">
-                            <img class="icon-2" src="{{ asset('img/icon-15.svg') }}" alt="" />
+                            <img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" />
                         </div>
                     </div>
                     <div class="heading-2">
@@ -100,7 +100,7 @@
                 <a class="link-4" href="{{ route('operator.kelola-jadwal') }}" aria-label="Kelola Jadwal" style="grid-column: auto; grid-row: auto;">
                     <div class="background-3">
                         <div class="div">
-                            <img class="icon-11" src="{{ asset('img/icon-17.svg') }}" alt="" />
+                            <img class="icon-11" src="{{ asset('icon/operator/jadwal.svg') }}" alt="" />
                         </div>
                     </div>
                     <div class="heading-2">
@@ -125,7 +125,7 @@
                 <a class="link-5" href="{{ route('operator.pengumuman') }}" aria-label="Buat Pengumuman" style="grid-column: auto; grid-row: auto;">
                     <div class="background-4">
                         <div class="div">
-                            <img class="icon-5" src="{{ asset('img/icon-14.svg') }}" alt="" />
+                            <img class="icon-5" src="{{ asset('icon/operator/pengumuman.svg') }}" alt="" />
                         </div>
                     </div>
                     <div class="heading-2">
@@ -150,7 +150,7 @@
                 <a class="link-6" href="{{ route('operator.galeri') }}" aria-label="Galeri Kegiatan" style="grid-column: auto; grid-row: auto;">
                     <div class="background-5">
                         <div class="div">
-                            <img class="icon-14" src="{{ asset('img/icon-18.svg') }}" alt="" />
+                            <img class="icon-14" src="{{ asset('icon/operator/galeri.svg') }}" alt="" />
                         </div>
                     </div>
                     <div class="heading-2">
