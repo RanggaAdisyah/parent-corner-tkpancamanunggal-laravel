@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ url('/css/style/orang_tua/dashboard.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/orang_tua/foto-kegiatan.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/Operator/galeri-kegiatan.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
     <style>
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
         .modal-overlay.active { display: flex; }
@@ -236,10 +237,10 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top: 16px;">
                                 <label class="form-label">Deskripsi Kegiatan</label>
-                                <textarea class="form-textarea" placeholder="Contoh: Kegiatan melukis bersama tema alam semesta..."></textarea>
-                                <div class="textarea-footer">0/200</div>
+                                <div id="editor-galeri" style="height: 120px; border-radius: 0 0 8px 8px;"></div>
+                                <input type="hidden" name="deskripsi_kegiatan" id="deskripsiKegiatanHidden">
                             </div>
                         </div>
                     </div>
@@ -389,6 +390,21 @@
 
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modalDetail.classList.contains('active')) closeModalDetail();
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var quillGaleri = new Quill('#editor-galeri', {
+                theme: 'snow',
+                placeholder: 'Contoh: Kegiatan melukis bersama tema alam semesta...'
+            });
+            
+            // Simpan data Quill ke hidden input saat ada perubahan
+            quillGaleri.on('text-change', function() {
+                var hiddenInput = document.getElementById('deskripsiKegiatanHidden');
+                if(hiddenInput) hiddenInput.value = quillGaleri.root.innerHTML;
             });
         });
     </script>

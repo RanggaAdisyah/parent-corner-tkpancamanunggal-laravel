@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url('/css/style/guru/daftar-pengumuman.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/dashboard.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/Operator/buat-pengumuman.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
     <style>
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
         .modal-overlay.active { display: flex; }
@@ -132,10 +133,10 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Isi Pesan <span class="required-asterisk">*</span></label>
-                            <textarea class="form-textarea" placeholder="Tuliskan detail pengumuman yang ingin disampaikan secara lengkap..."></textarea>
-                            <div class="textarea-footer">
+                            <div id="editor-pengumuman" style="height: 150px; border-radius: 0 0 8px 8px;"></div>
+                            <input type="hidden" name="isi_pesan" id="isiPesanHidden">
+                            <div class="textarea-footer" style="margin-top: 8px;">
                                 <span>Gunakan bahasa yang sopan dan jelas.</span>
-                                <span>0/500 karakter</span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -254,6 +255,20 @@
                 if(isAllChecked) checkAllCircle.classList.add('checked');
                 else checkAllCircle.classList.remove('checked');
             }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var quill = new Quill('#editor-pengumuman', {
+                theme: 'snow',
+                placeholder: 'Tuliskan detail pengumuman yang ingin disampaikan secara lengkap...'
+            });
+            
+            // Simpan data Quill ke hidden input saat ada perubahan
+            quill.on('text-change', function() {
+                document.getElementById('isiPesanHidden').value = quill.root.innerHTML;
+            });
         });
     </script>
 </body>
