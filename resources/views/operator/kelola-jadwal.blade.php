@@ -74,11 +74,11 @@
                             <div class="day disabled"><span class="date">30</span></div>
                             <div class="day">
                                 <span class="date">1</span>
-                                <div class="event green">Upacara Be...</div>
+                                <div class="event green" data-title="Upacara Bendera" data-time="08:00 WIB" data-desc="Kegiatan rutin upacara bendera hari Senin yang diikuti oleh seluruh siswa dan guru TK Panca Manunggal.">Upacara Be...</div>
                             </div>
                             <div class="day">
                                 <span class="date">2</span>
-                                <div class="event blue">Pelajaran T...</div>
+                                <div class="event blue" data-title="Pelajaran Tambahan" data-time="13:00 WIB" data-desc="Pelajaran tambahan khusus untuk kelas persiapan membaca dan berhitung.">Pelajaran T...</div>
                             </div>
                             <div class="day"><span class="date">3</span></div>
                             <div class="day weekend"><span class="date">4</span></div>
@@ -87,16 +87,16 @@
                             <div class="day weekend"><span class="date">5</span></div>
                             <div class="day">
                                 <span class="date">6</span>
-                                <div class="event yellow">Kunjungan</div>
+                                <div class="event yellow" data-title="Kunjungan Dr. Gigi" data-time="10:00 WIB" data-desc="Pemeriksaan kesehatan gigi rutin oleh dokter gigi dari Puskesmas setempat.">Kunjungan</div>
                             </div>
                             <div class="day"><span class="date">7</span></div>
                             <div class="day">
                                 <span class="date">8</span>
-                                <div class="event purple">Latihan Me...</div>
+                                <div class="event purple" data-title="Latihan Menari" data-time="09:00 WIB" data-desc="Latihan menari daerah untuk persiapan pentas seni akhir tahun.">Latihan Me...</div>
                             </div>
                             <div class="day today">
                                 <div class="date-circle">9</div>
-                                <div class="event red">Batik Day</div>
+                                <div class="event red" data-title="Batik Day" data-time="Sepanjang Hari" data-desc="Seluruh siswa dan guru diwajibkan menggunakan seragam atau baju bebas bermotif batik hari ini.">Batik Day</div>
                             </div>
                             <div class="day"><span class="date">10</span></div>
                             <div class="day weekend"><span class="date">11</span></div>
@@ -420,13 +420,24 @@
                                     <input type="date" class="form-input" id="jadwalTanggal" required>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Waktu</label>
-                                <div class="input-with-icon">
-                                    <div class="input-icon-left">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <div class="form-group" style="display: flex; gap: 12px;">
+                                <div style="flex: 1;">
+                                    <label class="form-label">Mulai</label>
+                                    <div class="input-with-icon">
+                                        <div class="input-icon-left">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                        </div>
+                                        <input type="time" class="form-input" id="jadwalWaktuMulai" required>
                                     </div>
-                                    <input type="time" class="form-input" id="jadwalWaktu" required>
+                                </div>
+                                <div style="flex: 1;">
+                                    <label class="form-label">Selesai</label>
+                                    <div class="input-with-icon">
+                                        <div class="input-icon-left">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                        </div>
+                                        <input type="time" class="form-input" id="jadwalWaktuSelesai" required>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -451,6 +462,7 @@
             </div>
         </div>
     </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -525,7 +537,17 @@
                     if (data) {
                         document.getElementById('jadwalJudul').value = data.title || '';
                         document.getElementById('jadwalTanggal').value = data.date || '2023-10-05';
-                        document.getElementById('jadwalWaktu').value = data.time || '08:00';
+                        
+                        let wMulai = '08:00';
+                        let wSelesai = '10:00';
+                        if (data.time) {
+                            const parts = data.time.replace(' WIB', '').split(' - ');
+                            if(parts.length > 0) wMulai = parts[0];
+                            if(parts.length > 1) wSelesai = parts[1];
+                        }
+                        
+                        document.getElementById('jadwalWaktuMulai').value = wMulai;
+                        document.getElementById('jadwalWaktuSelesai').value = wSelesai;
                         document.getElementById('jadwalDeskripsi').value = data.desc || '';
                     }
                 } else {
@@ -609,6 +631,8 @@
                 alert('Jadwal Harian berhasil disimpan!');
                 closeHarianModal();
             });
+
+
 
         });
     </script>

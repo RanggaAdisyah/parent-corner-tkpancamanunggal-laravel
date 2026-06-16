@@ -54,11 +54,11 @@
                             <div class="day disabled"><span class="date">30</span></div>
                             <div class="day">
                                 <span class="date">1</span>
-                                <div class="event green">Upacara Be...</div>
+                                <div class="event green" data-title="Upacara Bendera" data-time="08:00 WIB" data-desc="Kegiatan rutin upacara bendera hari Senin yang diikuti oleh seluruh siswa dan guru TK Panca Manunggal.">Upacara Be...</div>
                             </div>
                             <div class="day">
                                 <span class="date">2</span>
-                                <div class="event blue">Pelajaran T...</div>
+                                <div class="event blue" data-title="Pelajaran Tambahan" data-time="13:00 WIB" data-desc="Pelajaran tambahan khusus untuk kelas persiapan membaca dan berhitung.">Pelajaran T...</div>
                             </div>
                             <div class="day"><span class="date">3</span></div>
                             <div class="day weekend"><span class="date">4</span></div>
@@ -67,16 +67,16 @@
                             <div class="day weekend"><span class="date">5</span></div>
                             <div class="day">
                                 <span class="date">6</span>
-                                <div class="event yellow">Kunjungan</div>
+                                <div class="event yellow" data-title="Kunjungan Dr. Gigi" data-time="10:00 WIB" data-desc="Pemeriksaan kesehatan gigi rutin oleh dokter gigi dari Puskesmas setempat.">Kunjungan</div>
                             </div>
                             <div class="day"><span class="date">7</span></div>
                             <div class="day">
                                 <span class="date">8</span>
-                                <div class="event purple">Latihan Me...</div>
+                                <div class="event purple" data-title="Latihan Menari" data-time="09:00 WIB" data-desc="Latihan menari daerah untuk persiapan pentas seni akhir tahun.">Latihan Me...</div>
                             </div>
                             <div class="day today">
                                 <div class="date-circle">9</div>
-                                <div class="event red">Batik Day</div>
+                                <div class="event red" data-title="Batik Day" data-time="Sepanjang Hari" data-desc="Seluruh siswa dan guru diwajibkan menggunakan seragam atau baju bebas bermotif batik hari ini.">Batik Day</div>
                             </div>
                             <div class="day"><span class="date">10</span></div>
                             <div class="day weekend"><span class="date">11</span></div>
@@ -249,6 +249,25 @@
 
         </main>
 
+        {{-- Modal Detail Kegiatan --}}
+        <div class="modal-overlay" id="eventDetailModal">
+            <div class="modal-content" style="max-width: 400px;">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modalEventTitle">Detail Kegiatan</h3>
+                    <button class="btn-close-modal" id="closeEventModal" style="font-size: 24px;">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span id="modalEventTime" style="font-weight: 600; color: #1e293b;"></span>
+                    </div>
+                    <div>
+                        <span style="font-size: 13px; font-weight: 600; color: #64748b; text-transform: uppercase;">Deskripsi</span>
+                        <p id="modalEventDesc" style="margin-top: 6px; color: #334155; line-height: 1.5;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -285,6 +304,41 @@
             });
 
 
+            // =========================================
+            // MODAL DETAIL KEGIATAN KALENDER
+            // =========================================
+            const eventModal = document.getElementById('eventDetailModal');
+            const closeEventModal = document.getElementById('closeEventModal');
+            const modalEventTitle = document.getElementById('modalEventTitle');
+            const modalEventTime = document.getElementById('modalEventTime');
+            const modalEventDesc = document.getElementById('modalEventDesc');
+
+            document.querySelectorAll('.day').forEach(dayEl => {
+                const eventEl = dayEl.querySelector('.event');
+                if (eventEl) {
+                    dayEl.style.cursor = 'pointer';
+                    dayEl.addEventListener('click', function() {
+                        modalEventTitle.textContent = eventEl.dataset.title || 'Detail Kegiatan';
+                        modalEventTime.textContent = eventEl.dataset.time || '-';
+                        modalEventDesc.textContent = eventEl.dataset.desc || 'Tidak ada deskripsi.';
+                        eventModal.classList.add('active');
+                    });
+                }
+            });
+
+            if (closeEventModal) {
+                closeEventModal.addEventListener('click', () => {
+                    eventModal.classList.remove('active');
+                });
+            }
+
+            if (eventModal) {
+                eventModal.addEventListener('click', (e) => {
+                    if(e.target === eventModal) {
+                        eventModal.classList.remove('active');
+                    }
+                });
+            }
 
         });
     </script>
