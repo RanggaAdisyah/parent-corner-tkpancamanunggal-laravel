@@ -581,7 +581,7 @@
     display: none; /* Hidden by default */
     justify-content: center;
     align-items: center;
-    z-index: 2000;
+    z-index: 10000;
     backdrop-filter: blur(5px);
 }
 
@@ -1083,13 +1083,11 @@
 
     /* Fix Modal Overlap on Mobile */
     .modal-overlay {
-        align-items: flex-start !important;
         overflow-y: auto !important;
         padding: 24px 16px 96px !important;
     }
 
     .modal-content {
-        margin: auto 0 !important;
         max-height: none !important;
     }
 

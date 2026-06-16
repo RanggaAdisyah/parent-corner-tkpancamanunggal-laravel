@@ -322,7 +322,7 @@
   display: none;
   justify-content: center;
   align-items: center;
-  z-index: 2000;
+  z-index: 10000;
   backdrop-filter: blur(4px);
   padding: 24px;
 }
@@ -586,11 +586,9 @@
 
   .detail-modal-overlay {
     padding: 16px;
-    align-items: flex-end;
   }
 
   .detail-modal {
     max-height: 85vh;
-    border-radius: 16px 16px 0 0;
   }
 }
