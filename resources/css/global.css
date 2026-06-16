@@ -150,3 +150,10 @@ a {
   white-space: normal;
   line-height: 1.5;
 }
+
+/* Hindari footer tertutup oleh Bottom Navbar di layar mobile */
+@media (max-width: 991px) {
+  .main .footer-copyright {
+    padding-bottom: 96px !important;
+  }
+}
