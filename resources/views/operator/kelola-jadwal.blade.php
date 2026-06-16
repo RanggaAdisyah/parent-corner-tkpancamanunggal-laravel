@@ -187,6 +187,7 @@
                             <li><span class="dot dot-yellow"></span> Kesehatan</li>
                             <li><span class="dot dot-purple"></span> Seni & Budaya</li>
                             <li><span class="dot dot-red"></span> Libur</li>
+                            <li><span class="dot dot-gray"></span> Lain-lain</li>
                         </ul>
                     </div>
                 </div>
@@ -443,6 +444,24 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="form-label">Kategori</label>
+                            <div class="input-with-icon">
+                                <div class="input-icon-left">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                                </div>
+                                <select class="form-input" id="jadwalKategori" required>
+                                    <option value="" disabled selected>Pilih Kategori</option>
+                                    <option value="Akademik" style="color: #3b82f6; font-weight: 600;">&#9679; Akademik</option>
+                                    <option value="Upacara" style="color: #22c55e; font-weight: 600;">&#9679; Upacara</option>
+                                    <option value="Kesehatan" style="color: #eab308; font-weight: 600;">&#9679; Kesehatan</option>
+                                    <option value="Seni & Budaya" style="color: #a855f7; font-weight: 600;">&#9679; Seni & Budaya</option>
+                                    <option value="Libur" style="color: #ef4444; font-weight: 600;">&#9679; Libur</option>
+                                    <option value="Lain-lain" style="color: #64748b; font-weight: 600;">&#9679; Lain-lain</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="form-label">Deskripsi</label>
                             <textarea class="form-textarea" id="jadwalDeskripsi" placeholder="Masukkan detail kegiatan..."></textarea>
                         </div>
@@ -548,6 +567,7 @@
                         
                         document.getElementById('jadwalWaktuMulai').value = wMulai;
                         document.getElementById('jadwalWaktuSelesai').value = wSelesai;
+                        document.getElementById('jadwalKategori').value = data.category || '';
                         document.getElementById('jadwalDeskripsi').value = data.desc || '';
                     }
                 } else {
@@ -555,6 +575,7 @@
                     btnSubmit.innerText = 'Buat Jadwal';
                     btnHapus.style.display = 'none';
                     document.getElementById('jadwalForm').reset();
+                    if (data && data.date) document.getElementById('jadwalTanggal').value = data.date;
                 }
                 modal.classList.add('active');
             };
@@ -568,13 +589,21 @@
             calendarDays.forEach(day => {
                 day.addEventListener('click', function() {
                     const dateText = this.querySelector('.date') ? this.querySelector('.date').innerText : this.innerText;
-                    const eventText = this.querySelector('.event') ? this.querySelector('.event').innerText : '';
-                    openModal('ubah', {
-                        title: eventText || 'Kegiatan Sekolah',
-                        date: `2023-10-${dateText.padStart(2, '0')}`,
-                        time: '08:00',
-                        desc: 'Deskripsi kegiatan akan muncul di sini.'
-                    });
+                    const eventEl = this.querySelector('.event');
+                    
+                    if (eventEl) {
+                        openModal('ubah', {
+                            title: eventEl.dataset.title || eventEl.innerText,
+                            date: `2023-10-${dateText.padStart(2, '0')}`,
+                            time: eventEl.dataset.time || '',
+                            desc: eventEl.dataset.desc || '',
+                            category: eventEl.dataset.category || ''
+                        });
+                    } else {
+                        openModal('tambah', {
+                            date: `2023-10-${dateText.padStart(2, '0')}`
+                        });
+                    }
                 });
             });
 

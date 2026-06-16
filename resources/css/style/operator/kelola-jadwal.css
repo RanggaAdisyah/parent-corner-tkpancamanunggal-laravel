@@ -561,6 +561,7 @@
 .kelola-jadwal .dot-yellow { background-color: #eab308; }
 .kelola-jadwal .dot-purple { background-color: #a855f7; }
 .kelola-jadwal .dot-red { background-color: #ef4444; }
+.kelola-jadwal .dot-gray { background-color: #64748b; }
 
 .kelola-jadwal .footer {
     text-align: center;

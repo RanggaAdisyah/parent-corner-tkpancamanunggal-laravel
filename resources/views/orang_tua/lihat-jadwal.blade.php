@@ -54,11 +54,11 @@
                             <div class="day disabled"><span class="date">30</span></div>
                             <div class="day">
                                 <span class="date">1</span>
-                                <div class="event green" data-title="Upacara Bendera" data-time="08:00 WIB" data-desc="Kegiatan rutin upacara bendera hari Senin yang diikuti oleh seluruh siswa dan guru TK Panca Manunggal.">Upacara Be...</div>
+                                <div class="event green" data-category="Upacara" data-title="Upacara Bendera" data-time="08:00 WIB" data-desc="Kegiatan rutin upacara bendera hari Senin yang diikuti oleh seluruh siswa dan guru TK Panca Manunggal.">Upacara Be...</div>
                             </div>
                             <div class="day">
                                 <span class="date">2</span>
-                                <div class="event blue" data-title="Pelajaran Tambahan" data-time="13:00 WIB" data-desc="Pelajaran tambahan khusus untuk kelas persiapan membaca dan berhitung.">Pelajaran T...</div>
+                                <div class="event blue" data-category="Akademik" data-title="Pelajaran Tambahan" data-time="13:00 WIB" data-desc="Pelajaran tambahan khusus untuk kelas persiapan membaca dan berhitung.">Pelajaran T...</div>
                             </div>
                             <div class="day"><span class="date">3</span></div>
                             <div class="day weekend"><span class="date">4</span></div>
@@ -67,16 +67,16 @@
                             <div class="day weekend"><span class="date">5</span></div>
                             <div class="day">
                                 <span class="date">6</span>
-                                <div class="event yellow" data-title="Kunjungan Dr. Gigi" data-time="10:00 WIB" data-desc="Pemeriksaan kesehatan gigi rutin oleh dokter gigi dari Puskesmas setempat.">Kunjungan</div>
+                                <div class="event yellow" data-category="Kesehatan" data-title="Kunjungan Dr. Gigi" data-time="10:00 WIB" data-desc="Pemeriksaan kesehatan gigi rutin oleh dokter gigi dari Puskesmas setempat.">Kunjungan</div>
                             </div>
                             <div class="day"><span class="date">7</span></div>
                             <div class="day">
                                 <span class="date">8</span>
-                                <div class="event purple" data-title="Latihan Menari" data-time="09:00 WIB" data-desc="Latihan menari daerah untuk persiapan pentas seni akhir tahun.">Latihan Me...</div>
+                                <div class="event purple" data-category="Seni & Budaya" data-title="Latihan Menari" data-time="09:00 WIB" data-desc="Latihan menari daerah untuk persiapan pentas seni akhir tahun.">Latihan Me...</div>
                             </div>
                             <div class="day today">
                                 <div class="date-circle">9</div>
-                                <div class="event red" data-title="Batik Day" data-time="Sepanjang Hari" data-desc="Seluruh siswa dan guru diwajibkan menggunakan seragam atau baju bebas bermotif batik hari ini.">Batik Day</div>
+                                <div class="event red" data-category="Lain-lain" data-title="Batik Day" data-time="Sepanjang Hari" data-desc="Seluruh siswa dan guru diwajibkan menggunakan seragam atau baju bebas bermotif batik hari ini.">Batik Day</div>
                             </div>
                             <div class="day"><span class="date">10</span></div>
                             <div class="day weekend"><span class="date">11</span></div>
@@ -157,6 +157,7 @@
                             <li><span class="dot dot-yellow"></span> Kesehatan</li>
                             <li><span class="dot dot-purple"></span> Seni & Budaya</li>
                             <li><span class="dot dot-red"></span> Libur</li>
+                            <li><span class="dot dot-gray"></span> Lain-lain</li>
                         </ul>
                     </div>
                 </div>
@@ -243,9 +244,13 @@
                     <button class="btn-close-modal" id="closeEventModal" style="font-size: 24px;">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                         <span id="modalEventTime" style="font-weight: 600; color: #1e293b;"></span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                        <span id="modalEventCategory" style="font-weight: 600; color: #1e293b;"></span>
                     </div>
                     <div>
                         <span style="font-size: 13px; font-weight: 600; color: #64748b; text-transform: uppercase;">Deskripsi</span>
@@ -293,6 +298,7 @@
             const closeEventModal = document.getElementById('closeEventModal');
             const modalEventTitle = document.getElementById('modalEventTitle');
             const modalEventTime = document.getElementById('modalEventTime');
+            const modalEventCategory = document.getElementById('modalEventCategory');
             const modalEventDesc = document.getElementById('modalEventDesc');
 
             // Tambahkan event click pada keseluruhan kotak hari (day) jika memiliki acara
@@ -303,6 +309,7 @@
                     dayEl.addEventListener('click', function() {
                         modalEventTitle.textContent = eventEl.dataset.title || 'Detail Kegiatan';
                         modalEventTime.textContent = eventEl.dataset.time || '-';
+                        modalEventCategory.textContent = eventEl.dataset.category || 'Lain-lain';
                         modalEventDesc.textContent = eventEl.dataset.desc || 'Tidak ada deskripsi.';
                         eventModal.classList.add('active');
                     });
