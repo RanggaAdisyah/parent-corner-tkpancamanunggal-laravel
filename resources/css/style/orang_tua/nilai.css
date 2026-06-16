@@ -269,3 +269,18 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .filter-section {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

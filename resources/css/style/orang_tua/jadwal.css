@@ -209,3 +209,18 @@
   color: #94a3b8;
   margin-top: 40px;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .schedule-card {
+    overflow-x: auto;
+  }
+  .schedule-table {
+    min-width: 600px;
+  }
+}

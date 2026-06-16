@@ -438,3 +438,27 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+@media (max-width: 600px) {
+  .ot-main {
+    padding: 16px;
+    gap: 24px;
+  }
+  .menu-grid-top,
+  .menu-grid-bottom {
+    grid-template-columns: 1fr;
+  }
+  .hero-banner {
+    padding: 24px 20px;
+  }
+  .hero-greeting {
+    font-size: 22px;
+  }
+  .hero-description {
+    font-size: 13px;
+  }
+  .activity-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
