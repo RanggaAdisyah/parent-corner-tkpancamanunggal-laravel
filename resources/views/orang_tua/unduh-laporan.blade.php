@@ -40,7 +40,7 @@
                 <div class="report-hero-content">
                     <h1 class="report-hero-title">Rekap Nilai Akademik Andi</h1>
                     <p class="report-hero-desc">
-                        Halo Bapak Budi, berikut adalah daftar laporan akademik yang tersedia untuk diunduh.
+                        Halo Orang Tua Andi, berikut adalah daftar laporan akademik yang tersedia untuk diunduh.
                         Laporan ini berisi rekap nilai perkembangan ananda selama semester berjalan.
                     </p>
                 </div>
@@ -157,7 +157,80 @@
                 </div>
             </div>
 
+            {{-- Mobile Card List --}}
+            <div class="report-mobile-list">
+                <div class="report-mobile-card">
+                    <div class="report-mobile-title">Rekap Nilai Semester Ganjil</div>
+                    <div class="report-mobile-meta">Format: PDF (1.8 MB)</div>
+                    <div class="report-mobile-info">
+                        <span>Tahun Ajaran</span>
+                        <strong>2023/2024</strong>
+                    </div>
+                    <div class="report-mobile-info">
+                        <span>Semester</span>
+                        <span class="badge-semester-1">Semester 1</span>
+                    </div>
+                    <div class="report-mobile-info">
+                        <span>Tanggal Terbit</span>
+                        <strong>15 Des 2023</strong>
+                    </div>
+                    <button class="btn-download" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Unduh PDF
+                    </button>
+                </div>
+                
+                <div class="report-mobile-card">
+                    <div class="report-mobile-title">Rekap Nilai Semester Genap</div>
+                    <div class="report-mobile-meta">Format: PDF (2.1 MB)</div>
+                    <div class="report-mobile-info">
+                        <span>Tahun Ajaran</span>
+                        <strong>2023/2024</strong>
+                    </div>
+                    <div class="report-mobile-info">
+                        <span>Semester</span>
+                        <span class="badge-semester-2">Semester 2</span>
+                    </div>
+                    <div class="report-mobile-info">
+                        <span>Tanggal Terbit</span>
+                        <strong>15 Jun 2024</strong>
+                    </div>
+                    <button class="btn-download" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Unduh PDF
+                    </button>
+                </div>
 
+                <div class="report-mobile-card">
+                    <div class="report-mobile-title">Laporan Perkembangan Anak</div>
+                    <div class="report-mobile-meta">Format: PDF (1.5 MB)</div>
+                    <div class="report-mobile-info">
+                        <span>Tahun Ajaran</span>
+                        <strong>2023/2024</strong>
+                    </div>
+                    <div class="report-mobile-info">
+                        <span>Semester</span>
+                        <span class="badge-semester-1">Semester 1</span>
+                    </div>
+                    <div class="report-mobile-info">
+                        <span>Tanggal Terbit</span>
+                        <strong>20 Des 2023</strong>
+                    </div>
+                    <button class="btn-download" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Unduh PDF
+                    </button>
+                </div>
+
+                <div class="pagination" style="border-radius: 16px; border: 1px solid #e2e8f0; border-top: none;">
+                    <span class="pagination-info">Menampilkan 1 sampai 3 dari 3 hasil</span>
+                    <div class="pagination-nav">
+                        <button class="btn-page" disabled aria-label="Halaman sebelumnya">&lsaquo;</button>
+                        <button class="btn-page btn-page-active" aria-current="page">1</button>
+                        <button class="btn-page" disabled aria-label="Halaman selanjutnya">&rsaquo;</button>
+                    </div>
+                </div>
+            </div>
             @include('partials.footer')
         </main>
     </div>
