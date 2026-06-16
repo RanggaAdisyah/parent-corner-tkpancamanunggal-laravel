@@ -104,14 +104,14 @@
                     </a>
                 </article>
 
-                <article class="guru-action-card" aria-label="Unggah Foto">
+                <article class="guru-action-card" aria-label="Galeri Kegiatan">
                     <div class="guru-action-icon-bg guru-action-icon-bg--green" aria-hidden="true">
                         <img class="guru-action-icon" src="{{ asset('img/icon-18.svg') }}" alt="" />
                     </div>
-                    <h3 class="guru-action-title">Unggah Foto</h3>
+                    <h3 class="guru-action-title">Galeri Kegiatan</h3>
                     <p class="guru-action-desc">Bagikan momen seru kegiatan siswa di kelas ke galeri orang tua.</p>
                     <a class="guru-action-cta" href="#" aria-label="Upload Foto">
-                        Upload Foto
+                        Galeri Foto
                         <span class="guru-action-cta__arrow" aria-hidden="true">⬆</span>
                     </a>
                 </article>

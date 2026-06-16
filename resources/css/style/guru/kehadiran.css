@@ -343,3 +343,46 @@
     gap: 8px 16px;
   }
 }
+
+@media (max-width: 991px) {
+  .dashboard-guru .main {
+    padding: 24px 16px;
+  }
+  
+  .filter-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .filter-group {
+    max-width: 100%;
+  }
+
+  .attendance-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .attendance-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .attendance-table th,
+  .attendance-table td {
+    white-space: nowrap;
+  }
+
+  .footer-actions {
+    flex-direction: column-reverse;
+  }
+
+  .btn-batal, .btn-simpan {
+    width: 100%;
+    justify-content: center;
+  }
+}

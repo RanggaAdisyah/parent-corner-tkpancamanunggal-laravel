@@ -1793,5 +1793,35 @@
   .guru-actions-grid {
     grid-template-columns: 1fr;
   }
+
+  .dashboard-guru .main {
+    padding: 16px;
+  }
+
+  .dashboard-guru .container-3 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .dashboard-guru .container-5 {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .dashboard-guru .text-6 {
+    font-size: 20px;
+    height: auto;
+    width: auto;
+    white-space: normal;
+  }
+
+  .dashboard-guru .p {
+    font-size: 14px;
+    height: auto;
+    width: auto;
+    white-space: normal;
+  }
 }
 

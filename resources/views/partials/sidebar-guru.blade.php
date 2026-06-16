@@ -1,3 +1,123 @@
+<style>
+    /* Transisi untuk animasi ciut */
+    .aside {
+        transition: width 0.3s ease;
+    }
+    
+    /* State Collapsed (Desktop & Mobile) */
+    .aside.collapsed,
+    @media (max-width: 991px) {
+        .aside {
+            width: 80px !important;
+            min-width: 80px !important;
+            flex: none !important;
+        }
+    }
+    
+    /* Sembunyikan elemen teks saat collapsed atau di layar mobile */
+    .aside.collapsed .text,
+    .aside.collapsed .text-wrapper,
+    .aside.collapsed .text-2,
+    .aside.collapsed .text-3,
+    .aside.collapsed .text-4,
+    .aside.collapsed .text-5,
+    .aside.collapsed .text-wrapper-2,
+    .aside.collapsed .text-wrapper-3,
+    .aside.collapsed .text-wrapper-4,
+    .aside.collapsed .text-wrapper-5,
+    .aside.collapsed .margin,
+    .aside.collapsed .container {
+        display: none !important;
+    }
+    
+    .aside.collapsed .div-wrapper.toggle-wrapper {
+        margin: 0 auto !important;
+    }
+
+    @media (max-width: 991px) {
+        #mainSidebar {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            top: auto !important;
+            width: 100vw !important;
+            max-width: none !important;
+            height: 60px !important;
+            z-index: 9999 !important;
+            display: flex !important;
+            flex-direction: row !important;
+            border-right: none !important;
+            border-top: 1px solid #e2e8f0 !important;
+            background: #ffffff !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05) !important;
+            transform: none !important;
+        }
+
+        #mainSidebar > *:not(.nav) {
+            display: none !important;
+        }
+
+        #mainSidebar .nav {
+            position: static !important;
+            display: flex !important;
+            flex-direction: row !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            justify-content: space-around !important;
+            align-items: center !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 16px !important;
+            gap: 0 !important;
+            transform: none !important;
+        }
+        
+        #mainSidebar .nav a {
+            position: static !important;
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: center !important;
+            align-items: center !important;
+            flex: 1 !important;
+            width: auto !important;
+            height: 100% !important;
+            padding: 8px !important;
+            margin: 0 !important;
+            background: none !important;
+            border: none !important;
+            transform: none !important;
+        }
+        
+        #mainSidebar .nav a * {
+            position: static !important;
+            transform: none !important;
+            margin: 0 !important;
+        }
+
+        #mainSidebar .nav a div[class^="text-"],
+        #mainSidebar .nav .container {
+            display: none !important;
+        }
+        
+        body {
+            padding-bottom: 60px !important;
+        }
+        
+        /* Penyesuaian Main Content */
+        .dashboard-guru {
+            flex-direction: column !important;
+        }
+        
+        .dashboard-guru .main {
+            margin-left: 0 !important;
+            width: 100% !important;
+        }
+    }
+</style>
+
 <aside class="aside" id="mainSidebar" aria-label="Sidebar navigasi">
     <div class="horizontal-border">
         <div class="overlay" aria-hidden="true">
@@ -71,12 +191,12 @@
             <div class="text-wrapper-2">KOMUNIKASI</div>
         </div>
 
-        <a href="{{ url('/guru/unggah-foto') }}" class="{{ isset($active) && $active == 'unggah-foto' ? 'link' : 'link-2' }}" {{ isset($active) && $active == 'unggah-foto' ? 'aria-current="page"' : '' }} title="Unggah Foto">
+        <a href="{{ url('/guru/unggah-foto') }}" class="{{ isset($active) && $active == 'unggah-foto' ? 'link' : 'link-2' }}" {{ isset($active) && $active == 'unggah-foto' ? 'aria-current="page"' : '' }} title="Galeri Kegiatan">
             <div class="div">
                 <img class="icon-5" src="{{ asset('icon\guru\foto.svg') }}" alt="" />
             </div>
             <div class="div-wrapper">
-                <div class="{{ isset($active) && $active == 'unggah-foto' ? 'text-2' : 'text-5' }}">Unggah Foto</div>
+                <div class="{{ isset($active) && $active == 'unggah-foto' ? 'text-2' : 'text-5' }}">Galeri Kegiatan</div>
             </div>
         </a>
 

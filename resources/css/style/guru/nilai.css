@@ -275,3 +275,28 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 991px) {
+  .dashboard-guru .main {
+    padding: 24px 16px;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 16px;
+  }
+  
+  .selection-section {
+    padding: 16px;
+  }
+  
+  .selection-group {
+    max-width: 100%;
+  }
+  
+  .category-body {
+    padding: 16px;
+  }
+}
