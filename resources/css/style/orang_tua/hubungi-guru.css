@@ -84,10 +84,8 @@
 
 /* Main Layout */
 .hubungi-layout {
-  display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 28px;
-  align-items: start;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* Teacher Profile Card */

@@ -76,50 +76,6 @@
                     </div>
                 </section>
 
-                {{-- Right Sidebar --}}
-                <aside class="hubungi-sidebar">
-
-                    {{-- Jam Konsultasi --}}
-                    <div class="side-card jam-konsultasi-card">
-                        <h3 class="side-card-title">
-                            <span class="side-card-icon side-card-icon-orange">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                            </span>
-                            Jam Konsultasi
-                        </h3>
-                        <ul class="jam-list">
-                            <li class="jam-item">
-                                <span class="jam-day">Senin – Kamis</span>
-                                <span class="jam-time">08.00 – 14.00 WIB</span>
-                            </li>
-                            <li class="jam-item">
-                                <span class="jam-day">Jumat</span>
-                                <span class="jam-time">08.00 – 11.00 WIB</span>
-                            </li>
-                            <li class="jam-item">
-                                <span class="jam-day">Sabtu – Minggu</span>
-                                <span class="jam-time jam-libur">Libur</span>
-                            </li>
-                        </ul>
-                        <div class="jam-info-box">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                            <p>Untuk keadaan mendesak di luar jam konsultasi, silakan tinggalkan pesan WhatsApp. Ibu guru akan membalas secepatnya.</p>
-                        </div>
-                    </div>
-
-                    {{-- Riwayat Pesan --}}
-                    <div class="side-card riwayat-pesan-card">
-                        <h3 class="side-card-title">Riwayat Pesan</h3>
-                        <div class="riwayat-empty">
-                            <div class="riwayat-empty-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                            </div>
-                            <p>Belum ada riwayat percakapan yang tersimpan melalui website.</p>
-                        </div>
-                    </div>
-
-                </aside>
-
             </div>
 
 
