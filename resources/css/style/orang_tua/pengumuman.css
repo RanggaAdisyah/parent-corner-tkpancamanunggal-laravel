@@ -105,6 +105,7 @@
   color: #ffffff;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .pengumuman-banner::before {

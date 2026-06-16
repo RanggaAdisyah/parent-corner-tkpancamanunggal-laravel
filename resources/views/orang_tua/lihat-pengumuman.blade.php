@@ -55,7 +55,6 @@
                 <article class="announcement-card"
                     role="button"
                     tabindex="0"
-                    data-badge="Informasi Penting"
                     data-title="Pemberitahuan Libur Nasional"
                     data-datetime="25 Oktober 2023 • 08:00 WIB"
                     data-body="Berdasarkan surat edaran pemerintah, sekolah akan diliburkan pada hari Jumat, 27 Oktober 2023. Kegiatan belajar mengajar akan kembali normal pada hari Senin. Mohon orang tua menyesuaikan jadwal penjemputan.|||Demikian informasi ini kami sampaikan. Atas perhatian dan kerjasamanya kami ucapkan terima kasih."
@@ -78,7 +77,6 @@
                 <article class="announcement-card"
                     role="button"
                     tabindex="0"
-                    data-badge="Kegiatan Sekolah"
                     data-title="Field Trip ke Kebun Binatang"
                     data-datetime="20 Oktober 2023 • 10:30 WIB"
                     data-body="Kami mengundang seluruh siswa TK Panca Manunggal untuk mengikuti kegiatan field trip edukatif ke Kebun Binatang Ragunan pada tanggal 5 November 2023.|||Mohon melengkapi surat izin dan mempersiapkan perlengkapan sesuai ketentuan yang tercantum dalam lampiran. Anak diharapkan membawa topi, botol minum, dan bekal ringan."
@@ -103,7 +101,6 @@
                 <article class="announcement-card"
                     role="button"
                     tabindex="0"
-                    data-badge="Informasi Sekolah"
                     data-title="Menu Makan Siang Bulan November"
                     data-datetime="15 Oktober 2023 • 09:00 WIB"
                     data-body="Berikut kami sampaikan menu makan siang catering untuk bulan November 2023. Menu dirancang seimbang gizi untuk mendukung tumbuh kembang anak usia dini.|||Silakan hubungi pihak sekolah jika ada alergi makanan tertentu agar dapat disesuaikan dengan kebutuhan anak."
@@ -142,7 +139,6 @@
             </header>
 
             <div class="detail-modal-body">
-                <span id="modalBadge" class="detail-badge"></span>
                 <h3 id="modalTitle" class="detail-title"></h3>
                 <div class="detail-datetime">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -189,7 +185,6 @@
             const btnClose = document.getElementById('btnCloseModal');
             const btnSelesai = document.getElementById('btnSelesai');
 
-            const modalBadge = document.getElementById('modalBadge');
             const modalTitle = document.getElementById('modalTitle');
             const modalDatetime = document.getElementById('modalDatetime');
             const modalBody = document.getElementById('modalBody');
@@ -199,7 +194,6 @@
             const modalGallerySection = document.getElementById('modalGallerySection');
 
             const openModal = (card) => {
-                modalBadge.textContent = card.dataset.badge || '';
                 modalTitle.textContent = card.dataset.title || '';
                 modalDatetime.textContent = card.dataset.datetime || '';
 
