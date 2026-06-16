@@ -772,6 +772,7 @@
     border-bottom: 2px solid #e2e8f0;
     background-color: #f8fafc;
     flex-shrink: 0;
+    margin-bottom: 32px;
 }
 
 .kelola-jadwal .main-tab {

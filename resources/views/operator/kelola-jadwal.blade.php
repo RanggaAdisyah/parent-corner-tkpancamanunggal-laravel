@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -57,10 +57,7 @@
                                 <h2>Oktober 2023</h2>
                                 <button class="nav-btn">&gt;</button>
                             </div>
-                            <div class="view-toggle">
-                                <button class="toggle-btn active">Bulan</button>
-                                <button class="toggle-btn">Minggu</button>
-                            </div>
+
                         </div>
                         <div class="calendar-grid">
                             <div class="day-name">MIN</div>
