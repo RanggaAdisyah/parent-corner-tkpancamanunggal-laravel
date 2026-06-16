@@ -1374,15 +1374,19 @@
   position: relative;
   align-self: stretch;
   width: 100%;
-  height: 144px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 0;
 }
 
 .kelola-akun-guru .heading-ananda {
-  position: absolute;
-  top: 92px;
-  left: calc(50.00% - 67px);
-  width: 134px;
-  height: 28px;
+  position: relative;
+  width: auto;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1393,17 +1397,14 @@
   text-align: center;
   letter-spacing: 0;
   line-height: 28px;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .kelola-akun-guru .margin-3 {
-  display: inline-flex;
-  padding: 4px 0px 0px;
-  position: absolute;
-  top: 120px;
-  left: 123px;
+  display: flex;
+  position: relative;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .kelola-akun-guru .container-14 {
@@ -1418,7 +1419,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 89.19px;
+  width: auto;
   height: 20px;
   margin-top: -1px;
   font-family: "Inter-Regular", Helvetica;
@@ -1432,13 +1433,12 @@
 }
 
 .kelola-akun-guru .container-15 {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 0px 0px 12px;
-  position: absolute;
-  top: 0;
-  left: calc(50.00% - 40px);
+  align-items: center;
+  position: relative;
+  order: -1;
+  margin-bottom: 4px;
 }
 
 .kelola-akun-guru .background-border-3 {
@@ -2248,5 +2248,112 @@
 /* Overlay tidak digunakan */
 .kelola-akun-guru .overlay-shadow {
   display: none !important;
+}
+
+@media (max-width: 991px) {
+  /* Fix horizontal overflow */
+  .kelola-akun-guru .background-border,
+  .kelola-akun-guru .table-wrapper,
+  .kelola-akun-guru .table {
+    min-width: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Sembunyikan Header Tabel */
+  .kelola-akun-guru .header {
+    display: none !important;
+  }
+
+  /* Hilangkan border bawaan dari pembungkus list */
+  .kelola-akun-guru .body {
+    border: none !important;
+    background: transparent !important;
+    padding: 16px !important;
+  }
+
+  /* Ubah Row Tabel menjadi Card Vertikal */
+  .kelola-akun-guru [class^="row-"] {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    padding: 16px !important;
+    border-radius: 12px !important;
+    border: 1px solid #e5e7eb !important;
+    margin-bottom: 16px !important;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.05) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    background-color: #ffffff !important;
+  }
+
+  /* Area Profil (Avatar + Nama + NIP) */
+  .kelola-akun-guru .data {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  .kelola-akun-guru .margin-2 {
+    min-width: 0 !important;
+    flex: 1 !important;
+    overflow: hidden !important;
+  }
+
+  /* Penyesuaian Teks Nama */
+  .kelola-akun-guru div[class^="text-"] {
+    max-width: 100% !important;
+    width: auto !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  /* Container Bidang & Status */
+  .kelola-akun-guru .data-2,
+  .kelola-akun-guru .data-3,
+  .kelola-akun-guru .background-wrapper,
+  .kelola-akun-guru .data-4 {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* Tambahkan Label Manual via ::before */
+  .kelola-akun-guru .data-2::before,
+  .kelola-akun-guru .data-3::before {
+    content: "Bidang :";
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-right: 8px;
+    width: 60px;
+    text-align: left;
+  }
+
+  .kelola-akun-guru .background-wrapper::before,
+  .kelola-akun-guru .data-4::before {
+    content: "Status :";
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-right: 8px;
+    width: 60px;
+    text-align: left;
+  }
+
+  /* Posisi Icon Arrow */
+  .kelola-akun-guru .img-wrapper {
+    position: absolute !important;
+    right: 16px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
 }
 
