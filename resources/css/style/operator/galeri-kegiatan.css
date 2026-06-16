@@ -369,6 +369,61 @@
     margin-top: -2px;
 }
 
+/* Custom Category Colors */
+.galeri-kegiatan .class-card.category-card.cat-kunjungan { background-color: #eff6ff; }
+.galeri-kegiatan .class-card.category-card.cat-kunjungan h4 { color: #2563eb; }
+.galeri-kegiatan .class-card.category-card.cat-kunjungan.active {
+    border-color: #2563eb; box-shadow: 0 0 0 1px #2563eb; background-color: #dbeafe;
+}
+.galeri-kegiatan .class-card.category-card.cat-kunjungan.active .radio-circle {
+    background-color: #2563eb; border-color: #2563eb;
+}
+
+.galeri-kegiatan .class-card.category-card.cat-seni { background-color: #fdf2f8; }
+.galeri-kegiatan .class-card.category-card.cat-seni h4 { color: #db2777; }
+.galeri-kegiatan .class-card.category-card.cat-seni.active {
+    border-color: #db2777; box-shadow: 0 0 0 1px #db2777; background-color: #fce7f3;
+}
+.galeri-kegiatan .class-card.category-card.cat-seni.active .radio-circle {
+    background-color: #db2777; border-color: #db2777;
+}
+
+.galeri-kegiatan .class-card.category-card.cat-kompetisi { background-color: #fff7ed; }
+.galeri-kegiatan .class-card.category-card.cat-kompetisi h4 { color: #ea580c; }
+.galeri-kegiatan .class-card.category-card.cat-kompetisi.active {
+    border-color: #ea580c; box-shadow: 0 0 0 1px #ea580c; background-color: #ffedd5;
+}
+.galeri-kegiatan .class-card.category-card.cat-kompetisi.active .radio-circle {
+    background-color: #ea580c; border-color: #ea580c;
+}
+
+.galeri-kegiatan .class-card.category-card.cat-olahraga { background-color: #f0fdfa; }
+.galeri-kegiatan .class-card.category-card.cat-olahraga h4 { color: #0d9488; }
+.galeri-kegiatan .class-card.category-card.cat-olahraga.active {
+    border-color: #0d9488; box-shadow: 0 0 0 1px #0d9488; background-color: #ccfbf1;
+}
+.galeri-kegiatan .class-card.category-card.cat-olahraga.active .radio-circle {
+    background-color: #0d9488; border-color: #0d9488;
+}
+
+.galeri-kegiatan .class-card.category-card.cat-perayaan { background-color: #fefce8; }
+.galeri-kegiatan .class-card.category-card.cat-perayaan h4 { color: #ca8a04; }
+.galeri-kegiatan .class-card.category-card.cat-perayaan.active {
+    border-color: #ca8a04; box-shadow: 0 0 0 1px #ca8a04; background-color: #fef9c3;
+}
+.galeri-kegiatan .class-card.category-card.cat-perayaan.active .radio-circle {
+    background-color: #ca8a04; border-color: #ca8a04;
+}
+
+.galeri-kegiatan .class-card.category-card.cat-lainnya { background-color: #f8fafc; }
+.galeri-kegiatan .class-card.category-card.cat-lainnya h4 { color: #64748b; }
+.galeri-kegiatan .class-card.category-card.cat-lainnya.active {
+    border-color: #64748b; box-shadow: 0 0 0 1px #64748b; background-color: #f1f5f9;
+}
+.galeri-kegiatan .class-card.category-card.cat-lainnya.active .radio-circle {
+    background-color: #64748b; border-color: #64748b;
+}
+
 .galeri-kegiatan .class-avatar {
     width: 48px;
     height: 48px;

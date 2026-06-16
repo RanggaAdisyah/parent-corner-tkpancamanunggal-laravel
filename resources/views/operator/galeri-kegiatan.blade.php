@@ -255,27 +255,27 @@
                         </div>
 
                         <div class="class-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
-                            <div class="class-card category-card" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
+                            <div class="class-card category-card cat-kunjungan" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
                                 <div class="radio-circle"></div>
                                 <h4 style="margin: 0; font-size: 14px; line-height: 1.4;">Kunjungan</h4>
                             </div>
-                            <div class="class-card category-card" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
+                            <div class="class-card category-card cat-seni" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
                                 <div class="radio-circle"></div>
                                 <h4 style="margin: 0; font-size: 14px; line-height: 1.4;">Seni & Kreativitas</h4>
                             </div>
-                            <div class="class-card category-card" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
+                            <div class="class-card category-card cat-kompetisi" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
                                 <div class="radio-circle"></div>
                                 <h4 style="margin: 0; font-size: 14px; line-height: 1.4;">Kompetisi</h4>
                             </div>
-                            <div class="class-card category-card" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
+                            <div class="class-card category-card cat-olahraga" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
                                 <div class="radio-circle"></div>
                                 <h4 style="margin: 0; font-size: 14px; line-height: 1.4;">Olahraga</h4>
                             </div>
-                            <div class="class-card category-card" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
+                            <div class="class-card category-card cat-perayaan" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
                                 <div class="radio-circle"></div>
                                 <h4 style="margin: 0; font-size: 14px; line-height: 1.4;">Perayaan</h4>
                             </div>
-                            <div class="class-card category-card" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
+                            <div class="class-card category-card cat-lainnya" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
                                 <div class="radio-circle"></div>
                                 <h4 style="margin: 0; font-size: 14px; line-height: 1.4;">Lain-lain</h4>
                             </div>
