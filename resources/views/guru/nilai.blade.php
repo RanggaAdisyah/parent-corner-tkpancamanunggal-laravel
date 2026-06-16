@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/nilai.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/dashboard.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+    <style>
+        .ql-toolbar.ql-snow { border-radius: 8px 8px 0 0; border-color: #e2e8f0; font-family: 'Inter', sans-serif; }
+        .ql-container.ql-snow { border-radius: 0 0 8px 8px; border-color: #e2e8f0; font-family: 'Inter', sans-serif; font-size: 14px; }
+        .ql-editor { min-height: 120px; }
+    </style>
 </head>
 <body>
     <div class="dashboard-guru">
@@ -81,7 +87,8 @@
                 <div class="category-body">
                     <div class="form-group">
                         <label class="form-label">Catatan Observasi</label>
-                        <textarea class="form-textarea" placeholder="Contoh: Ananda mulai bisa mengelompokkan benda berdasarkan warna, namun masih perlu bimbingan..."></textarea>
+                        <div id="editor-kognitif" style="background: white;"></div>
+                        <input type="hidden" id="hidden-kognitif" name="catatan_kognitif">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Penilaian</label>
@@ -101,7 +108,8 @@
                 <div class="category-body">
                     <div class="form-group">
                         <label class="form-label">Catatan Observasi</label>
-                        <textarea class="form-textarea" placeholder="Contoh: Mampu berbagi mainan dengan teman tanpa diminta..."></textarea>
+                        <div id="editor-sosial" style="background: white;"></div>
+                        <input type="hidden" id="hidden-sosial" name="catatan_sosial">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Penilaian</label>
@@ -121,7 +129,8 @@
                 <div class="category-body">
                     <div class="form-group">
                         <label class="form-label">Catatan Observasi</label>
-                        <textarea class="form-textarea" placeholder="Masukkan catatan observasi..."></textarea>
+                        <div id="editor-fisik" style="background: white;"></div>
+                        <input type="hidden" id="hidden-fisik" name="catatan_fisik">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Penilaian</label>
@@ -141,5 +150,28 @@
             @include('partials.footer')
         </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quillConfig = {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['clean']
+                    ]
+                }
+            };
+
+            const editorKognitif = new Quill('#editor-kognitif', { ...quillConfig, placeholder: 'Contoh: Ananda mulai bisa mengelompokkan benda...' });
+            const editorSosial = new Quill('#editor-sosial', { ...quillConfig, placeholder: 'Contoh: Mampu berbagi mainan dengan teman...' });
+            const editorFisik = new Quill('#editor-fisik', { ...quillConfig, placeholder: 'Masukkan catatan observasi...' });
+
+            editorKognitif.on('text-change', () => document.getElementById('hidden-kognitif').value = editorKognitif.root.innerHTML);
+            editorSosial.on('text-change', () => document.getElementById('hidden-sosial').value = editorSosial.root.innerHTML);
+            editorFisik.on('text-change', () => document.getElementById('hidden-fisik').value = editorFisik.root.innerHTML);
+        });
+    </script>
 </body>
 </html>
