@@ -21,12 +21,6 @@
                     <h1 class="page-title">Rekap Absensi</h1>
                     <p class="page-subtitle">Pantau kehadiran Ananda Rizky Santoso (Kelas B1).</p>
                 </div>
-                <div class="header-right">
-                    <button class="btn-outline">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-                        Cetak Laporan
-                    </button>
-                </div>
             </header>
 
             {{-- Summary Cards --}}
@@ -100,13 +94,13 @@
 
                 <div class="calendar-grid">
                     {{-- Header Hari --}}
-                    <div class="calendar-day-header">SEN</div>
-                    <div class="calendar-day-header">SEL</div>
-                    <div class="calendar-day-header">RAB</div>
-                    <div class="calendar-day-header">KAM</div>
-                    <div class="calendar-day-header">JUM</div>
-                    <div class="calendar-day-header weekend">SAB</div>
-                    <div class="calendar-day-header weekend">MIN</div>
+                    <div class="calendar-day-header">Senin</div>
+                    <div class="calendar-day-header">Selasa</div>
+                    <div class="calendar-day-header">Rabu</div>
+                    <div class="calendar-day-header">Kamis</div>
+                    <div class="calendar-day-header">Jumat</div>
+                    <div class="calendar-day-header">Sabtu</div>
+                    <div class="calendar-day-header weekend">Minggu</div>
 
                     {{-- Minggu 1 (Kosong) --}}
                     <div class="calendar-cell empty"><span class="cell-date">25</span></div>
@@ -114,7 +108,7 @@
                     <div class="calendar-cell empty"><span class="cell-date">27</span></div>
                     <div class="calendar-cell empty"><span class="cell-date">28</span></div>
                     <div class="calendar-cell empty"><span class="cell-date">29</span></div>
-                    <div class="calendar-cell empty weekend"><span class="cell-date">30</span></div>
+                    <div class="calendar-cell empty"><span class="cell-date">30</span></div>
                     <div class="calendar-cell"><span class="cell-date">1</span></div>
 
                     {{-- Minggu 2 --}}
@@ -153,7 +147,7 @@
                             <span class="status-text">Hadir</span>
                         </div>
                     </div>
-                    <div class="calendar-cell weekend"><span class="cell-date">7</span></div>
+                    <div class="calendar-cell"><span class="cell-date">7</span></div>
                     <div class="calendar-cell weekend"><span class="cell-date">8</span></div>
 
                     {{-- Minggu 3 --}}
@@ -192,7 +186,7 @@
                             <span class="status-text">Hadir</span>
                         </div>
                     </div>
-                    <div class="calendar-cell weekend"><span class="cell-date">14</span></div>
+                    <div class="calendar-cell"><span class="cell-date">14</span></div>
                     <div class="calendar-cell weekend"><span class="cell-date">15</span></div>
 
                     {{-- Minggu 4 --}}
@@ -222,7 +216,7 @@
                         <div class="status-today">Hari Ini</div>
                     </div>
                     <div class="calendar-cell"><span class="cell-date">20</span></div>
-                    <div class="calendar-cell weekend"><span class="cell-date">21</span></div>
+                    <div class="calendar-cell"><span class="cell-date">21</span></div>
                     <div class="calendar-cell weekend"><span class="cell-date">22</span></div>
 
                     {{-- Minggu 5 --}}
@@ -231,8 +225,68 @@
                     <div class="calendar-cell"><span class="cell-date">25</span></div>
                     <div class="calendar-cell"><span class="cell-date">26</span></div>
                     <div class="calendar-cell"><span class="cell-date">27</span></div>
-                    <div class="calendar-cell weekend"><span class="cell-date">28</span></div>
+                    <div class="calendar-cell"><span class="cell-date">28</span></div>
                     <div class="calendar-cell weekend"><span class="cell-date">29</span></div>
+                </div>
+
+                {{-- Mobile Agenda List --}}
+                <div class="calendar-mobile-list">
+                    <div class="agenda-item">
+                        <div class="agenda-date">Senin, 2 Okt 2023</div>
+                        <div class="agenda-status status-hadir">Hadir</div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-date">Selasa, 3 Okt 2023</div>
+                        <div class="agenda-status status-hadir">Hadir</div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-date">Rabu, 4 Okt 2023</div>
+                        <div class="agenda-status status-hadir">Hadir</div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-date">Kamis, 5 Okt 2023</div>
+                        <div class="agenda-status status-hadir">Hadir</div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-date">Jumat, 6 Okt 2023</div>
+                        <div class="agenda-status status-hadir">Hadir</div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-date">Senin, 9 Okt 2023</div>
+                        <div class="agenda-status status-sakit">Sakit</div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-date">Selasa, 10 Okt 2023</div>
+                        <div class="agenda-status status-sakit">Sakit</div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-date">Rabu, 11 Okt 2023</div>
+                        <div class="agenda-status status-hadir">Hadir</div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-date">Kamis, 12 Okt 2023</div>
+                        <div class="agenda-status status-hadir">Hadir</div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-date">Jumat, 13 Okt 2023</div>
+                        <div class="agenda-status status-hadir">Hadir</div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-date">Senin, 16 Okt 2023</div>
+                        <div class="agenda-status status-izin">Izin</div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-date">Selasa, 17 Okt 2023</div>
+                        <div class="agenda-status status-hadir">Hadir</div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-date">Rabu, 18 Okt 2023</div>
+                        <div class="agenda-status status-hadir">Hadir</div>
+                    </div>
+                    <div class="agenda-item">
+                        <div class="agenda-date">Kamis, 19 Okt 2023</div>
+                        <div class="agenda-status status-today">Hari Ini</div>
+                    </div>
                 </div>
             </section>
 
