@@ -83,7 +83,7 @@
                     </div>
                 </a>
 
-                <a class="link-4" href="{{ route('operator.kelola-jadwal') }}" aria-label="Kelola Jadwal" style="grid-column: auto; grid-row: auto;">
+                <a class="link-4" href="{{ route('operator.kalender-kegiatan') }}" aria-label="Kelola Jadwal" style="grid-column: auto; grid-row: auto;">
                     <div class="background-3">
                         <div class="div">
                             <img class="icon-11" src="{{ asset('icon/operator/jadwal.svg') }}" alt="" />

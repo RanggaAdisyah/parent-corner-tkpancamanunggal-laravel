@@ -8,6 +8,7 @@ use App\Models\OrangTua;
 use App\Models\Siswa;
 use App\Models\Kelas;
 use App\Models\JadwalPelajaran;
+use App\Models\KalenderKegiatan;
 use Illuminate\Support\Facades\Hash;
 
 class OperatorController extends Controller
@@ -215,5 +216,46 @@ class OperatorController extends Controller
         $jadwal->delete();
 
         return redirect()->back()->with('success', 'Jadwal berhasil dihapus!');
+    }
+
+    // --- KALENDER KEGIATAN ---
+    public function indexKalenderKegiatan()
+    {
+        $kegiatanList = KalenderKegiatan::orderBy('tanggal', 'asc')->orderBy('waktu_mulai', 'asc')->get();
+        return view('operator.kalender_kegiatan', compact('kegiatanList'));
+    }
+
+    public function storeKalenderKegiatan(Request $request)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+            'waktu_mulai' => 'required',
+            'kategori' => 'required|string'
+        ]);
+
+        KalenderKegiatan::create($request->all());
+        return redirect()->back()->with('success', 'Kegiatan berhasil ditambahkan!');
+    }
+
+    public function updateKalenderKegiatan(Request $request, $id)
+    {
+        $kegiatan = KalenderKegiatan::findOrFail($id);
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+            'waktu_mulai' => 'required',
+            'kategori' => 'required|string'
+        ]);
+
+        $kegiatan->update($request->all());
+        return redirect()->back()->with('success', 'Kegiatan berhasil diperbarui!');
+    }
+
+    public function destroyKalenderKegiatan($id)
+    {
+        $kegiatan = KalenderKegiatan::findOrFail($id);
+        $kegiatan->delete();
+        return redirect()->back()->with('success', 'Kegiatan berhasil dihapus!');
     }
 }

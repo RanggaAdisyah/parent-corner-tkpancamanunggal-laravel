@@ -111,9 +111,9 @@
             <div class="div"><img class="icon-3" src="{{ asset('icon/operator/jadwal.svg') }}" alt="" /></div>
             <div class="div-wrapper"><div class="{{ isset($active) && $active == 'kelola-kelas' ? 'text-2' : 'text-wrapper-3' }}">Kelola Kelas</div></div>
         </a>
-        <a href="{{ route('operator.kelola-jadwal') }}" class="{{ isset($active) && $active == 'jadwal-pelajaran' ? 'link' : 'link-2' }}" title="Jadwal Pelajaran">
+        <a href="{{ route('operator.kalender-kegiatan') }}" class="{{ isset($active) && $active == 'kalender-kegiatan' ? 'link' : 'link-2' }}" title="Kalender Kegiatan">
             <div class="div"><img class="icon-3" src="{{ asset('icon/operator/jadwal.svg') }}" alt="" /></div>
-            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'jadwal-pelajaran' ? 'text-2' : 'text-3' }}">Jadwal Pelajaran</div></div>
+            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'kalender-kegiatan' ? 'text-2' : 'text-3' }}">Kalender Kegiatan</div></div>
         </a>
 
         <div class="container"><div class="text-wrapper-2">KOMUNIKASI</div></div>
@@ -147,7 +147,7 @@
 </aside>
 
 @php
-    $kelolaDataPages = ['akun_wali', 'akun-guru', 'kelola-kelas', 'jadwal-pelajaran'];
+    $kelolaDataPages = ['akun_wali', 'akun-guru', 'kelola-kelas', 'kalender-kegiatan'];
     $komunikasiPages = ['pengumuman', 'galeri-kegiatan'];
     $isKelolaDataActive = isset($active) && in_array($active, $kelolaDataPages);
     $isKomunikasiActive = isset($active) && in_array($active, $komunikasiPages);
@@ -204,9 +204,9 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                     Kelola Kelas
                 </a>
-                <a href="{{ route('operator.kelola-jadwal') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'jadwal-pelajaran' ? 'active' : '' }}">
+                <a href="{{ route('operator.kalender-kegiatan') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'kalender-kegiatan' ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                    Jadwal Pelajaran
+                    Kalender Kegiatan
                 </a>
             </div>
         </div>

@@ -94,9 +94,10 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
         return view('Operator.lihat_jadwal');
     })->name('lihat-jadwal');
 
-    Route::get('/kelola-jadwal', function () {
-        return view('Operator.kelola_jadwal');
-    })->name('kelola-jadwal');
+    Route::get('/kalender-kegiatan', [App\Http\Controllers\OperatorController::class, 'indexKalenderKegiatan'])->name('kalender-kegiatan');
+    Route::post('/kalender-kegiatan', [App\Http\Controllers\OperatorController::class, 'storeKalenderKegiatan']);
+    Route::put('/kalender-kegiatan/{id}', [App\Http\Controllers\OperatorController::class, 'updateKalenderKegiatan']);
+    Route::delete('/kalender-kegiatan/{id}', [App\Http\Controllers\OperatorController::class, 'destroyKalenderKegiatan']);
 
     Route::get('/pengumuman', function () {
         return view('Operator.daftar_pengumuman');
