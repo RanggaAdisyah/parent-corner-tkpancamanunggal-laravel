@@ -6,7 +6,13 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        $role = Auth::user()->role;
+        if ($role === 'operator') return redirect()->route('operator.dashboard');
+        if ($role === 'guru') return redirect()->route('guru.dashboard');
+        if ($role === 'orang_tua') return redirect()->route('orang-tua.dashboard');
+    }
+    return redirect()->route('login');
 });
 
 // Serve CSS files from resources/css/
@@ -45,7 +51,7 @@ Route::post('/login', function (Request $request) {
 });
 
 // Operator Routes
-Route::prefix('operator')->name('operator.')->group(function () {
+Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator.')->group(function () {
     Route::get('/dashboard', function () {
         return view('Operator.dashboard');
     })->name('dashboard');
@@ -76,7 +82,7 @@ Route::prefix('operator')->name('operator.')->group(function () {
 });
 
 // Guru Routes
-Route::prefix('guru')->name('guru.')->group(function () {
+Route::middleware(['auth', 'role:guru'])->prefix('guru')->name('guru.')->group(function () {
     Route::get('/dashboard', function () {
         return view('guru.dashboard');
     })->name('dashboard');
@@ -107,7 +113,7 @@ Route::prefix('guru')->name('guru.')->group(function () {
 });
 
 // Orang Tua Routes
-Route::prefix('orang-tua')->name('orang-tua.')->group(function () {
+Route::middleware(['auth', 'role:orang_tua'])->prefix('orang-tua')->name('orang-tua.')->group(function () {
     Route::get('/dashboard', function () {
         return view('orang_tua.dashboard');
     })->name('dashboard');
