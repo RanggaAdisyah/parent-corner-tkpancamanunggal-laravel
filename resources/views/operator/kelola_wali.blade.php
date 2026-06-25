@@ -70,6 +70,9 @@
                                     <div class="container-10">
                                         <select id="filter-kelas" class="text-7" aria-label="Filter kelas">
                                             <option selected>Semua Kelas</option>
+                                            @foreach($kelasList as $k)
+                                                <option value="{{ $k->tingkat }} - {{ $k->nama_kelas }}">{{ $k->tingkat }} - {{ $k->nama_kelas }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </label>
@@ -401,9 +404,9 @@
                                     <label class="form-label">Kelas</label>
                                     <select class="form-select" name="kelas">
                                         <option value="">Pilih Kelas</option>
-                                        <option value="TK-B-Bintang">TK - B (Bintang)</option>
-                                        <option value="TK-B-Matahari">TK - B (Matahari)</option>
-                                        <option value="TK-A-Bulan">TK - A (Bulan)</option>
+                                        @foreach($kelasList as $k)
+                                            <option value="{{ $k->tingkat }} - {{ $k->nama_kelas }}">{{ $k->tingkat }} - {{ $k->nama_kelas }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">

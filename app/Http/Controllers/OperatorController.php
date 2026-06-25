@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\OrangTua;
 use App\Models\Siswa;
+use App\Models\Kelas;
+use App\Models\JadwalPelajaran;
 use Illuminate\Support\Facades\Hash;
 
 class OperatorController extends Controller
@@ -13,8 +15,9 @@ class OperatorController extends Controller
     public function indexWali()
     {
         // Ambil semua data orang tua beserta anaknya
-        $daftarWali = OrangTua::with('siswas', 'user')->get();
-        return view('Operator.kelola_wali', compact('daftarWali'));
+        $daftarWali = OrangTua::with(['siswas', 'user'])->get();
+        $kelasList = Kelas::all();
+        return view('operator.kelola_wali', compact('daftarWali', 'kelasList'));
     }
 
     public function storeWali(Request $request)
@@ -122,5 +125,95 @@ class OperatorController extends Controller
         }
 
         return redirect()->back()->with('success', 'Data Akun Wali berhasil diperbarui!');
+    }
+
+    // --- KELOLA KELAS ---
+    public function indexKelas()
+    {
+        $kelasList = Kelas::all();
+        return view('operator.kelola_kelas', compact('kelasList'));
+    }
+
+    public function storeKelas(Request $request)
+    {
+        $request->validate([
+            'tingkat' => 'required',
+            'nama_kelas' => 'required',
+        ]);
+
+        Kelas::create($request->all());
+
+        return redirect()->back()->with('success', 'Kelas berhasil ditambahkan!');
+    }
+
+    public function updateKelas(Request $request, $id)
+    {
+        $kelas = Kelas::findOrFail($id);
+        $request->validate([
+            'tingkat' => 'required',
+            'nama_kelas' => 'required',
+        ]);
+
+        $kelas->update($request->all());
+
+        return redirect()->back()->with('success', 'Kelas berhasil diperbarui!');
+    }
+
+    public function destroyKelas($id)
+    {
+        $kelas = Kelas::findOrFail($id);
+        $kelas->delete();
+
+        return redirect()->back()->with('success', 'Kelas berhasil dihapus!');
+    }
+
+    // --- JADWAL PELAJARAN KELAS ---
+    public function indexJadwalKelas($kelas_id)
+    {
+        $kelas = Kelas::findOrFail($kelas_id);
+        $jadwalList = JadwalPelajaran::where('kelas_id', $kelas_id)->orderBy('jam_mulai')->get();
+        return view('operator.jadwal_kelas', compact('kelas', 'jadwalList'));
+    }
+
+    public function storeJadwalKelas(Request $request, $kelas_id)
+    {
+        $request->validate([
+            'hari' => 'required',
+            'jam_mulai' => 'required',
+            'kegiatan' => 'required'
+        ]);
+
+        JadwalPelajaran::create([
+            'kelas_id' => $kelas_id,
+            'hari' => $request->hari,
+            'jam_mulai' => $request->jam_mulai,
+            'jam_selesai' => $request->jam_selesai,
+            'kegiatan' => $request->kegiatan,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return redirect()->back()->with('success', 'Jadwal berhasil ditambahkan!');
+    }
+
+    public function updateJadwalKelas(Request $request, $id)
+    {
+        $jadwal = JadwalPelajaran::findOrFail($id);
+        $request->validate([
+            'hari' => 'required',
+            'jam_mulai' => 'required',
+            'kegiatan' => 'required'
+        ]);
+
+        $jadwal->update($request->all());
+
+        return redirect()->back()->with('success', 'Jadwal berhasil diperbarui!');
+    }
+
+    public function destroyJadwalKelas($id)
+    {
+        $jadwal = JadwalPelajaran::findOrFail($id);
+        $jadwal->delete();
+
+        return redirect()->back()->with('success', 'Jadwal berhasil dihapus!');
     }
 }
