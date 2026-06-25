@@ -93,78 +93,49 @@
                                 </header>
 
                                 <div class="body" role="rowgroup">
-                                    <button class="row-2" type="button"
-                                        aria-label="Lihat detail Ananda Rizky, kelas TK B - Matahari, status Aktif"
-                                        data-nama="Ananda Rizky Pratama"
-                                        data-nis="2023001"
-                                        data-kelas="TK-B-Matahari"
-                                        data-ayah="Rizki Santoso"
-                                        data-ibu="Anita Wijaya"
-                                        data-wa="081234567890"
-                                        data-alamat="Jl. Merpati No. 45, RT 02/RW 05, Kel. Sukamaju, Kec. Pancoran, Jakarta Selatan">
-                                        <div class="data" role="cell">
-                                            <div class="container-11">
-                                                <div class="background-border-2" aria-hidden="true">
-                                                    <div class="text-11">AR</div>
-                                                </div>
-                                            </div>
-                                            <div class="margin-2">
-                                                <div class="div">
-                                                    <div class="div-2">
-                                                        <div class="text-12">Ananda Rizky</div>
-                                                    </div>
-                                                    <div class="div-2">
-                                                        <div class="text-13">NIS: 2023001</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="data-2" role="cell">
-                                            <div class="text-14">TK B - Matahari</div>
-                                        </div>
-
-                                        <div class="background-wrapper" role="cell">
-                                            <div class="background-2">
-                                                <div class="background-3" aria-hidden="true"></div>
-                                                <div class="text-15">Aktif</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="img-wrapper" aria-hidden="true">
-                                            <img class="icon-9" src="{{ asset('img/icon-13.svg') }}"
-                                                alt="" />
-                                        </div>
-                                    </button>
-
+                                    @foreach($daftarWali as $wali)
+                                    @php
+                                        // Ambil data anak pertama jika ada
+                                        $siswa = $wali->siswas->first();
+                                        $namaSiswa = $siswa ? $siswa->nama : 'Belum ada data anak';
+                                        $kelasSiswa = $siswa ? $siswa->kelas : '-';
+                                        $nisSiswa = $siswa ? $siswa->nis : '-';
+                                        $inisial = strtoupper(substr($namaSiswa, 0, 2));
+                                        $emailWali = $wali->user ? $wali->user->email : '';
+                                    @endphp
                                     <button class="row-3" type="button"
-                                        aria-label="Lihat detail Cantika Putri, kelas TK B - Matahari, status Aktif"
-                                        data-nama="Cantika Putri"
-                                        data-nis="2023002"
-                                        data-kelas="TK-B-Matahari"
-                                        data-ayah="Budi Setiawan"
-                                        data-ibu="Rina Setiawati"
-                                        data-wa="087812345678"
-                                        data-alamat="Jl. Kenanga No. 12, Jakarta Selatan">
+                                        aria-label="Lihat detail {{ $namaSiswa }}"
+                                        data-nama="{{ $namaSiswa }}"
+                                        data-nis="{{ $nisSiswa }}"
+                                        data-kelas="{{ $kelasSiswa }}"
+                                        data-ayah="{{ $wali->nama_ayah }}"
+                                        data-ibu="{{ $wali->nama_ibu }}"
+                                        data-wa="{{ $wali->no_wa }}"
+                                        data-alamat="{{ $wali->alamat }}"
+                                        data-email="{{ $emailWali }}"
+                                        data-id="{{ $wali->user_id }}"
+                                        data-jk="{{ $siswa ? $siswa->jenis_kelamin : '' }}"
+                                        data-tgl="{{ $siswa ? $siswa->tanggal_lahir : '' }}">
                                         <div class="data" role="cell">
                                             <div class="container-11">
-                                                <div class="siswa-cantika" role="img"
-                                                    aria-label="Foto Cantika Putri"></div>
+                                                <div class="background-border-2" aria-hidden="true" style="display:flex; justify-content:center; align-items:center; background-color:#3b82f6; border-radius:50%; width:40px; height:40px;">
+                                                    <div class="text-11" style="font-weight:bold; color:white; font-size:14px;">{{ $inisial }}</div>
+                                                </div>
                                             </div>
                                             <div class="margin-2">
                                                 <div class="div">
                                                     <div class="div-2">
-                                                        <div class="text-16">Cantika Putri</div>
+                                                        <div class="text-16">{{ $namaSiswa }}</div>
                                                     </div>
                                                     <div class="div-2">
-                                                        <div class="text-17">NIS: 2023002</div>
+                                                        <div class="text-17">NIS: {{ $nisSiswa }}</div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="data-2" role="cell">
-                                            <div class="text-18">TK B - Matahari</div>
+                                            <div class="text-18">{{ $kelasSiswa }}</div>
                                         </div>
 
                                         <div class="background-wrapper" role="cell">
@@ -178,91 +149,7 @@
                                             <img class="icon-9" src="{{ asset('img/icon-7.svg') }}" alt="" />
                                         </div>
                                     </button>
-
-                                    <button class="row-3" type="button"
-                                        aria-label="Lihat detail Dimas Anggara, kelas TK A - Mawar, status Nonaktif"
-                                        data-nama="Dimas Anggara"
-                                        data-nis="2023045"
-                                        data-kelas="TK-A-Bulan"
-                                        data-ayah="Agus Anggara"
-                                        data-ibu="Sari Anggara"
-                                        data-wa="081345678901"
-                                        data-alamat="Jl. Melati No. 8, Depok">
-                                        <div class="data" role="cell">
-                                            <div class="container-11">
-                                                <div class="background-4" aria-hidden="true">
-                                                    <div class="text-19">DA</div>
-                                                </div>
-                                            </div>
-                                            <div class="margin-2">
-                                                <div class="div">
-                                                    <div class="div-2">
-                                                        <div class="text-20">Dimas Anggara</div>
-                                                    </div>
-                                                    <div class="div-2">
-                                                        <div class="text-21">NIS: 2023045</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="data-2" role="cell">
-                                            <div class="text-22">TK A - Mawar</div>
-                                        </div>
-
-                                        <div class="background-wrapper" role="cell">
-                                            <div class="background-5">
-                                                <div class="background-6" aria-hidden="true"></div>
-                                                <div class="text-23">Nonaktif</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="img-wrapper" aria-hidden="true">
-                                            <img class="icon-9" src="{{ asset('img/icon.svg') }}" alt="" />
-                                        </div>
-                                    </button>
-
-                                    <button class="row-3" type="button"
-                                        aria-label="Lihat detail Fajar Hidayat, kelas TK B - Anggrek, status Aktif"
-                                        data-nama="Fajar Hidayat"
-                                        data-nis="2023050"
-                                        data-kelas="TK-B-Bintang"
-                                        data-ayah="Hidayat Saputra"
-                                        data-ibu="Dewi Hidayat"
-                                        data-wa="082156789012"
-                                        data-alamat="Jl. Anggrek No. 3, Tangerang Selatan">
-                                        <div class="data" role="cell">
-                                            <div class="container-11">
-                                                <div class="siswa-fajar" role="img"
-                                                    aria-label="Foto Fajar Hidayat"></div>
-                                            </div>
-                                            <div class="margin-2">
-                                                <div class="div">
-                                                    <div class="div-2">
-                                                        <div class="text-24">Fajar Hidayat</div>
-                                                    </div>
-                                                    <div class="div-2">
-                                                        <div class="text-25">NIS: 2023050</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="data-3" role="cell">
-                                            <div class="text-26">TK B - Anggrek</div>
-                                        </div>
-
-                                        <div class="data-4" role="cell">
-                                            <div class="background-2">
-                                                <div class="background-3" aria-hidden="true"></div>
-                                                <div class="text-15">Aktif</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="data-5" aria-hidden="true">
-                                            <img class="icon-9" src="{{ asset('img/icon-3.svg') }}" alt="" />
-                                        </div>
-                                    </button>
+                                    @endforeach
                                 </div>
                             </div>
                         </section>
@@ -285,20 +172,20 @@
                 </div>
 
                 <div class="container-12">
-                    <section class="container-13" aria-label="Ringkasan siswa">
-                        <div class="heading-ananda">Ananda Rizky</div>
+                    <section class="container-13" aria-label="Ringkasan anak">
+                        <div class="heading-ananda" id="detailHeadingNama">Ananda Rizky</div>
 
                         <div class="margin-3">
                             <div class="container-14">
                                 <div class="container-7">
-                                    <div class="text-28">NIS: 2023001</div>
+                                    <div class="text-28" id="detailHeadingNis">NIS: 2023001</div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="container-15">
-                            <div class="background-border-3" aria-hidden="true">
-                                <div class="text-29">AR</div>
+                            <div class="background-border-3" aria-hidden="true" style="display:flex; justify-content:center; align-items:center; background-color:#3b82f6; border-radius:50%; width:40px; height:40px;">
+                                <div class="text-29" id="detailHeadingInisial" style="font-weight:bold; color:white; font-size:14px; margin-left: 0; margin-top:0;">AR</div>
                             </div>
                             <div class="background-border-4" aria-label="Status aktif" role="img"></div>
                         </div>
@@ -311,7 +198,7 @@
                             <div class="div">
                                 <img class="icon-11" src="{{ asset('img/icon-2.svg') }}" alt="" />
                             </div>
-                            <div class="text-30" id="data-siswa-heading">DATA SISWA</div>
+                            <div class="text-30" id="data-siswa-heading">DATA ANAK</div>
                         </div>
 
                         <div class="container-16">
@@ -320,7 +207,7 @@
                                     <div class="text-wrapper-8">Nama Lengkap</div>
                                 </div>
                                 <div class="div-2">
-                                    <div class="text-wrapper-9">Ananda Rizky Pratama</div>
+                                    <div class="text-wrapper-9" id="detailNamaLengkap">Ananda Rizky Pratama</div>
                                 </div>
                             </div>
 
@@ -330,7 +217,7 @@
                                         <div class="text-wrapper-8">Kelas</div>
                                     </div>
                                     <div class="div-2">
-                                        <div class="text-wrapper-9">TK B - Matahari</div>
+                                        <div class="text-wrapper-9" id="detailKelas">TK B - Matahari</div>
                                     </div>
                                 </div>
 
@@ -339,7 +226,7 @@
                                         <div class="text-wrapper-8">Jenis Kelamin</div>
                                     </div>
                                     <div class="div-2">
-                                        <div class="text-wrapper-9">Laki-laki</div>
+                                        <div class="text-wrapper-9" id="detailJk">-</div>
                                     </div>
                                 </div>
                             </div>
@@ -349,7 +236,7 @@
                                     <div class="text-wrapper-8">Tanggal Lahir</div>
                                 </div>
                                 <div class="div-2">
-                                    <div class="text-wrapper-9">12 Mei 2018</div>
+                                    <div class="text-wrapper-9" id="detailTgl">-</div>
                                 </div>
                             </div>
                         </div>
@@ -371,7 +258,7 @@
                                     <div class="text-wrapper-8">Nama Ayah</div>
                                 </div>
                                 <div class="div-2">
-                                    <div class="text-wrapper-9">Bapak Rizki Santoso</div>
+                                    <div class="text-wrapper-9" id="detailAyah">Bapak Rizki Santoso</div>
                                 </div>
                             </div>
 
@@ -380,7 +267,7 @@
                                     <div class="text-wrapper-8">Nama Ibu</div>
                                 </div>
                                 <div class="div-2">
-                                    <div class="text-wrapper-9">Ibu Anita Wijaya</div>
+                                    <div class="text-wrapper-9" id="detailIbu">Ibu Anita Wijaya</div>
                                 </div>
                             </div>
 
@@ -390,7 +277,7 @@
                                 </div>
                                 <div class="container-21">
                                     <div class="div">
-                                        <a class="text-32" href="tel:081234567890">0812-3456-7890</a>
+                                        <a class="text-32" id="detailWaLink" href="tel:081234567890">0812-3456-7890</a>
                                     </div>
                                     <button class="button-5" type="button" aria-label="Hubungi melalui WhatsApp">
                                         <div class="icon-wrapper">
@@ -406,7 +293,7 @@
                                     <div class="text-wrapper-8">Alamat</div>
                                 </div>
                                 <div class="jl-merpati-no-RT-wrapper">
-                                    <p class="jl-merpati-no-RT">
+                                    <p class="jl-merpati-no-RT" id="detailAlamat">
                                         Jl. Merpati No. 45, RT 02/RW 05, Kel. Sukamaju,<br />
                                         Kec. Pancoran, Jakarta Selatan
                                     </p>
@@ -424,7 +311,7 @@
                         <div class="text-33">Ubah Data</div>
                     </button>
 
-                    <button class="button-7" type="button">
+                    <button id="btnHapusAkun" class="button-7" type="button">
                         <div class="container-7">
                             <img class="icon-15" src="{{ asset('img/icon-11.svg') }}" alt="" />
                         </div>
@@ -432,6 +319,11 @@
                     </button>
                 </div>
             </aside>
+
+            <form id="formHapusAkun" method="POST" style="display: none;">
+                @csrf
+                @method('DELETE')
+            </form>
 
         </main>
 
@@ -464,8 +356,28 @@
                     </button>
                 </div>
 
-                <form id="studentForm">
+                <form id="studentForm" method="POST" action="{{ route('operator.kelola_wali') }}">
+                    @csrf
+                    <input type="hidden" name="_method" id="formMethod" value="POST" disabled>
                     <div class="modal-body">
+                        <!-- Informasi Akun Login -->
+                        <div class="form-section">
+                            <div class="section-title-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3b82f6;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                <span class="section-title">Informasi Akun Login</span>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Email Wali</label>
+                                    <input type="email" name="email" class="form-input" placeholder="contoh: wali@email.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" name="password" class="form-input" placeholder="Minimal 6 karakter" required>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Informasi Siswa -->
                         <div class="form-section">
                             <div class="section-title-wrapper">
@@ -475,19 +387,19 @@
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
-                                <span class="section-title">Informasi Siswa</span>
+                                <span class="section-title">Informasi Anak</span>
                             </div>
 
                             <div class="form-group" style="position: relative;">
                                 <label class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-input" id="inputNamaAnak" placeholder="Masukkan nama lengkap siswa" autocomplete="off" required>
+                                <input type="text" name="nama_anak" class="form-input" id="inputNamaAnak" placeholder="Masukkan nama lengkap anak" autocomplete="off" required>
                                 <div id="autocomplete-list" class="autocomplete-items" style="display:none; position: absolute; top: 100%; left: 0; right: 0; z-index: 99; border: 1px solid #d4d4d4; background-color: #fff; max-height: 200px; overflow-y: auto; border-radius: 4px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></div>
                             </div>
 
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label class="form-label">Kelas</label>
-                                    <select class="form-select">
+                                    <select class="form-select" name="kelas">
                                         <option value="">Pilih Kelas</option>
                                         <option value="TK-B-Bintang">TK - B (Bintang)</option>
                                         <option value="TK-B-Matahari">TK - B (Matahari)</option>
@@ -496,7 +408,22 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Nomor Induk Siswa (NIS)</label>
-                                    <input type="text" class="form-input" placeholder="Contoh: 20230155">
+                                    <input type="text" name="nis" class="form-input" placeholder="Contoh: 20230155">
+                                </div>
+                            </div>
+
+                            <div class="form-grid" style="margin-top: 1rem;">
+                                <div class="form-group">
+                                    <label class="form-label">Jenis Kelamin</label>
+                                    <select class="form-select" name="jenis_kelamin">
+                                        <option value="">Pilih Jenis Kelamin</option>
+                                        <option value="L">Laki-laki</option>
+                                        <option value="P">Perempuan</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal Lahir</label>
+                                    <input type="date" name="tanggal_lahir" class="form-input">
                                 </div>
                             </div>
                         </div>
@@ -518,11 +445,11 @@
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label class="form-label">Nama Ayah</label>
-                                    <input type="text" class="form-input" id="inputNamaAyah" placeholder="Nama lengkap ayah">
+                                    <input type="text" name="nama_ayah" class="form-input" id="inputNamaAyah" placeholder="Nama lengkap ayah" required>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Nama Ibu</label>
-                                    <input type="text" class="form-input" id="inputNamaIbu" placeholder="Nama lengkap ibu">
+                                    <input type="text" name="nama_ibu" class="form-input" id="inputNamaIbu" placeholder="Nama lengkap ibu" required>
                                 </div>
                             </div>
 
@@ -538,13 +465,13 @@
                                             </path>
                                         </svg>
                                     </div>
-                                    <input type="text" class="form-input" id="inputWa" placeholder="Contoh: 081234567890">
+                                    <input type="text" name="no_wa" class="form-input" id="inputWa" placeholder="Contoh: 081234567890">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Alamat Domisili</label>
-                                <textarea class="form-input" id="inputAlamat" placeholder="Masukkan alamat lengkap rumah" style="height: 80px;"></textarea>
+                                <textarea name="alamat" class="form-input" id="inputAlamat" placeholder="Masukkan alamat lengkap rumah" style="height: 80px;"></textarea>
                             </div>
                         </div>
                     </div>
@@ -566,6 +493,21 @@
                 let activeRow = null;
 
                 const openPanel = (row) => {
+                    const d = row.dataset;
+                    
+                    document.getElementById('detailHeadingNama').innerText = d.nama || '-';
+                    document.getElementById('detailHeadingNis').innerText = 'NIS: ' + (d.nis || '-');
+                    document.getElementById('detailHeadingInisial').innerText = d.nama ? d.nama.substring(0,2).toUpperCase() : 'NA';
+                    document.getElementById('detailNamaLengkap').innerText = d.nama || '-';
+                    document.getElementById('detailKelas').innerText = d.kelas || '-';
+                    document.getElementById('detailAyah').innerText = d.ayah || '-';
+                    document.getElementById('detailIbu').innerText = d.ibu || '-';
+                    document.getElementById('detailWaLink').innerText = d.wa || '-';
+                    document.getElementById('detailWaLink').href = 'tel:' + (d.wa || '');
+                    document.getElementById('detailAlamat').innerText = d.alamat || '-';
+                    document.getElementById('detailJk').innerText = (d.jk === 'L' ? 'Laki-laki' : (d.jk === 'P' ? 'Perempuan' : (d.jk || '-')));
+                    document.getElementById('detailTgl').innerText = d.tgl || '-';
+
                     detailPanel.classList.add('active');
                     if (overlay) overlay.style.display = 'block';
                     row.classList.add('selected-row');
@@ -595,10 +537,23 @@
                 if (closeBtn) closeBtn.addEventListener('click', closePanel);
                 if (overlay) overlay.addEventListener('click', closePanel);
 
-                // Modal logic
+                // Modal & Hapus logic
                 const modal = document.getElementById('studentModal');
                 const btnTambahSiswa = document.getElementById('btnTambahSiswa');
                 const btnUbahData = document.getElementById('btnUbahData');
+                const btnHapusAkun = document.getElementById('btnHapusAkun');
+                const formHapusAkun = document.getElementById('formHapusAkun');
+                
+                if (btnHapusAkun) {
+                    btnHapusAkun.addEventListener('click', () => {
+                        if (activeRow && activeRow.dataset.id) {
+                            if (confirm('Apakah Anda yakin ingin menghapus akun wali ini beserta data anaknya?')) {
+                                formHapusAkun.action = '/operator/kelola_wali/' + activeRow.dataset.id;
+                                formHapusAkun.submit();
+                            }
+                        }
+                    });
+                }
                 const btnCloseModalX = document.getElementById('btnCloseModalX');
                 const btnBatalModal = document.getElementById('btnBatalModal');
                 const modalTitle = document.getElementById('modalTitle');
@@ -611,15 +566,27 @@
 
                         // Ambil data dari data-* attributes baris aktif
                         const d = activeRow.dataset;
-                        document.querySelector('#studentForm [placeholder="Masukkan nama lengkap siswa"]').value = d.nama || '';
-                        document.querySelector('#studentForm [placeholder="Contoh: 20230155"]').value   = d.nis  || '';
-                        document.querySelector('#studentForm [placeholder="Nama lengkap ayah"]').value  = d.ayah || '';
-                        document.querySelector('#studentForm [placeholder="Nama lengkap ibu"]').value   = d.ibu  || '';
-                        document.querySelector('#studentForm [placeholder="Contoh: 081234567890"]').value = d.wa || '';
-                        document.querySelector('#studentForm textarea').value                            = d.alamat || '';
+                        document.querySelector('#studentForm [name="nama_anak"]').value = d.nama || '';
+                        document.querySelector('#studentForm [name="nis"]').value   = d.nis  || '';
+                        document.querySelector('#studentForm [name="nama_ayah"]').value  = d.ayah || '';
+                        document.querySelector('#studentForm [name="nama_ibu"]').value   = d.ibu  || '';
+                        document.querySelector('#studentForm [name="no_wa"]').value = d.wa || '';
+                        document.querySelector('#studentForm [name="alamat"]').value = d.alamat || '';
+                        
+                        document.querySelector('#studentForm [name="jenis_kelamin"]').value = d.jk || '';
+                        document.querySelector('#studentForm [name="tanggal_lahir"]').value = d.tgl || '';
+
+                        document.querySelector('#studentForm [name="email"]').closest('.form-section').style.display = 'block';
+                        document.querySelector('#studentForm [name="email"]').value = d.email || '';
+                        document.querySelector('#studentForm [name="password"]').required = false;
+                        document.querySelector('#studentForm [name="password"]').placeholder = 'Kosongkan jika tidak diubah';
+
+                        document.getElementById('studentForm').action = "/operator/kelola_wali/" + d.id;
+                        document.getElementById('formMethod').value = "PUT";
+                        document.getElementById('formMethod').disabled = false;
 
                         // Set dropdown kelas
-                        const kelasSelect = document.querySelector('#studentForm select');
+                        const kelasSelect = document.querySelector('#studentForm [name="kelas"]');
                         if (kelasSelect && d.kelas) {
                             kelasSelect.value = d.kelas;
                         }
@@ -627,6 +594,14 @@
                         modalTitle.innerText = 'Tambah Data Akun Wali';
                         btnSubmitModal.innerText = 'Tambah Akun Wali';
                         document.getElementById('studentForm').reset();
+                        
+                        document.getElementById('studentForm').action = "{{ route('operator.kelola_wali') }}";
+                        document.getElementById('formMethod').value = "POST";
+                        document.getElementById('formMethod').disabled = true;
+
+                        document.querySelector('#studentForm [name="email"]').closest('.form-section').style.display = 'block';
+                        document.querySelector('#studentForm [name="password"]').required = true;
+                        document.querySelector('#studentForm [name="password"]').placeholder = 'Minimal 6 karakter';
                     }
                     modal.classList.add('active');
                 };
@@ -695,6 +670,8 @@
                                             if(inputIbu) inputIbu.value = item.namaIbu;
                                             if(inputWa) inputWa.value = item.no_hp;
                                             if(inputAlamat) inputAlamat.value = item.alamat;
+                                            if(document.querySelector('#studentForm [name="jenis_kelamin"]')) document.querySelector('#studentForm [name="jenis_kelamin"]').value = item.jk;
+                                            if(document.querySelector('#studentForm [name="tanggal_lahir"]')) document.querySelector('#studentForm [name="tanggal_lahir"]').value = item.tgl_lahir;
                                             
                                             listDropdown.style.display = 'none';
                                         });

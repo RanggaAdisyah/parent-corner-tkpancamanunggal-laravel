@@ -57,8 +57,8 @@ Route::prefix('api/ppdb')->group(function () {
         if (!$query) return response()->json([]);
 
         $data = \App\Models\Ppdb::where('isVerified', 1)
-            ->where('nama', 'like', "%{$query}%")
-            ->select('id', 'nama', 'namaAyah', 'namaIbu', 'no_hp', 'alamat')
+            ->where('nama', 'like', "{$query}%")
+            ->select('id', 'nama', 'namaAyah', 'namaIbu', 'no_hp', 'alamat', 'jk', 'tgl_lahir')
             ->take(10)->get();
 
         return response()->json($data);
@@ -71,9 +71,10 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
         return view('Operator.dashboard');
     })->name('dashboard');
 
-    Route::get('/kelola_wali', function () {
-        return view('Operator.kelola_wali');
-    })->name('kelola_wali');
+    Route::get('/kelola_wali', [\App\Http\Controllers\OperatorController::class, 'indexWali'])->name('kelola_wali');
+    Route::post('/kelola_wali', [\App\Http\Controllers\OperatorController::class, 'storeWali']);
+    Route::put('/kelola_wali/{id}', [\App\Http\Controllers\OperatorController::class, 'updateWali'])->name('operator.kelola_wali.update');
+    Route::delete('/kelola_wali/{id}', [\App\Http\Controllers\OperatorController::class, 'destroyWali'])->name('operator.kelola_wali.destroy');
 
     Route::get('/kelola-guru', function () {
         return view('Operator.kelola_guru');
