@@ -13,19 +13,7 @@
         @include('partials.sidebar-guru', ['active' => 'buat-pengumuman'])
 
         <main class="main">
-            <header class="header-top">
-                <div class="header-left">
-                    <h1 class="page-title-main">Pengumuman</h1>
-                    <nav class="breadcrumb">
-                        <span>Portal Guru</span>
-                        <span>›</span>
-                        <span class="breadcrumb-active">Buat Pengumuman</span>
-                    </nav>
-                </div>
-                <div class="header-right">
-                    <!-- Icons for Theme/Notification could go here -->
-                </div>
-            </header>
+
 
             <a href="{{ url('/guru/daftar-pengumuman') }}" class="back-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>

@@ -24,13 +24,7 @@
         @include('partials.sidebar', ['active' => 'galeri-kegiatan'])
 
         <main class="main ot-main">
-            <div class="galeri-top-bar">
-                <nav class="breadcrumb" aria-label="Breadcrumb">
-                    <span>Dashboard</span>
-                    <span class="breadcrumb-sep">/</span>
-                    <span class="breadcrumb-active">Galeri Kegiatan</span>
-                </nav>
-            </div>
+
 
             <header class="galeri-header" style="align-items: center;">
                 <div class="galeri-header-left">
