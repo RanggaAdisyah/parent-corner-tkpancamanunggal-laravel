@@ -12,7 +12,6 @@
 }
 
 .pengumuman-title {
-  font-family: "Lexend", Helvetica;
   font-weight: 700;
   font-size: 24px;
   color: #1e293b;
@@ -46,7 +45,6 @@
   border: 1px solid #e2e8f0;
   border-radius: 999px;
   background: #ffffff;
-  font-family: "Inter", Helvetica;
   font-size: 14px;
   color: #1e293b;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -126,7 +124,6 @@
 }
 
 .pengumuman-banner-title {
-  font-family: "Lexend", Helvetica;
   font-weight: 700;
   font-size: 22px;
   margin: 0 0 10px 0;
@@ -134,7 +131,6 @@
 }
 
 .pengumuman-banner-desc {
-  font-family: "Inter", Helvetica;
   font-size: 14px;
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.88);
@@ -179,14 +175,12 @@
 
 .announcement-time {
   display: block;
-  font-family: "Inter", Helvetica;
   font-size: 12px;
   color: #94a3b8;
   margin-bottom: 10px;
 }
 
 .announcement-title {
-  font-family: "Lexend", Helvetica;
   font-weight: 700;
   font-size: 18px;
   color: #1e293b;
@@ -195,7 +189,6 @@
 }
 
 .announcement-body {
-  font-family: "Inter", Helvetica;
   font-size: 14px;
   line-height: 1.7;
   color: #64748b;
@@ -207,7 +200,6 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: "Inter", Helvetica;
   font-weight: 600;
   font-size: 14px;
   color: #3b82f6;
@@ -250,7 +242,6 @@
 }
 
 .attachment-name {
-  font-family: "Inter", Helvetica;
   font-weight: 500;
   font-size: 13px;
   color: #475569;
@@ -309,7 +300,6 @@
 }
 
 .gallery-thumb-more span {
-  font-family: "Inter", Helvetica;
   font-weight: 600;
   font-size: 13px;
   color: #94a3b8;
@@ -360,7 +350,6 @@
 }
 
 .detail-modal-heading {
-  font-family: "Lexend", Helvetica;
   font-weight: 700;
   font-size: 16px;
   color: #1e293b;
@@ -397,14 +386,12 @@
   background: #eff6ff;
   color: #3b82f6;
   border-radius: 99px;
-  font-family: "Inter", Helvetica;
   font-weight: 600;
   font-size: 12px;
   margin-bottom: 14px;
 }
 
 .detail-title {
-  font-family: "Lexend", Helvetica;
   font-weight: 700;
   font-size: 20px;
   color: #1e293b;
@@ -417,7 +404,6 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-family: "Inter", Helvetica;
   font-size: 13px;
   color: #94a3b8;
   margin-bottom: 20px;
@@ -428,7 +414,6 @@
 }
 
 .detail-content p {
-  font-family: "Inter", Helvetica;
   font-size: 14px;
   line-height: 1.75;
   color: #64748b;
@@ -446,7 +431,6 @@
 
 .detail-attachment-label {
   display: block;
-  font-family: "Inter", Helvetica;
   font-weight: 600;
   font-size: 11px;
   color: #94a3b8;
@@ -484,7 +468,6 @@
 
 .detail-attachment-name {
   display: block;
-  font-family: "Inter", Helvetica;
   font-weight: 600;
   font-size: 14px;
   color: #1e293b;
@@ -496,7 +479,6 @@
 
 .detail-attachment-size {
   display: block;
-  font-family: "Inter", Helvetica;
   font-size: 12px;
   color: #94a3b8;
 }
@@ -539,7 +521,6 @@
   background: #3b82f6;
   border: none;
   border-radius: 10px;
-  font-family: "Inter", Helvetica;
   font-weight: 600;
   font-size: 14px;
   color: #ffffff;

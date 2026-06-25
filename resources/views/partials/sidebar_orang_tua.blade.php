@@ -279,9 +279,18 @@
                 </div>
             </div>
             <div class="div-wrapper">
-                <button class="button" type="button" aria-label="Opsi akun orang tua">
-                    <div class="icon-wrapper"><img class="icon-6" src="{{ asset('img/image.svg') }}" alt="" /></div>
-                </button>
+                <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+                    @csrf
+                    <button class="button" type="submit" aria-label="Logout" title="Logout" style="border: none; background: transparent; cursor: pointer; padding: 0;">
+                        <div class="icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                        </div>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -386,10 +395,20 @@
 
     <div class="ot-drawer__footer">
         <div class="ot-drawer__avatar">S</div>
-        <div>
+        <div style="flex: 1;">
             <div class="ot-drawer__user-name">Ibu Sarah</div>
             <div class="ot-drawer__user-role">Wali Murid Budi</div>
         </div>
+        <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+            @csrf
+            <button type="submit" aria-label="Logout" style="background: none; border: none; cursor: pointer; color: #ef4444; padding: 8px; border-radius: 6px; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='#fee2e2'" onmouseout="this.style.background='none'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+            </button>
+        </form>
     </div>
 </div>
 

@@ -5,7 +5,6 @@
   align-items: flex-start;
   position: relative;
   background-color: #f8fafc;
-  font-family: "Inter", sans-serif;
 }
 
 .dashboard-guru .main {
@@ -24,7 +23,6 @@
 }
 
 .page-title {
-  font-family: "Inter-Bold", Helvetica;
   font-weight: 700;
   font-size: 24px;
   color: #1e293b;
@@ -32,7 +30,6 @@
 }
 
 .page-subtitle {
-  font-family: "Inter-Regular", Helvetica;
   font-weight: 400;
   font-size: 14px;
   color: #64748b;
@@ -61,7 +58,6 @@
 }
 
 .filter-label {
-  font-family: "Inter-SemiBold", Helvetica;
   font-weight: 600;
   font-size: 13px;
   color: #64748b;
@@ -86,7 +82,6 @@
   padding: 10px 12px 10px 40px;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  font-family: "Inter-Medium", Helvetica;
   font-size: 14px;
   color: #1e293b;
   background-color: #ffffff;
@@ -97,7 +92,6 @@
   padding: 10px 12px;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  font-family: "Inter-Medium", Helvetica;
   font-size: 14px;
   color: #1e293b;
   background-color: #ffffff;
@@ -147,7 +141,6 @@
 }
 
 .attendance-title {
-  font-family: "Inter-Bold", Helvetica;
   font-weight: 700;
   font-size: 16px;
   color: #1e293b;
@@ -155,7 +148,6 @@
 }
 
 .attendance-hint {
-  font-family: "Inter-Regular", Helvetica;
   font-size: 13px;
   color: #94a3b8;
 }
@@ -169,7 +161,6 @@
   background-color: #f8fafc;
   padding: 12px 24px;
   text-align: left;
-  font-family: "Inter-SemiBold", Helvetica;
   font-weight: 600;
   font-size: 12px;
   color: #64748b;
@@ -209,14 +200,12 @@
 }
 
 .student-name {
-  font-family: "Inter-Bold", Helvetica;
   font-weight: 700;
   font-size: 14px;
   color: #1e293b;
 }
 
 .student-nis {
-  font-family: "Inter-Regular", Helvetica;
   font-size: 12px;
   color: #94a3b8;
 }
@@ -232,7 +221,6 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  font-family: "Inter-Medium", Helvetica;
   font-size: 14px;
   color: #475569;
 }
@@ -262,7 +250,6 @@
   padding: 8px 12px;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
-  font-family: "Inter-Regular", Helvetica;
   font-size: 13px;
   color: #475569;
   background-color: #f8fafc;
@@ -282,7 +269,6 @@
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 9999px;
-  font-family: "Inter-SemiBold", Helvetica;
   font-weight: 600;
   font-size: 14px;
   color: #64748b;
@@ -300,7 +286,6 @@
   background-color: #3b82f6;
   border: none;
   border-radius: 9999px;
-  font-family: "Inter-SemiBold", Helvetica;
   font-weight: 600;
   font-size: 14px;
   color: #ffffff;

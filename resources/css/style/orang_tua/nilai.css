@@ -16,7 +16,6 @@
 }
 
 .page-title {
-  font-family: "Lexend", Helvetica;
   font-weight: 700;
   font-size: 28px;
   color: #1e293b;
@@ -24,7 +23,6 @@
 }
 
 .page-subtitle {
-  font-family: "Inter", Helvetica;
   font-size: 16px;
   color: #64748b;
   margin: 0;
@@ -50,7 +48,6 @@
 }
 
 .filter-label {
-  font-family: "Inter", Helvetica;
   font-weight: 600;
   font-size: 14px;
   color: #475569;
@@ -76,7 +73,6 @@
   padding: 12px 16px 12px 42px;
   border: 1px solid #cbd5e1;
   border-radius: 10px;
-  font-family: "Inter", Helvetica;
   font-size: 15px;
   color: #1e293b;
   background-color: #f8fafc;
@@ -102,7 +98,6 @@
   border: none;
   border-radius: 10px;
   padding: 0 24px;
-  font-family: "Inter", Helvetica;
   font-weight: 600;
   font-size: 15px;
   cursor: pointer;
@@ -152,7 +147,6 @@
 .summary-icon-wrap.purple { background: #f3e8ff; color: #9333ea; }
 
 .summary-info h3 {
-  font-family: "Inter", Helvetica;
   font-size: 14px;
   color: #64748b;
   margin: 0 0 4px 0;
@@ -160,7 +154,6 @@
 }
 
 .summary-info p {
-  font-family: "Lexend", Helvetica;
   font-size: 24px;
   color: #1e293b;
   margin: 0;
@@ -216,7 +209,6 @@
 .icon-agama { background: #fee2e2; color: #dc2626; }
 
 .category-title {
-  font-family: "Lexend", Helvetica;
   font-size: 16px;
   font-weight: 600;
   color: #1e293b;
@@ -228,7 +220,6 @@
   color: #334155;
   padding: 6px 12px;
   border-radius: 20px;
-  font-family: "Inter", Helvetica;
   font-weight: 700;
   font-size: 14px;
   display: flex;
@@ -245,7 +236,6 @@
 }
 
 .observation-label {
-  font-family: "Inter", Helvetica;
   font-size: 13px;
   font-weight: 600;
   color: #64748b;
@@ -256,7 +246,6 @@
 }
 
 .observation-text {
-  font-family: "Inter", Helvetica;
   font-size: 15px;
   line-height: 1.6;
   color: #334155;

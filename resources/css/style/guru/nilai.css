@@ -5,7 +5,6 @@
   align-items: flex-start;
   position: relative;
   background-color: #f8fafc;
-  font-family: "Inter", sans-serif;
 }
 
 .dashboard-guru .main {
@@ -61,7 +60,6 @@
 }
 
 .page-title {
-  font-family: "Inter-Bold", Helvetica;
   font-weight: 700;
   font-size: 20px;
   color: #1e293b;
@@ -69,7 +67,6 @@
 }
 
 .page-subtitle {
-  font-family: "Inter-Regular", Helvetica;
   font-weight: 400;
   font-size: 14px;
   color: #64748b;
@@ -109,7 +106,6 @@
 }
 
 .selection-label {
-  font-family: "Inter-SemiBold", Helvetica;
   font-weight: 600;
   font-size: 11px;
   color: #94a3b8;
@@ -136,7 +132,6 @@
   padding: 10px 12px 10px 38px;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  font-family: "Inter-Medium", Helvetica;
   font-size: 14px;
   color: #475569;
   background-color: #ffffff;
@@ -184,7 +179,6 @@
 .icon-green { background-color: #dcfce7; color: #22c55e; }
 
 .category-title {
-  font-family: "Inter-Bold", Helvetica;
   font-weight: 700;
   font-size: 14px;
   color: #1e293b;
@@ -206,7 +200,6 @@
 }
 
 .form-label {
-  font-family: "Inter-SemiBold", Helvetica;
   font-weight: 600;
   font-size: 11px;
   color: #94a3b8;
@@ -221,7 +214,6 @@
   padding: 12px 16px;
   border: 1px solid #e2e8f0;
   border-radius: 10px;
-  font-family: "Inter-Regular", Helvetica;
   font-size: 14px;
   line-height: 1.5;
   color: #475569;
@@ -242,7 +234,6 @@
   padding: 12px 16px;
   border: 1px solid #e2e8f0;
   border-radius: 10px;
-  font-family: "Inter-Regular", Helvetica;
   font-size: 14px;
   color: #475569;
   background-color: #ffffff;

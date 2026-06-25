@@ -1,12 +1,19 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+:root {
+  /* Ubah nama font di bawah ini untuk mengubah seluruh font di website */
+  --primary-font: "Lexend-Regular", "Lexend", Helvetica, Arial, sans-serif;
+}
+
 * {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+  font-family: var(--primary-font) !important;
 }
 html,
 body {
   margin: 0px;
   height: 100%;
+  font-family: var(--primary-font);
 }
 /* a blue color as a generic focus style */
 button:focus-visible {
@@ -140,7 +147,6 @@ a {
 }
 
 .main .footer-copyright .text-8 {
-  font-family: "Lexend", "Lexend-Regular", Helvetica, sans-serif;
   font-weight: 400;
   font-size: 13px;
   color: #94a3b8;

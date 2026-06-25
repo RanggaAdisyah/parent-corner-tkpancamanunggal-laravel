@@ -14,7 +14,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: "Inter", Helvetica;
   font-size: 13px;
   color: #94a3b8;
 }
@@ -61,7 +60,6 @@
 }
 
 .galeri-title {
-  font-family: "Lexend", Helvetica;
   font-weight: 700;
   font-size: 28px;
   color: #1e3a5f;
@@ -70,7 +68,6 @@
 }
 
 .galeri-subtitle {
-  font-family: "Inter", Helvetica;
   font-size: 15px;
   color: #64748b;
   margin: 0;
@@ -87,7 +84,6 @@
   border: 1px solid #e2e8f0;
   border-radius: 10px;
   background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 12px center;
-  font-family: "Inter", Helvetica;
   font-size: 14px;
   color: #1e293b;
   cursor: pointer;
@@ -153,7 +149,6 @@
   left: 12px;
   padding: 4px 12px;
   border-radius: 6px;
-  font-family: "Inter", Helvetica;
   font-weight: 600;
   font-size: 11px;
 }
@@ -199,7 +194,6 @@
 }
 
 .activity-card-title {
-  font-family: "Lexend", Helvetica;
   font-weight: 700;
   font-size: 16px;
   color: #1e293b;
@@ -223,7 +217,6 @@
 }
 
 .activity-card-desc {
-  font-family: "Inter", Helvetica;
   font-size: 13px;
   line-height: 1.6;
   color: #64748b;
@@ -247,7 +240,6 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-family: "Inter", Helvetica;
   font-size: 12px;
   color: #94a3b8;
 }
@@ -288,7 +280,6 @@
 }
 
 .contrib-text {
-  font-family: "Inter", Helvetica;
   font-weight: 600;
   font-size: 15px;
   color: #94a3b8;
@@ -339,7 +330,6 @@
 }
 
 .galeri-modal-heading {
-  font-family: "Lexend", Helvetica;
   font-weight: 700;
   font-size: 16px;
   color: #1e293b;
@@ -371,7 +361,6 @@
 }
 
 .galeri-modal-title {
-  font-family: "Lexend", Helvetica;
   font-weight: 700;
   font-size: 22px;
   color: #1e293b;
@@ -384,7 +373,6 @@
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
-  font-family: "Inter", Helvetica;
   font-size: 13px;
   color: #94a3b8;
   margin-bottom: 18px;
@@ -395,7 +383,6 @@
 }
 
 .galeri-modal-content p {
-  font-family: "Inter", Helvetica;
   font-size: 14px;
   line-height: 1.75;
   color: #64748b;
@@ -412,7 +399,6 @@
 
 .galeri-lampiran-label {
   display: block;
-  font-family: "Inter", Helvetica;
   font-weight: 600;
   font-size: 11px;
   color: #94a3b8;
@@ -454,7 +440,6 @@
   background: #3b82f6;
   border: none;
   border-radius: 10px;
-  font-family: "Inter", Helvetica;
   font-weight: 600;
   font-size: 14px;
   color: #ffffff;

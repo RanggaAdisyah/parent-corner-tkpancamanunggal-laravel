@@ -50,6 +50,13 @@ Route::post('/login', function (Request $request) {
     ])->onlyInput('email');
 });
 
+Route::post('/logout', function (Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('/');
+})->name('logout');
+
 // Route API untuk AJAX Autocomplete PPDB
 Route::prefix('api/ppdb')->group(function () {
     Route::get('/search', function (\Illuminate\Http\Request $request) {

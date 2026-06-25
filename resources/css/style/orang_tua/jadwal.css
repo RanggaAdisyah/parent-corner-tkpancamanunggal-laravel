@@ -11,7 +11,6 @@
 }
 
 .header-left .page-title {
-  font-family: "Lexend", Helvetica;
   font-weight: 700;
   font-size: 28px;
   color: #1e293b;
@@ -19,7 +18,6 @@
 }
 
 .header-left .page-subtitle {
-  font-family: "Inter", Helvetica;
   font-size: 15px;
   color: #64748b;
   margin: 0;
@@ -70,7 +68,6 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: "Lexend", Helvetica;
   font-size: 18px;
   font-weight: 600;
   color: #1e293b;
@@ -91,7 +88,6 @@
   border: none;
   border-radius: 8px;
   padding: 8px 16px;
-  font-family: "Inter", Helvetica;
   font-size: 14px;
   font-weight: 500;
   color: #475569;
@@ -111,7 +107,6 @@
 }
 
 .schedule-table th {
-  font-family: "Inter", Helvetica;
   font-size: 13px;
   font-weight: 600;
   color: #64748b;
@@ -135,7 +130,6 @@
 }
 
 .time-cell {
-  font-family: "Inter", Helvetica;
   font-size: 14px;
   font-weight: 500;
   color: #64748b;
@@ -156,14 +150,12 @@
 }
 
 .subject-name {
-  font-family: "Inter", Helvetica;
   font-size: 14px;
   font-weight: 600;
   margin: 0;
 }
 
 .subject-location {
-  font-family: "Inter", Helvetica;
   font-size: 12px;
   margin: 0;
   opacity: 0.8;
@@ -193,7 +185,6 @@
 .break-pill {
   background: #e2e8f0;
   color: #475569;
-  font-family: "Inter", Helvetica;
   font-size: 13px;
   font-weight: 700;
   padding: 8px 24px;
@@ -204,7 +195,6 @@
 /* Footer */
 .footer-text {
   text-align: center;
-  font-family: "Inter", Helvetica;
   font-size: 13px;
   color: #94a3b8;
   margin-top: 40px;
