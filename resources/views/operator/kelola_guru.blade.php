@@ -71,7 +71,10 @@
 
                                     <div class="container-10">
                                         <select id="filter-kelas" class="text-7" aria-label="Filter kelas">
-                                            <option selected>Semua Kelas</option>
+                                            <option value="" selected>Semua Kelas</option>
+                                            @foreach($kelasList as $kelas)
+                                                <option value="{{ $kelas->id }}">{{ $kelas->tingkat }} - {{ $kelas->nama_kelas }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </label>
@@ -95,37 +98,41 @@
                                 </header>
 
                                 <div class="body" role="rowgroup">
+                                    @foreach($daftarGuru as $guru)
                                     <button
-                                        class="row-2"
+                                        class="row-3"
                                         type="button"
-                                        aria-label="Lihat detail Ananda Rizky, kelas TK B - Matahari, status Aktif"
-                                        data-nama="Ananda Rizky"
-                                        data-nip="2023001"
-                                        data-jabatan="Guru Kelas"
-                                        data-walikelas="TK-B-Matahari"
-                                        data-wa="081234567890"
-                                        data-alamat="Jl. Merpati No. 45, RT 02/RW 05, Kel. Sukamaju, Kec. Pancoran, Jakarta Selatan"
+                                        aria-label="Lihat detail {{ $guru->nama_lengkap }}"
+                                        data-id="{{ $guru->user_id }}"
+                                        data-nama="{{ $guru->nama_lengkap }}"
+                                        data-email="{{ $guru->user->email }}"
+                                        data-nip="{{ $guru->nip }}"
+                                        data-jabatan="{{ $guru->jabatan }}"
+                                        data-walikelas="{{ $guru->kelas_id }}"
+                                        data-namakelas="{{ $guru->kelas ? $guru->kelas->tingkat . ' - ' . $guru->kelas->nama_kelas : 'Bukan Wali Kelas' }}"
+                                        data-wa="{{ $guru->no_wa }}"
+                                        data-alamat="{{ $guru->alamat }}"
                                     >
                                         <div class="data" role="cell">
                                             <div class="container-11">
                                                 <div class="background-border-2" aria-hidden="true">
-                                                    <div class="text-11">AR</div>
+                                                    <div class="text-11">{{ strtoupper(substr($guru->nama_lengkap, 0, 2)) }}</div>
                                                 </div>
                                             </div>
                                             <div class="margin-2">
                                                 <div class="div">
                                                     <div class="div-2">
-                                                        <div class="text-12">Ananda Rizky</div>
+                                                        <div class="text-12">{{ $guru->nama_lengkap }}</div>
                                                     </div>
                                                     <div class="div-2">
-                                                        <div class="text-13">NIS: 2023001</div>
+                                                        <div class="text-13">NIP: {{ $guru->nip ?? '-' }}</div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="data-2" role="cell">
-                                            <div class="text-14">TK B - Matahari</div>
+                                            <div class="text-14">{{ $guru->kelas ? $guru->kelas->tingkat . ' - ' . $guru->kelas->nama_kelas : '-' }}</div>
                                         </div>
 
                                         <div class="background-wrapper" role="cell">
@@ -139,137 +146,7 @@
                                             <img class="icon-9" src="{{ asset('img/icon-13.svg') }}" alt="" />
                                         </div>
                                     </button>
-
-                                    <button
-                                        class="row-3"
-                                        type="button"
-                                        aria-label="Lihat detail Cantika Putri, kelas TK B - Matahari, status Aktif"
-                                        data-nama="Cantika Putri"
-                                        data-nip="2023002"
-                                        data-jabatan="Guru Kelas"
-                                        data-walikelas="TK-B-Matahari"
-                                        data-wa="087812345678"
-                                        data-alamat="Jl. Kenanga No. 12, Jakarta Selatan"
-                                    >
-                                        <div class="data" role="cell">
-                                            <div class="container-11">
-                                                <div class="siswa-cantika" role="img" aria-label="Foto Cantika Putri"></div>
-                                            </div>
-                                            <div class="margin-2">
-                                                <div class="div">
-                                                    <div class="div-2">
-                                                        <div class="text-16">Cantika Putri</div>
-                                                    </div>
-                                                    <div class="div-2">
-                                                        <div class="text-17">NIS: 2023002</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="data-2" role="cell">
-                                            <div class="text-18">TK B - Matahari</div>
-                                        </div>
-
-                                        <div class="background-wrapper" role="cell">
-                                            <div class="background-2">
-                                                <div class="background-3" aria-hidden="true"></div>
-                                                <div class="text-15">Aktif</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="img-wrapper" aria-hidden="true">
-                                            <img class="icon-9" src="{{ asset('img/icon-7.svg') }}" alt="" />
-                                        </div>
-                                    </button>
-
-                                    <button
-                                        class="row-3"
-                                        type="button"
-                                        aria-label="Lihat detail Dimas Anggara, kelas TK A - Mawar, status Nonaktif"
-                                        data-nama="Dimas Anggara"
-                                        data-nip="2023045"
-                                        data-jabatan="Guru Kelas"
-                                        data-walikelas="TK-A-Bulan"
-                                        data-wa="081345678901"
-                                        data-alamat="Jl. Melati No. 8, Depok"
-                                    >
-                                        <div class="data" role="cell">
-                                            <div class="container-11">
-                                                <div class="background-4" aria-hidden="true">
-                                                    <div class="text-19">DA</div>
-                                                </div>
-                                            </div>
-                                            <div class="margin-2">
-                                                <div class="div">
-                                                    <div class="div-2">
-                                                        <div class="text-20">Dimas Anggara</div>
-                                                    </div>
-                                                    <div class="div-2">
-                                                        <div class="text-21">NIS: 2023045</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="data-2" role="cell">
-                                            <div class="text-22">TK A - Mawar</div>
-                                        </div>
-
-                                        <div class="background-wrapper" role="cell">
-                                            <div class="background-5">
-                                                <div class="background-6" aria-hidden="true"></div>
-                                                <div class="text-23">Nonaktif</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="img-wrapper" aria-hidden="true">
-                                            <img class="icon-9" src="{{ asset('img/icon.svg') }}" alt="" />
-                                        </div>
-                                    </button>
-
-                                    <button
-                                        class="row-3"
-                                        type="button"
-                                        aria-label="Lihat detail Fajar Hidayat, kelas TK B - Anggrek, status Aktif"
-                                        data-nama="Fajar Hidayat"
-                                        data-nip="2023050"
-                                        data-jabatan="Kepala Sekolah"
-                                        data-walikelas=""
-                                        data-wa="082156789012"
-                                        data-alamat="Jl. Anggrek No. 3, Tangerang Selatan"
-                                    >
-                                        <div class="data" role="cell">
-                                            <div class="container-11">
-                                                <div class="siswa-fajar" role="img" aria-label="Foto Fajar Hidayat"></div>
-                                            </div>
-                                            <div class="margin-2">
-                                                <div class="div">
-                                                    <div class="div-2">
-                                                        <div class="text-24">Fajar Hidayat</div>
-                                                    </div>
-                                                    <div class="div-2">
-                                                        <div class="text-25">NIS: 2023050</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="data-3" role="cell">
-                                            <div class="text-26">TK B - Anggrek</div>
-                                        </div>
-
-                                        <div class="data-4" role="cell">
-                                            <div class="background-2">
-                                                <div class="background-3" aria-hidden="true"></div>
-                                                <div class="text-15">Aktif</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="data-5" aria-hidden="true">
-                                            <img class="icon-9" src="{{ asset('img/icon-3.svg') }}" alt="" />
-                                        </div>
-                                    </button>
+                                    @endforeach
                                 </div>
                             </div>
                         </section>
@@ -294,12 +171,12 @@
 
                 <div class="container-12">
                     <section class="container-13" aria-label="Ringkasan guru">
-                        <div class="heading-ananda">Ananda Rizky</div>
+                        <div class="heading-ananda" id="detailNamaLengkap1">Nama Guru</div>
 
                         <div class="margin-3">
                             <div class="container-14">
                                 <div class="container-7">
-                                    <div class="text-28">NIS: 2023001</div>
+                                    <div class="text-28" id="detailNip1">NIP: -</div>
                                 </div>
                             </div>
                         </div>
@@ -328,7 +205,7 @@
                                     <div class="text-wrapper-8">Nama Lengkap</div>
                                 </div>
                                 <div class="div-2">
-                                    <div class="text-wrapper-9">Ananda Rizky Pratama</div>
+                                    <div class="text-wrapper-9" id="detailNamaLengkap2">-</div>
                                 </div>
                             </div>
 
@@ -338,7 +215,7 @@
                                         <div class="text-wrapper-8">Kelas</div>
                                     </div>
                                     <div class="div-2">
-                                        <div class="text-wrapper-9">TK B - Matahari</div>
+                                        <div class="text-wrapper-9" id="detailKelas">-</div>
                                     </div>
                                 </div>
 
@@ -379,7 +256,7 @@
                                     <div class="text-wrapper-8">Email</div>
                                 </div>
                                 <div class="div-2">
-                                    <div class="text-wrapper-9">rlzky@gmail.com</div>
+                                    <div class="text-wrapper-9" id="detailEmail">-</div>
                                 </div>
                             </div>
 
@@ -389,7 +266,7 @@
                                 </div>
                                 <div class="container-21">
                                     <div class="div">
-                                        <a class="text-32" href="tel:081234567890">0812-3456-7890</a>
+                                        <a class="text-32" href="#" id="detailWaL">-</a>
                                     </div>
                                     <button class="button-5" type="button" aria-label="Hubungi melalui WhatsApp">
                                         <div class="icon-wrapper">
@@ -404,9 +281,8 @@
                                     <div class="text-wrapper-8">Alamat</div>
                                 </div>
                                 <div class="jl-merpati-no-RT-wrapper">
-                                    <p class="jl-merpati-no-RT">
-                                        Jl. Merpati No. 45, RT 02/RW 05, Kel. Sukamaju,<br />
-                                        Kec. Pancoran, Jakarta Selatan
+                                    <p class="jl-merpati-no-RT" id="detailAlamat">
+                                        -
                                     </p>
                                 </div>
                             </div>
@@ -447,7 +323,9 @@
                     </button>
                 </div>
                 
-                <form id="teacherForm">
+                <form id="teacherForm" method="POST" action="{{ url('/operator/kelola-guru') }}">
+                    @csrf
+                    <input type="hidden" name="_method" id="formMethodGuru" value="POST">
                     <div class="modal-body">
                         <!-- Informasi Guru -->
                         <div class="form-section">
@@ -458,28 +336,44 @@
                             
                             <div class="form-group">
                                 <label class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-input" placeholder="Masukkan nama lengkap guru" required>
+                                <input type="text" name="nama_lengkap" class="form-input" id="guruNama" placeholder="Masukkan nama lengkap guru" required>
                             </div>
                             
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label class="form-label">Jabatan</label>
-                                    <input type="text" class="form-input" placeholder="Contoh: Guru Kelas / Kepala Sekolah">
+                                    <input type="text" name="jabatan" class="form-input" id="guruJabatan" placeholder="Contoh: Guru Kelas / Kepala Sekolah">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">NIP / Kode Guru</label>
-                                    <input type="text" class="form-input" placeholder="Masukkan NIP atau kode">
+                                    <input type="text" name="nip" class="form-input" id="guruNip" placeholder="Masukkan NIP atau kode">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Wali Kelas (Opsional)</label>
-                                <select class="form-select">
+                                <select name="kelas_id" id="guruKelas" class="form-select">
                                     <option value="">Bukan Wali Kelas</option>
-                                    <option value="TK-B-Bintang">TK - B (Bintang)</option>
-                                    <option value="TK-B-Matahari">TK - B (Matahari)</option>
-                                    <option value="TK-A-Bulan">TK - A (Bulan)</option>
+                                    @foreach($kelasList as $kelas)
+                                        <option value="{{ $kelas->id }}">{{ $kelas->tingkat }} - {{ $kelas->nama_kelas }}</option>
+                                    @endforeach
                                 </select>
+                            </div>
+                        </div>
+
+                        <!-- Informasi Kredensial -->
+                        <div class="form-section">
+                            <div class="section-title-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3b82f6;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                <span class="section-title">Akun Login</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Login</label>
+                                <input type="email" name="email" class="form-input" id="guruEmail" placeholder="Contoh: guru@sekolah.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Password</label>
+                                <input type="password" name="password" class="form-input" id="guruPassword" placeholder="Kosongkan jika tidak diubah (saat edit)">
                             </div>
                         </div>
 
@@ -496,20 +390,23 @@
                                     <div class="input-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                                     </div>
-                                    <input type="text" class="form-input" placeholder="Contoh: 081234567890">
+                                    <input type="text" name="no_wa" id="guruWa" class="form-input" placeholder="Contoh: 081234567890">
                                 </div>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label">Alamat Domisili</label>
-                                <textarea class="form-textarea" placeholder="Masukkan alamat lengkap rumah"></textarea>
+                                <textarea name="alamat" id="guruAlamat" class="form-textarea" placeholder="Masukkan alamat lengkap rumah"></textarea>
                             </div>
                         </div>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn-modal-secondary" id="btnBatalGuruModal">Batal</button>
-                        <button type="submit" class="btn-modal-primary" id="btnSubmitGuruModal">Tambah Guru</button>
+                    <div class="modal-footer" style="display: flex; justify-content: space-between; width: 100%;">
+                        <button type="submit" class="btn-modal-danger" id="btnHapusGuruModal" style="display: none; background: #ef4444; color: white; padding: 10px 16px; border-radius: 8px; border: none; font-weight: 500; cursor: pointer;">Hapus Guru</button>
+                        <div style="display: flex; gap: 12px; margin-left: auto;">
+                            <button type="button" class="btn-modal-secondary" id="btnBatalGuruModal">Batal</button>
+                            <button type="submit" class="btn-modal-primary" id="btnSubmitGuruModal">Tambah Guru</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -527,16 +424,24 @@
                 if (row.classList.contains('row-2') || row.classList.contains('row-3')) {
                     row.addEventListener('click', function() {
                         if (activeRow === this) {
-                            // Klik lagi guru yang sama -> Tutup
                             detailPanel.classList.remove('active');
                             this.classList.remove('selected-row');
                             activeRow = null;
                         } else {
-                            // Klik guru baru atau panel sedang tertutup -> Buka
                             if (activeRow) activeRow.classList.remove('selected-row');
                             detailPanel.classList.add('active');
                             this.classList.add('selected-row');
                             activeRow = this;
+
+                            const d = this.dataset;
+                            document.getElementById('detailNamaLengkap1').innerText = d.nama;
+                            document.getElementById('detailNip1').innerText = 'NIP: ' + (d.nip || '-');
+                            document.getElementById('detailNamaLengkap2').innerText = d.nama;
+                            document.getElementById('detailKelas').innerText = d.namakelas;
+                            document.getElementById('detailEmail').innerText = d.email;
+                            document.getElementById('detailWaL').innerText = d.wa || '-';
+                            document.getElementById('detailWaL').href = d.wa ? 'tel:' + d.wa : '#';
+                            document.getElementById('detailAlamat').innerText = d.alamat || '-';
                         }
                     });
                 }
@@ -558,29 +463,45 @@
             const btnBatalGuruModal = document.getElementById('btnBatalGuruModal');
             const modalTitleGuru = document.getElementById('modalTitleGuru');
             const btnSubmitGuruModal = document.getElementById('btnSubmitGuruModal');
+            const btnHapusGuruModal = document.getElementById('btnHapusGuruModal');
+            const formMethodGuru = document.getElementById('formMethodGuru');
+            const teacherForm = document.getElementById('teacherForm');
 
             const openModalGuru = (type = 'tambah') => {
                 if (type === 'ubah' && activeRow) {
                     modalTitleGuru.innerText = 'Ubah Data Guru';
                     btnSubmitGuruModal.innerText = 'Simpan Perubahan';
-
-                    // Ambil data dari data-* attributes baris aktif
+                    btnHapusGuruModal.style.display = 'inline-flex';
+                    
                     const d = activeRow.dataset;
-                    document.querySelector('#teacherForm [placeholder="Masukkan nama lengkap guru"]').value = d.nama || '';
-                    document.querySelector('#teacherForm [placeholder="Contoh: Guru Kelas / Kepala Sekolah"]').value = d.jabatan || '';
-                    document.querySelector('#teacherForm [placeholder="Masukkan NIP atau kode"]').value = d.nip || '';
-                    document.querySelector('#teacherForm [placeholder="Contoh: 081234567890"]').value = d.wa || '';
-                    document.querySelector('#teacherForm textarea').value = d.alamat || '';
+                    teacherForm.action = `/operator/kelola-guru/${d.id}`;
+                    formMethodGuru.value = 'PUT';
 
-                    // Set dropdown wali kelas
-                    const kelasSelect = document.querySelector('#teacherForm select');
-                    if (kelasSelect && d.walikelas !== undefined) {
-                        kelasSelect.value = d.walikelas;
+                    document.getElementById('guruNama').value = d.nama || '';
+                    document.getElementById('guruJabatan').value = d.jabatan || '';
+                    document.getElementById('guruNip').value = d.nip || '';
+                    document.getElementById('guruEmail').value = d.email || '';
+                    document.getElementById('guruPassword').value = '';
+                    document.getElementById('guruWa').value = d.wa || '';
+                    document.getElementById('guruAlamat').value = d.alamat || '';
+                    
+                    if(d.walikelas) {
+                        document.getElementById('guruKelas').value = d.walikelas;
+                    } else {
+                        document.getElementById('guruKelas').value = '';
                     }
+                    
+                    document.getElementById('guruPassword').required = false;
+
                 } else {
                     modalTitleGuru.innerText = 'Tambah Data Guru';
                     btnSubmitGuruModal.innerText = 'Tambah Guru';
-                    document.getElementById('teacherForm').reset();
+                    btnHapusGuruModal.style.display = 'none';
+                    
+                    teacherForm.reset();
+                    teacherForm.action = `/operator/kelola-guru`;
+                    formMethodGuru.value = 'POST';
+                    document.getElementById('guruPassword').required = true;
                 }
                 modalGuru.classList.add('active');
             };
@@ -593,6 +514,16 @@
             if (btnUbahDataGuru) btnUbahDataGuru.addEventListener('click', () => openModalGuru('ubah'));
             if (btnCloseModalGuruX) btnCloseModalGuruX.addEventListener('click', closeModalGuru);
             if (btnBatalGuruModal) btnBatalGuruModal.addEventListener('click', closeModalGuru);
+
+            if (btnHapusGuruModal) {
+                btnHapusGuruModal.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if(confirm('Yakin ingin menghapus guru ini?')) {
+                        formMethodGuru.value = 'DELETE';
+                        teacherForm.submit();
+                    }
+                });
+            }
 
             modalGuru.addEventListener('click', (e) => {
                 if (e.target === modalGuru) closeModalGuru();

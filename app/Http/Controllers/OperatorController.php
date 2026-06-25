@@ -9,6 +9,7 @@ use App\Models\Siswa;
 use App\Models\Kelas;
 use App\Models\JadwalPelajaran;
 use App\Models\KalenderKegiatan;
+use App\Models\Guru;
 use Illuminate\Support\Facades\Hash;
 
 class OperatorController extends Controller
@@ -126,6 +127,87 @@ class OperatorController extends Controller
         }
 
         return redirect()->back()->with('success', 'Data Akun Wali berhasil diperbarui!');
+    }
+
+    // --- KELOLA GURU ---
+    public function indexGuru()
+    {
+        $daftarGuru = Guru::with(['user', 'kelas'])->get();
+        $kelasList = Kelas::all();
+        return view('operator.kelola_guru', compact('daftarGuru', 'kelasList'));
+    }
+
+    public function storeGuru(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+            'nama_lengkap' => 'required',
+        ]);
+
+        $user = User::create([
+            'name' => $request->nama_lengkap,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'guru'
+        ]);
+
+        Guru::create([
+            'user_id' => $user->id,
+            'nama_lengkap' => $request->nama_lengkap,
+            'jabatan' => $request->jabatan,
+            'nip' => $request->nip,
+            'kelas_id' => $request->kelas_id,
+            'no_wa' => $request->no_wa,
+            'alamat' => $request->alamat,
+        ]);
+
+        return redirect()->back()->with('success', 'Akun Guru berhasil ditambahkan!');
+    }
+
+    public function updateGuru(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        
+        $rules = [
+            'email' => 'required|email|unique:users,email,'.$id,
+            'nama_lengkap' => 'required',
+        ];
+
+        if ($request->filled('password')) {
+            $rules['password'] = 'min:6';
+        }
+
+        $request->validate($rules);
+
+        $user->name = $request->nama_lengkap;
+        $user->email = $request->email;
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+
+        $guru = Guru::where('user_id', $id)->first();
+        if ($guru) {
+            $guru->update([
+                'nama_lengkap' => $request->nama_lengkap,
+                'jabatan' => $request->jabatan,
+                'nip' => $request->nip,
+                'kelas_id' => $request->kelas_id,
+                'no_wa' => $request->no_wa,
+                'alamat' => $request->alamat,
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Data Guru berhasil diperbarui!');
+    }
+
+    public function destroyGuru($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        // The foreign key cascade will delete the guru automatically.
+        return redirect()->back()->with('success', 'Akun Guru berhasil dihapus!');
     }
 
     // --- KELOLA KELAS ---

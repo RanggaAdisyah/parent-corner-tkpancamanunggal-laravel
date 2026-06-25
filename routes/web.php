@@ -86,9 +86,10 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
     Route::put('/jadwal-kelas/{id}', [\App\Http\Controllers\OperatorController::class, 'updateJadwalKelas']);
     Route::delete('/jadwal-kelas/{id}', [\App\Http\Controllers\OperatorController::class, 'destroyJadwalKelas']);
 
-    Route::get('/kelola-guru', function () {
-        return view('Operator.kelola_guru');
-    })->name('kelola-guru');
+    Route::get('/kelola-guru', [App\Http\Controllers\OperatorController::class, 'indexGuru'])->name('kelola-guru');
+    Route::post('/kelola-guru', [App\Http\Controllers\OperatorController::class, 'storeGuru']);
+    Route::put('/kelola-guru/{id}', [App\Http\Controllers\OperatorController::class, 'updateGuru']);
+    Route::delete('/kelola-guru/{id}', [App\Http\Controllers\OperatorController::class, 'destroyGuru']);
 
     Route::get('/lihat-jadwal', function () {
         return view('Operator.lihat_jadwal');
