@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>Kelola Jadwal Sekolah</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola-jadwal.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_jadwal.css') }}">
 </head>
 <body>
     <div class="kelola-jadwal">

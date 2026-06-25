@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/dashboard.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/orang_tua/dashboard.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/orang_tua/foto-kegiatan.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/orang_tua/foto_kegiatan.css') }}">
 </head>
 <body>
     <div class="dashboard-guru">
         {{-- Sidebar Orang Tua --}}
-        @include('partials.sidebar-orang-tua', ['active' => 'foto-kegiatan'])
+        @include('partials.sidebar_orang_tua', ['active' => 'foto-kegiatan'])
 
         <main class="main">
 

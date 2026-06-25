@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="dashboard-guru">
-        @include('partials.sidebar-guru', ['active' => 'input-nilai'])
+        @include('partials.sidebar_guru', ['active' => 'input-nilai'])
 
         <main class="main">
 

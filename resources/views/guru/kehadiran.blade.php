@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="dashboard-guru">
-        @include('partials.sidebar-guru', ['active' => 'input-kehadiran'])
+        @include('partials.sidebar_guru', ['active' => 'input-kehadiran'])
 
         <main class="main">
             <header class="page-header">

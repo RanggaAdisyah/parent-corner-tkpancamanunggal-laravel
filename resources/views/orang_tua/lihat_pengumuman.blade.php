@@ -12,7 +12,7 @@
 <body>
     <div class="dashboard-guru">
         {{-- Sidebar Orang Tua --}}
-        @include('partials.sidebar-orang-tua', ['active' => 'pengumuman'])
+        @include('partials.sidebar_orang_tua', ['active' => 'pengumuman'])
 
         <main class="main">
 

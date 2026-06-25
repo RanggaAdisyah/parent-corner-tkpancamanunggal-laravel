@@ -3,19 +3,19 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>Jadwal Pelajaran - Dashboard Orang Tua</title>
+    <title>Jadwal Mengajar - Dashboard Guru</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/operator/kelola-jadwal.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_jadwal.css') }}">
 </head>
 <body>
     <div class="kelola-jadwal">
-        @include('partials.sidebar-orang-tua', ['active' => 'lihat-jadwal'])
+        @include('partials.sidebar_guru', ['active' => 'lihat-jadwal'])
 
         <main class="main">
             <header class="header">
                 <div class="header-left">
-                    <h1 class="page-title">Jadwal Pelajaran</h1>
-                    <p class="page-subtitle">Lihat jadwal pelajaran dan kalender kegiatan TK Panca Manunggal.</p>
+                    <h1 class="page-title">Jadwal Mengajar</h1>
+                    <p class="page-subtitle">Lihat jadwal mengajar dan kalender kegiatan TK Panca Manunggal.</p>
                 </div>
 
             </header>
@@ -146,7 +146,17 @@
                         <button class="btn btn-full btn-outline">Lihat Semua Jadwal</button>
                     </div>
 
-
+                    <!-- Widget Ulang Tahun -->
+                    <div class="widget widget-birthday">
+                        <h3>Ulang Tahun Bulan Ini</h3>
+                        <p>Ada 3 siswa yang berulang tahun di bulan Oktober.</p>
+                        <div class="avatars">
+                            <div class="avatar"></div>
+                            <div class="avatar"></div>
+                            <div class="avatar"></div>
+                        </div>
+                        <button class="btn btn-full btn-white-translucent">Kirim Ucapan</button>
+                    </div>
 
                     <!-- Widget Kategori -->
                     <div class="widget">
@@ -169,6 +179,8 @@
             {{-- TAB PANEL: JADWAL HARIAN --}}
             <div id="tab-harian" class="tab-panel">
                 <div class="jadwal-harian-wrapper">
+
+
 
                     {{-- === TK A === --}}
                     @php
@@ -210,7 +222,7 @@
                         </div>
                         @foreach($hariTka as $i => $hari)
                             <div class="jh-schedule {{ $i===0?'active':'' }}" id="{{ $hari['id'] }}">
-                                <div class="jh-badge">Kelas Bintang Kecil &nbsp;&middot;&nbsp; {{ $hari['label'] }}</div>
+                                <div class="jh-badge">TK A &nbsp;&middot;&nbsp; {{ $hari['label'] }}</div>
                                 <div class="jh-table-wrapper">
                                     <table class="jh-table">
                                         <thead><tr><th>Waktu</th><th>Kegiatan</th><th>Keterangan</th></tr></thead>
@@ -229,6 +241,8 @@
                             </div>
                         @endforeach
                     </div>
+
+
 
                 </div>{{-- /jadwal-harian-wrapper --}}
                 @include('partials.footer')
@@ -279,6 +293,8 @@
                 });
             });
 
+
+
             // =========================================
             // SUB-TAB HARI (Senin-Kamis / Jumat)
             // =========================================
@@ -291,6 +307,8 @@
                     panel.querySelector('#' + tab.dataset.hari).classList.add('active');
                 });
             });
+
+
             // =========================================
             // MODAL DETAIL KEGIATAN KALENDER
             // =========================================
@@ -301,7 +319,6 @@
             const modalEventCategory = document.getElementById('modalEventCategory');
             const modalEventDesc = document.getElementById('modalEventDesc');
 
-            // Tambahkan event click pada keseluruhan kotak hari (day) jika memiliki acara
             document.querySelectorAll('.day').forEach(dayEl => {
                 const eventEl = dayEl.querySelector('.event');
                 if (eventEl) {
@@ -334,3 +351,4 @@
     </script>
 </body>
 </html>
+

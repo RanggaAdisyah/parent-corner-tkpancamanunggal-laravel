@@ -57,27 +57,27 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
     })->name('dashboard');
 
     Route::get('/kelola-siswa', function () {
-        return view('Operator.kelola-siswa');
+        return view('Operator.kelola_siswa');
     })->name('kelola-siswa');
 
     Route::get('/kelola-guru', function () {
-        return view('Operator.kelola-guru');
+        return view('Operator.kelola_guru');
     })->name('kelola-guru');
 
     Route::get('/lihat-jadwal', function () {
-        return view('Operator.lihat-jadwal');
+        return view('Operator.lihat_jadwal');
     })->name('lihat-jadwal');
 
     Route::get('/kelola-jadwal', function () {
-        return view('Operator.kelola-jadwal');
+        return view('Operator.kelola_jadwal');
     })->name('kelola-jadwal');
 
     Route::get('/pengumuman', function () {
-        return view('Operator.daftar-pengumuman');
+        return view('Operator.daftar_pengumuman');
     })->name('pengumuman');
 
     Route::get('/galeri', function () {
-        return view('Operator.galeri-kegiatan');
+        return view('Operator.galeri_kegiatan');
     })->name('galeri');
 });
 
@@ -96,7 +96,7 @@ Route::middleware(['auth', 'role:guru'])->prefix('guru')->name('guru.')->group(f
     })->name('nilai');
 
     Route::get('/lihat-jadwal', function () {
-        return view('guru.lihat-jadwal');
+        return view('guru.lihat_jadwal');
     })->name('lihat-jadwal');
 
     Route::get('/unggah-foto', function () {
@@ -108,7 +108,7 @@ Route::middleware(['auth', 'role:guru'])->prefix('guru')->name('guru.')->group(f
     })->name('buat-pengumuman');
 
     Route::get('/daftar-pengumuman', function () {
-        return view('guru.daftar-pengumuman');
+        return view('guru.daftar_pengumuman');
     })->name('daftar-pengumuman');
 });
 
@@ -119,30 +119,30 @@ Route::middleware(['auth', 'role:orang_tua'])->prefix('orang-tua')->name('orang-
     })->name('dashboard');
 
     Route::get('/lihat-nilai', function () {
-        return view('orang_tua.lihat-nilai');
+        return view('orang_tua.lihat_nilai');
     })->name('lihat-nilai');
 
     Route::get('/lihat-jadwal', function () {
-        return view('orang_tua.lihat-jadwal');
+        return view('orang_tua.lihat_jadwal');
     })->name('lihat-jadwal');
 
     Route::get('/lihat-kehadiran', function () {
-        return view('orang_tua.lihat-kehadiran');
+        return view('orang_tua.lihat_kehadiran');
     })->name('lihat-kehadiran');
 
     Route::get('/unduh-laporan', function () {
-        return view('orang_tua.unduh-laporan');
+        return view('orang_tua.unduh_laporan');
     })->name('unduh-laporan');
 
     Route::get('/lihat-pengumuman', function () {
-        return view('orang_tua.lihat-pengumuman');
+        return view('orang_tua.lihat_pengumuman');
     })->name('lihat-pengumuman');
 
     Route::get('/foto-kegiatan', function () {
-        return view('orang_tua.foto-kegiatan');
+        return view('orang_tua.foto_kegiatan');
     })->name('foto-kegiatan');
 
     Route::get('/hubungi-guru', function () {
-        return view('orang_tua.hubungi-guru');
+        return view('orang_tua.hubungi_guru');
     })->name('hubungi-guru');
 });

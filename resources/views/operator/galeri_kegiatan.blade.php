@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/dashboard.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/orang_tua/dashboard.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/orang_tua/foto-kegiatan.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/galeri-kegiatan.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/orang_tua/foto_kegiatan.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/Operator/galeri_kegiatan.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
     <style>
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }

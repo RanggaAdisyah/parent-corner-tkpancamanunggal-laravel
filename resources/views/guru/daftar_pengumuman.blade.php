@@ -3,11 +3,11 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>Daftar Pengumuman - Operator Panel</title>
+    <title>Daftar Pengumuman - Dashboard Guru</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/guru/daftar-pengumuman.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/guru/daftar_pengumuman.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/dashboard.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/buat-pengumuman.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/Operator/buat_pengumuman.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
     <style>
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="dashboard-guru">
-        @include('partials.sidebar', ['active' => 'pengumuman'])
+        @include('partials.sidebar_guru', ['active' => 'buat-pengumuman'])
 
         <main class="main">
             <header class="page-header">
@@ -119,7 +119,7 @@
                     <!-- Step 1 Card -->
                     <div class="step-card">
                         <div class="step-header">
-                            <h2 class="step-title"><span class="step-number">1</span> Isi Detail Pengumuman</h2>
+                            <h2 class="step-title">Isi Detail Pengumuman</h2>
                             <span class="badge-wajib">Wajib Diisi</span>
                         </div>
                         <div class="form-group">
@@ -148,46 +148,7 @@
                         </div>
                     </div>
 
-                    <!-- Step 2 Card -->
-                    <div class="step-card">
-                        <div class="step-header">
-                            <h2 class="step-title"><span class="step-number">2</span> Pilih Target Kelas</h2>
-                            <div class="step-header-actions">
-                                <span class="info-text">Pilih minimal satu kelas</span>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="selectAll" style="display:none;" />
-                                    <div class="radio-circle check-all-circle" style="border-radius: 4px; width: 16px; height: 16px;"></div>
-                                    Pilih Semua
-                                </label>
-                            </div>
-                        </div>
-                        <div class="class-grid">
-                            <div class="class-card active">
-                                <div class="class-card-header">
-                                    <div class="class-info"><div class="class-avatar avatar-blue">A1</div><div class="class-details"><h4>TK A - Matahari</h4><p>Ibu Ani</p></div></div>
-                                    <div class="radio-circle"></div>
-                                </div>
-                            </div>
-                            <div class="class-card">
-                                <div class="class-card-header">
-                                    <div class="class-info"><div class="class-avatar avatar-purple">A2</div><div class="class-details"><h4>TK A - Bulan</h4><p>Ibu Budi</p></div></div>
-                                    <div class="radio-circle"></div>
-                                </div>
-                            </div>
-                            <div class="class-card">
-                                <div class="class-card-header">
-                                    <div class="class-info"><div class="class-avatar avatar-yellow">B1</div><div class="class-details"><h4>TK B - Bintang</h4><p>Ibu Citra</p></div></div>
-                                    <div class="radio-circle"></div>
-                                </div>
-                            </div>
-                            <div class="class-card">
-                                <div class="class-card-header">
-                                    <div class="class-info"><div class="class-avatar avatar-pink">B2</div><div class="class-details"><h4>TK B - Pelangi</h4><p>Ibu Dina</p></div></div>
-                                    <div class="radio-circle"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <!-- Bottom Action Bar -->
                     <div class="bottom-action-bar" style="position: static; margin-top: 24px;">
@@ -227,42 +188,7 @@
             if(btnBatal) btnBatal.addEventListener('click', closeModal);
             modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
 
-            // Class Cards Selection Logic
-            const classCards = document.querySelectorAll('.class-card');
-            const selectAllCheckbox = document.getElementById('selectAll');
-            const checkAllCircle = document.querySelector('.check-all-circle');
 
-            classCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    updateSelectAllState();
-                });
-            });
-
-            if (selectAllCheckbox) {
-                selectAllCheckbox.addEventListener('change', function() {
-                    const isChecked = this.checked;
-                    if(isChecked) checkAllCircle.classList.add('checked');
-                    else checkAllCircle.classList.remove('checked');
-
-                    classCards.forEach(card => {
-                        if (isChecked) card.classList.add('active');
-                        else card.classList.remove('active');
-                    });
-                });
-            }
-
-            function updateSelectAllState() {
-                if (!selectAllCheckbox) return;
-                const totalCards = classCards.length;
-                const activeCards = document.querySelectorAll('.class-card.active').length;
-                
-                const isAllChecked = (totalCards > 0 && totalCards === activeCards);
-                selectAllCheckbox.checked = isAllChecked;
-                
-                if(isAllChecked) checkAllCircle.classList.add('checked');
-                else checkAllCircle.classList.remove('checked');
-            }
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>

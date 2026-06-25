@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="dashboard-guru">
-        @include('partials.sidebar-guru', ['active' => 'dashboard'])
+        @include('partials.sidebar_guru', ['active' => 'dashboard'])
 
         <main class="main">
             <section class="container-3" aria-label="Header dashboard guru">

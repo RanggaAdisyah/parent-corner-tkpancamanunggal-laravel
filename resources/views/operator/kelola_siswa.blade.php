@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <title>Kelola Akun Siswa</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola-siswa.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_siswa.css') }}">
 </head>
 
 <body>

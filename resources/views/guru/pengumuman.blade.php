@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="dashboard-guru">
-        @include('partials.sidebar-guru', ['active' => 'buat-pengumuman'])
+        @include('partials.sidebar_guru', ['active' => 'buat-pengumuman'])
 
         <main class="main">
 
