@@ -22,21 +22,7 @@
                     </div>
                 </div>
 
-                <div class="container-5">
-                    <div class="background-border" aria-label="Status sistem aktif">
-                        <div class="background" aria-hidden="true"></div>
-                        <div class="text-7">Sistem Aktif</div>
-                    </div>
 
-                    <div class="button-margin">
-                        <button class="button-2" type="button" aria-label="Notifikasi">
-                            <span class="icon-wrapper">
-                                <img class="icon-7" src="{{ asset('img/icon-9.svg') }}" alt="" />
-                            </span>
-                            <span class="background-border-2" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </div>
             </section>
 
             <section class="heading" aria-labelledby="aksi-cepat-title">
