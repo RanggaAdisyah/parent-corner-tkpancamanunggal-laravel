@@ -4,14 +4,14 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>Kelola Akun Siswa</title>
+    <title>Kelola Akun Wali</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_siswa.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_wali.css') }}">
 </head>
 
 <body>
     <div class="kelola-akun-siswa">
-        @include('partials.sidebar', ['active' => 'akun-siswa'])
+        @include('partials.sidebar', ['active' => 'akun_wali'])
 
         <main class="main">
             <section class="background">
@@ -20,7 +20,7 @@
                         <div class="container-5">
                             <div class="container-6">
                                 <div class="div-2">
-                                    <h1 class="text-6">Kelola Akun Siswa</h1>
+                                    <h1 class="text-6">Kelola Akun Wali</h1>
                                 </div>
                                 <div class="div-2">
                                     <p class="p">Pilih siswa untuk melihat detail informasi.</p>
@@ -36,19 +36,19 @@
                                     <div class="container-7">
                                         <img class="icon-7" src="{{ asset('img/icon-19.svg') }}" alt="" />
                                     </div>
-                                    <div class="text-wrapper-6">Tambah Siswa</div>
+                                    <div class="text-wrapper-6">Tambah Akun Wali</div>
                                 </button>
                             </div>
                         </div>
 
                         <div class="background-border">
                             <form class="container-8" action="#" method="get" role="search"
-                                aria-label="Cari siswa">
-                                <label class="input" for="search-siswa">
+                                aria-label="Cari wali">
+                                <label class="input" for="search-wali">
                                     <div class="div-2">
-                                        <input id="search-siswa" name="q" class="text-wrapper-7" type="search"
-                                            placeholder="Cari nama siswa atau NIS..."
-                                            aria-label="Cari nama siswa atau NIS" />
+                                        <input id="search-wali" name="q" class="text-wrapper-7" type="search"
+                                            placeholder="Cari nama wali atau NAMA ANAK..."
+                                            aria-label="Cari nama wali atau NAMA ANAK" />
                                     </div>
                                 </label>
 
@@ -76,12 +76,12 @@
                             </div>
                         </div>
 
-                        <section class="table-wrapper" aria-label="Daftar akun siswa">
-                            <div class="table" role="table" aria-label="Tabel akun siswa">
+                        <section class="table-wrapper" aria-label="Daftar akun wali">
+                            <div class="table" role="table" aria-label="Tabel akun wali">
                                 <header class="header" role="rowgroup">
                                     <div class="row" role="row">
                                         <div class="cell" role="columnheader">
-                                            <div class="text-8">NAMA SISWA</div>
+                                            <div class="text-8">NAMA ANAK</div>
                                         </div>
                                         <div class="cell-2" role="columnheader">
                                             <div class="text-9">KELAS</div>
@@ -452,7 +452,7 @@
                                 <line x1="16" y1="11" x2="22" y2="11"></line>
                             </svg>
                         </div>
-                        <h3 id="modalTitle" class="modal-title">Tambah Data Siswa</h3>
+                        <h3 id="modalTitle" class="modal-title">Tambah Data Akun Wali</h3>
                     </div>
                     <button type="button" class="btn-close-modal" id="btnCloseModalX">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -478,10 +478,10 @@
                                 <span class="section-title">Informasi Siswa</span>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="position: relative;">
                                 <label class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-input" placeholder="Masukkan nama lengkap siswa"
-                                    required>
+                                <input type="text" class="form-input" id="inputNamaAnak" placeholder="Masukkan nama lengkap siswa" autocomplete="off" required>
+                                <div id="autocomplete-list" class="autocomplete-items" style="display:none; position: absolute; top: 100%; left: 0; right: 0; z-index: 99; border: 1px solid #d4d4d4; background-color: #fff; max-height: 200px; overflow-y: auto; border-radius: 4px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);"></div>
                             </div>
 
                             <div class="form-grid">
@@ -518,11 +518,11 @@
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label class="form-label">Nama Ayah</label>
-                                    <input type="text" class="form-input" placeholder="Nama lengkap ayah">
+                                    <input type="text" class="form-input" id="inputNamaAyah" placeholder="Nama lengkap ayah">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Nama Ibu</label>
-                                    <input type="text" class="form-input" placeholder="Nama lengkap ibu">
+                                    <input type="text" class="form-input" id="inputNamaIbu" placeholder="Nama lengkap ibu">
                                 </div>
                             </div>
 
@@ -538,20 +538,20 @@
                                             </path>
                                         </svg>
                                     </div>
-                                    <input type="text" class="form-input" placeholder="Contoh: 081234567890">
+                                    <input type="text" class="form-input" id="inputWa" placeholder="Contoh: 081234567890">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Alamat Domisili</label>
-                                <textarea class="form-textarea" placeholder="Masukkan alamat lengkap rumah"></textarea>
+                                <textarea class="form-input" id="inputAlamat" placeholder="Masukkan alamat lengkap rumah" style="height: 80px;"></textarea>
                             </div>
                         </div>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn-modal-secondary" id="btnBatalModal">Batal</button>
-                        <button type="submit" class="btn-modal-primary" id="btnSubmitModal">Tambah Siswa</button>
+                        <button type="submit" class="btn-modal-primary" id="btnSubmitModal">Tambah Akun Wali</button>
                     </div>
                 </form>
             </div>
@@ -624,8 +624,8 @@
                             kelasSelect.value = d.kelas;
                         }
                     } else {
-                        modalTitle.innerText = 'Tambah Data Siswa';
-                        btnSubmitModal.innerText = 'Tambah Siswa';
+                        modalTitle.innerText = 'Tambah Data Akun Wali';
+                        btnSubmitModal.innerText = 'Tambah Akun Wali';
                         document.getElementById('studentForm').reset();
                     }
                     modal.classList.add('active');
@@ -646,6 +646,75 @@
             });
         </script>
 
+        <script>
+            // AJAX Autocomplete Logic
+            document.addEventListener('DOMContentLoaded', function() {
+                const inputNama = document.getElementById('inputNamaAnak');
+                const listDropdown = document.getElementById('autocomplete-list');
+                const inputAyah = document.getElementById('inputNamaAyah');
+                const inputIbu = document.getElementById('inputNamaIbu');
+                const inputWa = document.getElementById('inputWa');
+                const inputAlamat = document.getElementById('inputAlamat');
+
+                let timeout = null;
+
+                if(inputNama) {
+                    inputNama.addEventListener('input', function() {
+                        const query = this.value.trim();
+                        listDropdown.innerHTML = '';
+                        
+                        if (query.length < 2) {
+                            listDropdown.style.display = 'none';
+                            return;
+                        }
+
+                        clearTimeout(timeout);
+                        timeout = setTimeout(() => {
+                            fetch('/api/ppdb/search?q=' + encodeURIComponent(query))
+                                .then(response => response.json())
+                                .then(data => {
+                                    listDropdown.innerHTML = '';
+                                    if(data.length === 0) {
+                                        listDropdown.style.display = 'none';
+                                        return;
+                                    }
+                                    
+                                    data.forEach(item => {
+                                        const div = document.createElement('div');
+                                        div.style.padding = '10px 15px';
+                                        div.style.cursor = 'pointer';
+                                        div.style.borderBottom = '1px solid #f0f0f0';
+                                        div.innerHTML = `<strong>${item.nama}</strong><br><small style="color:#64748b;">Ayah: ${item.namaAyah}</small>`;
+                                        
+                                        div.addEventListener('mouseover', () => div.style.backgroundColor = '#f8fafc');
+                                        div.addEventListener('mouseout', () => div.style.backgroundColor = 'transparent');
+                                        
+                                        div.addEventListener('click', function() {
+                                            inputNama.value = item.nama;
+                                            if(inputAyah) inputAyah.value = item.namaAyah;
+                                            if(inputIbu) inputIbu.value = item.namaIbu;
+                                            if(inputWa) inputWa.value = item.no_hp;
+                                            if(inputAlamat) inputAlamat.value = item.alamat;
+                                            
+                                            listDropdown.style.display = 'none';
+                                        });
+                                        listDropdown.appendChild(div);
+                                    });
+                                    listDropdown.style.display = 'block';
+                                })
+                                .catch(err => console.error('Error fetching PPDB:', err));
+                        }, 300); // delay 300ms (debounce)
+                    });
+                    
+                    // Hide dropdown when clicking outside
+                    document.addEventListener('click', function(e) {
+                        if (e.target !== inputNama) {
+                            listDropdown.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        </script>
 </body>
 
 </html>

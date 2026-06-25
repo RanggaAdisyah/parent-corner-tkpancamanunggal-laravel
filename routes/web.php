@@ -50,15 +50,30 @@ Route::post('/login', function (Request $request) {
     ])->onlyInput('email');
 });
 
+// Route API untuk AJAX Autocomplete PPDB
+Route::prefix('api/ppdb')->group(function () {
+    Route::get('/search', function (\Illuminate\Http\Request $request) {
+        $query = $request->get('q');
+        if (!$query) return response()->json([]);
+
+        $data = \App\Models\Ppdb::where('isVerified', 1)
+            ->where('nama', 'like', "%{$query}%")
+            ->select('id', 'nama', 'namaAyah', 'namaIbu', 'no_hp', 'alamat')
+            ->take(10)->get();
+
+        return response()->json($data);
+    })->name('api.ppdb.search');
+});
+
 // Operator Routes
 Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator.')->group(function () {
     Route::get('/dashboard', function () {
         return view('Operator.dashboard');
     })->name('dashboard');
 
-    Route::get('/kelola-siswa', function () {
-        return view('Operator.kelola_siswa');
-    })->name('kelola-siswa');
+    Route::get('/kelola_wali', function () {
+        return view('Operator.kelola_wali');
+    })->name('kelola_wali');
 
     Route::get('/kelola-guru', function () {
         return view('Operator.kelola_guru');

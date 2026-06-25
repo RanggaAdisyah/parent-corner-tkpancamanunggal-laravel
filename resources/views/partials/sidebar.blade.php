@@ -99,9 +99,9 @@
 
         <div class="container"><div class="text-wrapper-2">KELOLA DATA</div></div>
 
-        <a href="{{ route('operator.kelola-siswa') }}" class="{{ isset($active) && $active == 'akun-siswa' ? 'link' : 'link-2' }}" title="Akun Siswa">
+        <a href="{{ route('operator.kelola_wali') }}" class="{{ isset($active) && $active == 'akun_wali' ? 'link' : 'link-2' }}" title="Akun Wali">
             <div class="div"><img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" /></div>
-            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'akun-siswa' ? 'text-2' : 'text-wrapper-3' }}">Akun Siswa</div></div>
+            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'akun_wali' ? 'text-2' : 'text-wrapper-3' }}">Akun Wali</div></div>
         </a>
         <a href="{{ route('operator.kelola-guru') }}" class="{{ isset($active) && $active == 'akun-guru' ? 'link' : 'link-2' }}" title="Akun Guru">
             <div class="div"><img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" /></div>
@@ -143,7 +143,7 @@
 </aside>
 
 @php
-    $kelolaDataPages = ['akun-siswa', 'akun-guru', 'jadwal-pelajaran'];
+    $kelolaDataPages = ['akun_wali', 'akun-guru', 'jadwal-pelajaran'];
     $komunikasiPages = ['pengumuman', 'galeri-kegiatan'];
     $isKelolaDataActive = isset($active) && in_array($active, $kelolaDataPages);
     $isKomunikasiActive = isset($active) && in_array($active, $komunikasiPages);
@@ -188,9 +188,9 @@
                 <svg class="ot-drawer__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
             <div class="ot-drawer__subnav {{ $isKelolaDataActive ? 'open' : '' }}" id="subnavKelolaData">
-                <a href="{{ route('operator.kelola-siswa') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'akun-siswa' ? 'active' : '' }}">
+                <a href="{{ route('operator.kelola_wali') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'akun_wali' ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    Akun Siswa
+                    Akun Wali
                 </a>
                 <a href="{{ route('operator.kelola-guru') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'akun-guru' ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
