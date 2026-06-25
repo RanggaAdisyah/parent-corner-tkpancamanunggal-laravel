@@ -23,12 +23,6 @@
                         <button id="btnBuatJadwal" class="btn btn-primary">
                             <span class="btn-icon">+</span> Kegiatan Baru
                         </button>
-                        <button class="btn btn-outline">
-                            <img src="{{ asset('img/icon-print.svg') }}" alt="Cetak" class="btn-icon-img" onerror="this.style.display='none'"> Cetak Jadwal
-                        </button>
-                        <button class="btn btn-primary">
-                            <img src="{{ asset('img/icon-download.svg') }}" alt="Export" class="btn-icon-img" onerror="this.style.display='none'"> Export PDF
-                        </button>
                     </div>
                     
                     <!-- For Jadwal Harian Tab -->
