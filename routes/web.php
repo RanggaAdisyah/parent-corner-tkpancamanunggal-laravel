@@ -125,9 +125,11 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
     Route::delete('/jadwal-kelas/{id}', [\App\Http\Controllers\OperatorController::class, 'destroyJadwalKelas']);
 
     Route::get('/kelola-guru', [App\Http\Controllers\OperatorController::class, 'indexGuru'])->name('kelola-guru');
-    Route::post('/kelola-guru', [App\Http\Controllers\OperatorController::class, 'storeGuru']);
-    Route::put('/kelola-guru/{id}', [App\Http\Controllers\OperatorController::class, 'updateGuru']);
-    Route::delete('/kelola-guru/{id}', [App\Http\Controllers\OperatorController::class, 'destroyGuru']);
+    Route::get('/kelola-guru/buat', [App\Http\Controllers\OperatorController::class, 'createGuru'])->name('kelola-guru.buat');
+    Route::post('/kelola-guru', [App\Http\Controllers\OperatorController::class, 'storeGuru'])->name('kelola-guru.store');
+    Route::get('/kelola-guru/{id}/edit', [App\Http\Controllers\OperatorController::class, 'editGuru'])->name('kelola-guru.edit');
+    Route::put('/kelola-guru/{id}', [App\Http\Controllers\OperatorController::class, 'updateGuru'])->name('kelola-guru.update');
+    Route::delete('/kelola-guru/{id}', [App\Http\Controllers\OperatorController::class, 'destroyGuru'])->name('kelola-guru.destroy');
 
     Route::get('/lihat-jadwal', function () {
         return view('Operator.lihat_jadwal');

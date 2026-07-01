@@ -30,12 +30,12 @@
                                     <div class="text-wrapper-6">Backup Guru</div>
                                 </button>
 
-                                <button id="btnTambahGuru" class="button-3" type="button">
+                                <a href="{{ route('operator.kelola-guru.buat') }}" class="button-3" style="text-decoration: none;">
                                     <div class="container-7">
                                         <img class="icon-7" src="{{ asset('img/icon-19.svg') }}" alt="" />
                                     </div>
                                     <div class="text-wrapper-6">Tambah Guru</div>
-                                </button>
+                                </a>
                             </div>
                         </div>
 
@@ -271,7 +271,7 @@
                         <div class="text-33">Ubah Data</div>
                     </button>
 
-                    <button class="button-7" type="button">
+                    <button id="btnHapusGuru" class="button-7" type="button">
                         <div class="container-7">
                             <img class="icon-15" src="{{ asset('img/icon-11.svg') }}" alt="" />
                         </div>
@@ -279,112 +279,12 @@
                     </button>
                 </div>
             </aside>
+
+            <form id="formHapusGuru" method="POST" style="display: none;">
+                @csrf
+                @method('DELETE')
+            </form>
         </main>
-
-        <!-- Modal Tambah/Ubah Guru -->
-        <div id="teacherModal" class="modal-overlay">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title-wrapper">
-                        <div class="modal-icon-bg">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                        </div>
-                        <h3 id="modalTitleGuru" class="modal-title">Tambah Data Guru</h3>
-                    </div>
-                    <button type="button" class="btn-close-modal" id="btnCloseModalGuruX">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                    </button>
-                </div>
-                
-                <form id="teacherForm" method="POST" action="{{ url('/operator/kelola-guru') }}">
-                    @csrf
-                    <input type="hidden" name="_method" id="formMethodGuru" value="POST">
-                    <div class="modal-body">
-                        <!-- Informasi Guru -->
-                        <div class="form-section">
-                            <div class="section-title-wrapper">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3b82f6;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                <span class="section-title">Informasi Guru</span>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">Nama Lengkap</label>
-                                <input type="text" name="nama_lengkap" class="form-input" id="guruNama" placeholder="Masukkan nama lengkap guru" required>
-                            </div>
-                            
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label class="form-label">Jabatan</label>
-                                    <input type="text" name="jabatan" class="form-input" id="guruJabatan" placeholder="Contoh: Guru Kelas / Kepala Sekolah">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">NIP / Kode Guru</label>
-                                    <input type="text" name="nip" class="form-input" id="guruNip" placeholder="Masukkan NIP atau kode">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Wali Kelas (Opsional)</label>
-                                <select name="kelas_id" id="guruKelas" class="form-select">
-                                    <option value="">Bukan Wali Kelas</option>
-                                    @foreach($kelasList as $kelas)
-                                        <option value="{{ $kelas->id }}">{{ $kelas->tingkat }} - {{ $kelas->nama_kelas }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Informasi Kredensial -->
-                        <div class="form-section">
-                            <div class="section-title-wrapper">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3b82f6;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                <span class="section-title">Akun Login</span>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Email Login</label>
-                                <input type="email" name="email" class="form-input" id="guruEmail" placeholder="Contoh: guru@sekolah.com" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Password</label>
-                                <input type="password" name="password" class="form-input" id="guruPassword" placeholder="Kosongkan jika tidak diubah (saat edit)">
-                            </div>
-                        </div>
-
-                        <!-- Informasi Kontak -->
-                        <div class="form-section">
-                            <div class="section-title-wrapper">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3b82f6;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                                <span class="section-title">Kontak & Alamat</span>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">No. WhatsApp Aktif</label>
-                                <div class="input-with-icon">
-                                    <div class="input-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                                    </div>
-                                    <input type="text" name="no_wa" id="guruWa" class="form-input" placeholder="Contoh: 081234567890">
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">Alamat Domisili</label>
-                                <textarea name="alamat" id="guruAlamat" class="form-textarea" placeholder="Masukkan alamat lengkap rumah"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer" style="display: flex; justify-content: space-between; width: 100%;">
-                        <button type="submit" class="btn-modal-danger" id="btnHapusGuruModal" style="display: none; background: #ef4444; color: white; padding: 10px 16px; border-radius: 8px; border: none; font-weight: 500; cursor: pointer;">Hapus Guru</button>
-                        <div style="display: flex; gap: 12px; margin-left: auto;">
-                            <button type="button" class="btn-modal-secondary" id="btnBatalGuruModal">Batal</button>
-                            <button type="submit" class="btn-modal-primary" id="btnSubmitGuruModal">Tambah Guru</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -428,79 +328,29 @@
                 });
             }
 
-            // Modal Guru Logic
-            const modalGuru = document.getElementById('teacherModal');
-            const btnTambahGuru = document.getElementById('btnTambahGuru');
-            const btnUbahDataGuru = document.getElementById('btnUbahDataGuru');
-            const btnCloseModalGuruX = document.getElementById('btnCloseModalGuruX');
-            const btnBatalGuruModal = document.getElementById('btnBatalGuruModal');
-            const modalTitleGuru = document.getElementById('modalTitleGuru');
-            const btnSubmitGuruModal = document.getElementById('btnSubmitGuruModal');
-            const btnHapusGuruModal = document.getElementById('btnHapusGuruModal');
-            const formMethodGuru = document.getElementById('formMethodGuru');
-            const teacherForm = document.getElementById('teacherForm');
-
-            const openModalGuru = (type = 'tambah') => {
-                if (type === 'ubah' && activeRow) {
-                    modalTitleGuru.innerText = 'Ubah Data Guru';
-                    btnSubmitGuruModal.innerText = 'Simpan Perubahan';
-                    btnHapusGuruModal.style.display = 'inline-flex';
-                    
-                    const d = activeRow.dataset;
-                    teacherForm.action = `/operator/kelola-guru/${d.id}`;
-                    formMethodGuru.value = 'PUT';
-
-                    document.getElementById('guruNama').value = d.nama || '';
-                    document.getElementById('guruJabatan').value = d.jabatan || '';
-                    document.getElementById('guruNip').value = d.nip || '';
-                    document.getElementById('guruEmail').value = d.email || '';
-                    document.getElementById('guruPassword').value = '';
-                    document.getElementById('guruWa').value = d.wa || '';
-                    document.getElementById('guruAlamat').value = d.alamat || '';
-                    
-                    if(d.walikelas) {
-                        document.getElementById('guruKelas').value = d.walikelas;
-                    } else {
-                        document.getElementById('guruKelas').value = '';
-                    }
-                    
-                    document.getElementById('guruPassword').required = false;
-
-                } else {
-                    modalTitleGuru.innerText = 'Tambah Data Guru';
-                    btnSubmitGuruModal.innerText = 'Tambah Guru';
-                    btnHapusGuruModal.style.display = 'none';
-                    
-                    teacherForm.reset();
-                    teacherForm.action = `/operator/kelola-guru`;
-                    formMethodGuru.value = 'POST';
-                    document.getElementById('guruPassword').required = true;
-                }
-                modalGuru.classList.add('active');
-            };
-
-            const closeModalGuru = () => {
-                modalGuru.classList.remove('active');
-            };
-
-            if (btnTambahGuru) btnTambahGuru.addEventListener('click', () => openModalGuru('tambah'));
-            if (btnUbahDataGuru) btnUbahDataGuru.addEventListener('click', () => openModalGuru('ubah'));
-            if (btnCloseModalGuruX) btnCloseModalGuruX.addEventListener('click', closeModalGuru);
-            if (btnBatalGuruModal) btnBatalGuruModal.addEventListener('click', closeModalGuru);
-
-            if (btnHapusGuruModal) {
-                btnHapusGuruModal.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if(confirm('Yakin ingin menghapus guru ini?')) {
-                        formMethodGuru.value = 'DELETE';
-                        teacherForm.submit();
+            // Ubah Data dan Hapus Akun (Full Page)
+            const btnUbahData = document.getElementById('btnUbahDataGuru');
+            const btnHapusAkun = document.getElementById('btnHapusGuru');
+            const formHapusAkun = document.getElementById('formHapusGuru');
+            
+            if (btnUbahData) {
+                btnUbahData.addEventListener('click', () => {
+                    if (activeRow && activeRow.dataset.id) {
+                        window.location.href = `/operator/kelola-guru/${activeRow.dataset.id}/edit`;
                     }
                 });
             }
 
-            modalGuru.addEventListener('click', (e) => {
-                if (e.target === modalGuru) closeModalGuru();
-            });
+            if (btnHapusAkun) {
+                btnHapusAkun.addEventListener('click', () => {
+                    if (activeRow && activeRow.dataset.id) {
+                        if (confirm('Apakah Anda yakin ingin menghapus akun guru ini?')) {
+                            formHapusAkun.action = '/operator/kelola-guru/' + activeRow.dataset.id;
+                            formHapusAkun.submit();
+                        }
+                    }
+                });
+            }
         });
 
         // Search & Filter Logic

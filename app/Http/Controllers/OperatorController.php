@@ -190,9 +190,16 @@ class OperatorController extends Controller
         return view('operator.kelola_guru', compact('daftarGuru', 'kelasList'));
     }
 
+    public function createGuru()
+    {
+        $kelasList = Kelas::all();
+        return view('operator.buat_guru', compact('kelasList'));
+    }
+
     public function storeGuru(Request $request)
     {
         $request->validate([
+            'no_wa' => 'required|unique:users,username', // Hybrid login dengan nomor WA sebagai username
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
             'nama_lengkap' => 'required',
@@ -200,6 +207,7 @@ class OperatorController extends Controller
 
         $user = User::create([
             'name' => $request->nama_lengkap,
+            'username' => $request->no_wa,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'guru'
@@ -215,7 +223,14 @@ class OperatorController extends Controller
             'alamat' => $request->alamat,
         ]);
 
-        return redirect()->back()->with('success', 'Akun Guru berhasil ditambahkan!');
+        return redirect()->route('operator.kelola-guru')->with('success', 'Akun Guru berhasil ditambahkan!');
+    }
+
+    public function editGuru($id)
+    {
+        $guru = Guru::where('user_id', $id)->firstOrFail();
+        $kelasList = Kelas::all();
+        return view('operator.edit_guru', compact('guru', 'kelasList'));
     }
 
     public function updateGuru(Request $request, $id)
@@ -224,6 +239,7 @@ class OperatorController extends Controller
         
         $rules = [
             'email' => 'required|email|unique:users,email,'.$id,
+            'no_wa' => 'required|unique:users,username,'.$id,
             'nama_lengkap' => 'required',
         ];
 
@@ -234,6 +250,7 @@ class OperatorController extends Controller
         $request->validate($rules);
 
         $user->name = $request->nama_lengkap;
+        $user->username = $request->no_wa;
         $user->email = $request->email;
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
@@ -252,15 +269,15 @@ class OperatorController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Data Guru berhasil diperbarui!');
+        return redirect()->route('operator.kelola-guru')->with('success', 'Akun Guru berhasil diperbarui!');
     }
 
     public function destroyGuru($id)
     {
         $user = User::findOrFail($id);
-        $user->delete();
-        // The foreign key cascade will delete the guru automatically.
-        return redirect()->back()->with('success', 'Akun Guru berhasil dihapus!');
+        $user->delete(); // Cascades ke guru jika diset foreign key on delete cascade
+        
+        return redirect()->route('operator.kelola-guru')->with('success', 'Akun Guru berhasil dihapus!');
     }
 
     // --- KELOLA KELAS ---
