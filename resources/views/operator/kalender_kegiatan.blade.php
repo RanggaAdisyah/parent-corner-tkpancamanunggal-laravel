@@ -6,6 +6,8 @@
     <title>Kalender Kegiatan</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_jadwal.css') }}">
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
 </head>
 <body>
     <div class="kelola-jadwal">
@@ -134,7 +136,8 @@
 
                         <div class="form-group">
                             <label class="form-label">Deskripsi</label>
-                            <textarea class="form-textarea" name="deskripsi" id="jadwalDeskripsi" placeholder="Masukkan detail kegiatan..."></textarea>
+                            <div id="quillDeskripsi" style="background:#fff;"></div>
+                            <input type="hidden" name="deskripsi" id="jadwalDeskripsi">
                         </div>
                     </div>
 
@@ -155,6 +158,19 @@
                     @method('DELETE')
                 </form>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal Pilih Event (Multi-event picker) -->
+    <div id="eventPickerModal" class="modal-overlay" style="z-index: 1100;">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Pilih Kegiatan</h3>
+                <button type="button" class="btn-close-modal" id="btnClosePickerX">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="modal-body" id="eventPickerList" style="padding: 8px 16px; display: flex; flex-direction: column; gap: 8px;"></div>
         </div>
     </div>
 
@@ -283,6 +299,24 @@
             const form = document.getElementById('jadwalForm');
             const deleteForm = document.getElementById('deleteForm');
 
+            // Init Quill
+            const quill = new Quill('#quillDeskripsi', {
+                theme: 'snow',
+                placeholder: 'Masukkan detail kegiatan...',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                        ['clean']
+                    ]
+                }
+            });
+
+            // Saat submit: copy HTML Quill ke hidden input
+            form.addEventListener('submit', () => {
+                document.getElementById('jadwalDeskripsi').value = quill.root.innerHTML;
+            });
+
             const openModal = (type = 'tambah', data = null) => {
                 if (type === 'ubah') {
                     modalTitle.innerText = 'Ubah Jadwal Kegiatan';
@@ -297,13 +331,14 @@
                     document.getElementById('jadwalWaktuMulai').value = data.time || '';
                     document.getElementById('jadwalWaktuSelesai').value = data.timeEnd || '';
                     document.getElementById('jadwalKategori').value = data.category || '';
-                    document.getElementById('jadwalDeskripsi').value = data.desc || '';
+                    quill.root.innerHTML = data.desc || '';
                     
                 } else {
                     modalTitle.innerText = 'Buat Jadwal Baru';
                     btnSubmit.innerText = 'Buat Jadwal';
                     btnHapus.style.display = 'none';
                     form.reset();
+                    quill.setText('');
                     form.action = `/operator/kalender-kegiatan`;
                     document.getElementById('formMethod').value = 'POST';
                     if (data && data.date) document.getElementById('jadwalTanggal').value = data.date;
@@ -325,26 +360,50 @@
 
             function attachCalendarListeners() {
                 const calendarDays = document.querySelectorAll('.calendar-grid .day:not(.disabled)');
+                const pickerModal = document.getElementById('eventPickerModal');
+                const pickerList = document.getElementById('eventPickerList');
+                const btnClosePicker = document.getElementById('btnClosePickerX');
+                if (btnClosePicker) btnClosePicker.addEventListener('click', () => pickerModal.classList.remove('active'));
+                pickerModal.addEventListener('click', (e) => { if (e.target === pickerModal) pickerModal.classList.remove('active'); });
+
+                const openPicker = (events, dateStr) => {
+                    const categoryColors = { Akademik: '#3b82f6', Upacara: '#22c55e', Kesehatan: '#eab308', 'Seni & Budaya': '#a855f7', Libur: '#ef4444' };
+                    pickerList.innerHTML = events.map(ev => `
+                        <button class="picker-item" data-id="${ev.dataset.id}" data-title="${ev.dataset.title}" data-date="${dateStr}" data-time="${ev.dataset.time}" data-time-end="${ev.dataset.timeEnd}" data-desc="${ev.dataset.desc}" data-category="${ev.dataset.category}"
+                            style="display:flex; align-items:center; gap:12px; padding:12px 16px; border:1px solid #e2e8f0; border-radius:10px; background:#fff; cursor:pointer; text-align:left; transition:background 0.15s;">
+                            <span style="width:10px;height:10px;border-radius:50%;background:${categoryColors[ev.dataset.category]||'#94a3b8'};flex-shrink:0;"></span>
+                            <div>
+                                <div style="font-size:14px;font-weight:600;color:#1e293b;">${ev.dataset.title}</div>
+                                <div style="font-size:12px;color:#64748b;">${ev.dataset.time ? ev.dataset.time.substring(0,5) : ''} ${ev.dataset.timeEnd ? '- '+ev.dataset.timeEnd.substring(0,5) : ''} &bull; ${ev.dataset.category}</div>
+                            </div>
+                        </button>
+                    `).join('');
+
+                    pickerList.querySelectorAll('.picker-item').forEach(btn => {
+                        btn.addEventListener('mouseover', () => btn.style.background = '#f8fafc');
+                        btn.addEventListener('mouseout', () => btn.style.background = '#fff');
+                        btn.addEventListener('click', () => {
+                            pickerModal.classList.remove('active');
+                            openModal('ubah', {
+                                id: btn.dataset.id, title: btn.dataset.title, date: btn.dataset.date,
+                                time: btn.dataset.time, timeEnd: btn.dataset.timeEnd,
+                                desc: btn.dataset.desc, category: btn.dataset.category
+                            });
+                        });
+                    });
+                    pickerModal.classList.add('active');
+                };
+
                 calendarDays.forEach(day => {
                     day.addEventListener('click', function(e) {
                         const dateStr = this.dataset.date;
-                        
-                        // Check if an event was clicked directly
-                        if (e.target.classList.contains('event')) {
-                            const ev = e.target;
-                            openModal('ubah', {
-                                id: ev.dataset.id,
-                                title: ev.dataset.title,
-                                date: dateStr,
-                                time: ev.dataset.time,
-                                timeEnd: ev.dataset.timeEnd,
-                                desc: ev.dataset.desc,
-                                category: ev.dataset.category
-                            });
-                            e.stopPropagation(); // prevent triggering the day click
-                        } else {
-                            openModal('tambah', { date: dateStr });
+                        const allEvents = Array.from(this.querySelectorAll('.event'));
+
+                        if (allEvents.length > 0) {
+                            // Selalu tampilkan picker, baik klik event maupun area kosong
+                            openPicker(allEvents, dateStr);
                         }
+                        // 0 event → tidak terjadi apa-apa
                     });
                 });
             }

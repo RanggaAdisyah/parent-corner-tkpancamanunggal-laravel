@@ -162,3 +162,13 @@ a {
     padding-bottom: 96px !important;
   }
 }
+
+/* ============================================
+   QUILL JS EDITOR - Global Styles
+   ============================================ */
+.ql-toolbar { border-radius: 8px 8px 0 0 !important; border-color: #e2e8f0 !important; background: #f8fafc; }
+.ql-container { border-radius: 0 0 8px 8px !important; border-color: #e2e8f0 !important; min-height: 120px; font-size: 14px; }
+.ql-editor { min-height: 100px; }
+
+.ql-editor strong, .ql-editor b { font-weight: 700 !important; font-synthesis: weight !important; }
+.ql-editor em, .ql-editor i { font-style: italic !important; font-synthesis: style !important; }
