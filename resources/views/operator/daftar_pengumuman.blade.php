@@ -28,10 +28,10 @@
                     <h1 class="header-title">Daftar Pengumuman</h1>
                     <p class="header-subtitle">Kelola dan lihat semua pengumuman yang telah Anda bagikan.</p>
                 </div>
-                <button type="button" id="btnBuatPengumuman" class="btn-add" style="border: none; cursor: pointer;">
+                <a href="{{ route('operator.pengumuman.buat') }}" class="btn-add" style="display:inline-flex; align-items:center; gap:6px; text-decoration:none;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                     Buat Pengumuman Baru
-                </button>
+                </a>
             </header>
 
             <div class="table-container">
@@ -52,246 +52,51 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @forelse($pengumumans as $pengumuman)
                         <tr>
                             <td>
-                                <span class="announcement-title">Kegiatan Berenang Hari Jumat</span>
-                                <span class="announcement-preview">Diharapkan orang tua menyiapkan perlengkapan renang...</span>
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <span class="announcement-title">{{ $pengumuman->judul }}</span>
+                                </div>
+                                <div style="margin-top: 4px; display: flex; gap: 4px; flex-wrap: wrap;">
+                                    @foreach($pengumuman->kelas as $kelas)
+                                        <span style="font-size: 11px; background: #e0f2fe; color: #0284c7; padding: 2px 6px; border-radius: 4px;">{{ $kelas->tingkat }}</span>
+                                    @endforeach
+                                </div>
                             </td>
-                            <td><span class="date-text">24 Okt 2023, 08:30</span></td>
+                            <td><span class="date-text">{{ $pengumuman->created_at->format('d M Y, H:i') }}</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="btn-icon" title="Edit" onclick="openEditModal(this)">
+                                    <a href="{{ route('operator.pengumuman.edit', $pengumuman->id) }}" class="btn-icon" title="Edit" style="display:inline-flex; align-items:center; justify-content:center;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                    </button>
-                                    <button class="btn-icon btn-icon-delete" title="Hapus">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                    </button>
+                                    </a>
+                                    <form action="{{ route('operator.pengumuman.destroy', $pengumuman->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengumuman ini?');" style="display:inline-block; margin:0;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-icon btn-icon-delete" title="Hapus" style="background:none; border:none; cursor:pointer;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
+                        @empty
                         <tr>
-                            <td>
-                                <span class="announcement-title">Pemberitahuan Libur Nasional</span>
-                                <span class="announcement-preview">Sehubungan dengan hari raya, sekolah akan diliburkan pada...</span>
-                            </td>
-                            <td><span class="date-text">20 Okt 2023, 14:15</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="btn-icon" title="Edit" onclick="openEditModal(this)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                    </button>
-                                    <button class="btn-icon btn-icon-delete" title="Hapus">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                    </button>
-                                </div>
-                            </td>
+                            <td colspan="3" style="text-align: center; padding: 24px; color: #64748b;">Belum ada pengumuman yang dibuat.</td>
                         </tr>
+                        @endforelse
                     </tbody>
                 </table>
 
+                @if($pengumumans->count() > 0)
                 <div class="pagination">
-                    <span class="pagination-info">Menampilkan 1 - 2 dari 12 pengumuman</span>
-                    <div class="pagination-nav">
-                        <button class="btn-page" disabled>Sebelumnya</button>
-                        <button class="btn-page btn-page-active">1</button>
-                        <button class="btn-page">2</button>
-                        <button class="btn-page">3</button>
-                        <button class="btn-page">Selanjutnya</button>
-                    </div>
+                    <span class="pagination-info">Menampilkan {{ $pengumumans->count() }} pengumuman</span>
                 </div>
+                @endif
             </div>
 
             @include('partials.footer')
         </main>
 
-        <!-- Modal Buat Pengumuman -->
-        <div id="modalPengumuman" class="modal-overlay">
-            <div class="modal-content-pengumuman buat-pengumuman">
-                <div style="display: flex; justify-content: flex-end; padding: 16px 24px 0;">
-                    <button class="btn-close-modal" id="btnClosePengumuman">&times;</button>
-                </div>
-                <div class="scrollable-content" style="margin-top: 0; padding-top: 8px;">
-                    <div style="margin-bottom: 24px;">
-                        <h1 class="page-title" style="margin-bottom: 8px;">Buat Pengumuman Baru</h1>
-                        <p class="page-subtitle">Buat dan sebarkan informasi penting kepada orang tua murid dengan mudah. Pastikan semua detail terisi dengan benar sebelum mengirim.</p>
-                    </div>
-
-                    <!-- Step 1 Card -->
-                    <div class="step-card">
-                        <div class="step-header">
-                            <h2 class="step-title"><span class="step-number">1</span> Isi Detail Pengumuman</h2>
-                            <span class="badge-wajib">Wajib Diisi</span>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Judul Pengumuman <span class="required-asterisk">*</span></label>
-                            <div class="input-wrapper">
-                                <span class="input-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>
-                                </span>
-                                <input type="text" class="form-input" placeholder="Contoh: Kegiatan Outbound Semester 1" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Isi Pesan <span class="required-asterisk">*</span></label>
-                            <div id="editor-pengumuman" style="height: 150px; border-radius: 0 0 8px 8px;"></div>
-                            <input type="hidden" name="isi_pesan" id="isiPesanHidden">
-                            <div class="textarea-footer" style="margin-top: 8px;">
-                                <span>Gunakan bahasa yang sopan dan jelas.</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Lampiran (Opsional)</label>
-                            <div class="upload-area">
-                                <p class="upload-text"><span>Klik untuk upload</span> atau drag & drop</p>
-                                <p class="upload-subtext">Mendukung format gambar (JPG, PNG) atau dokumen (PDF). Maks 5MB.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Step 2 Card -->
-                    <div class="step-card">
-                        <div class="step-header">
-                            <h2 class="step-title"><span class="step-number">2</span> Pilih Target Kelas</h2>
-                            <div class="step-header-actions">
-                                <span class="info-text">Pilih minimal satu kelas</span>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="selectAll" style="display:none;" />
-                                    <div class="radio-circle check-all-circle" style="border-radius: 4px; width: 16px; height: 16px;"></div>
-                                    Pilih Semua
-                                </label>
-                            </div>
-                        </div>
-                        <div class="class-grid">
-                            <div class="class-card active">
-                                <div class="class-card-header">
-                                    <div class="class-info"><div class="class-avatar avatar-blue">A1</div><div class="class-details"><h4>TK A - Matahari</h4><p>Ibu Ani</p></div></div>
-                                    <div class="radio-circle"></div>
-                                </div>
-                            </div>
-                            <div class="class-card">
-                                <div class="class-card-header">
-                                    <div class="class-info"><div class="class-avatar avatar-purple">A2</div><div class="class-details"><h4>TK A - Bulan</h4><p>Ibu Budi</p></div></div>
-                                    <div class="radio-circle"></div>
-                                </div>
-                            </div>
-                            <div class="class-card">
-                                <div class="class-card-header">
-                                    <div class="class-info"><div class="class-avatar avatar-yellow">B1</div><div class="class-details"><h4>TK B - Bintang</h4><p>Ibu Citra</p></div></div>
-                                    <div class="radio-circle"></div>
-                                </div>
-                            </div>
-                            <div class="class-card">
-                                <div class="class-card-header">
-                                    <div class="class-info"><div class="class-avatar avatar-pink">B2</div><div class="class-details"><h4>TK B - Pelangi</h4><p>Ibu Dina</p></div></div>
-                                    <div class="radio-circle"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bottom Action Bar -->
-                    <div class="bottom-action-bar" style="position: static; margin-top: 24px;">
-                        <div class="action-info">Pastikan data sudah benar sebelum mengirim.</div>
-                        <div class="action-buttons">
-                            <button type="button" class="btn btn-outline" id="btnBatalPengumuman">Batal</button>
-                            <button type="button" class="btn btn-primary">Kirim Pengumuman</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Modal Logic
-            const modal = document.getElementById('modalPengumuman');
-            const btnBuat = document.getElementById('btnBuatPengumuman');
-            const btnClose = document.getElementById('btnClosePengumuman');
-            const btnBatal = document.getElementById('btnBatalPengumuman');
-
-            const openModal = () => modal.classList.add('active');
-            const closeModal = () => modal.classList.remove('active');
-
-            if(btnBuat) {
-                btnBuat.addEventListener('click', function() {
-                    document.querySelector('#modalPengumuman .page-title').textContent = 'Buat Pengumuman Baru';
-                    document.querySelector('#modalPengumuman .btn-primary').textContent = 'Kirim Pengumuman';
-                    document.querySelector('#modalPengumuman .form-input').value = '';
-                    if(window.quillEditor) window.quillEditor.root.innerHTML = '';
-                    openModal();
-                });
-            }
-            if(btnClose) btnClose.addEventListener('click', closeModal);
-            if(btnBatal) btnBatal.addEventListener('click', closeModal);
-            modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
-
-            // Class Cards Selection Logic
-            const classCards = document.querySelectorAll('.class-card');
-            const selectAllCheckbox = document.getElementById('selectAll');
-            const checkAllCircle = document.querySelector('.check-all-circle');
-
-            classCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    updateSelectAllState();
-                });
-            });
-
-            if (selectAllCheckbox) {
-                selectAllCheckbox.addEventListener('change', function() {
-                    const isChecked = this.checked;
-                    if(isChecked) checkAllCircle.classList.add('checked');
-                    else checkAllCircle.classList.remove('checked');
-
-                    classCards.forEach(card => {
-                        if (isChecked) card.classList.add('active');
-                        else card.classList.remove('active');
-                    });
-                });
-            }
-
-            function updateSelectAllState() {
-                if (!selectAllCheckbox) return;
-                const totalCards = classCards.length;
-                const activeCards = document.querySelectorAll('.class-card.active').length;
-                
-                const isAllChecked = (totalCards > 0 && totalCards === activeCards);
-                selectAllCheckbox.checked = isAllChecked;
-                
-                if(isAllChecked) checkAllCircle.classList.add('checked');
-                else checkAllCircle.classList.remove('checked');
-            }
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            window.quillEditor = new Quill('#editor-pengumuman', {
-                theme: 'snow',
-                placeholder: 'Tuliskan detail pengumuman yang ingin disampaikan secara lengkap...'
-            });
-            
-            // Simpan data Quill ke hidden input saat ada perubahan
-            window.quillEditor.on('text-change', function() {
-                document.getElementById('isiPesanHidden').value = window.quillEditor.root.innerHTML;
-            });
-
-            // Global Edit Function
-            window.openEditModal = function(btn) {
-                const row = btn.closest('tr');
-                const title = row.querySelector('.announcement-title').textContent;
-                const preview = row.querySelector('.announcement-preview').textContent;
-                
-                document.querySelector('#modalPengumuman .page-title').textContent = 'Edit Pengumuman';
-                document.querySelector('#modalPengumuman .btn-primary').textContent = 'Simpan Perubahan';
-                document.querySelector('#modalPengumuman .form-input').value = title;
-                window.quillEditor.root.innerHTML = preview;
-                
-                document.getElementById('modalPengumuman').classList.add('active');
-            };
-        });
-    </script>
 </body>
 </html>

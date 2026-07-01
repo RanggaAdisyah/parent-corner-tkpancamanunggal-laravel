@@ -107,9 +107,12 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
     Route::put('/kalender-kegiatan/{id}', [App\Http\Controllers\OperatorController::class, 'updateKalenderKegiatan']);
     Route::delete('/kalender-kegiatan/{id}', [App\Http\Controllers\OperatorController::class, 'destroyKalenderKegiatan']);
 
-    Route::get('/pengumuman', function () {
-        return view('Operator.daftar_pengumuman');
-    })->name('pengumuman');
+    Route::get('/pengumuman', [App\Http\Controllers\OperatorController::class, 'indexPengumuman'])->name('pengumuman');
+    Route::get('/pengumuman/buat', [App\Http\Controllers\OperatorController::class, 'createPengumuman'])->name('pengumuman.buat');
+    Route::post('/pengumuman', [App\Http\Controllers\OperatorController::class, 'storePengumuman'])->name('pengumuman.store');
+    Route::get('/pengumuman/{id}/edit', [App\Http\Controllers\OperatorController::class, 'editPengumuman'])->name('pengumuman.edit');
+    Route::put('/pengumuman/{id}', [App\Http\Controllers\OperatorController::class, 'updatePengumuman'])->name('pengumuman.update');
+    Route::delete('/pengumuman/{id}', [App\Http\Controllers\OperatorController::class, 'destroyPengumuman'])->name('pengumuman.destroy');
 
     Route::get('/galeri', function () {
         return view('Operator.galeri_kegiatan');

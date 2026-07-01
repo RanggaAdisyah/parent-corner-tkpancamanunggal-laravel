@@ -10,7 +10,9 @@ use App\Models\Kelas;
 use App\Models\JadwalPelajaran;
 use App\Models\KalenderKegiatan;
 use App\Models\Guru;
+use App\Models\Pengumuman;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class OperatorController extends Controller
 {
@@ -339,5 +341,119 @@ class OperatorController extends Controller
         $kegiatan = KalenderKegiatan::findOrFail($id);
         $kegiatan->delete();
         return redirect()->back()->with('success', 'Kegiatan berhasil dihapus!');
+    }
+
+    // --- PENGUMUMAN ---
+    public function indexPengumuman()
+    {
+        $pengumumans = Pengumuman::with('kelas')->latest()->get();
+        return view('operator.daftar_pengumuman', compact('pengumumans'));
+    }
+
+    public function createPengumuman()
+    {
+        $kelasList = Kelas::orderBy('tingkat')->orderBy('nama_kelas')->get();
+        return view('operator.buat_pengumuman', compact('kelasList'));
+    }
+
+    public function storePengumuman(Request $request)
+    {
+        $request->validate([
+            'judul'        => 'required|string|max:255',
+            'isi_pesan'    => 'required|string',
+            'target_kelas' => 'required|array|min:1',
+            'lampiran.*'   => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
+        ]);
+
+        $lampiranPaths = [];
+        if ($request->hasFile('lampiran')) {
+            foreach ($request->file('lampiran') as $file) {
+                $filename = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads/pengumuman'), $filename);
+                $lampiranPaths[] = 'uploads/pengumuman/' . $filename;
+            }
+        }
+
+        $pengumuman = Pengumuman::create([
+            'judul' => $request->judul,
+            'isi_pesan' => $request->isi_pesan,
+            'lampiran' => !empty($lampiranPaths) ? $lampiranPaths : null,
+        ]);
+
+        $pengumuman->kelas()->attach($request->target_kelas);
+
+        return redirect()->route('operator.pengumuman')
+            ->with('success', 'Pengumuman "' . $request->judul . '" berhasil dikirim!');
+    }
+
+    public function editPengumuman($id)
+    {
+        $pengumuman = Pengumuman::with('kelas')->findOrFail($id);
+        $kelasList = Kelas::orderBy('tingkat')->orderBy('nama_kelas')->get();
+        return view('operator.edit_pengumuman', compact('pengumuman', 'kelasList'));
+    }
+
+    public function updatePengumuman(Request $request, $id)
+    {
+        $pengumuman = Pengumuman::findOrFail($id);
+
+        $request->validate([
+            'judul'        => 'required|string|max:255',
+            'isi_pesan'    => 'required|string',
+            'target_kelas' => 'required|array|min:1',
+            'lampiran.*'   => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
+        ]);
+
+        $currentFiles = is_array($pengumuman->lampiran) ? $pengumuman->lampiran : [];
+
+        // Hapus file yang diminta oleh user
+        if ($request->has('deleted_files')) {
+            foreach ($request->deleted_files as $deletedFile) {
+                if (($key = array_search($deletedFile, $currentFiles)) !== false) {
+                    if (file_exists(public_path($deletedFile))) {
+                        unlink(public_path($deletedFile));
+                    }
+                    unset($currentFiles[$key]);
+                }
+            }
+            // Re-index array
+            $currentFiles = array_values($currentFiles);
+        }
+
+        // Tambah file baru
+        if ($request->hasFile('lampiran')) {
+            foreach ($request->file('lampiran') as $file) {
+                $filename = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads/pengumuman'), $filename);
+                $currentFiles[] = 'uploads/pengumuman/' . $filename;
+            }
+        }
+
+        $pengumuman->judul = $request->judul;
+        $pengumuman->isi_pesan = $request->isi_pesan;
+        $pengumuman->lampiran = !empty($currentFiles) ? $currentFiles : null;
+        $pengumuman->save();
+
+        $pengumuman->kelas()->sync($request->target_kelas);
+
+        return redirect()->route('operator.pengumuman')
+            ->with('success', 'Pengumuman "' . $pengumuman->judul . '" berhasil diperbarui!');
+    }
+
+    public function destroyPengumuman($id)
+    {
+        $pengumuman = Pengumuman::findOrFail($id);
+        
+        if (is_array($pengumuman->lampiran)) {
+            foreach ($pengumuman->lampiran as $file) {
+                if (file_exists(public_path($file))) {
+                    unlink(public_path($file));
+                }
+            }
+        }
+
+        $pengumuman->delete();
+
+        return redirect()->route('operator.pengumuman')->with('success', 'Pengumuman berhasil dihapus!');
     }
 }

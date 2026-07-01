@@ -145,7 +145,7 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    overflow: hidden; /* we will handle scrolling inside content area */
+    overflow-y: auto;
     background-color: #f8fafc;
 }
 
