@@ -37,6 +37,17 @@
                         <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 12px; color: #94a3b8;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                         <input type="text" id="search-galeri" class="search-input" placeholder="Cari galeri..." style="padding: 10px 16px 10px 36px; border: 1px solid #e2e8f0; border-radius: 8px; width: 250px; outline: none; font-size: 14px;">
                     </div>
+                    
+                    <select id="filter-kategori" style="padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px; outline: none; font-size: 14px; background: white; cursor: pointer; min-width: 130px; appearance: auto;">
+                        <option value="">Semua Kategori</option>
+                        <option value="Kunjungan">Kunjungan</option>
+                        <option value="Seni & Kreativitas">Seni & Kreativitas</option>
+                        <option value="Kompetisi">Kompetisi</option>
+                        <option value="Olahraga">Olahraga</option>
+                        <option value="Perayaan">Perayaan</option>
+                        <option value="Lain-lain">Lain-lain</option>
+                    </select>
+
                     <a href="{{ route('operator.galeri.buat') }}" class="btn-add" style="text-decoration: none; border: none; cursor: pointer; background: #2563eb; color: white; padding: 10px 16px; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 8px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                         Buat Daftar Galeri
@@ -63,6 +74,7 @@
                 @endphp
                 <article class="activity-card" role="button" tabindex="0"
                     data-title="{{ $galeri->judul }}"
+                    data-categories="{{ !empty($galeri->kategori) && is_array($galeri->kategori) ? implode(',', $galeri->kategori) : 'Umum' }}"
                     data-category="{{ $firstCat }}"
                     data-category-class="{{ $badgeClass }}"
                     data-date="{{ $galeri->tanggal_kegiatan ? \Carbon\Carbon::parse($galeri->tanggal_kegiatan)->translatedFormat('d F Y') : '-' }}"
@@ -249,19 +261,32 @@
 
             // Search Logic
             const searchInput = document.getElementById('search-galeri');
+            const filterKategori = document.getElementById('filter-kategori');
+            
+            const filterGaleri = () => {
+                const query = searchInput ? searchInput.value.toLowerCase() : '';
+                const kategori = filterKategori ? filterKategori.value.toLowerCase() : '';
+                
+                cards.forEach(card => {
+                    const title = (card.dataset.title || '').toLowerCase();
+                    const cardKategories = (card.dataset.categories || '').toLowerCase();
+                    
+                    const matchTitle = title.includes(query);
+                    const matchKategori = kategori === '' || cardKategories.includes(kategori);
+                    
+                    if (matchTitle && matchKategori) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            };
             
             if (searchInput) {
-                searchInput.addEventListener('input', function() {
-                    const query = this.value.toLowerCase();
-                    cards.forEach(card => {
-                        const title = (card.dataset.title || '').toLowerCase();
-                        if (title.includes(query)) {
-                            card.style.display = '';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
+                searchInput.addEventListener('input', filterGaleri);
+            }
+            if (filterKategori) {
+                filterKategori.addEventListener('change', filterGaleri);
             }
         });
     </script>

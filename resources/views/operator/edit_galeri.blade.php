@@ -209,16 +209,32 @@
                             </div>
                             <div class="category-grid">
                                 @php
-                                    $categories = ['Kunjungan', 'Seni & Kreativitas', 'Kompetisi', 'Olahraga', 'Perayaan', 'Lain-lain'];
                                     $selectedCategories = old('kategori', is_array($galeri->kategori) ? $galeri->kategori : []);
                                 @endphp
-                                @foreach($categories as $cat)
-                                @php $isCatChecked = in_array($cat, $selectedCategories); @endphp
                                 <label class="category-card" style="border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
-                                    <input type="radio" name="kategori[]" value="{{ $cat }}" style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;" {{ $isCatChecked ? 'checked' : '' }} required>
-                                    <h4 style="margin: 0; font-size: 14px;">{{ $cat }}</h4>
+                                    <input type="radio" name="kategori[]" value="Kunjungan" style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;" {{ in_array('Kunjungan', $selectedCategories) ? 'checked' : '' }} required>
+                                    <h4 style="margin: 0; font-size: 14px;">Kunjungan</h4>
                                 </label>
-                                @endforeach
+                                <label class="category-card" style="border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="kategori[]" value="Seni & Kreativitas" style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;" {{ in_array('Seni & Kreativitas', $selectedCategories) ? 'checked' : '' }} required>
+                                    <h4 style="margin: 0; font-size: 14px;">Seni & Kreativitas</h4>
+                                </label>
+                                <label class="category-card" style="border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="kategori[]" value="Kompetisi" style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;" {{ in_array('Kompetisi', $selectedCategories) ? 'checked' : '' }} required>
+                                    <h4 style="margin: 0; font-size: 14px;">Kompetisi</h4>
+                                </label>
+                                <label class="category-card" style="border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="kategori[]" value="Olahraga" style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;" {{ in_array('Olahraga', $selectedCategories) ? 'checked' : '' }} required>
+                                    <h4 style="margin: 0; font-size: 14px;">Olahraga</h4>
+                                </label>
+                                <label class="category-card" style="border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="kategori[]" value="Perayaan" style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;" {{ in_array('Perayaan', $selectedCategories) ? 'checked' : '' }} required>
+                                    <h4 style="margin: 0; font-size: 14px;">Perayaan</h4>
+                                </label>
+                                <label class="category-card" style="border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="kategori[]" value="Lain-lain" style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;" {{ in_array('Lain-lain', $selectedCategories) ? 'checked' : '' }} required>
+                                    <h4 style="margin: 0; font-size: 14px;">Lain-lain</h4>
+                                </label>
                             </div>
                         </div>
 
