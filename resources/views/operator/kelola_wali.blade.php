@@ -277,7 +277,7 @@
                 document.getElementById('detailHeadingNama').innerText = d.ayah || '-';
                 document.getElementById('detailHeadingNis').innerText = 'Wali Murid';
                 document.getElementById('detailHeadingInisial').innerText = d.ayah ? d.ayah.substring(0,2).toUpperCase() : 'W';
-                document.getElementById('detailNamaLengkap').innerText = d.nama || '-';
+                document.getElementById('detailNamaLengkap').innerText = d.namasiswa || '-';
                 
                 document.getElementById('detailAyah').innerText = d.ayah || '-';
                 document.getElementById('detailIbu').innerText = d.ibu || '-';
