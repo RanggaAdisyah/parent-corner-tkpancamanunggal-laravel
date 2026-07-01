@@ -72,7 +72,7 @@
                     </button>
                 </div>
                 
-                <form id="jadwalForm" method="POST" action="{{ url('/kalender-kegiatan') }}">
+                <form id="jadwalForm" method="POST" action="{{ url('/operator/kalender-kegiatan') }}">
                     @csrf
                     <input type="hidden" name="_method" id="formMethod" value="POST">
                     
@@ -288,9 +288,9 @@
                     modalTitle.innerText = 'Ubah Jadwal Kegiatan';
                     btnSubmit.innerText = 'Simpan Perubahan';
                     btnHapus.style.display = 'flex';
-                    form.action = `/kalender-kegiatan/${data.id}`;
+                    form.action = `/operator/kalender-kegiatan/${data.id}`;
                     document.getElementById('formMethod').value = 'PUT';
-                    deleteForm.action = `/kalender-kegiatan/${data.id}`;
+                    deleteForm.action = `/operator/kalender-kegiatan/${data.id}`;
 
                     document.getElementById('jadwalJudul').value = data.title || '';
                     document.getElementById('jadwalTanggal').value = data.date || '';
@@ -304,7 +304,7 @@
                     btnSubmit.innerText = 'Buat Jadwal';
                     btnHapus.style.display = 'none';
                     form.reset();
-                    form.action = `/kalender-kegiatan`;
+                    form.action = `/operator/kalender-kegiatan`;
                     document.getElementById('formMethod').value = 'POST';
                     if (data && data.date) document.getElementById('jadwalTanggal').value = data.date;
                 }
