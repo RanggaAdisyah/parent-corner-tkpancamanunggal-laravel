@@ -15,4 +15,9 @@ class Kelas extends Model
     {
         return $this->belongsToMany(Pengumuman::class, 'pengumuman_kelas');
     }
+
+    public function galeris()
+    {
+        return $this->belongsToMany(Galeri::class, 'galeri_kelas');
+    }
 }

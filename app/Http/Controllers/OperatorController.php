@@ -11,6 +11,7 @@ use App\Models\JadwalPelajaran;
 use App\Models\KalenderKegiatan;
 use App\Models\Guru;
 use App\Models\Pengumuman;
+use App\Models\Galeri;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -455,5 +456,171 @@ class OperatorController extends Controller
         $pengumuman->delete();
 
         return redirect()->route('operator.pengumuman')->with('success', 'Pengumuman berhasil dihapus!');
+    }
+
+    public function indexGaleri()
+    {
+        $galeris = Galeri::with('kelas')->latest('tanggal_kegiatan')->get();
+        return view('operator.galeri_kegiatan', compact('galeris'));
+    }
+
+    public function createGaleri()
+    {
+        $kelasList = \App\Models\Kelas::all();
+        return view('operator.buat_galeri', compact('kelasList'));
+    }
+
+    public function storeGaleri(Request $request)
+    {
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi_kegiatan' => 'nullable|string',
+            'tanggal_kegiatan' => 'nullable|date',
+            'kategori' => 'nullable|array',
+            'target_kelas' => 'required|array',
+            'target_kelas.*' => 'exists:kelas,id',
+            'foto' => 'nullable|array',
+            'foto.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
+        ]);
+
+        $uploadedPhotos = [];
+        $newPathsMap = [];
+        if ($request->hasFile('foto')) {
+            foreach ($request->file('foto') as $file) {
+                $filename = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads/galeri'), $filename);
+                $path = 'uploads/galeri/' . $filename;
+                $uploadedPhotos[] = $path;
+                $newPathsMap[$file->getClientOriginalName()] = $path;
+            }
+        }
+
+        if ($request->filled('cover_image')) {
+            $coverVal = $request->cover_image;
+            $coverPath = null;
+            if (str_starts_with($coverVal, 'new:')) {
+                $origName = substr($coverVal, 4);
+                if (isset($newPathsMap[$origName])) {
+                    $coverPath = $newPathsMap[$origName];
+                }
+            }
+            if ($coverPath && in_array($coverPath, $uploadedPhotos)) {
+                $uploadedPhotos = array_diff($uploadedPhotos, [$coverPath]);
+                array_unshift($uploadedPhotos, $coverPath);
+            }
+        }
+
+        $galeri = Galeri::create([
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi_kegiatan,
+            'tanggal_kegiatan' => $request->tanggal_kegiatan,
+            'kategori' => $request->kategori,
+            'foto' => !empty($uploadedPhotos) ? $uploadedPhotos : null,
+        ]);
+
+        $galeri->kelas()->attach($request->target_kelas);
+
+        return redirect()->route('operator.galeri')
+            ->with('success', 'Galeri "' . $galeri->judul . '" berhasil dibuat!');
+    }
+
+    public function editGaleri($id)
+    {
+        $galeri = Galeri::with('kelas')->findOrFail($id);
+        $kelasList = \App\Models\Kelas::all();
+        $selectedKelas = $galeri->kelas->pluck('id')->toArray();
+        return view('operator.edit_galeri', compact('galeri', 'kelasList', 'selectedKelas'));
+    }
+
+    public function updateGaleri(Request $request, $id)
+    {
+        $galeri = Galeri::findOrFail($id);
+        
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi_kegiatan' => 'nullable|string',
+            'tanggal_kegiatan' => 'nullable|date',
+            'kategori' => 'nullable|array',
+            'target_kelas' => 'required|array',
+            'target_kelas.*' => 'exists:kelas,id',
+            'foto' => 'nullable|array',
+            'foto.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
+        ]);
+
+        // Keep current photos that weren't deleted
+        $currentPhotos = is_array($galeri->foto) ? $galeri->foto : [];
+        if ($request->has('deleted_files')) {
+            foreach ($request->deleted_files as $deletedFile) {
+                if (($key = array_search($deletedFile, $currentPhotos)) !== false) {
+                    unset($currentPhotos[$key]);
+                    if (file_exists(public_path($deletedFile))) {
+                        unlink(public_path($deletedFile));
+                    }
+                }
+            }
+            $currentPhotos = array_values($currentPhotos);
+        }
+
+        // Add new photos
+        $newPathsMap = [];
+        if ($request->hasFile('foto')) {
+            foreach ($request->file('foto') as $file) {
+                $filename = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads/galeri'), $filename);
+                $path = 'uploads/galeri/' . $filename;
+                $currentPhotos[] = $path;
+                $newPathsMap[$file->getClientOriginalName()] = $path;
+            }
+        }
+
+        // Determine cover
+        if ($request->filled('cover_image')) {
+            $coverVal = $request->cover_image;
+            $coverPath = null;
+            if (str_starts_with($coverVal, 'old:')) {
+                $coverPath = substr($coverVal, 4);
+            } elseif (str_starts_with($coverVal, 'new:')) {
+                $origName = substr($coverVal, 4);
+                if (isset($newPathsMap[$origName])) {
+                    $coverPath = $newPathsMap[$origName];
+                }
+            }
+
+            if ($coverPath && in_array($coverPath, $currentPhotos)) {
+                $currentPhotos = array_diff($currentPhotos, [$coverPath]);
+                array_unshift($currentPhotos, $coverPath);
+            }
+        }
+
+        $galeri->update([
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi_kegiatan,
+            'tanggal_kegiatan' => $request->tanggal_kegiatan,
+            'kategori' => $request->kategori,
+            'foto' => !empty($currentPhotos) ? array_values($currentPhotos) : null,
+        ]);
+
+        $galeri->kelas()->sync($request->target_kelas);
+
+        return redirect()->route('operator.galeri')
+            ->with('success', 'Galeri "' . $galeri->judul . '" berhasil diperbarui!');
+    }
+
+    public function destroyGaleri($id)
+    {
+        $galeri = Galeri::findOrFail($id);
+        
+        if (is_array($galeri->foto)) {
+            foreach ($galeri->foto as $file) {
+                if (file_exists(public_path($file))) {
+                    unlink(public_path($file));
+                }
+            }
+        }
+        
+        $galeri->delete();
+
+        return redirect()->route('operator.galeri')
+            ->with('success', 'Galeri berhasil dihapus!');
     }
 }

@@ -114,9 +114,12 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
     Route::put('/pengumuman/{id}', [App\Http\Controllers\OperatorController::class, 'updatePengumuman'])->name('pengumuman.update');
     Route::delete('/pengumuman/{id}', [App\Http\Controllers\OperatorController::class, 'destroyPengumuman'])->name('pengumuman.destroy');
 
-    Route::get('/galeri', function () {
-        return view('Operator.galeri_kegiatan');
-    })->name('galeri');
+    Route::get('/galeri', [App\Http\Controllers\OperatorController::class, 'indexGaleri'])->name('galeri');
+    Route::get('/galeri/buat', [App\Http\Controllers\OperatorController::class, 'createGaleri'])->name('galeri.buat');
+    Route::post('/galeri', [App\Http\Controllers\OperatorController::class, 'storeGaleri'])->name('galeri.store');
+    Route::get('/galeri/{id}/edit', [App\Http\Controllers\OperatorController::class, 'editGaleri'])->name('galeri.edit');
+    Route::put('/galeri/{id}', [App\Http\Controllers\OperatorController::class, 'updateGaleri'])->name('galeri.update');
+    Route::delete('/galeri/{id}', [App\Http\Controllers\OperatorController::class, 'destroyGaleri'])->name('galeri.destroy');
 });
 
 // Guru Routes
