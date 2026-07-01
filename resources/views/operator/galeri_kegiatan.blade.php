@@ -33,6 +33,10 @@
                     <p class="galeri-subtitle">Kelola dokumentasi aktivitas siswa di sekolah.</p>
                 </div>
                 <div class="galeri-filters" style="display: flex; gap: 12px;">
+                    <div class="search-wrapper" style="position: relative; display: flex; align-items: center;">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 12px; color: #94a3b8;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="search-galeri" class="search-input" placeholder="Cari galeri..." style="padding: 10px 16px 10px 36px; border: 1px solid #e2e8f0; border-radius: 8px; width: 250px; outline: none; font-size: 14px;">
+                    </div>
                     <a href="{{ route('operator.galeri.buat') }}" class="btn-add" style="text-decoration: none; border: none; cursor: pointer; background: #2563eb; color: white; padding: 10px 16px; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 8px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                         Buat Daftar Galeri
@@ -242,6 +246,23 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modalDetail.classList.contains('active')) closeModalDetail();
             });
+
+            // Search Logic
+            const searchInput = document.getElementById('search-galeri');
+            
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const query = this.value.toLowerCase();
+                    cards.forEach(card => {
+                        const title = (card.dataset.title || '').toLowerCase();
+                        if (title.includes(query)) {
+                            card.style.display = '';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            }
         });
     </script>
 </body>

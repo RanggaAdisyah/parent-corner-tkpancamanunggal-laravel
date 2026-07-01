@@ -17,28 +17,79 @@ use Illuminate\Support\Facades\Storage;
 
 class OperatorController extends Controller
 {
+    public function indexAnak()
+    {
+        $daftarAnak = Siswa::with('orangTua')->get();
+        $kelasList = Kelas::all();
+        return view('operator.data_siswa', compact('daftarAnak', 'kelasList'));
+    }
+
+    public function storeAnak(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'kelas' => 'required',
+            'nis' => 'required',
+            'jenis_kelamin' => 'required',
+            'tanggal_lahir' => 'required|date',
+        ]);
+
+        Siswa::create($request->all());
+        return redirect()->back()->with('success', 'Data Anak berhasil ditambahkan!');
+    }
+
+    public function updateAnak(Request $request, $id)
+    {
+        $siswa = Siswa::findOrFail($id);
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'kelas' => 'required',
+            'nis' => 'required',
+            'jenis_kelamin' => 'required',
+            'tanggal_lahir' => 'required|date',
+        ]);
+
+        $siswa->update($request->all());
+        return redirect()->back()->with('success', 'Data Anak berhasil diperbarui!');
+    }
+
+    public function destroyAnak($id)
+    {
+        Siswa::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Data Anak berhasil dihapus!');
+    }
+
     public function indexWali()
     {
         // Ambil semua data orang tua beserta anaknya
         $daftarWali = OrangTua::with(['siswas', 'user'])->get();
-        $kelasList = Kelas::all();
-        return view('operator.kelola_wali', compact('daftarWali', 'kelasList'));
+        return view('operator.kelola_wali', compact('daftarWali'));
+    }
+
+    public function createWali()
+    {
+        $siswas = Siswa::whereNull('orang_tua_id')->get(); // Anak yang belum punya wali
+        return view('operator.buat_wali', compact('siswas'));
     }
 
     public function storeWali(Request $request)
     {
+        $request->merge([
+            'siswa_id' => array_filter($request->siswa_id ?? [])
+        ]);
+
         $request->validate([
-            'email' => 'required|email|unique:users',
+            'no_wa' => 'required|string|unique:users,username',
             'password' => 'required|min:6',
-            'nama_anak' => 'required',
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
+            'siswa_id' => 'required|array|min:1', // Harus memilih minimal 1 siswa
         ]);
 
         // 1. Buat User (Login)
         $user = User::create([
             'name' => $request->nama_ayah, // default menggunakan nama ayah
-            'email' => $request->email,
+            'username' => $request->no_wa,
             'password' => Hash::make($request->password),
             'role' => 'orang_tua'
         ]);
@@ -52,17 +103,12 @@ class OperatorController extends Controller
             'alamat' => $request->alamat,
         ]);
 
-        // 3. Buat Siswa
-        Siswa::create([
-            'orang_tua_id' => $orangTua->id,
-            'nama' => $request->nama_anak,
-            'kelas' => $request->kelas,
-            'nis' => $request->nis,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'tanggal_lahir' => $request->tanggal_lahir,
-        ]);
+        // 3. Hubungkan Anak (Siswa) ke Orang Tua ini
+        if ($request->has('siswa_id')) {
+            Siswa::whereIn('id', $request->siswa_id)->update(['orang_tua_id' => $orangTua->id]);
+        }
 
-        return redirect()->back()->with('success', 'Akun Wali berhasil ditambahkan!');
+        return redirect()->route('operator.kelola_wali')->with('success', 'Akun Wali berhasil ditambahkan!');
     }
 
     public function destroyWali($id)
@@ -80,33 +126,41 @@ class OperatorController extends Controller
         return redirect()->back()->with('success', 'Akun Wali berhasil dihapus!');
     }
 
+    public function editWali($id)
+    {
+        $orangTua = OrangTua::with(['siswas', 'user'])->where('user_id', $id)->firstOrFail();
+        $siswas = Siswa::whereNull('orang_tua_id')->orWhere('orang_tua_id', $orangTua->id)->get();
+        return view('operator.edit_wali', compact('orangTua', 'siswas'));
+    }
+
     public function updateWali(Request $request, $id)
     {
         $user = User::findOrFail($id);
         
+        $request->merge([
+            'siswa_id' => array_filter($request->siswa_id ?? [])
+        ]);
+
         $rules = [
-            'email' => 'required|email|unique:users,email,'.$id,
-            'nama_anak' => 'required',
+            'no_wa' => 'required|string|unique:users,username,'.$id,
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
+            'siswa_id' => 'required|array|min:1',
         ];
 
-        // Only validate password if it's filled
         if ($request->filled('password')) {
             $rules['password'] = 'min:6';
         }
 
         $request->validate($rules);
 
-        // Update User
         $user->name = $request->nama_ayah;
-        $user->email = $request->email;
+        $user->username = $request->no_wa;
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
         $user->save();
 
-        // Update Orang Tua
         $orangTua = OrangTua::where('user_id', $id)->first();
         if ($orangTua) {
             $orangTua->update([
@@ -116,20 +170,16 @@ class OperatorController extends Controller
                 'alamat' => $request->alamat,
             ]);
 
-            // Update Siswa
-            $siswa = Siswa::where('orang_tua_id', $orangTua->id)->first();
-            if ($siswa) {
-                $siswa->update([
-                    'nama' => $request->nama_anak,
-                    'kelas' => $request->kelas,
-                    'nis' => $request->nis,
-                    'jenis_kelamin' => $request->jenis_kelamin,
-                    'tanggal_lahir' => $request->tanggal_lahir,
-                ]);
-            }
+            // Detach previous students that are not in the new array
+            Siswa::where('orang_tua_id', $orangTua->id)
+                 ->whereNotIn('id', $request->siswa_id)
+                 ->update(['orang_tua_id' => null]);
+            
+            // Attach selected students
+            Siswa::whereIn('id', $request->siswa_id)->update(['orang_tua_id' => $orangTua->id]);
         }
 
-        return redirect()->back()->with('success', 'Data Akun Wali berhasil diperbarui!');
+        return redirect()->route('operator.kelola_wali')->with('success', 'Data Akun Wali berhasil diperbarui!');
     }
 
     // --- KELOLA GURU ---

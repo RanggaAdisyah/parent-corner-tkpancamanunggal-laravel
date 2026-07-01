@@ -40,44 +40,17 @@
                         </div>
 
                         <div class="background-border">
-                            <form class="container-8" action="#" method="get" role="search" aria-label="Cari guru">
-                                <label class="input" for="search-guru">
-                                    <div class="div-2">
-                                        <input
-                                            id="search-guru"
-                                            name="q"
-                                            class="text-wrapper-7"
-                                            type="search"
-                                            placeholder="Cari nama guru atau NIP..."
-                                            aria-label="Cari nama guru atau NIP"
-                                        />
-                                    </div>
-                                </label>
-
-                                <div class="container-9" aria-hidden="true">
-                                    <div class="div">
-                                        <img class="icon-8" src="{{ asset('img/icon-12.svg') }}" alt="" />
-                                    </div>
-                                </div>
+                            <form action="#" method="get" role="search" aria-label="Cari guru" style="flex: 1; display: flex; align-items: center; max-width: 400px; margin-right: auto;">
+                                <input id="search-guru" name="q" type="search" placeholder="Cari nama guru atau NIP..." aria-label="Cari nama guru atau NIP" style="width: 100%; padding: 10px 16px; border: 1px solid #e2e8f0; border-radius: 8px; outline: none; font-size: 14px; background: white;" />
                             </form>
 
-                            <div class="options-wrapper">
-                                <label class="options" for="filter-kelas">
-                                    <div class="image-fill" aria-hidden="true">
-                                        <div class="SVG">
-                                            <img class="vector" src="{{ asset('img/vector.svg') }}" alt="" />
-                                        </div>
-                                    </div>
-
-                                    <div class="container-10">
-                                        <select id="filter-kelas" class="text-7" aria-label="Filter kelas">
-                                            <option value="" selected>Semua Kelas</option>
-                                            @foreach($kelasList as $kelas)
-                                                <option value="{{ $kelas->id }}">{{ $kelas->tingkat }} - {{ $kelas->nama_kelas }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </label>
+                            <div class="options-wrapper" style="display: flex; gap: 10px;">
+                                <select id="filter-kelas" style="padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px; outline: none; font-size: 14px; background: white; cursor: pointer; min-width: 130px; appearance: auto;" aria-label="Filter kelas">
+                                    <option value="" selected>Semua Kelas</option>
+                                    @foreach($kelasList as $kelas)
+                                        <option value="{{ $kelas->id }}">{{ $kelas->tingkat }} - {{ $kelas->nama_kelas }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
@@ -529,6 +502,36 @@
                 if (e.target === modalGuru) closeModalGuru();
             });
         });
+
+        // Search & Filter Logic
+        const searchInput = document.getElementById('search-guru');
+        const filterKelas = document.getElementById('filter-kelas');
+
+        function filterRows() {
+            const query = searchInput.value.toLowerCase();
+            const selectedClass = filterKelas.value;
+
+            document.querySelectorAll('.row-3').forEach(row => {
+                const nama = (row.dataset.nama || '').toLowerCase();
+                const nip = (row.dataset.nip || '').toLowerCase();
+                const kelasId = row.dataset.walikelas || '';
+
+                const matchesSearch = nama.includes(query) || nip.includes(query);
+                let matchesClass = true;
+                if (selectedClass && selectedClass !== '') {
+                    matchesClass = (kelasId === selectedClass);
+                }
+
+                if (matchesSearch && matchesClass) {
+                    row.style.display = 'flex';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        if (searchInput) searchInput.addEventListener('input', filterRows);
+        if (filterKelas) filterKelas.addEventListener('change', filterRows);
     </script>
 </body>
 </html>

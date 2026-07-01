@@ -35,10 +35,18 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/login', function (Request $request) {
-    $credentials = $request->validate([
-        'email'    => ['required', 'email'],
+    $request->validate([
+        'login_identifier' => ['required'],
         'password' => ['required'],
     ]);
+
+    $loginIdentifier = $request->input('login_identifier');
+    $field = filter_var($loginIdentifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+    $credentials = [
+        $field => $loginIdentifier,
+        'password' => $request->input('password'),
+    ];
 
     if (Auth::attempt($credentials, $request->boolean('remember'))) {
         $request->session()->regenerate();
@@ -46,8 +54,8 @@ Route::post('/login', function (Request $request) {
     }
 
     return back()->withErrors([
-        'email' => 'Email atau kata sandi yang Anda masukkan salah.',
-    ])->onlyInput('email');
+        'login_identifier' => 'Kredensial yang Anda masukkan salah.',
+    ])->onlyInput('login_identifier');
 });
 
 Route::post('/logout', function (Request $request) {
@@ -72,23 +80,46 @@ Route::prefix('api/ppdb')->group(function () {
     })->name('api.ppdb.search');
 });
 
+Route::prefix('api/siswa')->group(function () {
+    Route::get('/search', function (\Illuminate\Http\Request $request) {
+        $query = $request->get('q');
+        if (!$query) return response()->json([]);
+
+        // Tampilkan siswa yang belum punya wali, atau jika mau mencari semua juga bisa, 
+        // tapi logikanya untuk ditautkan ke akun wali baru maka yang belum punya wali.
+        $data = \App\Models\Siswa::where('nama', 'like', "%{$query}%")
+            ->whereNull('orang_tua_id')
+            ->select('id', 'nama', 'nis')
+            ->take(10)->get();
+
+        return response()->json($data);
+    })->name('api.siswa.search');
+});
+
 // Operator Routes
 Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator.')->group(function () {
     Route::get('/dashboard', function () {
         return view('Operator.dashboard');
     })->name('dashboard');
 
+    Route::get('/data_siswa', [\App\Http\Controllers\OperatorController::class, 'indexAnak'])->name('data_siswa');
+    Route::post('/data_siswa', [\App\Http\Controllers\OperatorController::class, 'storeAnak']);
+    Route::put('/data_siswa/{id}', [\App\Http\Controllers\OperatorController::class, 'updateAnak'])->name('data_siswa.update');
+    Route::delete('/data_siswa/{id}', [\App\Http\Controllers\OperatorController::class, 'destroyAnak'])->name('data_siswa.destroy');
+
     Route::get('/kelola_wali', [\App\Http\Controllers\OperatorController::class, 'indexWali'])->name('kelola_wali');
-    Route::post('/kelola_wali', [\App\Http\Controllers\OperatorController::class, 'storeWali']);
-    Route::put('/kelola_wali/{id}', [\App\Http\Controllers\OperatorController::class, 'updateWali'])->name('operator.kelola_wali.update');
-    Route::delete('/kelola_wali/{id}', [\App\Http\Controllers\OperatorController::class, 'destroyWali'])->name('operator.kelola_wali.destroy');
+    Route::get('/kelola_wali/buat', [\App\Http\Controllers\OperatorController::class, 'createWali'])->name('kelola_wali.buat');
+    Route::post('/kelola_wali', [\App\Http\Controllers\OperatorController::class, 'storeWali'])->name('kelola_wali.store');
+    Route::get('/kelola_wali/{id}/edit', [\App\Http\Controllers\OperatorController::class, 'editWali'])->name('kelola_wali.edit');
+    Route::put('/kelola_wali/{id}', [\App\Http\Controllers\OperatorController::class, 'updateWali'])->name('kelola_wali.update');
+    Route::delete('/kelola_wali/{id}', [\App\Http\Controllers\OperatorController::class, 'destroyWali'])->name('kelola_wali.destroy');
 
     Route::get('/kelola-kelas', [\App\Http\Controllers\OperatorController::class, 'indexKelas'])->name('kelola-kelas');
     Route::post('/kelola-kelas', [\App\Http\Controllers\OperatorController::class, 'storeKelas']);
-    Route::put('/kelola-kelas/{id}', [\App\Http\Controllers\OperatorController::class, 'updateKelas'])->name('operator.kelola-kelas.update');
-    Route::delete('/kelola-kelas/{id}', [\App\Http\Controllers\OperatorController::class, 'destroyKelas'])->name('operator.kelola-kelas.destroy');
+    Route::put('/kelola-kelas/{id}', [\App\Http\Controllers\OperatorController::class, 'updateKelas'])->name('kelola-kelas.update');
+    Route::delete('/kelola-kelas/{id}', [\App\Http\Controllers\OperatorController::class, 'destroyKelas'])->name('kelola-kelas.destroy');
 
-    Route::get('/kelola-kelas/{kelas_id}/jadwal', [\App\Http\Controllers\OperatorController::class, 'indexJadwalKelas'])->name('operator.jadwal-kelas');
+    Route::get('/kelola-kelas/{kelas_id}/jadwal', [\App\Http\Controllers\OperatorController::class, 'indexJadwalKelas'])->name('jadwal-kelas');
     Route::post('/kelola-kelas/{kelas_id}/jadwal', [\App\Http\Controllers\OperatorController::class, 'storeJadwalKelas']);
     Route::put('/jadwal-kelas/{id}', [\App\Http\Controllers\OperatorController::class, 'updateJadwalKelas']);
     Route::delete('/jadwal-kelas/{id}', [\App\Http\Controllers\OperatorController::class, 'destroyJadwalKelas']);

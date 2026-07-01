@@ -103,6 +103,10 @@
             <div class="div"><img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" /></div>
             <div class="div-wrapper"><div class="{{ isset($active) && $active == 'akun_wali' ? 'text-2' : 'text-wrapper-3' }}">Akun Wali</div></div>
         </a>
+        <a href="{{ route('operator.data_siswa') }}" class="{{ isset($active) && $active == 'data_siswa' ? 'link' : 'link-2' }}" title="Data Siswa">
+            <div class="div"><img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" /></div>
+            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'data_siswa' ? 'text-2' : 'text-wrapper-3' }}">Data Siswa</div></div>
+        </a>
         <a href="{{ route('operator.kelola-guru') }}" class="{{ isset($active) && $active == 'akun-guru' ? 'link' : 'link-2' }}" title="Akun Guru">
             <div class="div"><img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" /></div>
             <div class="div-wrapper"><div class="{{ isset($active) && $active == 'akun-guru' ? 'text-2' : 'text-wrapper-3' }}">Akun Guru</div></div>
@@ -133,8 +137,8 @@
             <div class="admin-profile" role="img" aria-label="Foto profil Admin Operator"></div>
             <div class="margin">
                 <div class="div-2">
-                    <div class="div-2"><div class="text-wrapper-4">Admin Operator</div></div>
-                    <div class="div-2"><div class="text-wrapper-5">operator@tkpm.sch…</div></div>
+                    <div class="div-2"><div class="text-wrapper-4">{{ auth()->user() ? auth()->user()->name : 'Admin Operator' }}</div></div>
+                    <div class="div-2"><div class="text-wrapper-5" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ auth()->user() ? (auth()->user()->username ?? auth()->user()->email) : 'operator@tkpm.sch.id' }}">{{ auth()->user() ? (auth()->user()->username ?? auth()->user()->email) : 'operator@tkpm.sch.id' }}</div></div>
                 </div>
             </div>
             <div class="div-wrapper">
@@ -156,7 +160,7 @@
 </aside>
 
 @php
-    $kelolaDataPages = ['akun_wali', 'akun-guru', 'kelola-kelas', 'kalender-kegiatan'];
+    $kelolaDataPages = ['akun_wali', 'data_siswa', 'akun-guru', 'kelola-kelas', 'kalender-kegiatan'];
     $komunikasiPages = ['pengumuman', 'galeri-kegiatan'];
     $isKelolaDataActive = isset($active) && in_array($active, $kelolaDataPages);
     $isKomunikasiActive = isset($active) && in_array($active, $komunikasiPages);
@@ -205,6 +209,10 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     Akun Wali
                 </a>
+                <a href="{{ route('operator.data_siswa') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'data_siswa' ? 'active' : '' }}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    Data Siswa
+                </a>
                 <a href="{{ route('operator.kelola-guru') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'akun-guru' ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     Akun Guru
@@ -251,8 +259,8 @@
     <div class="ot-drawer__footer">
         <div class="ot-drawer__avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">A</div>
         <div style="flex: 1;">
-            <div class="ot-drawer__user-name">Admin Operator</div>
-            <div class="ot-drawer__user-role">operator@tkpm.sch.id</div>
+            <div class="ot-drawer__user-name">{{ auth()->user() ? auth()->user()->name : 'Admin Operator' }}</div>
+            <div class="ot-drawer__user-role">{{ auth()->user() ? (auth()->user()->username ?? auth()->user()->email) : 'operator@tkpm.sch.id' }}</div>
         </div>
         <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
             @csrf

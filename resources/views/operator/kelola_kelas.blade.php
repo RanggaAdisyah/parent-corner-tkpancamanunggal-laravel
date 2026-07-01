@@ -34,7 +34,11 @@
                             </div>
                         </div>
 
-                        <div class="background-border" style="display: none;"></div>
+                        <div class="background-border">
+                            <form action="#" method="get" role="search" aria-label="Cari kelas" style="flex: 1; display: flex; align-items: center; max-width: 400px;">
+                                <input id="search-kelas" name="q" type="search" placeholder="Cari nama kelas atau tingkat..." aria-label="Cari nama kelas atau tingkat" style="width: 100%; padding: 10px 16px; border: 1px solid #e2e8f0; border-radius: 8px; outline: none; font-size: 14px; background: white;" />
+                            </form>
+                        </div>
 
                         <section class="table-wrapper" aria-label="Daftar Kelas">
                             <div class="table" role="table" aria-label="Tabel Kelas">
@@ -280,6 +284,24 @@
                 modal.addEventListener('click', (e) => {
                     if (e.target === modal) closeModal();
                 });
+                // Search Logic
+                const searchInput = document.getElementById('search-kelas');
+                
+                function filterRows() {
+                    const query = searchInput.value.toLowerCase();
+                    document.querySelectorAll('.row-3').forEach(row => {
+                        const nama = (row.dataset.nama || '').toLowerCase();
+                        const tingkat = (row.dataset.tingkat || '').toLowerCase();
+
+                        if (nama.includes(query) || tingkat.includes(query)) {
+                            row.style.display = 'flex';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                }
+                
+                if (searchInput) searchInput.addEventListener('input', filterRows);
             });
         </script>
     </div>

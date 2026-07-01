@@ -97,6 +97,30 @@
 
             @include('partials.footer')
         </main>
+    </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.querySelector('.search-input');
+            const rows = document.querySelectorAll('tbody tr');
+
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const query = this.value.toLowerCase();
+                    rows.forEach(row => {
+                        const titleEl = row.querySelector('.announcement-title');
+                        if (!titleEl) return;
+                        
+                        const title = titleEl.textContent.toLowerCase();
+                        if (title.includes(query)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>

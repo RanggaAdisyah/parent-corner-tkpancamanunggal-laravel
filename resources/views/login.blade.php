@@ -62,19 +62,19 @@
 
                         <div class="div-3">
                             <div class="div-wrapper-2">
-                                <label class="text-wrapper-2" for="input-1">Username atau Email</label>
+                                <label class="text-wrapper-2" for="input-1">No HP atau Email</label>
                             </div>
                             <div class="container-3">
                                 <div class="input">
                                     <input
-                                        class="container-4 @error('email') is-invalid @enderror"
-                                        placeholder="Masukkan username atau email anda"
-                                        type="email"
+                                        class="container-4 @error('login_identifier') is-invalid @enderror"
+                                        placeholder="Masukkan No HP atau Email anda"
+                                        type="text"
                                         id="input-1"
-                                        name="email"
-                                        value="{{ old('email') }}"
+                                        name="login_identifier"
+                                        value="{{ old('login_identifier') }}"
                                         autocomplete="username"
-                                        inputmode="email"
+                                        inputmode="text"
                                         aria-describedby="input-1-hint"
                                         required
                                     >
