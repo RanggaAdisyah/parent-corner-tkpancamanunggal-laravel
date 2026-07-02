@@ -70,6 +70,28 @@ class GuruController extends Controller
         return redirect()->back()->with('success', 'Data kehadiran berhasil disimpan.');
     }
 
+    public function getKehadiranTanggal(Request $request)
+    {
+        $request->validate([
+            'tanggal' => 'required|date'
+        ]);
+        
+        $guru = $this->getGuru();
+        if (!$guru || !$guru->kelas_id) {
+            return response()->json([]);
+        }
+
+        $siswaIds = Siswa::where('kelas_id', $guru->kelas_id)
+                         ->orWhere('kelas', optional($guru->kelas)->nama_kelas)
+                         ->pluck('id');
+
+        $kehadirans = \App\Models\Kehadiran::whereIn('siswa_id', $siswaIds)
+                                           ->where('tanggal', $request->tanggal)
+                                           ->get();
+
+        return response()->json($kehadirans);
+    }
+
     public function nilai()
     {
         $guru = $this->getGuru();

@@ -63,7 +63,7 @@
                             <td class="col-status">
                                 <div class="status-options">
                                     <label class="status-option">
-                                        <input type="radio" name="kehadiran[{{ $siswa->id }}]" value="hadir" class="status-radio radio-hadir" checked> Hadir
+                                        <input type="radio" name="kehadiran[{{ $siswa->id }}]" value="hadir" class="status-radio radio-hadir"> Hadir
                                     </label>
                                     <label class="status-option">
                                         <input type="radio" name="kehadiran[{{ $siswa->id }}]" value="sakit" class="status-radio radio-sakit"> Sakit
@@ -101,5 +101,41 @@
             @include('partials.footer')
         </main>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tanggalInput = document.querySelector('input[name="tanggal"]');
+            
+            function clearForm() {
+                document.querySelectorAll('.status-radio').forEach(r => r.checked = false);
+                document.querySelectorAll('.note-input').forEach(i => i.value = '');
+            }
+
+            function fetchKehadiran() {
+                const tanggal = tanggalInput.value;
+                if (tanggal) {
+                    fetch(`{{ route('guru.get-kehadiran') }}?tanggal=${tanggal}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            clearForm();
+                            if (data && data.length > 0) {
+                                data.forEach(item => {
+                                    const radio = document.querySelector(`input[name="kehadiran[${item.siswa_id}]"][value="${item.status}"]`);
+                                    if (radio) radio.checked = true;
+
+                                    const noteInput = document.querySelector(`input[name="keterangan[${item.siswa_id}]"]`);
+                                    if (noteInput && item.keterangan) noteInput.value = item.keterangan;
+                                });
+                            }
+                        })
+                        .catch(error => console.error('Error fetching kehadiran:', error));
+                }
+            }
+
+            tanggalInput.addEventListener('change', fetchKehadiran);
+            
+            // Trigger fetch on initial load
+            fetchKehadiran();
+        });
+    </script>
 </body>
 </html>

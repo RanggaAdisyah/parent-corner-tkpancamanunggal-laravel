@@ -159,6 +159,7 @@ Route::middleware(['auth', 'role:guru'])->prefix('guru')->name('guru.')->group(f
     
     Route::get('/kehadiran', [App\Http\Controllers\GuruController::class, 'kehadiran'])->name('kehadiran');
     Route::post('/kehadiran', [App\Http\Controllers\GuruController::class, 'storeKehadiran'])->name('kehadiran.store');
+    Route::get('/get-kehadiran-tanggal', [App\Http\Controllers\GuruController::class, 'getKehadiranTanggal'])->name('get-kehadiran');
 
     Route::get('/nilai', [App\Http\Controllers\GuruController::class, 'nilai'])->name('nilai');
     Route::post('/nilai', [App\Http\Controllers\GuruController::class, 'storeNilai'])->name('nilai.store');
