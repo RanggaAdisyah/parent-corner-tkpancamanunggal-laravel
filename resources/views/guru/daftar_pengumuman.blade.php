@@ -28,10 +28,10 @@
                     <h1 class="header-title">Daftar Pengumuman</h1>
                     <p class="header-subtitle">Kelola dan lihat semua pengumuman yang telah Anda bagikan.</p>
                 </div>
-                <button type="button" id="btnBuatPengumuman" class="btn-add" style="border: none; cursor: pointer;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <a href="{{ route('guru.pengumuman') }}" class="btn-add" style="border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; background-color: #3b82f6; color: white; padding: 10px 20px; border-radius: 8px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                     Buat Pengumuman Baru
-                </button>
+                </a>
             </header>
 
             <div class="table-container">
@@ -52,52 +52,35 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @forelse($pengumumans as $p)
                         <tr>
                             <td>
-                                <span class="announcement-title">Kegiatan Berenang Hari Jumat</span>
-                                <span class="announcement-preview">Diharapkan orang tua menyiapkan perlengkapan renang...</span>
+                                <span class="announcement-title">{{ $p->judul }}</span>
+                                <span class="announcement-preview">{!! Str::limit(strip_tags($p->isi_pengumuman), 50) !!}</span>
                             </td>
-                            <td><span class="date-text">24 Okt 2023, 08:30</span></td>
+                            <td><span class="date-text">{{ $p->created_at->format('d M Y, H:i') }}</span></td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="btn-icon" title="Edit" onclick="openEditModal(this)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                    </button>
-                                    <button class="btn-icon btn-icon-delete" title="Hapus">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                    </button>
+                                    <form action="{{ route('guru.pengumuman.destroy', $p->id) }}" method="POST" onsubmit="return confirm('Hapus pengumuman ini?');" style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-icon btn-icon-delete" title="Hapus">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
+                        @empty
                         <tr>
-                            <td>
-                                <span class="announcement-title">Pemberitahuan Libur Nasional</span>
-                                <span class="announcement-preview">Sehubungan dengan hari raya, sekolah akan diliburkan pada...</span>
-                            </td>
-                            <td><span class="date-text">20 Okt 2023, 14:15</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="btn-icon" title="Edit" onclick="openEditModal(this)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                    </button>
-                                    <button class="btn-icon btn-icon-delete" title="Hapus">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                    </button>
-                                </div>
-                            </td>
+                            <td colspan="3" style="text-align:center;">Belum ada pengumuman</td>
                         </tr>
+                        @endforelse
                     </tbody>
                 </table>
 
                 <div class="pagination">
-                    <span class="pagination-info">Menampilkan 1 - 2 dari 12 pengumuman</span>
-                    <div class="pagination-nav">
-                        <button class="btn-page" disabled>Sebelumnya</button>
-                        <button class="btn-page btn-page-active">1</button>
-                        <button class="btn-page">2</button>
-                        <button class="btn-page">3</button>
-                        <button class="btn-page">Selanjutnya</button>
-                    </div>
+                    {{ $pengumumans->links('pagination::default') }}
                 </div>
             </div>
 

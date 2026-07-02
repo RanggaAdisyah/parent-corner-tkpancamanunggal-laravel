@@ -48,81 +48,44 @@
             </header>
 
             <section class="activity-grid">
+                @forelse($galeris as $galeri)
                 <article class="activity-card" role="button" tabindex="0"
-                    data-title="Kunjungan Museum"
-                    data-category="Kunjungan"
+                    data-title="{{ $galeri->judul }}"
+                    data-category="Galeri"
                     data-category-class="kunjungan"
-                    data-date="12 Mei 2024"
-                    data-photo-count="24 Foto"
-                    data-image="https://picsum.photos/seed/museum/600/400"
-                    data-body="Ananda mengunjungi Museum Nasional untuk belajar sejarah dan budaya Indonesia. Kegiatan ini membantu anak memahami warisan bangsa melalui pengalaman langsung.|||Para siswa terlihat antusias mengamati benda-benda bersejarah dan berfoto bersama di area pameran.">
+                    data-date="{{ $galeri->created_at->format('d M Y') }}"
+                    data-photo-count="1 Foto"
+                    data-image="{{ asset('storage/'.$galeri->file_path) }}"
+                    data-body="{{ strip_tags($galeri->deskripsi) }}">
                     <div class="activity-card-image">
-                        <img src="https://picsum.photos/seed/museum/400/260" alt="Kunjungan Museum" loading="lazy">
-                        <span class="activity-badge badge-kunjungan">Kunjungan</span>
+                        <img src="{{ asset('storage/'.$galeri->file_path) }}" alt="{{ $galeri->judul }}" loading="lazy">
+                        <span class="activity-badge badge-kunjungan">Galeri</span>
                     </div>
                     <div class="activity-card-body">
                         <div class="activity-card-top">
-                            <h3 class="activity-card-title">Kunjungan Museum</h3>
+                            <h3 class="activity-card-title">{{ $galeri->judul }}</h3>
                             <div style="display: flex; gap: 4px;">
-                                <button type="button" class="activity-menu-btn" aria-label="Edit" title="Edit" tabindex="-1" onclick="openEditModal(this)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                </button>
-                                <button type="button" class="activity-menu-btn" aria-label="Hapus" title="Hapus" tabindex="-1" style="color: #ef4444;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                </button>
+                                <form action="{{ route('guru.galeri.destroy', $galeri->id) }}" method="POST" onsubmit="return confirm('Hapus foto ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="activity-menu-btn" aria-label="Hapus" title="Hapus" tabindex="-1" style="color: #ef4444; border:none; background:transparent;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                    </button>
+                                </form>
                             </div>
                         </div>
-                        <p class="activity-card-desc">Ananda mengunjungi Museum Nasional untuk belajar sejarah dan budaya Indonesia.</p>
+                        <p class="activity-card-desc">{!! Str::limit($galeri->deskripsi, 50) !!}</p>
                         <footer class="activity-card-footer">
                             <span class="activity-meta">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                12 Mei 2024
-                            </span>
-                            <span class="activity-meta">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                                24 Foto
+                                {{ $galeri->created_at->format('d M Y') }}
                             </span>
                         </footer>
                     </div>
                 </article>
-
-                <article class="activity-card" role="button" tabindex="0"
-                    data-title="Pentas Seni Akhir Tahun"
-                    data-category="Seni & Kreativitas"
-                    data-category-class="seni"
-                    data-date="28 Juni 2024"
-                    data-photo-count="36 Foto"
-                    data-image="https://picsum.photos/seed/pentas/600/400"
-                    data-body="Pentas seni menampilkan bakat ananda dalam bernyanyi, menari, dan drama. Acara ini dihadiri oleh orang tua dan wali kelas.|||Setiap kelompok menampilkan karya terbaik mereka dengan penuh semangat dan kebanggaan.">
-                    <div class="activity-card-image">
-                        <img src="https://picsum.photos/seed/pentas/400/260" alt="Pentas Seni Akhir Tahun" loading="lazy">
-                        <span class="activity-badge badge-seni">Seni & Kreativitas</span>
-                    </div>
-                    <div class="activity-card-body">
-                        <div class="activity-card-top">
-                            <h3 class="activity-card-title">Pentas Seni Akhir Tahun</h3>
-                            <div style="display: flex; gap: 4px;">
-                                <button type="button" class="activity-menu-btn" aria-label="Edit" title="Edit" tabindex="-1" onclick="openEditModal(this)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                </button>
-                                <button type="button" class="activity-menu-btn" aria-label="Hapus" title="Hapus" tabindex="-1" style="color: #ef4444;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                </button>
-                            </div>
-                        </div>
-                        <p class="activity-card-desc">Pentas seni menampilkan bakat ananda dalam bernyanyi, menari, dan drama.</p>
-                        <footer class="activity-card-footer">
-                            <span class="activity-meta">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                28 Juni 2024
-                            </span>
-                            <span class="activity-meta">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                                36 Foto
-                            </span>
-                        </footer>
-                    </div>
-                </article>
+                @empty
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #64748b;">Belum ada foto kegiatan.</div>
+                @endforelse
             </section>
 
             @include('partials.footer')
@@ -169,11 +132,18 @@
                 <div style="display: flex; justify-content: flex-end; padding: 16px 24px 0;">
                     <button class="btn-close-modal" id="btnCloseGaleriForm">&times;</button>
                 </div>
-                <div class="form-card" style="margin-top: 0; padding-top: 8px; box-shadow: none;">
-                    <div style="margin-bottom: 24px;">
-                        <h1 class="page-title" style="margin-bottom: 8px;">Unggah Foto Kegiatan</h1>
-                        <p class="page-subtitle">Bagikan momen aktivitas siswa di kelas kepada orang tua murid.</p>
-                    </div>
+                <form action="{{ route('guru.galeri.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-card" style="margin-top: 0; padding-top: 8px; box-shadow: none;">
+                        <div style="margin-bottom: 24px;">
+                            <h1 class="page-title" style="margin-bottom: 8px;">Unggah Foto Kegiatan</h1>
+                            <p class="page-subtitle">Bagikan momen aktivitas siswa di kelas kepada orang tua murid.</p>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label class="form-label">Judul Kegiatan</label>
+                            <input type="text" name="judul" class="form-input" placeholder="Contoh: Kunjungan Museum" required>
+                        </div>
 
 
 
@@ -187,13 +157,15 @@
                         </div>
 
                         <div class="upload-container">
-                            <div class="upload-area">
-                                <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
-                                </svg>
-                                <p class="upload-text"><span>Klik untuk unggah</span> atau seret foto</p>
-                                <p class="upload-subtext">JPG, PNG, atau WEBP (Max 5MB)</p>
-                            </div>
+                            <div class="upload-container" style="position:relative;">
+                                <input type="file" name="foto" accept="image/*" required style="position:absolute; width:100%; height:100%; top:0; left:0; opacity:0; cursor:pointer;" onchange="this.nextElementSibling.querySelector('p span').innerText = this.files[0].name">
+                                <div class="upload-area">
+                                    <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                                    </svg>
+                                    <p class="upload-text"><span>Klik untuk unggah</span></p>
+                                    <p class="upload-subtext">JPG, PNG, atau WEBP (Max 5MB)</p>
+                                </div>
 
                             <div class="preview-grid">
                                 <div class="preview-box preview-placeholder-1"><span class="mock-img-1">👧🏻</span></div>
@@ -207,7 +179,7 @@
                             <div class="form-group" style="margin-top: 16px;">
                                 <label class="form-label">Deskripsi Kegiatan</label>
                                 <div id="editor-galeri" style="height: 120px; border-radius: 0 0 8px 8px;"></div>
-                                <input type="hidden" name="deskripsi_kegiatan" id="deskripsiKegiatanHidden">
+                                <input type="hidden" name="deskripsi" id="deskripsiKegiatanHidden">
                             </div>
                         </div>
                     </div>
@@ -252,9 +224,10 @@
 
                     <div class="action-bar" style="justify-content: flex-end; gap: 12px; margin-top: 24px;">
                         <button type="button" class="btn btn-outline" id="btnBatalGaleriForm">Batal</button>
-                        <button type="button" class="btn btn-primary">Unggah Foto</button>
+                        <button type="submit" class="btn btn-primary">Unggah Foto</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>

@@ -43,14 +43,14 @@
 
             <section class="guru-top-banner" aria-label="Banner sambutan">
                 <div class="guru-top-banner__content">
-                    <h2 class="guru-top-banner__title">Selamat Datang, Ibu Guru!</h2>
+                    <h2 class="guru-top-banner__title">Selamat Datang, Bapak/Ibu {{ $guru ? $guru->nama_lengkap : 'Guru' }}!</h2>
                     <p class="guru-top-banner__desc">
                         Semoga hari ini menyenangkan. Silakan pilih menu di bawah untuk mengelola aktivitas kelas hari ini.
                     </p>
                 </div>
 
                 <div class="guru-murid-badge" aria-label="Jumlah murid">
-                    <div class="guru-murid-badge__count">24</div>
+                    <div class="guru-murid-badge__count">{{ $jumlahMurid }}</div>
                     <div class="guru-murid-badge__label">MURID</div>
                 </div>
             </section>
@@ -62,7 +62,7 @@
                     </div>
                     <h3 class="guru-action-title">Input Kehadiran</h3>
                     <p class="guru-action-desc">Catat kehadiran siswa hari ini. Pastikan data terisi sebelum jam 9 pagi.</p>
-                    <a class="guru-action-cta guru-action-cta--primary" href="#" aria-label="Buka Kehadiran">
+                    <a class="guru-action-cta guru-action-cta--primary" href="{{ route('guru.kehadiran') }}" aria-label="Buka Kehadiran">
                         Buka Kehadiran
                         <span class="guru-action-cta__arrow" aria-hidden="true">→</span>
                     </a>
@@ -74,7 +74,7 @@
                     </div>
                     <h3 class="guru-action-title">Input Nilai</h3>
                     <p class="guru-action-desc">Masukkan nilai harian, tugas, atau evaluasi mingguan siswa.</p>
-                    <a class="guru-action-cta" href="#" aria-label="Kelola Nilai">
+                    <a class="guru-action-cta" href="{{ route('guru.nilai') }}" aria-label="Kelola Nilai">
                         Kelola Nilai
                         <span class="guru-action-cta__arrow" aria-hidden="true">↗</span>
                     </a>
@@ -86,7 +86,7 @@
                     </div>
                     <h3 class="guru-action-title">Lihat Jadwal</h3>
                     <p class="guru-action-desc">Cek jadwal pelajaran, kegiatan ekstrakurikuler, dan jam istirahat.</p>
-                    <a class="guru-action-cta" href="#" aria-label="Cek Jadwal">
+                    <a class="guru-action-cta" href="{{ route('guru.lihat-jadwal') }}" aria-label="Cek Jadwal">
                         Cek Jadwal
                         <span class="guru-action-cta__arrow" aria-hidden="true">👁</span>
                     </a>
@@ -98,7 +98,7 @@
                     </div>
                     <h3 class="guru-action-title">Buat Pengumuman</h3>
                     <p class="guru-action-desc">Kirim informasi penting kepada orang tua murid secara langsung.</p>
-                    <a class="guru-action-cta" href="#" aria-label="Tulis Info">
+                    <a class="guru-action-cta" href="{{ route('guru.buat-pengumuman') }}" aria-label="Tulis Info">
                         Tulis Info
                         <span class="guru-action-cta__arrow" aria-hidden="true">></span>
                     </a>
@@ -110,7 +110,7 @@
                     </div>
                     <h3 class="guru-action-title">Galeri Kegiatan</h3>
                     <p class="guru-action-desc">Bagikan momen seru kegiatan siswa di kelas ke galeri orang tua.</p>
-                    <a class="guru-action-cta" href="#" aria-label="Upload Foto">
+                    <a class="guru-action-cta" href="{{ route('guru.galeri') }}" aria-label="Upload Foto">
                         Galeri Foto
                         <span class="guru-action-cta__arrow" aria-hidden="true">⬆</span>
                     </a>

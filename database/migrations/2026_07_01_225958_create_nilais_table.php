@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('nilais', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('siswa_id')->constrained('siswas')->onDelete('cascade');
+            $table->date('tanggal');
+            $table->string('kegiatan');
+            $table->string('nilai'); // A, B, C, dst atau angka
+            $table->text('catatan')->nullable();
             $table->timestamps();
         });
     }

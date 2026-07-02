@@ -182,59 +182,39 @@
 
 
 
-                    {{-- === TK A === --}}
                     @php
-                    $tkaRows = [
-                        ['09.30 - 10.00', 'Kedatangan &amp; Doa Pagi', 'Menyapa guru, berdoa bersama', ''],
-                        ['10.00 - 10.30', 'Kegiatan Pembukaan', 'Menyanyi, senam pagi, diskusi tema hari ini', ''],
-                        ['10.30 - 11.30', 'Kegiatan Inti', 'Sentra bermain / aktivitas tematik (motorik, bahasa, seni)', ''],
-                        ['11.30 - 11.45', 'Istirahat &amp; Makan Bekal', 'Makan bersama, cuci tangan', ''],
-                        ['11.45', 'Penutup &amp; Pulang', 'Doa bersama dan pulang', 'row-pulang'],
-                    ];
-                    $tkaJumatRows = [
-                        ['09.15 - 09.30', 'Kedatangan &amp; Doa Pagi', 'Menyapa guru, berdoa bersama', ''],
-                        ['09.30 - 09.45', 'Kegiatan Pembukaan', 'Menyanyi, senam pagi, diskusi tema hari ini', ''],
-                        ['09.45 - 10.45', 'Kegiatan Inti', 'Sentra bermain / aktivitas tematik (motorik, bahasa, seni)', ''],
-                        ['10.45 - 11.00', 'Istirahat &amp; Makan Bekal', 'Makan bersama, cuci tangan', ''],
-                        ['11.00', 'Penutup &amp; Pulang', 'Doa bersama dan pulang', 'row-pulang'],
-                    ];
-                    $sabtuRows = [
-                        ['07.00 - 07.15', 'Kedatangan &amp; Doa Pagi', 'Menyapa guru, berdoa bersama', ''],
-                        ['07.15 - 07.30', 'Kegiatan Pembukaan', 'Menyanyi, senam pagi, diskusi tema hari ini', ''],
-                        ['07.30 - 08.30', 'Kegiatan Inti', 'Makan bersama / Ekstra Karate / Jalan-jalan', ''],
-                        ['08.30 - 09.00', 'Istirahat &amp; Makan Bekal', 'Makan bersama, cuci tangan', ''],
-                        ['09.00', 'Penutup &amp; Pulang', 'Doa bersama dan pulang', 'row-pulang'],
-                    ];
-                    $hariTka = [
-                        ['id'=>'tka-senin',  'label'=>'Senin',  'rows'=>$tkaRows],
-                        ['id'=>'tka-selasa', 'label'=>'Selasa', 'rows'=>$tkaRows],
-                        ['id'=>'tka-rabu',   'label'=>'Rabu',   'rows'=>$tkaRows],
-                        ['id'=>'tka-kamis',  'label'=>'Kamis',  'rows'=>$tkaRows],
-                        ['id'=>'tka-jumat',  'label'=>'Jumat',  'rows'=>$tkaJumatRows],
-                        ['id'=>'tka-sabtu',  'label'=>'Sabtu',  'rows'=>$sabtuRows],
-                    ];
+                    $hariList = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                    $jadwalByHari = array_fill_keys($hariList, []);
+                    if(isset($jadwals)) {
+                        foreach($jadwals as $j) {
+                            $jadwalByHari[$j->hari][] = $j;
+                        }
+                    }
                     @endphp
-                    <div class="jh-kelas-panel active" id="panel-tka">
+                    <div class="jh-kelas-panel active" id="panel-jadwal">
                         <div class="jh-hari-tabs">
-                            @foreach($hariTka as $i => $hari)
-                                <button class="jh-hari-tab {{ $i===0?'active':'' }}" data-hari="{{ $hari['id'] }}">{{ $hari['label'] }}</button>
+                            @foreach($hariList as $i => $hari)
+                                <button class="jh-hari-tab {{ $i===0?'active':'' }}" data-hari="hari-{{ $hari }}">{{ $hari }}</button>
                             @endforeach
                         </div>
-                        @foreach($hariTka as $i => $hari)
-                            <div class="jh-schedule {{ $i===0?'active':'' }}" id="{{ $hari['id'] }}">
-                                <div class="jh-badge">TK A &nbsp;&middot;&nbsp; {{ $hari['label'] }}</div>
+                        @foreach($hariList as $i => $hari)
+                            <div class="jh-schedule {{ $i===0?'active':'' }}" id="hari-{{ $hari }}">
+                                <div class="jh-badge">{{ $guru->kelas ? $guru->kelas->nama_kelas : 'Kelas' }} &nbsp;&middot;&nbsp; {{ $hari }}</div>
                                 <div class="jh-table-wrapper">
                                     <table class="jh-table">
                                         <thead><tr><th>Waktu</th><th>Kegiatan</th><th>Keterangan</th></tr></thead>
                                         <tbody>
-                                            @foreach($hari['rows'] as $row)
-                                                <tr class="{{ $row[3] }}">
-                                                    <td>{!! $row[0] !!}</td>
-                                                    <td>{!! $row[1] !!}</td>
-                                                    <td>{!! $row[2] !!}</td>
-
+                                            @forelse($jadwalByHari[$hari] as $row)
+                                                <tr>
+                                                    <td>{{ $row->jam_mulai }} - {{ $row->jam_selesai }}</td>
+                                                    <td>{{ $row->kegiatan }}</td>
+                                                    <td>{{ $row->keterangan }}</td>
                                                 </tr>
-                                            @endforeach
+                                            @empty
+                                                <tr>
+                                                    <td colspan="3" style="text-align:center; padding:20px;">Belum ada jadwal</td>
+                                                </tr>
+                                            @endforelse
                                         </tbody>
                                     </table>
                                 </div>

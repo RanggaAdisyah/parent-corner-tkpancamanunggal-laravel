@@ -41,10 +41,15 @@ class OperatorController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'kelas' => 'required',
+            'kelas_id' => 'required',
             'nis' => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',
+        ]);
+
+        $kelas = Kelas::find($request->kelas_id);
+        $request->merge([
+            'kelas' => $kelas ? ($kelas->tingkat . ' - ' . $kelas->nama_kelas) : ''
         ]);
 
         Siswa::create($request->all());
@@ -56,10 +61,15 @@ class OperatorController extends Controller
         $siswa = Siswa::findOrFail($id);
         $request->validate([
             'nama' => 'required|string|max:255',
-            'kelas' => 'required',
+            'kelas_id' => 'required',
             'nis' => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',
+        ]);
+
+        $kelas = Kelas::find($request->kelas_id);
+        $request->merge([
+            'kelas' => $kelas ? ($kelas->tingkat . ' - ' . $kelas->nama_kelas) : ''
         ]);
 
         $siswa->update($request->all());

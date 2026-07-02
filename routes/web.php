@@ -155,33 +155,25 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
 
 // Guru Routes
 Route::middleware(['auth', 'role:guru'])->prefix('guru')->name('guru.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('guru.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\GuruController::class, 'dashboard'])->name('dashboard');
+    
+    Route::get('/kehadiran', [App\Http\Controllers\GuruController::class, 'kehadiran'])->name('kehadiran');
+    Route::post('/kehadiran', [App\Http\Controllers\GuruController::class, 'storeKehadiran'])->name('kehadiran.store');
 
-    Route::get('/kehadiran', function () {
-        return view('guru.kehadiran');
-    })->name('kehadiran');
+    Route::get('/nilai', [App\Http\Controllers\GuruController::class, 'nilai'])->name('nilai');
+    Route::post('/nilai', [App\Http\Controllers\GuruController::class, 'storeNilai'])->name('nilai.store');
 
-    Route::get('/nilai', function () {
-        return view('guru.nilai');
-    })->name('nilai');
+    Route::get('/lihat-jadwal', [App\Http\Controllers\GuruController::class, 'jadwal'])->name('lihat-jadwal');
 
-    Route::get('/lihat-jadwal', function () {
-        return view('guru.lihat_jadwal');
-    })->name('lihat-jadwal');
+    Route::get('/unggah-foto', [App\Http\Controllers\GuruController::class, 'galeri'])->name('galeri');
+    Route::post('/unggah-foto', [App\Http\Controllers\GuruController::class, 'storeGaleri'])->name('galeri.store');
+    Route::delete('/unggah-foto/{id}', [App\Http\Controllers\GuruController::class, 'destroyGaleri'])->name('galeri.destroy');
 
-    Route::get('/unggah-foto', function () {
-        return view('guru.galeri');
-    })->name('galeri');
-
-    Route::get('/buat-pengumuman', function () {
-        return view('guru.pengumuman');
-    })->name('buat-pengumuman');
-
-    Route::get('/daftar-pengumuman', function () {
-        return view('guru.daftar_pengumuman');
-    })->name('daftar-pengumuman');
+    Route::get('/buat-pengumuman', [App\Http\Controllers\GuruController::class, 'buatPengumuman'])->name('buat-pengumuman');
+    Route::post('/buat-pengumuman', [App\Http\Controllers\GuruController::class, 'storePengumuman'])->name('pengumuman.store');
+    
+    Route::get('/daftar-pengumuman', [App\Http\Controllers\GuruController::class, 'daftarPengumuman'])->name('daftar-pengumuman');
+    Route::delete('/pengumuman/{id}', [App\Http\Controllers\GuruController::class, 'destroyPengumuman'])->name('pengumuman.destroy');
 });
 
 // Orang Tua Routes

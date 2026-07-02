@@ -86,7 +86,8 @@
                                         data-id="{{ $anak->id }}"
                                         data-nama="{{ $anak->nama }}"
                                         data-nis="{{ $anak->nis }}"
-                                        data-kelas="{{ $anak->kelas }}"
+                                        data-kelasid="{{ $anak->kelas_id }}"
+                                        data-kelas="{{ $anak->kelasLokal ? $anak->kelasLokal->tingkat . ' - ' . $anak->kelasLokal->nama_kelas : $anak->kelas }}"
                                         data-jk="{{ $anak->jenis_kelamin }}"
                                         data-tgllahir="{{ $anak->tanggal_lahir }}"
                                         data-status="{{ $anak->orang_tua_id ? 'Terkait' : 'Belum' }}"
@@ -111,7 +112,7 @@
                                         </div>
 
                                         <div class="data-2" role="cell">
-                                            <div class="text-14">{{ $anak->kelas ?? '-' }}</div>
+                                            <div class="text-14">{{ $anak->kelasLokal ? $anak->kelasLokal->tingkat . ' - ' . $anak->kelasLokal->nama_kelas : ($anak->kelas ?? '-') }}</div>
                                         </div>
 
                                         <div class="background-wrapper" role="cell">
@@ -294,10 +295,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Kelas</label>
-                                    <select name="kelas" id="anakKelas" class="form-select" required>
+                                    <select name="kelas_id" id="anakKelas" class="form-select" required>
                                         <option value="">Pilih Kelas</option>
                                         @foreach($kelasList as $kelas)
-                                            <option value="{{ $kelas->tingkat }} - {{ $kelas->nama_kelas }}">{{ $kelas->tingkat }} - {{ $kelas->nama_kelas }}</option>
+                                            <option value="{{ $kelas->id }}">{{ $kelas->tingkat }} - {{ $kelas->nama_kelas }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -395,7 +396,7 @@
 
                     document.getElementById('anakNama').value = d.nama || '';
                     document.getElementById('anakNis').value = d.nis || '';
-                    document.getElementById('anakKelas').value = d.kelas || '';
+                    document.getElementById('anakKelas').value = d.kelasid || '';
                     document.getElementById('anakJk').value = d.jk || '';
                     document.getElementById('anakTglLahir').value = d.tgllahir || '';
 
