@@ -359,8 +359,7 @@
                             document.getElementById('detailJk').innerText = d.jk || '-';
                             document.getElementById('detailTgllahir').innerText = d.tgllahir || '-';
                             document.getElementById('detailWali').innerText = d.wali || '-';
-                            
-                            document.getElementById('formHapusAnak').action = `/operator/data_anak/${d.id}`;
+                            document.getElementById('formHapusAnak').action = `/operator/data_siswa/${d.id}`;
                         }
                     });
                 }
