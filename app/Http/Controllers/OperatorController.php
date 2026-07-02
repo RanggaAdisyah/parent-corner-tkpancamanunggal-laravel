@@ -17,6 +17,19 @@ use Illuminate\Support\Facades\Storage;
 
 class OperatorController extends Controller
 {
+    public function indexDashboard()
+    {
+        $totalSiswa = Siswa::count();
+        $totalGuru = Guru::count();
+        $totalFoto = Galeri::count();
+        $fotoBulanIni = Galeri::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->count();
+        $pengumumanTerkini = Pengumuman::with('kelas')->latest()->take(3)->get();
+
+        return view('operator.dashboard', compact(
+            'totalSiswa', 'totalGuru', 'totalFoto', 'fotoBulanIni', 'pengumumanTerkini'
+        ));
+    }
+
     public function indexAnak()
     {
         $daftarAnak = Siswa::with('orangTua')->get();

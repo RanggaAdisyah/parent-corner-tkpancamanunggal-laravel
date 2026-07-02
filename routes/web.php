@@ -98,9 +98,7 @@ Route::prefix('api/siswa')->group(function () {
 
 // Operator Routes
 Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('Operator.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\OperatorController::class, 'indexDashboard'])->name('dashboard');
 
     Route::get('/data_siswa', [\App\Http\Controllers\OperatorController::class, 'indexAnak'])->name('data_siswa');
     Route::post('/data_siswa', [\App\Http\Controllers\OperatorController::class, 'storeAnak']);

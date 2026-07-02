@@ -26,111 +26,74 @@
             </section>
 
             <section class="heading" aria-labelledby="aksi-cepat-title">
-                <div class="div">
-                    <img class="icon-8" src="{{ asset('img/icon-4.svg') }}" alt="" />
-                </div>
                 <h2 class="text-8" id="aksi-cepat-title">Pilih Aksi Cepat</h2>
             </section>
 
             <section class="container-6" aria-label="Aksi cepat" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-                <a class="link-3" href="{{ route('operator.kelola_wali') }}" aria-label="Kelola Akun Wali" style="grid-column: auto; grid-row: auto;">
+                <a class="link-3" href="{{ route('operator.kelola_wali') }}" aria-label="Akun Wali" style="grid-column: auto; grid-row: auto;">
                     <div class="background-2">
                         <div class="div">
                             <img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" />
                         </div>
                     </div>
-                    <div class="heading-2">
-                        <div class="text-9">Akun Wali</div>
-                    </div>
-                    <div class="container-7">
-                        <p class="text-10">
-                            Tambah, edit, atau nonaktifkan akun wali murid.
-                        </p>
-                    </div>
-                    <div class="container-8">
-                        <div class="text-11">Akses Menu</div>
-                        <div class="div">
-                            <img class="icon-9" src="{{ asset('img/icon-25.svg') }}" alt="" />
-                        </div>
-                    </div>
-                    <div class="img-wrapper" aria-hidden="true">
-                        <img class="icon-10" src="{{ asset('img/icon.svg') }}" alt="" />
-                    </div>
+                    <div class="heading-2"><div class="text-9">Akun Wali</div></div>
+                    <div class="container-7"><p class="text-10">Tambah, edit, atau nonaktifkan akun wali murid.</p></div>
+                    <div class="container-8"><div class="text-11">Akses Menu</div></div>
                 </a>
 
-                <a class="link-3" href="{{ route('operator.kelola-guru') }}" aria-label="Kelola Akun Guru" style="grid-column: auto; grid-row: auto;">
+                <a class="link-3" href="{{ route('operator.data_siswa') }}" aria-label="Data Siswa" style="grid-column: auto; grid-row: auto;">
+                    <div class="background-2" style="background-color: #dbeafe;">
+                        <div class="div">
+                            <img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" />
+                        </div>
+                    </div>
+                    <div class="heading-2"><div class="text-9">Data Siswa</div></div>
+                    <div class="container-7"><p class="text-10">Lihat dan kelola data seluruh siswa aktif.</p></div>
+                    <div class="container-8"><div class="text-11">Akses Menu</div></div>
+                </a>
+
+                <a class="link-3" href="{{ route('operator.kelola-guru') }}" aria-label="Akun Guru" style="grid-column: auto; grid-row: auto;">
                     <div class="background-2" style="background-color: #fef08a;">
                         <div class="div">
                             <img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" />
                         </div>
                     </div>
-                    <div class="heading-2">
-                        <div class="text-9">Akun Guru</div>
-                    </div>
-                    <div class="container-7">
-                        <p class="text-10">
-                            Kelola data, tambah atau nonaktifkan akun staf pengajar.
-                        </p>
-                    </div>
-                    <div class="container-8">
-                        <div class="text-11">Akses Menu</div>
-                        <div class="div">
-                            <img class="icon-9" src="{{ asset('img/icon-25.svg') }}" alt="" />
-                        </div>
-                    </div>
-                    <div class="img-wrapper" aria-hidden="true">
-                        <img class="icon-10" src="{{ asset('img/icon.svg') }}" alt="" />
-                    </div>
+                    <div class="heading-2"><div class="text-9">Akun Guru</div></div>
+                    <div class="container-7"><p class="text-10">Kelola data dan akun seluruh staf pengajar.</p></div>
+                    <div class="container-8"><div class="text-11">Akses Menu</div></div>
                 </a>
 
-                <a class="link-4" href="{{ route('operator.kalender-kegiatan') }}" aria-label="Kelola Jadwal" style="grid-column: auto; grid-row: auto;">
+                <a class="link-4" href="{{ route('operator.kelola-kelas') }}" aria-label="Kelola Kelas" style="grid-column: auto; grid-row: auto;">
                     <div class="background-3">
                         <div class="div">
                             <img class="icon-11" src="{{ asset('icon/operator/jadwal.svg') }}" alt="" />
                         </div>
                     </div>
-                    <div class="heading-2">
-                        <div class="text-12">Kelola Jadwal</div>
-                    </div>
-                    <div class="container-7">
-                        <p class="text-13">
-                            Atur jadwal pelajaran mingguan dan kegiatan khusus.
-                        </p>
-                    </div>
-                    <div class="container-8">
-                        <div class="text-14">Akses Menu</div>
-                        <div class="div">
-                            <img class="icon-9" src="{{ asset('img/icon-24.svg') }}" alt="" />
-                        </div>
-                    </div>
-                    <div class="img-wrapper" aria-hidden="true">
-                        <img class="icon-12" src="{{ asset('img/icon-20.svg') }}" alt="" />
-                    </div>
+                    <div class="heading-2"><div class="text-12">Kelola Kelas</div></div>
+                    <div class="container-7"><p class="text-13">Atur daftar kelas dan wali kelas yang bertugas.</p></div>
+                    <div class="container-8"><div class="text-14">Akses Menu</div></div>
                 </a>
 
-                <a class="link-5" href="{{ route('operator.pengumuman') }}" aria-label="Buat Pengumuman" style="grid-column: auto; grid-row: auto;">
+                <a class="link-4" href="{{ route('operator.kalender-kegiatan') }}" aria-label="Kalender Kegiatan" style="grid-column: auto; grid-row: auto;">
+                    <div class="background-3" style="background-color: #d1fae5;">
+                        <div class="div">
+                            <img class="icon-11" src="{{ asset('icon/operator/jadwal.svg') }}" alt="" />
+                        </div>
+                    </div>
+                    <div class="heading-2"><div class="text-12">Kalender Kegiatan</div></div>
+                    <div class="container-7"><p class="text-13">Jadwalkan dan pantau kegiatan sekolah.</p></div>
+                    <div class="container-8"><div class="text-14">Akses Menu</div></div>
+                </a>
+
+                <a class="link-5" href="{{ route('operator.pengumuman') }}" aria-label="Pengumuman" style="grid-column: auto; grid-row: auto;">
                     <div class="background-4">
                         <div class="div">
                             <img class="icon-5" src="{{ asset('icon/operator/pengumuman.svg') }}" alt="" />
                         </div>
                     </div>
-                    <div class="heading-2">
-                        <div class="text-15">Pengumuman</div>
-                    </div>
-                    <div class="container-7">
-                        <p class="text-16">
-                            Publikasikan informasi penting untuk wali murid.
-                        </p>
-                    </div>
-                    <div class="container-9">
-                        <div class="text-17">Akses Menu</div>
-                        <div class="div">
-                            <img class="icon-9" src="{{ asset('img/icon-12.svg') }}" alt="" />
-                        </div>
-                    </div>
-                    <div class="img-wrapper" aria-hidden="true">
-                        <img class="icon-13" src="{{ asset('img/icon-3.svg') }}" alt="" />
-                    </div>
+                    <div class="heading-2"><div class="text-15">Pengumuman</div></div>
+                    <div class="container-7"><p class="text-16">Publikasikan informasi penting untuk wali murid.</p></div>
+                    <div class="container-9"><div class="text-17">Akses Menu</div></div>
                 </a>
 
                 <a class="link-6" href="{{ route('operator.galeri') }}" aria-label="Galeri Kegiatan" style="grid-column: auto; grid-row: auto;">
@@ -139,25 +102,12 @@
                             <img class="icon-14" src="{{ asset('icon/operator/galeri.svg') }}" alt="" />
                         </div>
                     </div>
-                    <div class="heading-2">
-                        <div class="text-18" style="font-size: 16px;">Galeri Kegiatan</div>
-                    </div>
-                    <div class="container-7">
-                        <p class="text-19">
-                            Dokumentasikan kegiatan siswa ke dalam galeri.
-                        </p>
-                    </div>
-                    <div class="container-9">
-                        <div class="text-20">Akses Menu</div>
-                        <div class="div">
-                            <img class="icon-9" src="{{ asset('img/icon-10.svg') }}" alt="" />
-                        </div>
-                    </div>
-                    <div class="img-wrapper" aria-hidden="true">
-                        <img class="icon-12" src="{{ asset('img/icon-14.svg') }}" alt="" />
-                    </div>
+                    <div class="heading-2"><div class="text-18" style="font-size: 16px;">Galeri Kegiatan</div></div>
+                    <div class="container-7"><p class="text-19">Dokumentasikan kegiatan siswa ke dalam galeri.</p></div>
+                    <div class="container-9"><div class="text-20">Akses Menu</div></div>
                 </a>
             </section>
+
 
             <section class="container-10" aria-label="Ringkasan data">
                 <section class="background-border-3" aria-labelledby="pengumuman-terkini-title">
@@ -171,53 +121,27 @@
                     </div>
 
                     <div class="container-12">
-                        <article class="background-border-4">
-                            <div class="background-6" aria-hidden="true">
-                                <div class="div">
-                                    <img class="icon-15" src="{{ asset('img/icon-16.svg') }}" alt="" />
-                                </div>
-                            </div>
-                            <div class="container-4">
-                                <div class="div-2">
-                                    <h3 class="text-23">Libur Nasional &amp; Cuti Bersama</h3>
-                                </div>
-                                <div class="div-2">
-                                    <p class="text-24">
-                                        Diberitahukan kepada seluruh wali murid bahwa sekolah diliburkan pada tanggal...
-                                    </p>
-                                </div>
-                                <div class="container-13">
-                                    <div class="div">
-                                        <img class="icon-16" src="{{ asset('img/icon-22.svg') }}" alt="" />
+                        @forelse($pengumumanTerkini as $item)
+                        <a href="{{ route('operator.pengumuman.edit', $item->id) }}" style="text-decoration: none; color: inherit; display: block; width: 100%;">
+                            <article class="background-border-4" style="cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background=''">
+                                <div class="container-4">
+                                    <div class="div-2">
+                                        <h3 class="text-23">{{ $item->judul }}</h3>
                                     </div>
-                                    <div class="text-25">2 jam yang lalu</div>
-                                </div>
-                            </div>
-                        </article>
-
-                        <article class="background-border-4">
-                            <div class="background-7" aria-hidden="true">
-                                <div class="div">
-                                    <img class="icon-17" src="{{ asset('img/icon-2.svg') }}" alt="" />
-                                </div>
-                            </div>
-                            <div class="container-4">
-                                <div class="div-2">
-                                    <h3 class="text-26">Kegiatan Menanam Pohon</h3>
-                                </div>
-                                <div class="div-2">
-                                    <p class="text-27">
-                                        Siswa diharapkan membawa perlengkapan berkebun sederhana untuk kegiatan besok...
-                                    </p>
-                                </div>
-                                <div class="container-13">
-                                    <div class="div">
-                                        <img class="icon-16" src="{{ asset('img/image.svg') }}" alt="" />
+                                    <div class="div-2">
+                                        <p class="text-24">
+                                            {{ Str::limit(strip_tags($item->isi_pesan), 80) }}
+                                        </p>
                                     </div>
-                                    <div class="text-28">Kemarin</div>
+                                    <div class="container-13">
+                                        <div class="text-25">{{ $item->created_at->diffForHumans() }}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </article>
+                            </article>
+                        </a>
+                        @empty
+                        <p style="color:#94a3b8; font-size:14px; padding:16px 0;">Belum ada pengumuman.</p>
+                        @endforelse
                     </div>
                 </section>
 
@@ -233,12 +157,10 @@
                                     <div class="text-29">Total Siswa</div>
                                 </div>
                                 <div class="div">
-                                    <div class="text-30" style="width: auto; text-align: right;">124</div>
+                                    <div class="text-30" style="width: auto; text-align: right;">{{ $totalSiswa }}</div>
                                 </div>
                             </div>
-                            <div class="background-wrapper" aria-label="Total siswa 75 persen">
-                                <div class="background-8"></div>
-                            </div>
+
                         </div>
 
                         <div class="container-15">
@@ -247,40 +169,34 @@
                                     <div class="text-31">Total Guru</div>
                                 </div>
                                 <div class="div">
-                                    <div class="text-32" style="width: auto; text-align: right;">12</div>
+                                    <div class="text-32" style="width: auto; text-align: right;">{{ $totalGuru }}</div>
                                 </div>
                             </div>
-                            <div class="background-wrapper" aria-label="Total guru 45 persen">
-                                <div class="background-9"></div>
-                            </div>
+
                         </div>
 
                         <div class="container-15">
                             <div class="container-17">
                                 <div class="div">
-                                    <div class="text-31" style="color: #64748b;">Total Foto</div>
+                                    <div class="text-31" style="color: #64748b;">Total Galeri</div>
                                 </div>
                                 <div class="div">
-                                    <div class="text-32" style="width: auto; text-align: right;">350</div>
+                                    <div class="text-32" style="width: auto; text-align: right;">{{ $totalFoto }}</div>
                                 </div>
                             </div>
-                            <div class="background-wrapper" aria-label="Total foto 80 persen">
-                                <div class="background-9" style="background-color: #a855f7; width: 80%;"></div>
-                            </div>
+
                         </div>
 
                         <div class="container-15">
                             <div class="container-16">
                                 <div class="div">
-                                    <div class="text-33">Foto Baru (Bulan Ini)</div>
+                                    <div class="text-33">Galeri Baru (Bulan Ini)</div>
                                 </div>
                                 <div class="div">
-                                    <div class="text-34" style="width: auto; text-align: right;">48</div>
+                                    <div class="text-34" style="width: auto; text-align: right;">{{ $fotoBulanIni }}</div>
                                 </div>
                             </div>
-                            <div class="background-wrapper" aria-label="Foto baru bulan ini 30 persen">
-                                <div class="background-10"></div>
-                            </div>
+
                         </div>
                     </div>
                 </section>
