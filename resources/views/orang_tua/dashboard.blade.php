@@ -19,10 +19,10 @@
 
             {{-- ===== HERO BANNER ===== --}}
             <section class="hero-banner">
-                <h1 class="hero-greeting">Selamat Pagi, Ibu Sarah! 👋</h1>
+                <h1 class="hero-greeting">Selamat {{ (date('H') < 15) ? ((date('H') < 12) ? 'Pagi' : 'Siang') : ((date('H') < 18) ? 'Sore' : 'Malam') }}, {{ Auth::user()->name }}! 👋</h1>
                 <p class="hero-description">
-                    Selamat datang di Dashboard Orang Tua. Pantau perkembangan ananda Budi
-                    hari ini. Ada pengumuman baru mengenai kegiatan minggu depan.
+                    Selamat datang di Dashboard Orang Tua. Pantau perkembangan ananda <strong>{{ $siswa ? $siswa->nama : '...' }}</strong>
+                    hari ini. {{ $pengumumanTerbaru ? 'Ada pengumuman baru mengenai ' . Str::limit($pengumumanTerbaru->judul, 30) : 'Belum ada pengumuman terbaru saat ini.' }}
                 </p>
                 <button class="hero-btn" onclick="window.location.href='#'">
                     Lihat Pengumuman Terbaru
@@ -71,7 +71,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                         </div>
                         <h3 class="menu-card-title">Lihat Absensi</h3>
-                        <p class="menu-card-desc">Rekap kehadiran siswa bulan ini: <strong>100%</strong></p>
+                        <p class="menu-card-desc">Rekap kehadiran siswa keseluruhan: <strong>{{ $persentaseKehadiran }}%</strong></p>
                         <span class="menu-card-link link-purple">
                             Akses Sekarang
                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -100,7 +100,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                         </div>
                         <h3 class="menu-card-title">Hubungi Guru</h3>
-                        <p class="menu-card-desc">Kirim pesan langsung ke wali kelas Budi.</p>
+                        <p class="menu-card-desc">Kirim pesan langsung ke wali kelas {{ $siswa ? $siswa->nama : '...' }}.</p>
                         <span class="menu-card-link link-teal">
                             Akses Sekarang
                             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -140,68 +140,41 @@
 
                 {{-- Aktivitas Mendatang --}}
                 <div class="activity-card">
-                    <h2 class="card-title">Aktivitas Mendatang</h2>
+                    <h2 class="card-title">Aktivitas Mendatang (Bulan Ini)</h2>
 
+                    @forelse($kegiatans as $kegiatan)
                     <div class="activity-item">
                         <div class="activity-date-box">
-                            <span class="date-day">24</span>
-                            <span class="date-month">SEP</span>
+                            <span class="date-day">{{ \Carbon\Carbon::parse($kegiatan->tanggal)->format('d') }}</span>
+                            <span class="date-month">{{ strtoupper(\Carbon\Carbon::parse($kegiatan->tanggal)->translatedFormat('M')) }}</span>
                         </div>
                         <div class="activity-info">
-                            <p class="activity-title">Kunjungan Edukasi Ke Kebun Binatang</p>
-                            <p class="activity-desc">Kegiatan luar ruangan untuk kelas B.</p>
-                            <p class="activity-time">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                08:00 - 12:00 WIB
-                            </p>
+                            <p class="activity-title">{{ $kegiatan->nama_kegiatan }}</p>
+                            <p class="activity-desc">{{ $kegiatan->deskripsi ?? 'Tidak ada deskripsi.' }}</p>
                         </div>
                     </div>
-
-                    <div class="activity-item">
-                        <div class="activity-date-box">
-                            <span class="date-day">29</span>
-                            <span class="date-month">SEP</span>
-                        </div>
-                        <div class="activity-info">
-                            <p class="activity-title">Pentas Seni Akhir Semester</p>
-                            <p class="activity-desc">Pertunjukan tari dan drama oleh murid-murid.</p>
-                            <p class="activity-time">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                09:00 - 13:00 WIB
-                            </p>
-                        </div>
+                    @empty
+                    <div style="padding: 20px; text-align: center; color: #64748b; font-size: 14px;">
+                        Belum ada jadwal aktivitas di bulan ini.
                     </div>
-
-                    <div class="activity-item">
-                        <div class="activity-date-box">
-                            <span class="date-day">05</span>
-                            <span class="date-month">OKT</span>
-                        </div>
-                        <div class="activity-info">
-                            <p class="activity-title">Pertemuan Orang Tua & Guru</p>
-                            <p class="activity-desc">Diskusi perkembangan anak secara tatap muka.</p>
-                            <p class="activity-time">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                10:00 - 12:00 WIB
-                            </p>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
 
                 {{-- Wali Kelas --}}
                 <div class="wali-card">
                     <h2 class="card-title">Wali Kelas</h2>
 
+                    @if($waliKelas)
                     <div class="wali-avatar-wrap">
-                        <div class="wali-avatar-placeholder">BS</div>
+                        <div class="wali-avatar-placeholder">{{ substr($waliKelas->nama_guru, 0, 2) }}</div>
                     </div>
 
-                    <p class="wali-name">Bpk. Slamet, S.Pd</p>
-                    <p class="wali-role">Wali Kelas B – Matahari</p>
+                    <p class="wali-name">{{ $waliKelas->nama_guru }}</p>
+                    <p class="wali-role">Wali Kelas {{ $siswa && $siswa->kelasLokal ? $siswa->kelasLokal->nama_kelas : 'Belum Ditentukan' }}</p>
 
                     <div class="wali-subject-tag">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
-                        Kelas B - Matahari
+                        Kelas {{ $siswa && $siswa->kelasLokal ? $siswa->kelasLokal->nama_kelas : '-' }}
                     </div>
 
                     <hr class="wali-divider">
@@ -209,18 +182,19 @@
                     <div class="wali-contacts">
                         <div class="wali-contact-item">
                             <svg class="wali-contact-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l1.06-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                            0812-3456-7890
-                        </div>
-                        <div class="wali-contact-item">
-                            <svg class="wali-contact-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                            slamet@tkpancam.sch.id
+                            {{ $waliKelas->no_wa ?? 'Tidak ada nomor' }}
                         </div>
                     </div>
 
-                    <button class="btn-hubungi" id="btn-hubungi-guru">
+                    <a href="{{ url('/orang-tua/hubungi-guru') }}" class="btn-hubungi" id="btn-hubungi-guru" style="text-decoration: none; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                        Kirim Pesan
-                    </button>
+                        Hubungi
+                    </a>
+                    @else
+                    <div style="padding: 20px; text-align: center; color: #64748b; font-size: 14px;">
+                        Data wali kelas belum tersedia.
+                    </div>
+                    @endif
                 </div>
 
             </div>{{-- /bottom-grid --}}

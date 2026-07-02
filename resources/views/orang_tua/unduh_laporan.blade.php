@@ -22,9 +22,9 @@
             {{-- Header Card --}}
             <section class="report-hero-card">
                 <div class="report-hero-content">
-                    <h1 class="report-hero-title">Rekap Nilai Akademik Andi</h1>
+                    <h1 class="report-hero-title">Rekap Nilai Akademik {{ $siswa ? $siswa->nama : 'Ananda' }}</h1>
                     <p class="report-hero-desc">
-                        Halo Orang Tua Andi, berikut adalah daftar laporan akademik yang tersedia untuk diunduh.
+                        Halo Orang Tua {{ $siswa ? $siswa->nama : 'Ananda' }}, berikut adalah daftar laporan akademik yang tersedia untuk diunduh.
                         Laporan ini berisi rekap nilai perkembangan ananda selama semester berjalan.
                     </p>
                 </div>

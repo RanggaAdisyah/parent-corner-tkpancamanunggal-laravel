@@ -43,185 +43,54 @@
             {{-- Activity Grid --}}
             <section class="activity-grid">
 
-                {{-- Card 1 --}}
+                @forelse($galeris as $galeri)
+                @php
+                    $kategoriList = is_array($galeri->kategori) ? $galeri->kategori : (json_decode($galeri->kategori, true) ?: [$galeri->kategori]);
+                    $kategoriFirst = $kategoriList[0] ?? 'Lain-lain';
+                    $kategoriClass = strtolower(str_replace([' ', '&'], ['-', ''], $kategoriFirst));
+                    $fotos = is_array($galeri->foto) ? $galeri->foto : (json_decode($galeri->foto, true) ?: []);
+                    $firstFoto = !empty($fotos) ? url('storage/' . $fotos[0]) : 'https://picsum.photos/seed/kegiatan/400/260';
+                    $photoCount = count($fotos);
+                @endphp
                 <article class="activity-card"
                     role="button"
                     tabindex="0"
-                    data-title="Kunjungan Museum"
-                    data-category="Kunjungan"
-                    data-category-class="kunjungan"
-                    data-date="12 Mei 2024"
-                    data-photo-count="24 Foto"
-                    data-image="https://picsum.photos/seed/museum/600/400"
-                    data-body="Ananda mengunjungi Museum Nasional untuk belajar sejarah dan budaya Indonesia. Kegiatan ini membantu anak memahami warisan bangsa melalui pengalaman langsung.|||Para siswa terlihat antusias mengamati benda-benda bersejarah dan berfoto bersama di area pameran.">
+                    data-title="{{ $galeri->judul }}"
+                    data-category="{{ $kategoriFirst }}"
+                    data-category-class="{{ $kategoriClass }}"
+                    data-date="{{ \Carbon\Carbon::parse($galeri->tanggal_kegiatan)->translatedFormat('d F Y') }}"
+                    data-photo-count="{{ $photoCount }} Foto"
+                    data-image="{{ $firstFoto }}"
+                    data-body="{{ strip_tags(str_replace(['<br>', '</p>'], ['|||', '|||'], $galeri->deskripsi)) }}">
                     <div class="activity-card-image">
-                        <img src="https://picsum.photos/seed/museum/400/260" alt="Kunjungan Museum" loading="lazy">
-                        <span class="activity-badge badge-kunjungan">Kunjungan</span>
+                        <img src="{{ $firstFoto }}" alt="{{ $galeri->judul }}" loading="lazy" style="object-fit: cover;">
+                        <span class="activity-badge badge-{{ $kategoriClass }}">{{ $kategoriFirst }}</span>
                     </div>
                     <div class="activity-card-body">
                         <div class="activity-card-top">
-                            <h3 class="activity-card-title">Kunjungan Museum</h3>
+                            <h3 class="activity-card-title">{{ $galeri->judul }}</h3>
                             <button type="button" class="activity-menu-btn" aria-label="Opsi" tabindex="-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="12" cy="19" r="2"></circle></svg>
                             </button>
                         </div>
-                        <p class="activity-card-desc">Ananda mengunjungi Museum Nasional untuk belajar sejarah dan budaya Indonesia.</p>
+                        <p class="activity-card-desc">{{ \Illuminate\Support\Str::limit(strip_tags($galeri->deskripsi), 80) }}</p>
                         <footer class="activity-card-footer">
                             <span class="activity-meta">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                12 Mei 2024
+                                {{ \Carbon\Carbon::parse($galeri->tanggal_kegiatan)->translatedFormat('d F Y') }}
                             </span>
                             <span class="activity-meta">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                                24 Foto
+                                {{ $photoCount }} Foto
                             </span>
                         </footer>
                     </div>
                 </article>
-
-                {{-- Card 2 --}}
-                <article class="activity-card"
-                    role="button"
-                    tabindex="0"
-                    data-title="Pentas Seni Akhir Tahun"
-                    data-category="Seni &amp; Kreativitas"
-                    data-category-class="seni"
-                    data-date="28 Juni 2024"
-                    data-photo-count="36 Foto"
-                    data-image="https://picsum.photos/seed/pentas/600/400"
-                    data-body="Pentas seni akhir tahun menampilkan bakat ananda dalam bernyanyi, menari, dan drama. Acara ini dihadiri oleh orang tua dan wali kelas.|||Setiap kelompok menampilkan karya terbaik mereka dengan penuh semangat dan kebanggaan.">
-                    <div class="activity-card-image">
-                        <img src="https://picsum.photos/seed/pentas/400/260" alt="Pentas Seni Akhir Tahun" loading="lazy">
-                        <span class="activity-badge badge-seni">Seni &amp; Kreativitas</span>
-                    </div>
-                    <div class="activity-card-body">
-                        <div class="activity-card-top">
-                            <h3 class="activity-card-title">Pentas Seni Akhir Tahun</h3>
-                            <button type="button" class="activity-menu-btn" aria-label="Opsi" tabindex="-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="12" cy="19" r="2"></circle></svg>
-                            </button>
-                        </div>
-                        <p class="activity-card-desc">Pentas seni menampilkan bakat ananda dalam bernyanyi, menari, dan drama.</p>
-                        <footer class="activity-card-footer">
-                            <span class="activity-meta">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                28 Juni 2024
-                            </span>
-                            <span class="activity-meta">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                                36 Foto
-                            </span>
-                        </footer>
-                    </div>
-                </article>
-
-                {{-- Card 3 --}}
-                <article class="activity-card"
-                    role="button"
-                    tabindex="0"
-                    data-title="Lomba Mewarnai"
-                    data-category="Kompetisi"
-                    data-category-class="kompetisi"
-                    data-date="05 April 2024"
-                    data-photo-count="12 Foto"
-                    data-image="https://picsum.photos/seed/mewarnai/600/400"
-                    data-body="Keseruan Lomba mewarnai tingkat kecamatan yang diikuti oleh ananda. Anak-anak menunjukkan kreativitas dan ketelitian dalam mengisi warna pada gambar yang telah disediakan.|||Kegiatan ini melatih motorik halus dan menumbuhkan rasa percaya diri anak dalam berkompetisi secara sehat.">
-                    <div class="activity-card-image">
-                        <img src="https://picsum.photos/seed/mewarnai/400/260" alt="Lomba Mewarnai" loading="lazy">
-                        <span class="activity-badge badge-kompetisi">Kompetisi</span>
-                    </div>
-                    <div class="activity-card-body">
-                        <div class="activity-card-top">
-                            <h3 class="activity-card-title">Lomba Mewarnai</h3>
-                            <button type="button" class="activity-menu-btn" aria-label="Opsi" tabindex="-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="12" cy="19" r="2"></circle></svg>
-                            </button>
-                        </div>
-                        <p class="activity-card-desc">Keseruan lomba mewarnai tingkat kecamatan yang diikuti oleh ananda.</p>
-                        <footer class="activity-card-footer">
-                            <span class="activity-meta">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                05 April 2024
-                            </span>
-                            <span class="activity-meta">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                                12 Foto
-                            </span>
-                        </footer>
-                    </div>
-                </article>
-
-                {{-- Card 4 --}}
-                <article class="activity-card"
-                    role="button"
-                    tabindex="0"
-                    data-title="Belajar Berenang"
-                    data-category="Olahraga"
-                    data-category-class="olahraga"
-                    data-date="18 Maret 2024"
-                    data-photo-count="18 Foto"
-                    data-image="https://picsum.photos/seed/renang/600/400"
-                    data-body="Ananda belajar teknik dasar berenang di kolam renang sekolah bersama instruktur profesional. Kegiatan ini melatih kepercayaan diri anak di dalam air.|||Para siswa terlihat antusias dan gembira saat berlatih mengapung dan bergerak di air dengan pengawasan guru.">
-                    <div class="activity-card-image">
-                        <img src="https://picsum.photos/seed/renang/400/260" alt="Belajar Berenang" loading="lazy">
-                        <span class="activity-badge badge-olahraga">Olahraga</span>
-                    </div>
-                    <div class="activity-card-body">
-                        <div class="activity-card-top">
-                            <h3 class="activity-card-title">Belajar Berenang</h3>
-                            <button type="button" class="activity-menu-btn" aria-label="Opsi" tabindex="-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="12" cy="19" r="2"></circle></svg>
-                            </button>
-                        </div>
-                        <p class="activity-card-desc">Ananda belajar teknik dasar berenang di kolam renang sekolah bersama instruktur.</p>
-                        <footer class="activity-card-footer">
-                            <span class="activity-meta">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                18 Maret 2024
-                            </span>
-                            <span class="activity-meta">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                                18 Foto
-                            </span>
-                        </footer>
-                    </div>
-                </article>
-
-                {{-- Card 5 --}}
-                <article class="activity-card"
-                    role="button"
-                    tabindex="0"
-                    data-title="Perayaan Hari Kartini"
-                    data-category="Perayaan"
-                    data-category-class="perayaan"
-                    data-date="21 April 2024"
-                    data-photo-count="30 Foto"
-                    data-image="https://picsum.photos/seed/kartini/600/400"
-                    data-body="Perayaan Hari Kartini dengan tema kebanggaan akan budaya Indonesia. Ananda mengenakan pakaian adat dari berbagai daerah.|||Kegiatan ini menanamkan rasa cinta tanah air dan menghargai perjuangan Ibu Kartini bagi kemajuan pendidikan.">
-                    <div class="activity-card-image">
-                        <img src="https://picsum.photos/seed/kartini/400/260" alt="Perayaan Hari Kartini" loading="lazy">
-                        <span class="activity-badge badge-perayaan">Perayaan</span>
-                    </div>
-                    <div class="activity-card-body">
-                        <div class="activity-card-top">
-                            <h3 class="activity-card-title">Perayaan Hari Kartini</h3>
-                            <button type="button" class="activity-menu-btn" aria-label="Opsi" tabindex="-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="12" cy="19" r="2"></circle></svg>
-                            </button>
-                        </div>
-                        <p class="activity-card-desc">Perayaan Hari Kartini dengan tema kebanggaan akan budaya Indonesia.</p>
-                        <footer class="activity-card-footer">
-                            <span class="activity-meta">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                21 April 2024
-                            </span>
-                            <span class="activity-meta">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                                30 Foto
-                            </span>
-                        </footer>
-                    </div>
-                </article>
+                @empty
+                <div style="grid-column: 1 / -1; padding: 40px; text-align: center; color: #64748b; background: white; border-radius: 12px;">
+                    Belum ada galeri kegiatan untuk saat ini.
+                </div>
+                @endforelse
 
 
 

@@ -183,35 +183,12 @@ Route::middleware(['auth', 'role:guru'])->prefix('guru')->name('guru.')->group(f
 
 // Orang Tua Routes
 Route::middleware(['auth', 'role:orang_tua'])->prefix('orang-tua')->name('orang-tua.')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('orang_tua.dashboard');
-    })->name('dashboard');
-
-    Route::get('/lihat-nilai', function () {
-        return view('orang_tua.lihat_nilai');
-    })->name('lihat-nilai');
-
-    Route::get('/lihat-jadwal', function () {
-        return view('orang_tua.lihat_jadwal');
-    })->name('lihat-jadwal');
-
-    Route::get('/lihat-kehadiran', function () {
-        return view('orang_tua.lihat_kehadiran');
-    })->name('lihat-kehadiran');
-
-    Route::get('/unduh-laporan', function () {
-        return view('orang_tua.unduh_laporan');
-    })->name('unduh-laporan');
-
-    Route::get('/lihat-pengumuman', function () {
-        return view('orang_tua.lihat_pengumuman');
-    })->name('lihat-pengumuman');
-
-    Route::get('/foto-kegiatan', function () {
-        return view('orang_tua.foto_kegiatan');
-    })->name('foto-kegiatan');
-
-    Route::get('/hubungi-guru', function () {
-        return view('orang_tua.hubungi_guru');
-    })->name('hubungi-guru');
+    Route::get('/dashboard', [App\Http\Controllers\OrangTuaController::class, 'dashboard'])->name('dashboard');
+    Route::get('/lihat-nilai', [App\Http\Controllers\OrangTuaController::class, 'lihatNilai'])->name('lihat-nilai');
+    Route::get('/lihat-jadwal', [App\Http\Controllers\OrangTuaController::class, 'lihatJadwal'])->name('lihat-jadwal');
+    Route::get('/lihat-kehadiran', [App\Http\Controllers\OrangTuaController::class, 'lihatKehadiran'])->name('lihat-kehadiran');
+    Route::get('/lihat-pengumuman', [App\Http\Controllers\OrangTuaController::class, 'lihatPengumuman'])->name('lihat-pengumuman');
+    Route::get('/foto-kegiatan', [App\Http\Controllers\OrangTuaController::class, 'fotoKegiatan'])->name('foto-kegiatan');
+    Route::get('/hubungi-guru', [App\Http\Controllers\OrangTuaController::class, 'hubungiGuru'])->name('hubungi-guru');
+    Route::get('/unduh-laporan', [App\Http\Controllers\OrangTuaController::class, 'unduhLaporan'])->name('unduh-laporan');
 });

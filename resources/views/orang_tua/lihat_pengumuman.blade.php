@@ -51,75 +51,29 @@
             {{-- Announcement List --}}
             <section class="announcement-list">
 
-                {{-- Card 1: Text with Link --}}
+                @forelse($pengumumans as $p)
                 <article class="announcement-card"
                     role="button"
                     tabindex="0"
-                    data-title="Pemberitahuan Libur Nasional"
-                    data-datetime="25 Oktober 2023 • 08:00 WIB"
-                    data-body="Berdasarkan surat edaran pemerintah, sekolah akan diliburkan pada hari Jumat, 27 Oktober 2023. Kegiatan belajar mengajar akan kembali normal pada hari Senin. Mohon orang tua menyesuaikan jadwal penjemputan.|||Demikian informasi ini kami sampaikan. Atas perhatian dan kerjasamanya kami ucapkan terima kasih."
-                    data-attachment-name="Surat_Edaran_Libur.pdf"
-                    data-attachment-size="245 KB">
-                    <time class="announcement-time" datetime="2023-10-25T08:00">25 Oktober 2023 &bull; 08:00 WIB</time>
-                    <h3 class="announcement-title">Pemberitahuan Libur Nasional</h3>
+                    data-title="{{ $p->judul }}"
+                    data-datetime="{{ \Carbon\Carbon::parse($p->created_at)->translatedFormat('d F Y • H:i') }} WIB"
+                    data-body="{{ strip_tags(str_replace(['<br>', '</p>'], ['|||', '|||'], $p->isi)) }}"
+                    data-has-gallery="false">
+                    <time class="announcement-time" datetime="{{ \Carbon\Carbon::parse($p->created_at)->toIso8601String() }}">{{ \Carbon\Carbon::parse($p->created_at)->translatedFormat('d F Y • H:i') }} WIB</time>
+                    <h3 class="announcement-title">{{ $p->judul }}</h3>
                     <p class="announcement-body">
-                        Diberitahukan kepada seluruh wali murid bahwa sekolah akan diliburkan pada
-                        tanggal 1 November 2023 dalam rangka Hari Buruh Internasional. Kegiatan belajar
-                        mengajar akan dilanjutkan kembali pada tanggal 2 November 2023.
+                        {{ \Illuminate\Support\Str::limit(strip_tags($p->isi), 150) }}
                     </p>
                     <span class="announcement-link">
                         Baca selengkapnya
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </span>
                 </article>
-
-                {{-- Card 2: Text with Attachment --}}
-                <article class="announcement-card"
-                    role="button"
-                    tabindex="0"
-                    data-title="Field Trip ke Kebun Binatang"
-                    data-datetime="20 Oktober 2023 • 10:30 WIB"
-                    data-body="Kami mengundang seluruh siswa TK Panca Manunggal untuk mengikuti kegiatan field trip edukatif ke Kebun Binatang Ragunan pada tanggal 5 November 2023.|||Mohon melengkapi surat izin dan mempersiapkan perlengkapan sesuai ketentuan yang tercantum dalam lampiran. Anak diharapkan membawa topi, botol minum, dan bekal ringan."
-                    data-attachment-name="Surat_Izin.pdf"
-                    data-attachment-size="312 KB">
-                    <time class="announcement-time" datetime="2023-10-20T10:30">20 Oktober 2023 &bull; 10:30 WIB</time>
-                    <h3 class="announcement-title">Field Trip ke Kebun Binatang</h3>
-                    <p class="announcement-body">
-                        Kami mengundang seluruh siswa TK Panca Manunggal untuk mengikuti kegiatan
-                        field trip edukatif ke Kebun Binatang Ragunan pada tanggal 5 November 2023.
-                        Mohon melengkapi surat izin dan mempersiapkan perlengkapan sesuai ketentuan.
-                    </p>
-                    <span class="announcement-attachment">
-                        <span class="attachment-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                        </span>
-                        <span class="attachment-name">Surat_Izin.pdf</span>
-                    </span>
-                </article>
-
-                {{-- Card 3: Text with Image Gallery --}}
-                <article class="announcement-card"
-                    role="button"
-                    tabindex="0"
-                    data-title="Menu Makan Siang Bulan November"
-                    data-datetime="15 Oktober 2023 • 09:00 WIB"
-                    data-body="Berikut kami sampaikan menu makan siang catering untuk bulan November 2023. Menu dirancang seimbang gizi untuk mendukung tumbuh kembang anak usia dini.|||Silakan hubungi pihak sekolah jika ada alergi makanan tertentu agar dapat disesuaikan dengan kebutuhan anak."
-                    data-has-gallery="true">
-                    <time class="announcement-time" datetime="2023-10-15T09:00">15 Oktober 2023 &bull; 09:00 WIB</time>
-                    <h3 class="announcement-title">Menu Makan Siang Bulan November</h3>
-                    <p class="announcement-body">
-                        Berikut kami sampaikan menu makan siang catering untuk bulan November 2023.
-                        Menu dirancang seimbang gizi untuk mendukung tumbuh kembang anak usia dini.
-                        Silakan hubungi pihak sekolah jika ada alergi makanan tertentu.
-                    </p>
-                    <div class="announcement-gallery">
-                        <div class="gallery-thumb gallery-thumb-broccoli" role="img" aria-label="Foto menu brokoli"></div>
-                        <div class="gallery-thumb gallery-thumb-milk" role="img" aria-label="Foto menu susu"></div>
-                        <div class="gallery-thumb gallery-thumb-more">
-                            <span>+2 Foto</span>
-                        </div>
-                    </div>
-                </article>
+                @empty
+                <div style="padding: 40px; text-align: center; color: #64748b; background: white; border-radius: 12px;">
+                    Belum ada pengumuman terbaru untuk kelas anak Anda.
+                </div>
+                @endforelse
 
             </section>
 

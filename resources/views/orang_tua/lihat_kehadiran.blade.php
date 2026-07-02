@@ -19,7 +19,7 @@
             <header class="page-header">
                 <div class="header-left">
                     <h1 class="page-title">Rekap Absensi</h1>
-                    <p class="page-subtitle">Pantau kehadiran Ananda Rizky Santoso (Kelas B1).</p>
+                    <p class="page-subtitle">Pantau kehadiran Ananda {{ $siswa ? $siswa->nama : '...' }} (Kelas {{ $siswa && $siswa->kelasLokal ? $siswa->kelasLokal->nama_kelas : '-' }}).</p>
                 </div>
             </header>
 
@@ -29,10 +29,10 @@
                 <div class="summary-card">
                     <div class="summary-info">
                         <p class="summary-label">Total Hadir</p>
-                        <p class="summary-value">18 <span>Hari</span></p>
+                        <p class="summary-value">{{ $totalHadir }} <span>Hari</span></p>
                         <div class="summary-trend trend-up">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
-                            90% Bulan ini
+                            {{ $persentase }}% Bulan ini
                         </div>
                     </div>
                     <div class="summary-icon icon-green">
@@ -44,7 +44,7 @@
                 <div class="summary-card">
                     <div class="summary-info">
                         <p class="summary-label">Sakit</p>
-                        <p class="summary-value">2 <span>Hari</span></p>
+                        <p class="summary-value">{{ $totalSakit }} <span>Hari</span></p>
                     </div>
                     <div class="summary-icon icon-yellow">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line><path d="M8 8a2 2 0 0 1 2 2"></path><path d="M14 8a2 2 0 0 1 2 2"></path><path d="M16.5 13a3.5 3.5 0 0 1-5 0"></path><line x1="17" y1="14" x2="18" y2="15"></line><line x1="18" y1="14" x2="17" y2="15"></line></svg>
@@ -55,7 +55,7 @@
                 <div class="summary-card">
                     <div class="summary-info">
                         <p class="summary-label">Izin</p>
-                        <p class="summary-value">1 <span>Hari</span></p>
+                        <p class="summary-value">{{ $totalIzin }} <span>Hari</span></p>
                     </div>
                     <div class="summary-icon icon-blue">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
@@ -66,7 +66,7 @@
                 <div class="summary-card">
                     <div class="summary-info">
                         <p class="summary-label">Alfa (Tanpa Ket.)</p>
-                        <p class="summary-value">0 <span>Hari</span></p>
+                        <p class="summary-value">{{ $totalAlfa }} <span>Hari</span></p>
                     </div>
                     <div class="summary-icon icon-red">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
@@ -79,16 +79,23 @@
                 <header class="calendar-header">
                     <h2 class="calendar-title">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                        Oktober 2023
+                        @php
+                            $prevMonth = $month == 1 ? 12 : $month - 1;
+                            $prevYear = $month == 1 ? $year - 1 : $year;
+                            $nextMonth = $month == 12 ? 1 : $month + 1;
+                            $nextYear = $month == 12 ? $year + 1 : $year;
+                            $monthName = \Carbon\Carbon::createFromDate($year, $month, 1)->translatedFormat('F Y');
+                        @endphp
+                        {{ $monthName }}
                     </h2>
                     <div class="calendar-nav">
-                        <button class="calendar-nav-btn">
+                        <a href="?month={{ $prevMonth }}&year={{ $prevYear }}" class="calendar-nav-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                        </button>
-                        <button class="calendar-today-btn">Hari Ini</button>
-                        <button class="calendar-nav-btn">
+                        </a>
+                        <a href="?month={{ date('n') }}&year={{ date('Y') }}" class="calendar-today-btn" style="text-decoration:none; display:inline-flex; align-items:center;">Hari Ini</a>
+                        <a href="?month={{ $nextMonth }}&year={{ $nextYear }}" class="calendar-nav-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </button>
+                        </a>
                     </div>
                 </header>
 
@@ -102,191 +109,57 @@
                     <div class="calendar-day-header">Sabtu</div>
                     <div class="calendar-day-header weekend">Minggu</div>
 
-                    {{-- Minggu 1 (Kosong) --}}
-                    <div class="calendar-cell empty"><span class="cell-date">25</span></div>
-                    <div class="calendar-cell empty"><span class="cell-date">26</span></div>
-                    <div class="calendar-cell empty"><span class="cell-date">27</span></div>
-                    <div class="calendar-cell empty"><span class="cell-date">28</span></div>
-                    <div class="calendar-cell empty"><span class="cell-date">29</span></div>
-                    <div class="calendar-cell empty"><span class="cell-date">30</span></div>
-                    <div class="calendar-cell"><span class="cell-date">1</span></div>
+                    @php
+                        $dateObj = \Carbon\Carbon::createFromDate($year, $month, 1);
+                        $daysInMonth = $dateObj->daysInMonth;
+                        $firstDayOfWeek = $dateObj->dayOfWeek; // 0 (Sun) - 6 (Sat)
+                        // Adjust to start on Monday (0=Mon, 1=Tue... 6=Sun)
+                        $firstDayIndex = ($firstDayOfWeek == 0) ? 6 : $firstDayOfWeek - 1;
+                    @endphp
 
-                    {{-- Minggu 2 --}}
-                    <div class="calendar-cell">
-                        <span class="cell-date">2</span>
-                        <div class="cell-status status-hadir">
-                            <div class="status-dot"></div>
-                            <span class="status-text">Hadir</span>
-                        </div>
-                    </div>
-                    <div class="calendar-cell">
-                        <span class="cell-date">3</span>
-                        <div class="cell-status status-hadir">
-                            <div class="status-dot"></div>
-                            <span class="status-text">Hadir</span>
-                        </div>
-                    </div>
-                    <div class="calendar-cell">
-                        <span class="cell-date">4</span>
-                        <div class="cell-status status-hadir">
-                            <div class="status-dot"></div>
-                            <span class="status-text">Hadir</span>
-                        </div>
-                    </div>
-                    <div class="calendar-cell">
-                        <span class="cell-date">5</span>
-                        <div class="cell-status status-hadir">
-                            <div class="status-dot"></div>
-                            <span class="status-text">Hadir</span>
-                        </div>
-                    </div>
-                    <div class="calendar-cell">
-                        <span class="cell-date">6</span>
-                        <div class="cell-status status-hadir">
-                            <div class="status-dot"></div>
-                            <span class="status-text">Hadir</span>
-                        </div>
-                    </div>
-                    <div class="calendar-cell"><span class="cell-date">7</span></div>
-                    <div class="calendar-cell weekend"><span class="cell-date">8</span></div>
+                    {{-- Empty cells before day 1 --}}
+                    @for($i = 0; $i < $firstDayIndex; $i++)
+                        <div class="calendar-cell empty"><span class="cell-date"></span></div>
+                    @endfor
 
-                    {{-- Minggu 3 --}}
-                    <div class="calendar-cell">
-                        <span class="cell-date">9</span>
-                        <div class="cell-status status-sakit">
-                            <div class="status-dot"></div>
-                            <span class="status-text">Sakit</span>
+                    @for($d = 1; $d <= $daysInMonth; $d++)
+                        @php
+                            $currentDow = ($firstDayIndex + $d - 1) % 7;
+                            $isWeekend = ($currentDow == 6); // Sunday in this context
+                            $isToday = ($year == date('Y') && $month == date('n') && $d == date('j'));
+                            
+                            $status = null;
+                            if (isset($kehadirans[$d])) {
+                                $status = $kehadirans[$d]->status;
+                            }
+                        @endphp
+                        
+                        <div class="calendar-cell {{ $isWeekend ? 'weekend' : '' }} {{ $isToday ? 'today' : '' }}">
+                            <span class="cell-date">{{ $d }}</span>
+                            @if($isToday && !$status)
+                                <div class="status-today">Hari Ini</div>
+                            @elseif($status)
+                                <div class="cell-status status-{{ strtolower($status) }}">
+                                    <div class="status-dot"></div>
+                                    <span class="status-text">{{ ucfirst($status) }}</span>
+                                </div>
+                            @endif
                         </div>
-                    </div>
-                    <div class="calendar-cell">
-                        <span class="cell-date">10</span>
-                        <div class="cell-status status-sakit">
-                            <div class="status-dot"></div>
-                            <span class="status-text">Sakit</span>
-                        </div>
-                    </div>
-                    <div class="calendar-cell">
-                        <span class="cell-date">11</span>
-                        <div class="cell-status status-hadir">
-                            <div class="status-dot"></div>
-                            <span class="status-text">Hadir</span>
-                        </div>
-                    </div>
-                    <div class="calendar-cell">
-                        <span class="cell-date">12</span>
-                        <div class="cell-status status-hadir">
-                            <div class="status-dot"></div>
-                            <span class="status-text">Hadir</span>
-                        </div>
-                    </div>
-                    <div class="calendar-cell">
-                        <span class="cell-date">13</span>
-                        <div class="cell-status status-hadir">
-                            <div class="status-dot"></div>
-                            <span class="status-text">Hadir</span>
-                        </div>
-                    </div>
-                    <div class="calendar-cell"><span class="cell-date">14</span></div>
-                    <div class="calendar-cell weekend"><span class="cell-date">15</span></div>
-
-                    {{-- Minggu 4 --}}
-                    <div class="calendar-cell">
-                        <span class="cell-date">16</span>
-                        <div class="cell-status status-izin">
-                            <div class="status-dot"></div>
-                            <span class="status-text">Izin</span>
-                        </div>
-                    </div>
-                    <div class="calendar-cell">
-                        <span class="cell-date">17</span>
-                        <div class="cell-status status-hadir">
-                            <div class="status-dot"></div>
-                            <span class="status-text">Hadir</span>
-                        </div>
-                    </div>
-                    <div class="calendar-cell">
-                        <span class="cell-date">18</span>
-                        <div class="cell-status status-hadir">
-                            <div class="status-dot"></div>
-                            <span class="status-text">Hadir</span>
-                        </div>
-                    </div>
-                    <div class="calendar-cell today">
-                        <span class="cell-date">19</span>
-                        <div class="status-today">Hari Ini</div>
-                    </div>
-                    <div class="calendar-cell"><span class="cell-date">20</span></div>
-                    <div class="calendar-cell"><span class="cell-date">21</span></div>
-                    <div class="calendar-cell weekend"><span class="cell-date">22</span></div>
-
-                    {{-- Minggu 5 --}}
-                    <div class="calendar-cell"><span class="cell-date">23</span></div>
-                    <div class="calendar-cell"><span class="cell-date">24</span></div>
-                    <div class="calendar-cell"><span class="cell-date">25</span></div>
-                    <div class="calendar-cell"><span class="cell-date">26</span></div>
-                    <div class="calendar-cell"><span class="cell-date">27</span></div>
-                    <div class="calendar-cell"><span class="cell-date">28</span></div>
-                    <div class="calendar-cell weekend"><span class="cell-date">29</span></div>
+                    @endfor
                 </div>
 
                 {{-- Mobile Agenda List --}}
                 <div class="calendar-mobile-list">
-                    <div class="agenda-item">
-                        <div class="agenda-date">Senin, 2 Okt 2023</div>
-                        <div class="agenda-status status-hadir">Hadir</div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-date">Selasa, 3 Okt 2023</div>
-                        <div class="agenda-status status-hadir">Hadir</div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-date">Rabu, 4 Okt 2023</div>
-                        <div class="agenda-status status-hadir">Hadir</div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-date">Kamis, 5 Okt 2023</div>
-                        <div class="agenda-status status-hadir">Hadir</div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-date">Jumat, 6 Okt 2023</div>
-                        <div class="agenda-status status-hadir">Hadir</div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-date">Senin, 9 Okt 2023</div>
-                        <div class="agenda-status status-sakit">Sakit</div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-date">Selasa, 10 Okt 2023</div>
-                        <div class="agenda-status status-sakit">Sakit</div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-date">Rabu, 11 Okt 2023</div>
-                        <div class="agenda-status status-hadir">Hadir</div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-date">Kamis, 12 Okt 2023</div>
-                        <div class="agenda-status status-hadir">Hadir</div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-date">Jumat, 13 Okt 2023</div>
-                        <div class="agenda-status status-hadir">Hadir</div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-date">Senin, 16 Okt 2023</div>
-                        <div class="agenda-status status-izin">Izin</div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-date">Selasa, 17 Okt 2023</div>
-                        <div class="agenda-status status-hadir">Hadir</div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-date">Rabu, 18 Okt 2023</div>
-                        <div class="agenda-status status-hadir">Hadir</div>
-                    </div>
-                    <div class="agenda-item">
-                        <div class="agenda-date">Kamis, 19 Okt 2023</div>
-                        <div class="agenda-status status-today">Hari Ini</div>
-                    </div>
+                    @forelse($kehadirans as $d => $kh)
+                        <div class="agenda-item">
+                            <div class="agenda-date">{{ \Carbon\Carbon::parse($kh->tanggal)->translatedFormat('l, d M Y') }}</div>
+                            <div class="agenda-status status-{{ strtolower($kh->status) }}">{{ ucfirst($kh->status) }}</div>
+                        </div>
+                    @empty
+                        <div style="padding: 20px; text-align: center; color: #64748b; font-size: 14px;">
+                            Tidak ada data kehadiran di bulan ini.
+                        </div>
+                    @endforelse
                 </div>
             </section>
 
