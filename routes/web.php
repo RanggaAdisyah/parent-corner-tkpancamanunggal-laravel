@@ -162,17 +162,21 @@ Route::middleware(['auth', 'role:guru'])->prefix('guru')->name('guru.')->group(f
 
     Route::get('/nilai', [App\Http\Controllers\GuruController::class, 'nilai'])->name('nilai');
     Route::post('/nilai', [App\Http\Controllers\GuruController::class, 'storeNilai'])->name('nilai.store');
+    Route::get('/get-nilai-siswa', [App\Http\Controllers\GuruController::class, 'getNilaiSiswa'])->name('get-nilai');
 
     Route::get('/lihat-jadwal', [App\Http\Controllers\GuruController::class, 'jadwal'])->name('lihat-jadwal');
 
-    Route::get('/unggah-foto', [App\Http\Controllers\GuruController::class, 'galeri'])->name('galeri');
-    Route::post('/unggah-foto', [App\Http\Controllers\GuruController::class, 'storeGaleri'])->name('galeri.store');
-    Route::delete('/unggah-foto/{id}', [App\Http\Controllers\GuruController::class, 'destroyGaleri'])->name('galeri.destroy');
+    Route::get('/galeri-kegiatan', [App\Http\Controllers\GuruController::class, 'galeri'])->name('galeri');
+    Route::get('/galeri-kegiatan/buat', [App\Http\Controllers\GuruController::class, 'createGaleri'])->name('galeri.buat');
+    Route::post('/galeri-kegiatan', [App\Http\Controllers\GuruController::class, 'storeGaleri'])->name('galeri.store');
+    Route::delete('/galeri-kegiatan/{id}', [App\Http\Controllers\GuruController::class, 'destroyGaleri'])->name('galeri.destroy');
 
     Route::get('/buat-pengumuman', [App\Http\Controllers\GuruController::class, 'buatPengumuman'])->name('buat-pengumuman');
     Route::post('/buat-pengumuman', [App\Http\Controllers\GuruController::class, 'storePengumuman'])->name('pengumuman.store');
     
     Route::get('/daftar-pengumuman', [App\Http\Controllers\GuruController::class, 'daftarPengumuman'])->name('daftar-pengumuman');
+    Route::get('/pengumuman/{id}/edit', [App\Http\Controllers\GuruController::class, 'editPengumuman'])->name('pengumuman.edit');
+    Route::put('/pengumuman/{id}', [App\Http\Controllers\GuruController::class, 'updatePengumuman'])->name('pengumuman.update');
     Route::delete('/pengumuman/{id}', [App\Http\Controllers\GuruController::class, 'destroyPengumuman'])->name('pengumuman.destroy');
 });
 

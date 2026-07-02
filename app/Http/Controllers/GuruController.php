@@ -10,6 +10,7 @@ use App\Models\Nilai;
 use App\Models\JadwalPelajaran;
 use App\Models\Galeri;
 use App\Models\Pengumuman;
+use App\Models\KalenderKegiatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -110,7 +111,21 @@ class GuruController extends Controller
         return redirect()->back()->with('success', 'Data nilai berhasil disimpan.');
     }
 
-    public function jadwal()
+    public function getNilaiSiswa(Request $request)
+    {
+        $request->validate([
+            'siswa_id' => 'required|exists:siswas,id',
+            'tanggal' => 'required|date'
+        ]);
+
+        $nilais = \App\Models\Nilai::where('siswa_id', $request->siswa_id)
+                                   ->where('tanggal', $request->tanggal)
+                                   ->get();
+
+        return response()->json($nilais);
+    }
+
+    public function jadwal(Request $request)
     {
         $guru = $this->getGuru();
         $jadwals = [];
@@ -118,7 +133,15 @@ class GuruController extends Controller
             $jadwals = JadwalPelajaran::where('kelas_id', $guru->kelas_id)->get();
         }
 
-        return view('guru.lihat_jadwal', compact('guru', 'jadwals'));
+        // Ambil bulan & tahun (default: sekarang)
+        $month = $request->get('month', date('n'));
+        $year = $request->get('year', date('Y'));
+        
+        $kalenders = KalenderKegiatan::whereMonth('tanggal', $month)
+                                      ->whereYear('tanggal', $year)
+                                      ->get();
+
+        return view('guru.lihat_jadwal', compact('guru', 'jadwals', 'kalenders', 'month', 'year'));
     }
 
     public function galeri()
@@ -128,27 +151,65 @@ class GuruController extends Controller
         return view('guru.galeri', compact('guru', 'galeris'));
     }
 
+    public function createGaleri()
+    {
+        $guru = $this->getGuru();
+        return view('guru.buat_galeri', compact('guru'));
+    }
+
     public function storeGaleri(Request $request)
     {
         $request->validate([
-            'judul' => 'required|string',
-            'deskripsi' => 'nullable|string',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:5120',
+            'judul' => 'required|string|max:255',
+            'deskripsi_kegiatan' => 'nullable|string',
+            'tanggal_kegiatan' => 'nullable|date',
+            'kategori' => 'nullable|array',
+            'foto' => 'required|array',
+            'foto.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
+
+        $uploadedPhotos = [];
+        $newPathsMap = [];
+        if ($request->hasFile('foto')) {
+            foreach ($request->file('foto') as $file) {
+                $filename = time() . '_' . uniqid() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
+                $file->move(public_path('uploads/galeri'), $filename);
+                $path = 'uploads/galeri/' . $filename;
+                $uploadedPhotos[] = $path;
+                $newPathsMap[$file->getClientOriginalName()] = $path;
+            }
+        }
+
+        if ($request->filled('cover_image')) {
+            $coverVal = $request->cover_image;
+            $coverPath = null;
+            if (str_starts_with($coverVal, 'new:')) {
+                $origName = substr($coverVal, 4);
+                if (isset($newPathsMap[$origName])) {
+                    $coverPath = $newPathsMap[$origName];
+                }
+            }
+            if ($coverPath && in_array($coverPath, $uploadedPhotos)) {
+                $uploadedPhotos = array_diff($uploadedPhotos, [$coverPath]);
+                array_unshift($uploadedPhotos, $coverPath);
+            }
+        }
 
         $guru = $this->getGuru();
 
-        $path = $request->file('foto')->store('galeri', 'public');
-
-        Galeri::create([
+        $galeri = Galeri::create([
             'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi,
-            'file_path' => $path,
-            'user_id' => Auth::id(),
-            // Assuming galeri class relation will be managed later
+            'deskripsi' => $request->deskripsi_kegiatan,
+            'tanggal_kegiatan' => $request->tanggal_kegiatan,
+            'kategori' => $request->kategori,
+            'foto' => !empty($uploadedPhotos) ? $uploadedPhotos : null,
         ]);
 
-        return redirect()->back()->with('success', 'Foto berhasil diunggah.');
+        if ($guru && $guru->kelas_id) {
+            $galeri->kelas()->attach($guru->kelas_id);
+        }
+
+        return redirect()->route('guru.galeri')->with('success', 'Galeri berhasil dibuat!');
     }
 
     public function destroyGaleri($id)
@@ -170,30 +231,107 @@ class GuruController extends Controller
     {
         $request->validate([
             'judul' => 'required|string',
-            'isi' => 'required|string',
+            'isi_pengumuman' => 'required|string',
+            'lampiran' => 'nullable|file|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
-        Pengumuman::create([
+        $guru = $this->getGuru();
+        
+        $lampiranPaths = [];
+        if ($request->hasFile('lampiran')) {
+            $file = $request->file('lampiran');
+            $filename = time() . '_' . uniqid() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
+            $file->move(public_path('uploads/pengumuman'), $filename);
+            $lampiranPaths[] = 'uploads/pengumuman/' . $filename;
+        }
+
+        $pengumuman = Pengumuman::create([
             'judul' => $request->judul,
-            'isi' => $request->isi,
-            'user_id' => Auth::id(),
-            'role_pengirim' => 'guru',
+            'isi_pesan' => $request->isi_pengumuman,
+            'lampiran' => !empty($lampiranPaths) ? $lampiranPaths : null,
         ]);
+
+        if ($guru && $guru->kelas_id) {
+            $pengumuman->kelas()->attach($guru->kelas_id);
+        }
 
         return redirect()->route('guru.daftar-pengumuman')->with('success', 'Pengumuman berhasil dibuat.');
     }
 
     public function daftarPengumuman()
     {
-        $pengumumans = Pengumuman::where('user_id', Auth::id())->latest()->get();
+        $guru = $this->getGuru();
+        $kelas_id = $guru->kelas_id ?? null;
+
+        $pengumumans = Pengumuman::whereHas('kelas', function($q) use ($kelas_id) {
+            $q->where('kelas_id', $kelas_id);
+        })->latest()->paginate(10);
+
         return view('guru.daftar_pengumuman', compact('pengumumans'));
+    }
+
+    public function editPengumuman($id)
+    {
+        $pengumuman = Pengumuman::findOrFail($id);
+        $guru = $this->getGuru();
+        $kelas_id = $guru->kelas_id ?? null;
+
+        if (!$pengumuman->kelas()->where('kelas_id', $kelas_id)->exists()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return view('guru.edit_pengumuman', compact('pengumuman'));
+    }
+
+    public function updatePengumuman(Request $request, $id)
+    {
+        $pengumuman = Pengumuman::findOrFail($id);
+        $guru = $this->getGuru();
+        $kelas_id = $guru->kelas_id ?? null;
+
+        if (!$pengumuman->kelas()->where('kelas_id', $kelas_id)->exists()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $request->validate([
+            'judul' => 'required|string',
+            'isi_pengumuman' => 'required|string',
+            'lampiran' => 'nullable|file|mimes:jpg,jpeg,png,webp|max:5120',
+        ]);
+
+        $lampiranPaths = is_array($pengumuman->lampiran) ? $pengumuman->lampiran : [];
+
+        if ($request->has('remove_file') && $request->remove_file == '1') {
+            $lampiranPaths = [];
+        }
+
+        if ($request->hasFile('lampiran')) {
+            $file = $request->file('lampiran');
+            $filename = time() . '_' . uniqid() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
+            $file->move(public_path('uploads/pengumuman'), $filename);
+            $lampiranPaths = ['uploads/pengumuman/' . $filename];
+        }
+
+        $pengumuman->update([
+            'judul' => $request->judul,
+            'isi_pesan' => $request->isi_pengumuman,
+            'lampiran' => !empty($lampiranPaths) ? $lampiranPaths : null,
+        ]);
+
+        return redirect()->route('guru.daftar-pengumuman')->with('success', 'Pengumuman berhasil diperbarui.');
     }
 
     public function destroyPengumuman($id)
     {
         $pengumuman = Pengumuman::findOrFail($id);
-        if ($pengumuman->user_id === Auth::id()) {
-            $pengumuman->delete();
+        $guru = $this->getGuru();
+        $kelas_id = $guru->kelas_id ?? null;
+
+        if ($pengumuman->kelas()->where('kelas_id', $kelas_id)->exists()) {
+            $pengumuman->kelas()->detach($kelas_id);
+            if ($pengumuman->kelas()->count() == 0) {
+                $pengumuman->delete();
+            }
         }
         return redirect()->back()->with('success', 'Pengumuman berhasil dihapus.');
     }

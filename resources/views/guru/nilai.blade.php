@@ -149,6 +149,66 @@
             editorKognitif.on('text-change', () => document.getElementById('hidden-kognitif').value = editorKognitif.root.innerHTML);
             editorSosial.on('text-change', () => document.getElementById('hidden-sosial').value = editorSosial.root.innerHTML);
             editorFisik.on('text-change', () => document.getElementById('hidden-fisik').value = editorFisik.root.innerHTML);
+
+            // AJAX Fetch logic
+            const siswaSelect = document.querySelector('select[name="siswa_id"]');
+            const tanggalInput = document.querySelector('input[name="tanggal"]');
+            const inputsNilai = {
+                kognitif: document.querySelector('input[name="nilai[kognitif]"]'),
+                sosial_emosional: document.querySelector('input[name="nilai[sosial_emosional]"]'),
+                fisik_motorik: document.querySelector('input[name="nilai[fisik_motorik]"]')
+            };
+
+            function clearForm() {
+                editorKognitif.setText('');
+                editorSosial.setText('');
+                editorFisik.setText('');
+                if (inputsNilai.kognitif) inputsNilai.kognitif.value = '';
+                if (inputsNilai.sosial_emosional) inputsNilai.sosial_emosional.value = '';
+                if (inputsNilai.fisik_motorik) inputsNilai.fisik_motorik.value = '';
+            }
+
+            function fetchNilai() {
+                const siswa_id = siswaSelect.value;
+                const tanggal = tanggalInput.value;
+
+                if (siswa_id && siswa_id !== 'Pilih nama siswa...' && tanggal) {
+                    fetch(`{{ route('guru.get-nilai') }}?siswa_id=${siswa_id}&tanggal=${tanggal}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            clearForm();
+                            if (data && data.length > 0) {
+                                data.forEach(item => {
+                                    if (item.kegiatan === 'kognitif') {
+                                        if (inputsNilai.kognitif) inputsNilai.kognitif.value = item.nilai;
+                                        if (item.catatan) {
+                                            editorKognitif.root.innerHTML = item.catatan;
+                                            document.getElementById('hidden-kognitif').value = item.catatan;
+                                        }
+                                    } else if (item.kegiatan === 'sosial_emosional') {
+                                        if (inputsNilai.sosial_emosional) inputsNilai.sosial_emosional.value = item.nilai;
+                                        if (item.catatan) {
+                                            editorSosial.root.innerHTML = item.catatan;
+                                            document.getElementById('hidden-sosial').value = item.catatan;
+                                        }
+                                    } else if (item.kegiatan === 'fisik_motorik') {
+                                        if (inputsNilai.fisik_motorik) inputsNilai.fisik_motorik.value = item.nilai;
+                                        if (item.catatan) {
+                                            editorFisik.root.innerHTML = item.catatan;
+                                            document.getElementById('hidden-fisik').value = item.catatan;
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                        .catch(error => console.error('Error fetching nilai:', error));
+                } else {
+                    clearForm();
+                }
+            }
+
+            siswaSelect.addEventListener('change', fetchNilai);
+            tanggalInput.addEventListener('change', fetchNilai);
         });
     </script>
 </body>

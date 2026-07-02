@@ -114,13 +114,13 @@
 
         <div class="container"><div class="text-wrapper-2">KOMUNIKASI</div></div>
 
-        <a href="{{ url('/guru/unggah-foto') }}" class="{{ isset($active) && $active == 'unggah-foto' ? 'link' : 'link-2' }}" title="Galeri Kegiatan">
+        <a href="{{ url('/guru/galeri-kegiatan') }}" class="{{ isset($active) && $active == 'galeri-kegiatan' ? 'link' : 'link-2' }}" title="Galeri Kegiatan">
             <div class="div"><img class="icon-5" src="{{ asset('icon/guru/foto.svg') }}" alt="" /></div>
-            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'unggah-foto' ? 'text-2' : 'text-5' }}">Galeri Kegiatan</div></div>
+            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'galeri-kegiatan' ? 'text-2' : 'text-5' }}">Galeri Kegiatan</div></div>
         </a>
-        <a href="{{ url('/guru/daftar-pengumuman') }}" class="{{ isset($active) && $active == 'buat-pengumuman' ? 'link' : 'link-2' }}" title="Buat Pengumuman">
+        <a href="{{ url('/guru/daftar-pengumuman') }}" class="{{ isset($active) && $active == 'pengumuman' ? 'link' : 'link-2' }}" title="Pengumuman">
             <div class="div"><img class="icon-4" src="{{ asset('icon/guru/pengumuman.svg') }}" alt="" /></div>
-            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'buat-pengumuman' ? 'text-2' : 'text-4' }}">Buat Pengumuman</div></div>
+            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'pengumuman' ? 'text-2' : 'text-4' }}">Pengumuman</div></div>
         </a>
     </nav>
 
@@ -153,7 +153,7 @@
 
 @php
     $akademikPages = ['input-kehadiran', 'input-nilai', 'lihat-jadwal'];
-    $komunikasiPages = ['unggah-foto', 'buat-pengumuman'];
+    $komunikasiPages = ['galeri-kegiatan', 'pengumuman'];
     $isAkademikActive = isset($active) && in_array($active, $akademikPages);
     $isKomunikasiActive = isset($active) && in_array($active, $komunikasiPages);
 @endphp
@@ -220,13 +220,13 @@
                 <svg class="ot-drawer__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
             <div class="ot-drawer__subnav {{ $isKomunikasiActive ? 'open' : '' }}" id="subnavKomunikasi">
-                <a href="{{ url('/guru/unggah-foto') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'unggah-foto' ? 'active' : '' }}">
+                <a href="{{ url('/guru/galeri-kegiatan') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'galeri-kegiatan' ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                     Galeri Kegiatan
                 </a>
-                <a href="{{ url('/guru/daftar-pengumuman') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'buat-pengumuman' ? 'active' : '' }}">
+                <a href="{{ url('/guru/daftar-pengumuman') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'pengumuman' ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3z"/></svg>
-                    Buat Pengumuman
+                    Pengumuman
                 </a>
             </div>
         </div>

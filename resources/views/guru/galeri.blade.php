@@ -9,22 +9,23 @@
     <link rel="stylesheet" href="{{ url('/css/style/orang_tua/dashboard.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/orang_tua/foto_kegiatan.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/Operator/galeri_kegiatan.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
     <style>
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
         .modal-overlay.active { display: flex; }
-        .modal-content-galeri { background: white; border-radius: 12px; max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; }
-        .btn-close-modal { background: none; border: none; font-size: 28px; cursor: pointer; color: #666; padding: 0; line-height: 1; }
-        .btn-close-modal:hover { color: #000; }
-        .modal-content-galeri .form-card { box-shadow: none; padding: 24px; border-radius: 0; }
+        .galeri-modal { background: white; border-radius: 12px; max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; }
     </style>
 </head>
 <body>
     <div class="dashboard-guru">
-        @include('partials.sidebar_guru', ['active' => 'unggah-foto'])
+        @include('partials.sidebar_guru', ['active' => 'galeri-kegiatan'])
 
         <main class="main ot-main">
 
+            @if(session('success'))
+                <div style="background-color: #dcfce7; color: #166534; padding: 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500;">
+                    {{ session('success') }}
+                </div>
+            @endif
 
             <header class="galeri-header" style="align-items: center;">
                 <div class="galeri-header-left">
@@ -32,237 +33,141 @@
                     <p class="galeri-subtitle">Kelola dokumentasi aktivitas siswa di sekolah.</p>
                 </div>
                 <div class="galeri-filters" style="display: flex; gap: 12px;">
-                    <button type="button" id="btnBuatGaleri" class="btn-add" style="border: none; cursor: pointer; background: #2563eb; color: white; padding: 10px 16px; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 8px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        Buat Daftar Kegiatan
-                    </button>
-                    <select class="galeri-filter-select" aria-label="Kategori">
-                        <option selected>Semua Kategori</option>
-                        <option>Kunjungan</option>
-                        <option>Seni & Kreativitas</option>
-                        <option>Kompetisi</option>
-                        <option>Olahraga</option>
-                        <option>Perayaan</option>
+                    <div class="search-wrapper" style="position: relative; display: flex; align-items: center;">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 12px; color: #94a3b8;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="search-galeri" class="search-input" placeholder="Cari galeri..." style="padding: 10px 16px 10px 36px; border: 1px solid #e2e8f0; border-radius: 8px; width: 250px; outline: none; font-size: 14px;">
+                    </div>
+                    
+                    <select id="filter-kategori" style="padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px; outline: none; font-size: 14px; background: white; cursor: pointer; min-width: 130px; appearance: auto;">
+                        <option value="">Semua Kategori</option>
+                        <option value="Kunjungan">Kunjungan</option>
+                        <option value="Seni & Kreativitas">Seni & Kreativitas</option>
+                        <option value="Kompetisi">Kompetisi</option>
+                        <option value="Olahraga">Olahraga</option>
+                        <option value="Perayaan">Perayaan</option>
+                        <option value="Lain-lain">Lain-lain</option>
                     </select>
+
+                    <a href="{{ route('guru.galeri.buat') }}" class="btn-add" style="text-decoration: none; border: none; cursor: pointer; background: #2563eb; color: white; padding: 10px 16px; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 8px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Buat Daftar Galeri
+                    </a>
                 </div>
             </header>
 
             <section class="activity-grid">
-                @forelse($galeris as $galeri)
+                @foreach($galeris as $galeri)
+                @php
+                    // Display only the first photo if it exists
+                    $firstPhoto = (!empty($galeri->foto) && is_array($galeri->foto)) ? $galeri->foto[0] : null;
+                    if (!$firstPhoto && is_string($galeri->foto)) {
+                        $fotoArr = json_decode($galeri->foto, true);
+                        if (is_array($fotoArr) && count($fotoArr) > 0) $firstPhoto = $fotoArr[0];
+                    }
+                    $photoCount = is_array($galeri->foto) ? count($galeri->foto) : (is_string($galeri->foto) ? count(json_decode($galeri->foto, true) ?? []) : 0);
+                    
+                    // Display only the first category as the main badge if it exists
+                    $firstCat = (!empty($galeri->kategori) && is_array($galeri->kategori)) ? $galeri->kategori[0] : 'Umum';
+                    if (is_string($galeri->kategori) && $galeri->kategori !== '') {
+                        $catArr = json_decode($galeri->kategori, true);
+                        if (is_array($catArr) && count($catArr) > 0) $firstCat = $catArr[0];
+                    }
+                    
+                    // Simple logic to set badge color based on category text
+                    $badgeClass = 'badge-kunjungan'; // default
+                    if (str_contains(strtolower($firstCat), 'seni')) $badgeClass = 'badge-seni';
+                    elseif (str_contains(strtolower($firstCat), 'kompetisi')) $badgeClass = 'badge-kompetisi';
+                    elseif (str_contains(strtolower($firstCat), 'olahraga')) $badgeClass = 'badge-olahraga';
+                    elseif (str_contains(strtolower($firstCat), 'perayaan')) $badgeClass = 'badge-perayaan';
+                @endphp
                 <article class="activity-card" role="button" tabindex="0"
                     data-title="{{ $galeri->judul }}"
-                    data-category="Galeri"
-                    data-category-class="kunjungan"
-                    data-date="{{ $galeri->created_at->format('d M Y') }}"
-                    data-photo-count="1 Foto"
-                    data-image="{{ asset('storage/'.$galeri->file_path) }}"
-                    data-body="{{ strip_tags($galeri->deskripsi) }}">
+                    data-categories="{{ !empty($galeri->kategori) && is_array($galeri->kategori) ? implode(',', $galeri->kategori) : 'Umum' }}"
+                    data-category="{{ $firstCat }}"
+                    data-category-class="{{ $badgeClass }}"
+                    data-date="{{ $galeri->tanggal_kegiatan ? \Carbon\Carbon::parse($galeri->tanggal_kegiatan)->translatedFormat('d F Y') : ($galeri->created_at ? $galeri->created_at->translatedFormat('d F Y') : '-') }}"
+                    data-photo-count="{{ $photoCount }} Foto"
+                    data-images="{{ json_encode(is_array($galeri->foto) ? array_map('asset', $galeri->foto) : (is_string($galeri->foto) ? array_map('asset', json_decode($galeri->foto, true) ?? []) : [])) }}"
+                    data-body="{{ htmlspecialchars($galeri->deskripsi ?? '') }}">
+                    
                     <div class="activity-card-image">
-                        <img src="{{ asset('storage/'.$galeri->file_path) }}" alt="{{ $galeri->judul }}" loading="lazy">
-                        <span class="activity-badge badge-kunjungan">Galeri</span>
+                        <img src="{{ $firstPhoto ? asset($firstPhoto) : 'https://placehold.co/400x260/e2e8f0/64748b?text=No+Image' }}" alt="{{ $galeri->judul }}" loading="lazy">
+                        <span class="activity-badge {{ $badgeClass }}">{{ $firstCat }}</span>
                     </div>
+                    
                     <div class="activity-card-body">
                         <div class="activity-card-top">
                             <h3 class="activity-card-title">{{ $galeri->judul }}</h3>
                             <div style="display: flex; gap: 4px;">
-                                <form action="{{ route('guru.galeri.destroy', $galeri->id) }}" method="POST" onsubmit="return confirm('Hapus foto ini?');">
+                                <form action="{{ route('guru.galeri.destroy', $galeri->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus galeri ini?');" style="margin:0;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="activity-menu-btn" aria-label="Hapus" title="Hapus" tabindex="-1" style="color: #ef4444; border:none; background:transparent;">
+                                    <button type="submit" class="activity-menu-btn" aria-label="Hapus" title="Hapus" tabindex="-1" style="color: #ef4444; background:transparent; border:none;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                     </button>
                                 </form>
                             </div>
                         </div>
-                        <p class="activity-card-desc">{!! Str::limit($galeri->deskripsi, 50) !!}</p>
+                        <p class="activity-card-desc">{{ strip_tags($galeri->deskripsi) }}</p>
                         <footer class="activity-card-footer">
                             <span class="activity-meta">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                {{ $galeri->created_at->format('d M Y') }}
+                                {{ $galeri->tanggal_kegiatan ? \Carbon\Carbon::parse($galeri->tanggal_kegiatan)->translatedFormat('d M Y') : ($galeri->created_at ? $galeri->created_at->translatedFormat('d M Y') : '-') }}
+                            </span>
+                            <span class="activity-meta">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                                {{ $photoCount }} Foto
                             </span>
                         </footer>
                     </div>
                 </article>
-                @empty
-                <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #64748b;">Belum ada foto kegiatan.</div>
-                @endforelse
+                @endforeach
             </section>
+            
+            @if($galeris->isEmpty())
+                <div style="text-align: center; padding: 60px 20px; background: #fff; border-radius: 12px; border: 1px solid #e2e8f0; margin-top: 24px;">
+                    <h3 style="color: #64748b; font-size: 16px;">Belum ada Galeri Kegiatan</h3>
+                    <p style="color: #94a3b8; font-size: 14px; margin-top: 8px;">Silakan buat daftar galeri baru untuk menampilkan aktivitas di sini.</p>
+                </div>
+            @endif
 
             @include('partials.footer')
         </main>
 
-        <!-- Detail Galeri Modal -->
-        <div id="galeriModal" class="galeri-modal-overlay" aria-hidden="true">
+        <!-- Detail Galeri Modal (Preview Only) -->
+        <div id="galeriModal" class="modal-overlay" aria-hidden="true">
             <div class="galeri-modal" role="dialog" aria-modal="true" aria-labelledby="galeriModalTitle">
-                <header class="galeri-modal-header">
-                    <h2 id="galeriModalTitle" class="galeri-modal-heading">Detail Galeri Kegiatan</h2>
-                    <button type="button" class="galeri-modal-close" id="btnCloseGaleriDetail" aria-label="Tutup">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                    </button>
+                <header class="galeri-modal-header" style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid #e2e8f0;">
+                    <h2 id="galeriModalTitle" class="galeri-modal-heading" style="margin:0; font-size:18px;">Detail Galeri Kegiatan</h2>
+                    <button type="button" class="btn-close-modal" id="btnCloseGaleriDetail" aria-label="Tutup" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
                 </header>
 
-                <div class="galeri-modal-body">
-                    <h3 id="modalGaleriTitle" class="galeri-modal-title"></h3>
-                    <div class="galeri-modal-datetime">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                        <span id="modalGaleriDate"></span>
-                        <span class="galeri-modal-dot">&bull;</span>
-                        <span id="modalGaleriPhotos"></span>
+                <div class="galeri-modal-body" style="padding:24px;">
+                    <h3 id="modalGaleriTitle" class="galeri-modal-title" style="margin-top:0; margin-bottom:12px; font-size:20px;"></h3>
+                    <div class="galeri-modal-datetime" style="display:flex; gap:8px; color:#64748b; font-size:14px; align-items:center; margin-bottom:16px;">
+                        <span id="modalGaleriDate"></span> &bull; <span id="modalGaleriPhotos"></span>
                     </div>
-                    <div id="modalGaleriBody" class="galeri-modal-content"></div>
+                    <div id="modalGaleriBody" class="galeri-modal-content" style="line-height:1.6; color:#334155; margin-bottom:24px;"></div>
 
                     <div class="galeri-modal-lampiran">
-                        <span class="galeri-lampiran-label">Lampiran</span>
-                        <div class="galeri-modal-image-wrap">
-                            <img id="modalGaleriImage" src="" alt="" class="galeri-modal-image">
-                            <span id="modalGaleriBadge" class="galeri-modal-badge"></span>
+                        <div class="galeri-modal-image-wrap" style="background:#f8fafc; border:1px solid #e2e8f0; position:relative;">
+                            <img id="modalGaleriImage" class="galeri-modal-image" src="" alt="" style="border-radius:8px; aspect-ratio:auto; max-height:500px; object-fit:contain; width:100%;">
+                            <span id="modalGaleriBadge" class="galeri-modal-badge activity-badge" style="position:absolute; bottom:16px; left:16px;"></span>
                         </div>
+                        <div id="modalGaleriThumbnails" style="display:flex; gap:8px; margin-top:12px; overflow-x:auto; padding-bottom:8px;"></div>
                     </div>
                 </div>
 
-                <footer class="galeri-modal-footer">
-                    <button type="button" class="btn-selesai" id="btnSelesaiGaleri">Tutup</button>
+                <footer class="galeri-modal-footer" style="padding:16px 24px; border-top:1px solid #e2e8f0; display:flex; justify-content:flex-end;">
+                    <button type="button" class="btn-selesai" id="btnSelesaiGaleri" style="padding:10px 20px; background:#ef4444; color:#fff; font-weight:600; border:none; border-radius:6px; cursor:pointer;">Tutup</button>
                 </footer>
             </div>
         </div>
 
-        <!-- Modal Buat Galeri -->
-        <div id="modalBuatGaleri" class="modal-overlay">
-            <div class="modal-content-galeri galeri-kegiatan">
-                <div style="display: flex; justify-content: flex-end; padding: 16px 24px 0;">
-                    <button class="btn-close-modal" id="btnCloseGaleriForm">&times;</button>
-                </div>
-                <form action="{{ route('guru.galeri.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-card" style="margin-top: 0; padding-top: 8px; box-shadow: none;">
-                        <div style="margin-bottom: 24px;">
-                            <h1 class="page-title" style="margin-bottom: 8px;">Unggah Foto Kegiatan</h1>
-                            <p class="page-subtitle">Bagikan momen aktivitas siswa di kelas kepada orang tua murid.</p>
-                        </div>
-                        
-                        <div class="form-group" style="margin-bottom: 16px;">
-                            <label class="form-label">Judul Kegiatan</label>
-                            <input type="text" name="judul" class="form-input" placeholder="Contoh: Kunjungan Museum" required>
-                        </div>
-
-
-
-                    <div class="step-section">
-                        <div class="step-header">
-                            <div class="step-number" style="background-color: #3b82f6; color: white;">1</div>
-                            <div class="step-text-wrap">
-                                <h3>Unggah Foto & Keterangan</h3>
-                                <p>Maksimal 10 foto per unggahan.</p>
-                            </div>
-                        </div>
-
-                        <div class="upload-container">
-                            <div class="upload-container" style="position:relative;">
-                                <input type="file" name="foto" accept="image/*" required style="position:absolute; width:100%; height:100%; top:0; left:0; opacity:0; cursor:pointer;" onchange="this.nextElementSibling.querySelector('p span').innerText = this.files[0].name">
-                                <div class="upload-area">
-                                    <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
-                                    </svg>
-                                    <p class="upload-text"><span>Klik untuk unggah</span></p>
-                                    <p class="upload-subtext">JPG, PNG, atau WEBP (Max 5MB)</p>
-                                </div>
-
-                            <div class="preview-grid">
-                                <div class="preview-box preview-placeholder-1"><span class="mock-img-1">👧🏻</span></div>
-                                <div class="preview-box preview-placeholder-2"><span class="mock-img-1">👦🏽</span></div>
-                                <div class="preview-box preview-uploading">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
-                                    <span>Uploading...</span>
-                                </div>
-                            </div>
-
-                            <div class="form-group" style="margin-top: 16px;">
-                                <label class="form-label">Deskripsi Kegiatan</label>
-                                <div id="editor-galeri" style="height: 120px; border-radius: 0 0 8px 8px;"></div>
-                                <input type="hidden" name="deskripsi" id="deskripsiKegiatanHidden">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="step-section">
-                        <div class="step-header">
-                            <div class="step-number" style="background-color: #f1f5f9; color: #64748b;">2</div>
-                            <div class="step-text-wrap">
-                                <h3>Pilih Kategori</h3>
-                                <p>Tentukan kategori untuk aktivitas ini (bisa pilih lebih dari satu).</p>
-                            </div>
-                        </div>
-
-                        <div class="class-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
-                            <div class="class-card category-card cat-kunjungan" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
-                                <div class="radio-circle"></div>
-                                <h4 style="margin: 0; font-size: 14px; line-height: 1.4;">Kunjungan</h4>
-                            </div>
-                            <div class="class-card category-card cat-seni" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
-                                <div class="radio-circle"></div>
-                                <h4 style="margin: 0; font-size: 14px; line-height: 1.4;">Seni & Kreativitas</h4>
-                            </div>
-                            <div class="class-card category-card cat-kompetisi" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
-                                <div class="radio-circle"></div>
-                                <h4 style="margin: 0; font-size: 14px; line-height: 1.4;">Kompetisi</h4>
-                            </div>
-                            <div class="class-card category-card cat-olahraga" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
-                                <div class="radio-circle"></div>
-                                <h4 style="margin: 0; font-size: 14px; line-height: 1.4;">Olahraga</h4>
-                            </div>
-                            <div class="class-card category-card cat-perayaan" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
-                                <div class="radio-circle"></div>
-                                <h4 style="margin: 0; font-size: 14px; line-height: 1.4;">Perayaan</h4>
-                            </div>
-                            <div class="class-card category-card cat-lainnya" style="padding: 16px 40px 16px 16px; min-height: 64px; display: flex; align-items: center;">
-                                <div class="radio-circle"></div>
-                                <h4 style="margin: 0; font-size: 14px; line-height: 1.4;">Lain-lain</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="action-bar" style="justify-content: flex-end; gap: 12px; margin-top: 24px;">
-                        <button type="button" class="btn btn-outline" id="btnBatalGaleriForm">Batal</button>
-                        <button type="submit" class="btn btn-primary">Unggah Foto</button>
-                    </div>
-                </div>
-                </form>
-            </div>
-        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const categoryCards = document.querySelectorAll('.category-card');
-            categoryCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                });
-            });
-
-            // Modal Logic Buat Galeri
-            const modalBuat = document.getElementById('modalBuatGaleri');
-            const btnBuat = document.getElementById('btnBuatGaleri');
-            const btnCloseBuat = document.getElementById('btnCloseGaleriForm');
-            const btnBatalBuat = document.getElementById('btnBatalGaleriForm');
-
-            const openModalBuat = () => modalBuat.classList.add('active');
-            const closeModalBuat = () => modalBuat.classList.remove('active');
-
-            if(btnBuat) {
-                btnBuat.addEventListener('click', function() {
-                    document.querySelector('#modalBuatGaleri .page-title').textContent = 'Tambah Foto ke Galeri';
-                    document.querySelector('#modalBuatGaleri .btn-primary').textContent = 'Unggah Foto';
-                    if(document.getElementById('inputTglKegiatan')) document.getElementById('inputTglKegiatan').value = '';
-                    if(window.quillGaleri) window.quillGaleri.root.innerHTML = '';
-                    openModalBuat();
-                });
-            }
-            if(btnCloseBuat) btnCloseBuat.addEventListener('click', closeModalBuat);
-            if(btnBatalBuat) btnBatalBuat.addEventListener('click', closeModalBuat);
-            modalBuat.addEventListener('click', (e) => { if(e.target === modalBuat) closeModalBuat(); });
-
             // Modal Detail Galeri Logic
             const modalDetail = document.getElementById('galeriModal');
             const cards = document.querySelectorAll('.activity-card[data-title]');
@@ -276,26 +181,52 @@
             const modalImage = document.getElementById('modalGaleriImage');
             const modalBadge = document.getElementById('modalGaleriBadge');
 
-            const badgeClassMap = {
-                kunjungan: 'badge-kunjungan',
-                seni: 'badge-seni',
-                kompetisi: 'badge-kompetisi',
-                olahraga: 'badge-olahraga',
-                perayaan: 'badge-perayaan',
-            };
-
             const openModalDetail = (card) => {
                 modalTitle.textContent = card.dataset.title || '';
                 modalDate.textContent = card.dataset.date || '';
                 modalPhotos.textContent = card.dataset.photoCount || '';
-                modalImage.src = card.dataset.image || '';
                 modalImage.alt = card.dataset.title || '';
 
-                const paragraphs = (card.dataset.body || '').split('|||').filter(Boolean);
-                modalBody.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
+                const images = JSON.parse(card.dataset.images || '[]');
+                const thumbnailsContainer = document.getElementById('modalGaleriThumbnails');
+                thumbnailsContainer.innerHTML = '';
+                
+                if (images.length > 0) {
+                    modalImage.src = images[0];
+                    if (images.length > 1) {
+                        images.forEach((imgSrc, idx) => {
+                            const thumb = document.createElement('img');
+                            thumb.src = imgSrc;
+                            thumb.style.cssText = 'width:60px; height:60px; object-fit:cover; border-radius:6px; cursor:pointer; opacity:0.6; transition:0.2s; border:2px solid transparent; flex-shrink:0; background:#f1f5f9;';
+                            if (idx === 0) {
+                                thumb.style.opacity = '1';
+                                thumb.style.borderColor = '#0ea5e9';
+                            }
+                            thumb.addEventListener('click', () => {
+                                modalImage.src = imgSrc;
+                                Array.from(thumbnailsContainer.children).forEach(c => {
+                                    c.style.opacity = '0.6';
+                                    c.style.borderColor = 'transparent';
+                                });
+                                thumb.style.opacity = '1';
+                                thumb.style.borderColor = '#0ea5e9';
+                            });
+                            thumbnailsContainer.appendChild(thumb);
+                        });
+                    }
+                } else {
+                    modalImage.src = 'https://placehold.co/600x400/e2e8f0/64748b?text=Tidak+Ada+Foto';
+                }
 
-                const categoryClass = badgeClassMap[card.dataset.categoryClass] || 'badge-kunjungan';
-                modalBadge.className = 'galeri-modal-badge activity-badge ' + categoryClass;
+                // Render HTML directly instead of raw text, replace newlines/etc if needed
+                // Using innerHTML since deskripsi uses Quill
+                // Note: decoding HTML entities back to HTML
+                let bodyHtml = card.dataset.body || '';
+                const txt = document.createElement("textarea");
+                txt.innerHTML = bodyHtml;
+                modalBody.innerHTML = txt.value;
+
+                modalBadge.className = 'galeri-modal-badge activity-badge ' + (card.dataset.categoryClass || 'badge-kunjungan');
                 modalBadge.textContent = card.dataset.category || '';
 
                 modalDetail.classList.add('active');
@@ -332,39 +263,36 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modalDetail.classList.contains('active')) closeModalDetail();
             });
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            window.quillGaleri = new Quill('#editor-galeri', {
-                theme: 'snow',
-                placeholder: 'Contoh: Kegiatan melukis bersama tema alam semesta...'
-            });
-            
-            // Simpan data Quill ke hidden input saat ada perubahan
-            window.quillGaleri.on('text-change', function() {
-                var hiddenInput = document.getElementById('deskripsiKegiatanHidden');
-                if(hiddenInput) hiddenInput.value = window.quillGaleri.root.innerHTML;
-            });
 
-            // Global Edit Function for Galeri
-            window.openEditModal = function(btn) {
-                const card = btn.closest('.activity-card');
-                const title = card.getAttribute('data-title');
-                const date = card.getAttribute('data-date');
-                let bodyHtml = card.getAttribute('data-body') || '';
-                bodyHtml = bodyHtml.replace(/\|\|\|/g, '<br><br>');
+            // Search Logic
+            const searchInput = document.getElementById('search-galeri');
+            const filterKategori = document.getElementById('filter-kategori');
+            
+            const filterGaleri = () => {
+                const query = searchInput ? searchInput.value.toLowerCase() : '';
+                const kategori = filterKategori ? filterKategori.value.toLowerCase() : '';
                 
-                document.querySelector('#modalBuatGaleri .page-title').textContent = 'Edit Galeri Kegiatan';
-                document.querySelector('#modalBuatGaleri .btn-primary').textContent = 'Simpan Perubahan';
-                
-                if(document.getElementById('inputTglKegiatan')) document.getElementById('inputTglKegiatan').value = date;
-                
-                window.quillGaleri.root.innerHTML = bodyHtml;
-                
-                document.getElementById('modalBuatGaleri').classList.add('active');
+                cards.forEach(card => {
+                    const title = (card.dataset.title || '').toLowerCase();
+                    const cardKategories = (card.dataset.categories || '').toLowerCase();
+                    
+                    const matchTitle = title.includes(query);
+                    const matchKategori = kategori === '' || cardKategories.includes(kategori);
+                    
+                    if (matchTitle && matchKategori) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
             };
+            
+            if (searchInput) {
+                searchInput.addEventListener('input', filterGaleri);
+            }
+            if (filterKategori) {
+                filterKategori.addEventListener('change', filterGaleri);
+            }
         });
     </script>
 </body>

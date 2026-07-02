@@ -577,7 +577,7 @@ class OperatorController extends Controller
         $newPathsMap = [];
         if ($request->hasFile('foto')) {
             foreach ($request->file('foto') as $file) {
-                $filename = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
+                $filename = time() . '_' . uniqid() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
                 $file->move(public_path('uploads/galeri'), $filename);
                 $path = 'uploads/galeri/' . $filename;
                 $uploadedPhotos[] = $path;
