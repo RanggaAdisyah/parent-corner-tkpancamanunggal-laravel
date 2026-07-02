@@ -24,13 +24,6 @@
                         <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                         <input type="text" class="search-input" placeholder="Cari pengumuman...">
                     </div>
-                    <button class="header-icon-btn" aria-label="Toggle Dark Mode">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                    </button>
-                    <button class="header-icon-btn header-icon-btn-notif" aria-label="Notifikasi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                        <span class="notif-dot" aria-hidden="true"></span>
-                    </button>
                 </div>
             </header>
 
@@ -57,12 +50,13 @@
                     tabindex="0"
                     data-title="{{ $p->judul }}"
                     data-datetime="{{ \Carbon\Carbon::parse($p->created_at)->translatedFormat('d F Y • H:i') }} WIB"
-                    data-body="{{ strip_tags(str_replace(['<br>', '</p>'], ['|||', '|||'], $p->isi)) }}"
+                    data-body="{{ strip_tags(str_replace(['<br>', '</p>'], ['|||', '|||'], $p->isi_pesan)) }}"
+                    data-attachment-name="{{ is_array($p->lampiran) && count($p->lampiran) > 0 ? basename($p->lampiran[0]) : (is_string($p->lampiran) ? basename($p->lampiran) : '') }}"
                     data-has-gallery="false">
                     <time class="announcement-time" datetime="{{ \Carbon\Carbon::parse($p->created_at)->toIso8601String() }}">{{ \Carbon\Carbon::parse($p->created_at)->translatedFormat('d F Y • H:i') }} WIB</time>
                     <h3 class="announcement-title">{{ $p->judul }}</h3>
                     <p class="announcement-body">
-                        {{ \Illuminate\Support\Str::limit(strip_tags($p->isi), 150) }}
+                        {{ \Illuminate\Support\Str::limit(strip_tags($p->isi_pesan), 150) }}
                     </p>
                     <span class="announcement-link">
                         Baca selengkapnya
@@ -146,6 +140,23 @@
             const modalAttachmentName = document.getElementById('modalAttachmentName');
             const modalAttachmentSize = document.getElementById('modalAttachmentSize');
             const modalGallerySection = document.getElementById('modalGallerySection');
+
+            // Logika Pencarian (Filter)
+            const searchInput = document.querySelector('.search-input');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const keyword = e.target.value.toLowerCase();
+                    cards.forEach(card => {
+                        const title = (card.dataset.title || '').toLowerCase();
+                        const body = (card.dataset.body || '').toLowerCase();
+                        if (title.includes(keyword) || body.includes(keyword)) {
+                            card.style.display = '';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            }
 
             const openModal = (card) => {
                 modalTitle.textContent = card.dataset.title || '';
