@@ -90,7 +90,7 @@
                                         data-jk="{{ $anak->jenis_kelamin }}"
                                         data-tgllahir="{{ $anak->tanggal_lahir }}"
                                         data-status="{{ $anak->orang_tua_id ? 'Terkait' : 'Belum' }}"
-                                        data-wali="{{ $anak->orangTua ? $anak->orangTua->nama_ayah . ' / ' . $anak->orangTua->nama_ibu : 'Belum Ditautkan' }}"
+                                        data-orangtua="{{ $anak->orangTua ? $anak->orangTua->nama_ayah . ' / ' . $anak->orangTua->nama_ibu : 'Belum Ditautkan' }}"
                                     >
                                         <div class="data" role="cell">
                                             <div class="container-11">
@@ -220,16 +220,16 @@
                             <div class="div">
                                 <img class="icon-12" src="{{ asset('img/icon-10.svg') }}" alt="" />
                             </div>
-                            <div class="text-31">INFORMASI WALI</div>
+                            <div class="text-31">INFORMASI ORANG TUA</div>
                         </div>
 
                         <div class="container-16">
                             <div class="container-17">
                                 <div class="div-2">
-                                    <div class="text-wrapper-8">Wali Ditautkan</div>
+                                    <div class="text-wrapper-8">Orang Tua Ditautkan</div>
                                 </div>
                                 <div class="div-2">
-                                    <div class="text-wrapper-9" id="detailWali">-</div>
+                                    <div class="text-wrapper-9" id="detailOrangTua">-</div>
                                 </div>
                             </div>
                         </div>
@@ -358,7 +358,7 @@
                             document.getElementById('detailKelas').innerText = d.kelas || '-';
                             document.getElementById('detailJk').innerText = d.jk || '-';
                             document.getElementById('detailTgllahir').innerText = d.tgllahir || '-';
-                            document.getElementById('detailWali').innerText = d.wali || '-';
+                            document.getElementById('detailOrangTua').innerText = d.orangtua || '-';
                             document.getElementById('formHapusAnak').action = `/operator/data_siswa/${d.id}`;
                         }
                     });

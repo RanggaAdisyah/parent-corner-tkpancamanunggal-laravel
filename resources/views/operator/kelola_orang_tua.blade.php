@@ -4,14 +4,14 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>Kelola Akun Wali</title>
+    <title>Kelola Akun Orang\</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_wali.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_orang_tua.css') }}">
 </head>
 
 <body>
     <div class="kelola-akun-siswa">
-        @include('partials.sidebar', ['active' => 'akun_wali'])
+        @include('partials.sidebar', ['active' => 'akun_orang_tua'])
 
         <main class="main">
             <section class="background">
@@ -20,7 +20,7 @@
                         <div class="container-5">
                             <div class="container-6">
                                 <div class="div-2">
-                                    <h1 class="text-6">Kelola Akun Wali</h1>
+                                    <h1 class="text-6">Kelola Akun Orang\</h1>
                                 </div>
                                 <div class="div-2">
                                     <p class="p">Pilih siswa untuk melihat detail informasi.</p>
@@ -32,17 +32,17 @@
                                     <div class="text-wrapper-6">Backup Siswa</div>
                                 </button>
 
-                                <a href="{{ route('operator.kelola_wali.buat') }}" class="button-3" style="text-decoration: none;">
+                                <a href="{{ route('operator.kelola_orang_tua.buat') }}" class="button-3" style="text-decoration: none;">
                                     <div class="container-7">
                                         <img class="icon-7" src="{{ asset('img/icon-19.svg') }}" alt="" />
                                     </div>
-                                    <div class="text-wrapper-6">Tambah Akun Wali</div>
+                                    <div class="text-wrapper-6">Tambah Akun</div>
                                 </a>
                             </div>
                         </div>
                         <div class="background-border">
-                            <form action="#" method="get" role="search" aria-label="Cari wali" style="flex: 1; display: flex; align-items: center; max-width: 400px; margin-right: auto;">
-                                <input id="search-wali" name="q" type="search" placeholder="Cari nama wali atau NAMA ANAK..." aria-label="Cari wali" style="width: 100%; padding: 10px 16px; border: 1px solid #e2e8f0; border-radius: 8px; outline: none; font-size: 14px; background: white;" />
+                            <form action="#" method="get" role="search" aria-label="Cari orang\" style="flex: 1; display: flex; align-items: center; max-width: 400px; margin-right: auto;">
+                                <input id="search-orang-tua" name="q" type="search" placeholder="Cari nama orang\ atau NAMA ANAK..." aria-label="Cari orang\" style="width: 100%; padding: 10px 16px; border: 1px solid #e2e8f0; border-radius: 8px; outline: none; font-size: 14px; background: white;" />
                             </form>
                             
                             <div class="options-wrapper" style="display: flex; gap: 10px;">
@@ -52,8 +52,8 @@
                             </div>
                         </div>
                         
-                        <section class="table-wrapper" aria-label="Daftar akun wali">
-                            <div class="table" role="table" aria-label="Tabel akun wali">
+                        <section class="table-wrapper" aria-label="Daftar akun orang\">
+                            <div class="table" role="table" aria-label="Tabel akun orang\">
                                 <header class="header" role="rowgroup">
                                     <div class="row" role="row">
                                         <div class="cell" role="columnheader">
@@ -66,28 +66,28 @@
                                 </header>
 
                                 <div class="body" role="rowgroup">
-                                    @foreach($daftarWali as $wali)
+                                    @foreach($daftarOrangTua as $orangTua)
                                     @php
                                         // Ambil data anak pertama jika ada
-                                        $siswa = $wali->siswas->first();
+                                        $siswa = $orangTua->siswas->first();
                                         $namaSiswa = $siswa ? $siswa->nama : 'Belum ada data siswa';
                                         $nisSiswa = $siswa ? $siswa->nis : '-';
                                         $kelasSiswa = $siswa ? $siswa->kelas : '-';
                                         
-                                        $username = $wali->user->username ?? $wali->no_wa ?? '-';
-                                        $inisial = strtoupper(substr($wali->nama_ayah, 0, 2));
-                                        $emailWali = $wali->user ? $wali->user->email : '';
+                                        $username = $orangTua->user->username ?? $orangTua->no_wa ?? '-';
+                                        $inisial = strtoupper(substr($orangTua->nama_ayah, 0, 2));
+                                        $emailOrangTua = $orangTua->user ? $orangTua->user->email : '';
                                     @endphp
                                     <button class="row-3" type="button"
-                                        aria-label="Lihat detail Wali {{ $wali->nama_ayah }}"
-                                        data-ayah="{{ $wali->nama_ayah }}"
-                                        data-ibu="{{ $wali->nama_ibu }}"
-                                        data-wa="{{ $wali->no_wa }}"
-                                        data-alamat="{{ $wali->alamat }}"
-                                        data-email="{{ $emailWali }}"
-                                        data-id="{{ $wali->user_id }}"
-                                        data-namasiswa="{{ $wali->siswas->pluck('nama')->implode(', ') }}"
-                                        data-kelassiswa="{{ $wali->siswas->pluck('kelas')->implode(', ') }}">
+                                        aria-label="Lihat detail Orang Tua {{ $orangTua->nama_ayah }}"
+                                        data-ayah="{{ $orangTua->nama_ayah }}"
+                                        data-ibu="{{ $orangTua->nama_ibu }}"
+                                        data-wa="{{ $orangTua->no_wa }}"
+                                        data-alamat="{{ $orangTua->alamat }}"
+                                        data-email="{{ $emailOrangTua }}"
+                                        data-id="{{ $orangTua->user_id }}"
+                                        data-namasiswa="{{ $orangTua->siswas->pluck('nama')->implode(', ') }}"
+                                        data-kelassiswa="{{ $orangTua->siswas->pluck('kelas')->implode(', ') }}">
                                         
                                         <div class="data" role="cell" style="flex:1;">
                                             <div class="container-11">
@@ -98,7 +98,7 @@
                                             <div class="margin-2">
                                                 <div class="div">
                                                     <div class="div-2">
-                                                        <div class="text-16" style="font-weight:600; color:#1e293b;">{{ $wali->nama_ayah }} / {{ $wali->nama_ibu }}</div>
+                                                        <div class="text-16" style="font-weight:600; color:#1e293b;">{{ $orangTua->nama_ayah }} / {{ $orangTua->nama_ibu }}</div>
                                                     </div>
                                                     <div class="div-2">
                                                         <div class="text-17" style="color:#64748b; font-size:13px;">Username: {{ $username }}</div>
@@ -275,7 +275,7 @@
                 const d = row.dataset;
                 
                 document.getElementById('detailHeadingNama').innerText = d.ayah || '-';
-                document.getElementById('detailHeadingNis').innerText = 'Wali Murid';
+                document.getElementById('detailHeadingNis').innerText = 'Orang Tua Murid';
                 document.getElementById('detailHeadingInisial').innerText = d.ayah ? d.ayah.substring(0,2).toUpperCase() : 'W';
                 document.getElementById('detailNamaLengkap').innerText = d.namasiswa || '-';
                 
@@ -320,7 +320,7 @@
             if (btnUbahData) {
                 btnUbahData.addEventListener('click', () => {
                     if (activeRow && activeRow.dataset.id) {
-                        window.location.href = `/operator/kelola_wali/${activeRow.dataset.id}/edit`;
+                        window.location.href = `/operator/kelola_orang_tua/${activeRow.dataset.id}/edit`;
                     }
                 });
             }
@@ -328,8 +328,8 @@
             if (btnHapusAkun) {
                 btnHapusAkun.addEventListener('click', () => {
                     if (activeRow && activeRow.dataset.id) {
-                        if (confirm('Apakah Anda yakin ingin menghapus akun wali ini beserta aksesnya? Data siswa tidak akan terhapus.')) {
-                            formHapusAkun.action = '/operator/kelola_wali/' + activeRow.dataset.id;
+                        if (confirm('Apakah Anda yakin ingin menghapus akun orang\ ini beserta aksesnya? Data siswa tidak akan terhapus.')) {
+                            formHapusAkun.action = '/operator/kelola_orang_tua/' + activeRow.dataset.id;
                             formHapusAkun.submit();
                         }
                     }
@@ -339,7 +339,7 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('search-wali');
+            const searchInput = document.getElementById('search-orang-tua');
             const filterKelas = document.getElementById('filter-kelas');
             const rows = document.querySelectorAll('.row-3');
 

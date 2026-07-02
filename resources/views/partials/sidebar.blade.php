@@ -99,9 +99,9 @@
 
         <div class="container"><div class="text-wrapper-2">KELOLA DATA</div></div>
 
-        <a href="{{ route('operator.kelola_wali') }}" class="{{ isset($active) && $active == 'akun_wali' ? 'link' : 'link-2' }}" title="Akun Wali">
+        <a href="{{ route('operator.kelola_orang_tua') }}" class="{{ isset($active) && $active == 'akun_orang_tua' ? 'link' : 'link-2' }}" title="Akun Orang Tua">
             <div class="div"><img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" /></div>
-            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'akun_wali' ? 'text-2' : 'text-wrapper-3' }}">Akun Wali</div></div>
+            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'akun_orang_tua' ? 'text-2' : 'text-wrapper-3' }}">Akun Orang Tua</div></div>
         </a>
         <a href="{{ route('operator.data_siswa') }}" class="{{ isset($active) && $active == 'data_siswa' ? 'link' : 'link-2' }}" title="Data Siswa">
             <div class="div"><img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" /></div>
@@ -160,7 +160,7 @@
 </aside>
 
 @php
-    $kelolaDataPages = ['akun_wali', 'data_siswa', 'akun-guru', 'kelola-kelas', 'kalender-kegiatan'];
+    $kelolaDataPages = ['akun_orang_tua', 'data_siswa', 'akun-guru', 'kelola-kelas', 'kalender-kegiatan'];
     $komunikasiPages = ['pengumuman', 'galeri-kegiatan'];
     $isKelolaDataActive = isset($active) && in_array($active, $kelolaDataPages);
     $isKomunikasiActive = isset($active) && in_array($active, $komunikasiPages);
@@ -205,9 +205,9 @@
                 <svg class="ot-drawer__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
             <div class="ot-drawer__subnav {{ $isKelolaDataActive ? 'open' : '' }}" id="subnavKelolaData">
-                <a href="{{ route('operator.kelola_wali') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'akun_wali' ? 'active' : '' }}">
+                <a href="{{ route('operator.kelola_orang_tua') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'akun_orang_tua' ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    Akun Wali
+                    Akun Orang Tua
                 </a>
                 <a href="{{ route('operator.data_siswa') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'data_siswa' ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>

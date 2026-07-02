@@ -105,12 +105,12 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
     Route::put('/data_siswa/{id}', [\App\Http\Controllers\OperatorController::class, 'updateAnak'])->name('data_siswa.update');
     Route::delete('/data_siswa/{id}', [\App\Http\Controllers\OperatorController::class, 'destroyAnak'])->name('data_siswa.destroy');
 
-    Route::get('/kelola_wali', [\App\Http\Controllers\OperatorController::class, 'indexWali'])->name('kelola_wali');
-    Route::get('/kelola_wali/buat', [\App\Http\Controllers\OperatorController::class, 'createWali'])->name('kelola_wali.buat');
-    Route::post('/kelola_wali', [\App\Http\Controllers\OperatorController::class, 'storeWali'])->name('kelola_wali.store');
-    Route::get('/kelola_wali/{id}/edit', [\App\Http\Controllers\OperatorController::class, 'editWali'])->name('kelola_wali.edit');
-    Route::put('/kelola_wali/{id}', [\App\Http\Controllers\OperatorController::class, 'updateWali'])->name('kelola_wali.update');
-    Route::delete('/kelola_wali/{id}', [\App\Http\Controllers\OperatorController::class, 'destroyWali'])->name('kelola_wali.destroy');
+    Route::get('/kelola_orang_tua', [\App\Http\Controllers\OperatorController::class, 'indexOrangTua'])->name('kelola_orang_tua');
+    Route::get('/kelola_orang_tua/buat', [\App\Http\Controllers\OperatorController::class, 'createOrangTua'])->name('kelola_orang_tua.buat');
+    Route::post('/kelola_orang_tua', [\App\Http\Controllers\OperatorController::class, 'storeOrangTua'])->name('kelola_orang_tua.store');
+    Route::get('/kelola_orang_tua/{id}/edit', [\App\Http\Controllers\OperatorController::class, 'editOrangTua'])->name('kelola_orang_tua.edit');
+    Route::put('/kelola_orang_tua/{id}', [\App\Http\Controllers\OperatorController::class, 'updateOrangTua'])->name('kelola_orang_tua.update');
+    Route::delete('/kelola_orang_tua/{id}', [\App\Http\Controllers\OperatorController::class, 'destroyOrangTua'])->name('kelola_orang_tua.destroy');
 
     Route::get('/kelola-kelas', [\App\Http\Controllers\OperatorController::class, 'indexKelas'])->name('kelola-kelas');
     Route::post('/kelola-kelas', [\App\Http\Controllers\OperatorController::class, 'storeKelas']);

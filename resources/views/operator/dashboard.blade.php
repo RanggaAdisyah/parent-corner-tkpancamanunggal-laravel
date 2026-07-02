@@ -30,14 +30,14 @@
             </section>
 
             <section class="container-6" aria-label="Aksi cepat" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-                <a class="link-3" href="{{ route('operator.kelola_wali') }}" aria-label="Akun Wali" style="grid-column: auto; grid-row: auto;">
+                <a class="link-3" href="{{ route('operator.kelola_orang_tua') }}" aria-label="Akun Orang Tua" style="grid-column: auto; grid-row: auto;">
                     <div class="background-2">
                         <div class="div">
                             <img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" />
                         </div>
                     </div>
-                    <div class="heading-2"><div class="text-9">Akun Wali</div></div>
-                    <div class="container-7"><p class="text-10">Tambah, edit, atau nonaktifkan akun wali murid.</p></div>
+                    <div class="heading-2"><div class="text-9">Akun Orang Tua</div></div>
+                    <div class="container-7"><p class="text-10">Tambah, edit, atau nonaktifkan akun orang tua murid.</p></div>
                     <div class="container-8"><div class="text-11">Akses Menu</div></div>
                 </a>
 

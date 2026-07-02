@@ -72,20 +72,20 @@ class OperatorController extends Controller
         return redirect()->back()->with('success', 'Data Anak berhasil dihapus!');
     }
 
-    public function indexWali()
+    public function indexOrangTua()
     {
         // Ambil semua data orang tua beserta anaknya
-        $daftarWali = OrangTua::with(['siswas', 'user'])->get();
-        return view('operator.kelola_wali', compact('daftarWali'));
+        $daftarOrangTua = OrangTua::with(['siswas', 'user'])->get();
+        return view('operator.kelola_orang_tua', compact('daftarOrangTua'));
     }
 
-    public function createWali()
+    public function createOrangTua()
     {
         $siswas = Siswa::whereNull('orang_tua_id')->get(); // Anak yang belum punya wali
-        return view('operator.buat_wali', compact('siswas'));
+        return view('operator.buat_orang_tua', compact('siswas'));
     }
 
-    public function storeWali(Request $request)
+    public function storeOrangTua(Request $request)
     {
         $request->merge([
             'siswa_id' => array_filter($request->siswa_id ?? [])
@@ -121,10 +121,10 @@ class OperatorController extends Controller
             Siswa::whereIn('id', $request->siswa_id)->update(['orang_tua_id' => $orangTua->id]);
         }
 
-        return redirect()->route('operator.kelola_wali')->with('success', 'Akun Wali berhasil ditambahkan!');
+        return redirect()->route('operator.kelola_orang_tua')->with('success', 'Akun Orang Tua berhasil ditambahkan!');
     }
 
-    public function destroyWali($id)
+    public function destroyOrangTua($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
@@ -136,17 +136,17 @@ class OperatorController extends Controller
             $orangTua->delete();
         }
 
-        return redirect()->back()->with('success', 'Akun Wali berhasil dihapus!');
+        return redirect()->back()->with('success', 'Akun Orang Tua berhasil dihapus!');
     }
 
-    public function editWali($id)
+    public function editOrangTua($id)
     {
         $orangTua = OrangTua::with(['siswas', 'user'])->where('user_id', $id)->firstOrFail();
         $siswas = Siswa::whereNull('orang_tua_id')->orWhere('orang_tua_id', $orangTua->id)->get();
-        return view('operator.edit_wali', compact('orangTua', 'siswas'));
+        return view('operator.edit_orang_tua', compact('orangTua', 'siswas'));
     }
 
-    public function updateWali(Request $request, $id)
+    public function updateOrangTua(Request $request, $id)
     {
         $user = User::findOrFail($id);
         
@@ -192,7 +192,7 @@ class OperatorController extends Controller
             Siswa::whereIn('id', $request->siswa_id)->update(['orang_tua_id' => $orangTua->id]);
         }
 
-        return redirect()->route('operator.kelola_wali')->with('success', 'Data Akun Wali berhasil diperbarui!');
+        return redirect()->route('operator.kelola_orang_tua')->with('success', 'Data Akun Orang Tua berhasil diperbarui!');
     }
 
     // --- KELOLA GURU ---
