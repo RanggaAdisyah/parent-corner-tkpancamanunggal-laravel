@@ -116,32 +116,7 @@
                 </section>
             </div>
 
-            {{-- ===== BOTTOM: AKTIVITAS + WALI KELAS ===== --}}
-            <div class="bottom-grid" style="grid-template-columns: 1fr;">
 
-                {{-- Aktivitas Mendatang --}}
-                <div class="activity-card">
-                    <h2 class="card-title">Aktivitas Mendatang (Bulan Ini)</h2>
-
-                    @forelse($kegiatans as $kegiatan)
-                    <div class="activity-item">
-                        <div class="activity-date-box">
-                            <span class="date-day">{{ \Carbon\Carbon::parse($kegiatan->tanggal)->format('d') }}</span>
-                            <span class="date-month">{{ strtoupper(\Carbon\Carbon::parse($kegiatan->tanggal)->translatedFormat('M')) }}</span>
-                        </div>
-                        <div class="activity-info">
-                            <p class="activity-title">{{ $kegiatan->nama_kegiatan }}</p>
-                            <p class="activity-desc">{{ $kegiatan->deskripsi ?? 'Tidak ada deskripsi.' }}</p>
-                        </div>
-                    </div>
-                    @empty
-                    <div style="padding: 20px; text-align: center; color: #64748b; font-size: 14px;">
-                        Belum ada jadwal aktivitas di bulan ini.
-                    </div>
-                    @endforelse
-                </div>
-
-            </div>{{-- /bottom-grid --}}
 
 
             @include('partials.footer')
