@@ -7,8 +7,8 @@
     <title>Beranda - Portal Orang Tua | TK Panca Manunggal</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/operator/dashboard.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/orang_tua/dashboard.css') }}">
-</head>
 <body>
     <div class="dashboard-guru">
 
@@ -19,7 +19,7 @@
 
             {{-- ===== HERO BANNER ===== --}}
             <section class="hero-banner">
-                <h1 class="hero-greeting">Selamat {{ (date('H') < 15) ? ((date('H') < 12) ? 'Pagi' : 'Siang') : ((date('H') < 18) ? 'Sore' : 'Malam') }}, {{ Auth::user()->name }}! 👋</h1>
+                <h1 class="hero-greeting">Selamat {{ (date('H') < 15) ? ((date('H') < 12) ? 'Pagi' : 'Siang') : ((date('H') < 18) ? 'Sore' : 'Malam') }}, {{ Auth::user()->name }}!</h1>
                 <p class="hero-description">
                     Selamat datang di Dashboard Orang Tua. Pantau perkembangan ananda <strong>{{ $siswa ? $siswa->nama : '...' }}</strong>
                     hari ini. {{ $pengumumanTerbaru ? 'Ada pengumuman baru mengenai ' . Str::limit($pengumumanTerbaru->judul, 30) : 'Belum ada pengumuman terbaru saat ini.' }}
@@ -30,113 +30,94 @@
                 </button>
             </section>
 
-            {{-- ===== MENU UTAMA ===== --}}
-            <section>
-                <div class="section-header">
-                    <h2 class="section-title">Menu Utama</h2>
-                    <span class="section-meta">Tahun Ajaran 2023/2024</span>
-                </div>
+            {{-- ===== AKSI CEPAT (Style Operator) ===== --}}
+            <div class="dashboard-operator" style="display: contents;">
+                <section class="heading" aria-labelledby="aksi-cepat-title" style="margin-top: 30px;">
+                    <h2 class="text-8" id="aksi-cepat-title">Pilih Aksi Cepat</h2>
+                </section>
 
-                {{-- ROW 1: 4 kartu --}}
-                <div class="menu-grid-top">
-                    {{-- Lihat Nilai --}}
-                    <a href="{{ url('/orang-tua/lihat-nilai') }}" class="menu-card" id="card-lihat-nilai">
-                        <div class="menu-icon-wrap menu-icon-green">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                <section class="container-6" aria-label="Aksi cepat" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px;">
+                    <a class="link-3" href="{{ url('/orang-tua/lihat-nilai') }}" aria-label="Lihat Nilai" style="grid-column: auto; grid-row: auto;">
+                        <div class="background-2">
+                            <div class="div">
+                                <img class="icon-2" src="{{ asset('icon/guru/nilai.svg') }}" alt="" />
+                            </div>
                         </div>
-                        <h3 class="menu-card-title">Lihat Nilai</h3>
-                        <p class="menu-card-desc">Pantau perkembangan akademik dan laporan mingguan.</p>
-                        <span class="menu-card-link link-green">
-                            Akses Sekarang
-                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </span>
+                        <div class="heading-2"><div class="text-9">Lihat Nilai</div></div>
+                        <div class="container-7"><p class="text-10">Pantau perkembangan akademik anak.</p></div>
+                        <div class="container-8"><div class="text-11">Akses Menu</div></div>
                     </a>
 
-                    {{-- Lihat Jadwal --}}
-                    <a href="{{ url('/orang-tua/lihat-jadwal') }}" class="menu-card" id="card-lihat-jadwal">
-                        <div class="menu-icon-wrap menu-icon-orange">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <a class="link-3" href="{{ url('/orang-tua/lihat-jadwal') }}" aria-label="Lihat Jadwal" style="grid-column: auto; grid-row: auto;">
+                        <div class="background-2" style="background-color: #fef08a;">
+                            <div class="div">
+                                <img class="icon-11" src="{{ asset('icon/guru/jadwal.svg') }}" alt="" />
+                            </div>
                         </div>
-                        <h3 class="menu-card-title">Lihat Jadwal</h3>
-                        <p class="menu-card-desc">Cek jadwal pelajaran, ekstrakurikuler, dan libur.</p>
-                        <span class="menu-card-link link-orange">
-                            Akses Sekarang
-                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </span>
+                        <div class="heading-2"><div class="text-9">Lihat Jadwal</div></div>
+                        <div class="container-7"><p class="text-10">Cek jadwal pelajaran harian.</p></div>
+                        <div class="container-8"><div class="text-11">Akses Menu</div></div>
                     </a>
 
-                    {{-- Lihat Absensi --}}
-                    <a href="{{ url('/orang-tua/lihat-kehadiran') }}" class="menu-card" id="card-lihat-absensi">
-                        <div class="menu-icon-wrap menu-icon-purple">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    <a class="link-3" href="{{ url('/orang-tua/lihat-kehadiran') }}" aria-label="Lihat Kehadiran" style="grid-column: auto; grid-row: auto;">
+                        <div class="background-2" style="background-color: #dbeafe;">
+                            <div class="div">
+                                <img class="icon-2" src="{{ asset('icon/guru/kehadiran.svg') }}" alt="" />
+                            </div>
                         </div>
-                        <h3 class="menu-card-title">Lihat Absensi</h3>
-                        <p class="menu-card-desc">Rekap kehadiran siswa keseluruhan: <strong>{{ $persentaseKehadiran }}%</strong></p>
-                        <span class="menu-card-link link-purple">
-                            Akses Sekarang
-                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </span>
+                        <div class="heading-2"><div class="text-9">Lihat Kehadiran</div></div>
+                        <div class="container-7"><p class="text-10">Rekap absensi: {{ $persentaseKehadiran }}% Hadir.</p></div>
+                        <div class="container-8"><div class="text-11">Akses Menu</div></div>
                     </a>
 
-                    {{-- Foto Kegiatan --}}
-                    <a href="{{ url('/orang-tua/foto-kegiatan') }}" class="menu-card" id="card-foto-kegiatan">
-                        <div class="menu-icon-wrap menu-icon-pink">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    <a class="link-4" href="{{ url('/orang-tua/unduh-laporan') }}" aria-label="Unduh Laporan" style="grid-column: auto; grid-row: auto;">
+                        <div class="background-3">
+                            <div class="div">
+                                <img class="icon-11" src="{{ asset('icon/guru/nilai.svg') }}" alt="" />
+                            </div>
                         </div>
-                        <h3 class="menu-card-title">Foto Kegiatan</h3>
-                        <p class="menu-card-desc">Dokumentasi kegiatan belajar mengajar dan acara.</p>
-                        <span class="menu-card-link link-pink">
-                            Akses Sekarang
-                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </span>
-                    </a>
-                </div>
-
-                {{-- ROW 2: 3 kartu --}}
-                <div class="menu-grid-bottom">
-                    {{-- Hubungi Guru --}}
-                    <a href="{{ url('/orang-tua/hubungi-guru') }}" class="menu-card" id="card-hubungi-guru">
-                        <div class="menu-icon-wrap menu-icon-teal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                        </div>
-                        <h3 class="menu-card-title">Hubungi Guru</h3>
-                        <p class="menu-card-desc">Kirim pesan langsung ke wali kelas {{ $siswa ? $siswa->nama : '...' }}.</p>
-                        <span class="menu-card-link link-teal">
-                            Akses Sekarang
-                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </span>
+                        <div class="heading-2"><div class="text-12">Unduh Laporan</div></div>
+                        <div class="container-7"><p class="text-13">Download rapor dan dokumen lainnya.</p></div>
+                        <div class="container-8"><div class="text-14">Akses Menu</div></div>
                     </a>
 
-                    {{-- Lihat Pengumuman --}}
-                    <a href="{{ url('/orang-tua/lihat-pengumuman') }}" class="menu-card" id="card-pengumuman">
-                        <div class="menu-icon-wrap menu-icon-red">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    <a class="link-4" href="{{ url('/orang-tua/lihat-pengumuman') }}" aria-label="Pengumuman" style="grid-column: auto; grid-row: auto;">
+                        <div class="background-3" style="background-color: #fecaca;">
+                            <div class="div">
+                                <img class="icon-5" src="{{ asset('icon/guru/pengumuman.svg') }}" alt="" />
+                            </div>
                         </div>
-                        <h3 class="menu-card-title">Lihat Pengumuman</h3>
-                        <p class="menu-card-desc">Informasi penting sekolah dan agenda mendatang.</p>
-                        <span class="menu-card-link link-red">
-                            Akses Sekarang
-                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </span>
+                        <div class="heading-2"><div class="text-12">Pengumuman</div></div>
+                        <div class="container-7"><p class="text-13">Informasi agenda sekolah terkini.</p></div>
+                        <div class="container-8"><div class="text-14">Akses Menu</div></div>
                     </a>
 
-                    {{-- Unduh Laporan --}}
-                    <a href="{{ url('/orang-tua/unduh-laporan') }}" class="menu-card" id="card-unduh-laporan">
-                        <div class="menu-icon-wrap menu-icon-blue">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <a class="link-5" href="{{ url('/orang-tua/foto-kegiatan') }}" aria-label="Galeri Kegiatan" style="grid-column: auto; grid-row: auto;">
+                        <div class="background-4" style="background-color: #fce7f3;">
+                            <div class="div">
+                                <img class="icon-14" src="{{ asset('icon/guru/foto.svg') }}" alt="" />
+                            </div>
                         </div>
-                        <h3 class="menu-card-title">Unduh Laporan</h3>
-                        <p class="menu-card-desc">Download rapor semester dan dokumen administratif.</p>
-                        <span class="menu-card-link link-blue">
-                            Akses Sekarang
-                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </span>
+                        <div class="heading-2"><div class="text-15" style="font-size: 16px;">Galeri Kegiatan</div></div>
+                        <div class="container-7"><p class="text-16">Dokumentasi momen belajar anak.</p></div>
+                        <div class="container-9"><div class="text-17">Akses Menu</div></div>
                     </a>
-                </div>
-            </section>
+
+                    <a class="link-6" href="{{ url('/orang-tua/hubungi-guru') }}" aria-label="Hubungi Guru" style="grid-column: auto; grid-row: auto;">
+                        <div class="background-5" style="background-color: #ccfbf1;">
+                            <div class="div">
+                                <img class="icon-2" src="{{ asset('icon/guru/kehadiran.svg') }}" alt="" />
+                            </div>
+                        </div>
+                        <div class="heading-2"><div class="text-18" style="font-size: 16px;">Hubungi Guru</div></div>
+                        <div class="container-7"><p class="text-19">Kirim pesan ke wali kelas {{ $siswa ? $siswa->nama : '...' }}.</p></div>
+                        <div class="container-9"><div class="text-20">Akses Menu</div></div>
+                    </a>
+                </section>
+            </div>
 
             {{-- ===== BOTTOM: AKTIVITAS + WALI KELAS ===== --}}
-            <div class="bottom-grid">
+            <div class="bottom-grid" style="grid-template-columns: 1fr;">
 
                 {{-- Aktivitas Mendatang --}}
                 <div class="activity-card">
@@ -158,43 +139,6 @@
                         Belum ada jadwal aktivitas di bulan ini.
                     </div>
                     @endforelse
-                </div>
-
-                {{-- Wali Kelas --}}
-                <div class="wali-card">
-                    <h2 class="card-title">Wali Kelas</h2>
-
-                    @if($waliKelas)
-                    <div class="wali-avatar-wrap">
-                        <div class="wali-avatar-placeholder">{{ substr($waliKelas->nama_guru, 0, 2) }}</div>
-                    </div>
-
-                    <p class="wali-name">{{ $waliKelas->nama_guru }}</p>
-                    <p class="wali-role">Wali Kelas {{ $siswa && $siswa->kelasLokal ? $siswa->kelasLokal->nama_kelas : 'Belum Ditentukan' }}</p>
-
-                    <div class="wali-subject-tag">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
-                        Kelas {{ $siswa && $siswa->kelasLokal ? $siswa->kelasLokal->nama_kelas : '-' }}
-                    </div>
-
-                    <hr class="wali-divider">
-
-                    <div class="wali-contacts">
-                        <div class="wali-contact-item">
-                            <svg class="wali-contact-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l1.06-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                            {{ $waliKelas->no_wa ?? 'Tidak ada nomor' }}
-                        </div>
-                    </div>
-
-                    <a href="{{ url('/orang-tua/hubungi-guru') }}" class="btn-hubungi" id="btn-hubungi-guru" style="text-decoration: none; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                        Hubungi
-                    </a>
-                    @else
-                    <div style="padding: 20px; text-align: center; color: #64748b; font-size: 14px;">
-                        Data wali kelas belum tersedia.
-                    </div>
-                    @endif
                 </div>
 
             </div>{{-- /bottom-grid --}}
