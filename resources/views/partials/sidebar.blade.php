@@ -134,11 +134,17 @@
 
     <div class="container-wrapper">
         <div class="container-2">
-            <div class="admin-profile" role="img" aria-label="Foto profil Admin Operator"></div>
+@php
+    $user = auth()->user();
+    $nama = $user ? $user->name : 'Admin Operator';
+    $role = $user ? ($user->username ?? $user->email) : 'operator@tkpm.sch.id';
+    $initial = strtoupper(substr($nama, 0, 1));
+@endphp
+            <div class="admin-profile" role="img" aria-label="Foto profil Admin Operator" style="display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border-radius: 50%; width: 40px; height: 40px; font-weight: bold; font-size: 16px;">{{ $initial }}</div>
             <div class="margin">
                 <div class="div-2">
-                    <div class="div-2"><div class="text-wrapper-4">{{ auth()->user() ? auth()->user()->name : 'Admin Operator' }}</div></div>
-                    <div class="div-2"><div class="text-wrapper-5" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ auth()->user() ? (auth()->user()->username ?? auth()->user()->email) : 'operator@tkpm.sch.id' }}">{{ auth()->user() ? (auth()->user()->username ?? auth()->user()->email) : 'operator@tkpm.sch.id' }}</div></div>
+                    <div class="div-2"><div class="text-wrapper-4" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ $nama }}">{{ $nama }}</div></div>
+                    <div class="div-2"><div class="text-wrapper-5" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ $role }}">{{ $role }}</div></div>
                 </div>
             </div>
             <div class="div-wrapper">
@@ -257,10 +263,10 @@
     </nav>
 
     <div class="ot-drawer__footer">
-        <div class="ot-drawer__avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">A</div>
-        <div style="flex: 1;">
-            <div class="ot-drawer__user-name">{{ auth()->user() ? auth()->user()->name : 'Admin Operator' }}</div>
-            <div class="ot-drawer__user-role">{{ auth()->user() ? (auth()->user()->username ?? auth()->user()->email) : 'operator@tkpm.sch.id' }}</div>
+        <div class="ot-drawer__avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">{{ $initial }}</div>
+        <div style="flex: 1; min-width: 0;">
+            <div class="ot-drawer__user-name" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $nama }}</div>
+            <div class="ot-drawer__user-role" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $role }}</div>
         </div>
         <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
             @csrf

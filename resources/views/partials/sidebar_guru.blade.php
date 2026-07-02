@@ -126,11 +126,18 @@
 
     <div class="container-wrapper">
         <div class="container-2">
-            <div class="admin-profile" role="img" aria-label="Foto profil Guru"></div>
+@php
+    $user = auth()->user();
+    $guru = $user ? \App\Models\Guru::where('user_id', $user->id)->first() : null;
+    $nama = $user ? $user->name : 'Guru';
+    $role = $guru && $guru->kelas ? 'Guru ' . $guru->kelas->nama_kelas : 'Guru';
+    $initial = strtoupper(substr($nama, 0, 1));
+@endphp
+            <div class="admin-profile" role="img" aria-label="Foto profil Guru" style="display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border-radius: 50%; width: 40px; height: 40px; font-weight: bold; font-size: 16px;">{{ $initial }}</div>
             <div class="margin">
                 <div class="div-2">
-                    <div class="div-2"><div class="text-wrapper-4">Ibu Siti Aminah</div></div>
-                    <div class="div-2"><div class="text-wrapper-5">Guru Kelas A</div></div>
+                    <div class="div-2"><div class="text-wrapper-4" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ $nama }}">{{ $nama }}</div></div>
+                    <div class="div-2"><div class="text-wrapper-5" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ $role }}">{{ $role }}</div></div>
                 </div>
             </div>
             <div class="div-wrapper">
@@ -241,10 +248,10 @@
     </nav>
 
     <div class="ot-drawer__footer">
-        <div class="ot-drawer__avatar" style="background: linear-gradient(135deg, #10b981, #059669);">S</div>
-        <div style="flex: 1;">
-            <div class="ot-drawer__user-name">Ibu Siti Aminah</div>
-            <div class="ot-drawer__user-role">Guru Kelas A</div>
+        <div class="ot-drawer__avatar" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">{{ $initial }}</div>
+        <div style="flex: 1; min-width: 0;">
+            <div class="ot-drawer__user-name" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $nama }}</div>
+            <div class="ot-drawer__user-role" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $role }}</div>
         </div>
         <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
             @csrf

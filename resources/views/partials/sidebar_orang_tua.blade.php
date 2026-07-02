@@ -224,9 +224,9 @@
     </div>
 
     <nav class="nav" aria-label="Navigasi utama">
-        <a href="{{ url('/orang-tua/dashboard') }}" class="{{ isset($active) && $active == 'beranda' ? 'link' : 'link-2' }}" {{ isset($active) && $active == 'beranda' ? 'aria-current="page"' : '' }} title="Beranda">
+        <a href="{{ url('/orang-tua/dashboard') }}" class="{{ isset($active) && $active == 'beranda' ? 'link' : 'link-2' }}" {{ isset($active) && $active == 'beranda' ? 'aria-current="page"' : '' }} title="Dashboard">
             <div class="div"><img class="img" src="{{ asset('icon/guru/dashboard.svg') }}" alt="" /></div>
-            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'beranda' ? 'text-2' : 'text-3' }}">Beranda</div></div>
+            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'beranda' ? 'text-2' : 'text-3' }}">Dashboard</div></div>
         </a>
 
         <div class="container"><div class="text-wrapper-2">AKADEMIK</div></div>
@@ -241,9 +241,9 @@
             <div class="div-wrapper"><div class="{{ isset($active) && $active == 'lihat-jadwal' ? 'text-2' : 'text-3' }}">Lihat Jadwal</div></div>
         </a>
 
-        <a href="{{ url('/orang-tua/lihat-kehadiran') }}" class="{{ isset($active) && $active == 'lihat-kehadiran' ? 'link' : 'link-2' }}" title="Lihat kehadiran">
+        <a href="{{ url('/orang-tua/lihat-kehadiran') }}" class="{{ isset($active) && $active == 'lihat-kehadiran' ? 'link' : 'link-2' }}" title="Lihat Kehadiran">
             <div class="div"><img class="icon-2" src="{{ asset('icon/guru/kehadiran.svg') }}" alt="" /></div>
-            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'lihat-kehadiran' ? 'text-2' : 'text-wrapper-3' }}">Lihat kehadiran</div></div>
+            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'lihat-kehadiran' ? 'text-2' : 'text-wrapper-3' }}">Lihat Kehadiran</div></div>
         </a>
 
         <a href="{{ url('/orang-tua/unduh-laporan') }}" class="{{ isset($active) && $active == 'unduh-laporan' ? 'link' : 'link-2' }}" title="Unduh Laporan">
@@ -251,16 +251,16 @@
             <div class="div-wrapper"><div class="{{ isset($active) && $active == 'unduh-laporan' ? 'text-2' : 'text-wrapper-3' }}">Unduh Laporan</div></div>
         </a>
 
-        <div class="container"><div class="text-wrapper-2">KOMUNIKASI & INFO</div></div>
+        <div class="container"><div class="text-wrapper-2">KOMUNIKASI</div></div>
 
         <a href="{{ url('/orang-tua/lihat-pengumuman') }}" class="{{ isset($active) && $active == 'pengumuman' ? 'link' : 'link-2' }}" title="Pengumuman">
             <div class="div"><img class="icon-4" src="{{ asset('icon/guru/pengumuman.svg') }}" alt="" /></div>
             <div class="div-wrapper"><div class="{{ isset($active) && $active == 'pengumuman' ? 'text-2' : 'text-4' }}">Pengumuman</div></div>
         </a>
 
-        <a href="{{ url('/orang-tua/foto-kegiatan') }}" class="{{ isset($active) && $active == 'foto-kegiatan' ? 'link' : 'link-2' }}" title="Foto Kegiatan">
+        <a href="{{ url('/orang-tua/foto-kegiatan') }}" class="{{ isset($active) && $active == 'foto-kegiatan' ? 'link' : 'link-2' }}" title="Galeri Kegiatan">
             <div class="div"><img class="icon-5" src="{{ asset('icon/guru/foto.svg') }}" alt="" /></div>
-            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'foto-kegiatan' ? 'text-2' : 'text-5' }}">Foto Kegiatan</div></div>
+            <div class="div-wrapper"><div class="{{ isset($active) && $active == 'foto-kegiatan' ? 'text-2' : 'text-5' }}">Galeri Kegiatan</div></div>
         </a>
 
         <a href="{{ url('/orang-tua/hubungi-guru') }}" class="{{ isset($active) && $active == 'hubungi-guru' ? 'link' : 'link-2' }}" title="Hubungi Guru">
@@ -271,11 +271,18 @@
 
     <div class="container-wrapper">
         <div class="container-2">
-            <div class="admin-profile" role="img" aria-label="Foto profil Orang Tua"></div>
+@php
+    $user = auth()->user();
+    $siswa = $user && $user->orangTua ? $user->orangTua->siswas->first() : null;
+    $nama = $user ? $user->name : 'Orang Tua';
+    $role = $siswa ? 'Wali Murid ' . $siswa->nama : 'Orang Tua Siswa';
+    $initial = strtoupper(substr($nama, 0, 1));
+@endphp
+            <div class="admin-profile" role="img" aria-label="Foto profil Orang Tua" style="display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border-radius: 50%; width: 40px; height: 40px; font-weight: bold; font-size: 16px;">{{ $initial }}</div>
             <div class="margin">
                 <div class="div-2">
-                    <div class="div-2"><div class="text-wrapper-4">Ibu Sarah</div></div>
-                    <div class="div-2"><div class="text-wrapper-5">Wali Murid Budi</div></div>
+                    <div class="div-2"><div class="text-wrapper-4" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ $nama }}">{{ $nama }}</div></div>
+                    <div class="div-2"><div class="text-wrapper-5" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ $role }}">{{ $role }}</div></div>
                 </div>
             </div>
             <div class="div-wrapper">
@@ -329,7 +336,7 @@
         {{-- Beranda --}}
         <a href="{{ url('/orang-tua/dashboard') }}" class="ot-drawer__link {{ isset($active) && $active == 'beranda' ? 'active' : '' }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            Beranda
+            Dashboard
         </a>
 
         <div class="ot-drawer__divider"></div>
@@ -375,7 +382,7 @@
                 </a>
                 <a href="{{ url('/orang-tua/foto-kegiatan') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'foto-kegiatan' ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                    Foto Kegiatan
+                    Galeri Kegiatan
                 </a>
                 <a href="{{ url('/orang-tua/hubungi-guru') }}" class="ot-drawer__sublink {{ isset($active) && $active == 'hubungi-guru' ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -394,10 +401,10 @@
     </nav>
 
     <div class="ot-drawer__footer">
-        <div class="ot-drawer__avatar">S</div>
-        <div style="flex: 1;">
-            <div class="ot-drawer__user-name">Ibu Sarah</div>
-            <div class="ot-drawer__user-role">Wali Murid Budi</div>
+        <div class="ot-drawer__avatar">{{ $initial }}</div>
+        <div style="flex: 1; min-width: 0;">
+            <div class="ot-drawer__user-name" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $nama }}</div>
+            <div class="ot-drawer__user-role" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $role }}</div>
         </div>
         <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
             @csrf
