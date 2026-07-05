@@ -18,11 +18,7 @@
                 <p style="font-size: 14px; color: #64748b; margin: 4px 0 0 0;">Kelola informasi akun Anda</p>
             </div>
 
-            @if(session('success'))
-                <div style="background: #ecfdf5; color: #059669; padding: 12px 16px; border-radius: 8px; margin-bottom: 24px; border: 1px solid #a7f3d0;">
-                    {{ session('success') }}
-                </div>
-            @endif
+
 
             <div style="background: white; padding: 32px; border-radius: 12px; border: 1px solid #e2e8f0;">
                 <div style="display:flex; align-items:center; gap: 20px; margin-bottom: 32px;">

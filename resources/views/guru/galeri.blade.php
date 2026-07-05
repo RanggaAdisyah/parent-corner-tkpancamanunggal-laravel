@@ -21,11 +21,7 @@
 
         <main class="main ot-main">
 
-            @if(session('success'))
-                <div style="background-color: #dcfce7; color: #166534; padding: 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500;">
-                    {{ session('success') }}
-                </div>
-            @endif
+
 
             <header class="galeri-header" style="align-items: center;">
                 <div class="galeri-header-left">
