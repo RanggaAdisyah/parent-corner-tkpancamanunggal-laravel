@@ -183,4 +183,13 @@ class OrangTuaController extends Controller
         
         return view('orang_tua.unduh_laporan', compact('siswa'));
     }
+
+    public function profil()
+    {
+        $user = auth()->user();
+        $orangTua = $user->orangTua;
+        $siswas = $orangTua ? $orangTua->siswas : collect([]);
+        
+        return view('orang_tua.profil', compact('user', 'orangTua', 'siswas'));
+    }
 }

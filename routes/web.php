@@ -191,4 +191,5 @@ Route::middleware(['auth', 'role:orang_tua'])->prefix('orang-tua')->name('orang-
     Route::get('/foto-kegiatan', [App\Http\Controllers\OrangTuaController::class, 'fotoKegiatan'])->name('foto-kegiatan');
     Route::get('/hubungi-guru', [App\Http\Controllers\OrangTuaController::class, 'hubungiGuru'])->name('hubungi-guru');
     Route::get('/unduh-laporan', [App\Http\Controllers\OrangTuaController::class, 'unduhLaporan'])->name('unduh-laporan');
+    Route::get('/profil', [App\Http\Controllers\OrangTuaController::class, 'profil'])->name('profil');
 });

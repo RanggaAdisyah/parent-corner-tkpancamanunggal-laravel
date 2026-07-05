@@ -272,16 +272,18 @@
     $user = auth()->user();
     $siswa = $user && $user->orangTua ? $user->orangTua->siswas->first() : null;
     $nama = $user ? $user->name : 'Orang Tua';
-    $role = $siswa ? 'Wali Murid ' . $siswa->nama : 'Orang Tua Siswa';
+    $role = $siswa ? 'Orang Tua ' . $siswa->nama : 'Orang Tua Siswa';
     $initial = strtoupper(substr($nama, 0, 1));
 @endphp
-            <div class="admin-profile" role="img" aria-label="Foto profil Orang Tua" style="display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border-radius: 50%; width: 40px; height: 40px; font-weight: bold; font-size: 16px;">{{ $initial }}</div>
-            <div class="margin">
-                <div class="div-2">
-                    <div class="div-2"><div class="text-wrapper-4" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ $nama }}">{{ $nama }}</div></div>
-                    <div class="div-2"><div class="text-wrapper-5" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ $role }}">{{ $role }}</div></div>
+            <a href="{{ url('/orang-tua/profil') }}" style="display:flex; align-items:center; text-decoration:none; color:inherit;">
+                <div class="admin-profile" role="img" aria-label="Foto profil Orang Tua" style="display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border-radius: 50%; width: 40px; height: 40px; font-weight: bold; font-size: 16px;">{{ $initial }}</div>
+                <div class="margin">
+                    <div class="div-2">
+                        <div class="div-2"><div class="text-wrapper-4" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px; transition: color 0.2s;" onmouseover="this.style.color='#3b82f6'" onmouseout="this.style.color=''" title="{{ $nama }}">{{ $nama }}</div></div>
+                        <div class="div-2"><div class="text-wrapper-5" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ $role }}">{{ $role }}</div></div>
+                    </div>
                 </div>
-            </div>
+            </a>
             <div class="div-wrapper">
                 <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
                     @csrf
@@ -398,11 +400,13 @@
     </nav>
 
     <div class="ot-drawer__footer">
-        <div class="ot-drawer__avatar">{{ $initial }}</div>
-        <div style="flex: 1; min-width: 0;">
-            <div class="ot-drawer__user-name" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $nama }}</div>
-            <div class="ot-drawer__user-role" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $role }}</div>
-        </div>
+        <a href="{{ url('/orang-tua/profil') }}" style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; text-decoration: none; color: inherit;">
+            <div class="ot-drawer__avatar">{{ $initial }}</div>
+            <div style="flex: 1; min-width: 0;">
+                <div class="ot-drawer__user-name" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $nama }}</div>
+                <div class="ot-drawer__user-role" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $role }}</div>
+            </div>
+        </a>
         <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
             @csrf
             <button type="submit" aria-label="Logout" style="background: none; border: none; cursor: pointer; color: #ef4444; padding: 8px; border-radius: 6px; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='#fee2e2'" onmouseout="this.style.background='none'">
