@@ -9,9 +9,10 @@ class Nilai extends Model
     protected $fillable = [
         'siswa_id',
         'tanggal',
-        'kegiatan',
+        'level',
+        'hal',
         'nilai',
-        'catatan',
+        'keterangan',
     ];
 
     public function siswa()

@@ -110,25 +110,24 @@ class GuruController extends Controller
         $request->validate([
             'siswa_id' => 'required|exists:siswas,id',
             'tanggal' => 'required|date',
-            'nilai' => 'required|array',
-            'catatan' => 'nullable|array',
+            'level' => 'required|string',
+            'hal' => 'required|string',
+            'nilai' => 'required|string',
+            'keterangan' => 'nullable|string',
         ]);
 
-        foreach ($request->nilai as $kegiatan => $nilai_val) {
-            if (!empty($nilai_val)) {
-                Nilai::updateOrCreate(
-                    [
-                        'siswa_id' => $request->siswa_id, 
-                        'tanggal' => $request->tanggal,
-                        'kegiatan' => $kegiatan
-                    ],
-                    [
-                        'nilai' => $nilai_val,
-                        'catatan' => $request->catatan[$kegiatan] ?? null,
-                    ]
-                );
-            }
-        }
+        \App\Models\Nilai::updateOrCreate(
+            [
+                'siswa_id' => $request->siswa_id, 
+                'tanggal' => $request->tanggal,
+            ],
+            [
+                'level' => $request->level,
+                'hal' => $request->hal,
+                'nilai' => $request->nilai,
+                'keterangan' => $request->keterangan,
+            ]
+        );
 
         return redirect()->back()->with('success', 'Data nilai berhasil disimpan.');
     }
@@ -140,11 +139,11 @@ class GuruController extends Controller
             'tanggal' => 'required|date'
         ]);
 
-        $nilais = \App\Models\Nilai::where('siswa_id', $request->siswa_id)
+        $nilai = \App\Models\Nilai::where('siswa_id', $request->siswa_id)
                                    ->where('tanggal', $request->tanggal)
-                                   ->get();
+                                   ->first();
 
-        return response()->json($nilais);
+        return response()->json($nilai);
     }
 
     public function jadwal(Request $request)

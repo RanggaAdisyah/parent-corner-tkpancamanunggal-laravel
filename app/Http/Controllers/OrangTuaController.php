@@ -63,13 +63,31 @@ class OrangTuaController extends Controller
         return view('orang_tua.dashboard', compact('siswa', 'kegiatans', 'waliKelas', 'pengumumanTerbaru', 'persentaseKehadiran'));
     }
 
-    public function lihatNilai()
+    public function lihatNilai(Request $request)
     {
         $siswa = $this->getSiswa();
         
+        $monthYear = $request->get('month_year', date('Y-m'));
+        $parts = explode('-', $monthYear);
+        $year = $parts[0] ?? date('Y');
+        $month = $parts[1] ?? date('m');
+        $week = $request->get('week', 'all');
+
         $nilais = [];
         if ($siswa) {
-            $nilais = Nilai::where('siswa_id', $siswa->id)->orderBy('tanggal', 'desc')->get();
+            $query = Nilai::where('siswa_id', $siswa->id)
+                          ->whereMonth('tanggal', $month)
+                          ->whereYear('tanggal', $year)
+                          ->orderBy('tanggal', 'desc');
+            
+            $collection = $query->get();
+
+            if ($week !== 'all') {
+                $collection = $collection->filter(function($n) use ($week) {
+                    return \Carbon\Carbon::parse($n->tanggal)->weekOfMonth == $week;
+                });
+            }
+            $nilais = $collection;
         }
 
         // Kelompokkan nilai per tanggal
@@ -78,7 +96,7 @@ class OrangTuaController extends Controller
             $groupedNilai[$n->tanggal][] = $n;
         }
 
-        return view('orang_tua.lihat_nilai', compact('siswa', 'groupedNilai'));
+        return view('orang_tua.lihat_nilai', compact('siswa', 'groupedNilai', 'monthYear', 'week'));
     }
 
     public function lihatJadwal(Request $request)

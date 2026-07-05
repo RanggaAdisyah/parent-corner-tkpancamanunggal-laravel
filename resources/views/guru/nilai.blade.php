@@ -7,12 +7,6 @@
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/nilai.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/dashboard.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
-    <style>
-        .ql-toolbar.ql-snow { border-radius: 8px 8px 0 0; border-color: #e2e8f0; font-family: 'Inter', sans-serif; }
-        .ql-container.ql-snow { border-radius: 0 0 8px 8px; border-color: #e2e8f0; font-family: 'Inter', sans-serif; font-size: 14px; }
-        .ql-editor { min-height: 120px; }
-    </style>
 </head>
 <body>
     <div class="dashboard-guru">
@@ -53,65 +47,31 @@
                 </div>
             </section>
 
-            <!-- Kategori: Kognitif -->
-            <section class="category-card">
+            <section class="category-card" style="margin-top: 24px;">
                 <header class="category-header">
                     <div class="category-icon-bg icon-blue">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     </div>
-                    <h2 class="category-title">Perkembangan Kognitif</h2>
+                    <h2 class="category-title">Data Penilaian Siswa</h2>
                 </header>
                 <div class="category-body">
-                    <div class="form-group">
-                        <label class="form-label">Catatan Observasi</label>
-                        <div id="editor-kognitif" style="background: white;"></div>
-                        <input type="hidden" id="hidden-kognitif" name="catatan[kognitif]">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label class="form-label">Level / Jilid</label>
+                            <input type="text" name="level" class="form-input" placeholder="Contoh: Jilid 1, Iqro 2, dll" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Halaman (Hal)</label>
+                            <input type="text" name="hal" class="form-input" placeholder="Contoh: 15-18" required>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label class="form-label">Nilai</label>
+                        <input type="text" name="nilai" class="form-input" placeholder="Contoh: A, B, 85, dll" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Penilaian</label>
-                        <input type="number" name="nilai[kognitif]" class="form-input" placeholder="Contoh: 90">
-                    </div>
-                </div>
-            </section>
-
-            <!-- Kategori: Sosial Emosional -->
-            <section class="category-card">
-                <header class="category-header">
-                    <div class="category-icon-bg icon-purple">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    </div>
-                    <h2 class="category-title">Perkembangan Sosial Emosional</h2>
-                </header>
-                <div class="category-body">
-                    <div class="form-group">
-                        <label class="form-label">Catatan Observasi</label>
-                        <div id="editor-sosial" style="background: white;"></div>
-                        <input type="hidden" id="hidden-sosial" name="catatan[sosial_emosional]">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Penilaian</label>
-                        <input type="number" name="nilai[sosial_emosional]" class="form-input" placeholder="Contoh: 90">
-                    </div>
-                </div>
-            </section>
-
-            <!-- Kategori: Fisik Motorik -->
-            <section class="category-card">
-                <header class="category-header">
-                    <div class="category-icon-bg icon-green">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.147 21a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5z"></path><path d="M2 21a1 1 0 0 1 1-1v-5a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"></path><path d="M9 3.221a1 1 0 0 1 .53-.894l5-2.5a1 1 0 0 1 1.34.447l2.5 5a1 1 0 0 1-.447 1.341l-5 2.5a1 1 0 0 1-1.34-.447l-2.5-5a1 1 0 0 1-.083-.447z"></path></svg>
-                    </div>
-                    <h2 class="category-title">Perkembangan Fisik Motorik</h2>
-                </header>
-                <div class="category-body">
-                    <div class="form-group">
-                        <label class="form-label">Catatan Observasi</label>
-                        <div id="editor-fisik" style="background: white;"></div>
-                        <input type="hidden" id="hidden-fisik" name="catatan[fisik_motorik]">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Penilaian</label>
-                        <input type="number" name="nilai[fisik_motorik]" class="form-input" placeholder="Contoh: 90">
+                        <label class="form-label">Keterangan / Catatan</label>
+                        <textarea name="keterangan" class="form-input" style="min-height: 120px; resize: vertical;" placeholder="Tuliskan keterangan atau catatan perkembangan siswa di sini..."></textarea>
                     </div>
                 </div>
             </section>
@@ -128,44 +88,24 @@
             @include('partials.footer')
         </main>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const quillConfig = {
-                theme: 'snow',
-                modules: {
-                    toolbar: [
-                        ['bold', 'italic', 'underline'],
-                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                        ['clean']
-                    ]
-                }
-            };
-
-            const editorKognitif = new Quill('#editor-kognitif', { ...quillConfig, placeholder: 'Contoh: Ananda mulai bisa mengelompokkan benda...' });
-            const editorSosial = new Quill('#editor-sosial', { ...quillConfig, placeholder: 'Contoh: Mampu berbagi mainan dengan teman...' });
-            const editorFisik = new Quill('#editor-fisik', { ...quillConfig, placeholder: 'Masukkan catatan observasi...' });
-
-            editorKognitif.on('text-change', () => document.getElementById('hidden-kognitif').value = editorKognitif.root.innerHTML);
-            editorSosial.on('text-change', () => document.getElementById('hidden-sosial').value = editorSosial.root.innerHTML);
-            editorFisik.on('text-change', () => document.getElementById('hidden-fisik').value = editorFisik.root.innerHTML);
-
             // AJAX Fetch logic
             const siswaSelect = document.querySelector('select[name="siswa_id"]');
             const tanggalInput = document.querySelector('input[name="tanggal"]');
-            const inputsNilai = {
-                kognitif: document.querySelector('input[name="nilai[kognitif]"]'),
-                sosial_emosional: document.querySelector('input[name="nilai[sosial_emosional]"]'),
-                fisik_motorik: document.querySelector('input[name="nilai[fisik_motorik]"]')
+            
+            const inputs = {
+                level: document.querySelector('input[name="level"]'),
+                hal: document.querySelector('input[name="hal"]'),
+                nilai: document.querySelector('input[name="nilai"]'),
+                keterangan: document.querySelector('textarea[name="keterangan"]')
             };
 
             function clearForm() {
-                editorKognitif.setText('');
-                editorSosial.setText('');
-                editorFisik.setText('');
-                if (inputsNilai.kognitif) inputsNilai.kognitif.value = '';
-                if (inputsNilai.sosial_emosional) inputsNilai.sosial_emosional.value = '';
-                if (inputsNilai.fisik_motorik) inputsNilai.fisik_motorik.value = '';
+                if (inputs.level) inputs.level.value = '';
+                if (inputs.hal) inputs.hal.value = '';
+                if (inputs.nilai) inputs.nilai.value = '';
+                if (inputs.keterangan) inputs.keterangan.value = '';
             }
 
             function fetchNilai() {
@@ -177,28 +117,11 @@
                         .then(response => response.json())
                         .then(data => {
                             clearForm();
-                            if (data && data.length > 0) {
-                                data.forEach(item => {
-                                    if (item.kegiatan === 'kognitif') {
-                                        if (inputsNilai.kognitif) inputsNilai.kognitif.value = item.nilai;
-                                        if (item.catatan) {
-                                            editorKognitif.root.innerHTML = item.catatan;
-                                            document.getElementById('hidden-kognitif').value = item.catatan;
-                                        }
-                                    } else if (item.kegiatan === 'sosial_emosional') {
-                                        if (inputsNilai.sosial_emosional) inputsNilai.sosial_emosional.value = item.nilai;
-                                        if (item.catatan) {
-                                            editorSosial.root.innerHTML = item.catatan;
-                                            document.getElementById('hidden-sosial').value = item.catatan;
-                                        }
-                                    } else if (item.kegiatan === 'fisik_motorik') {
-                                        if (inputsNilai.fisik_motorik) inputsNilai.fisik_motorik.value = item.nilai;
-                                        if (item.catatan) {
-                                            editorFisik.root.innerHTML = item.catatan;
-                                            document.getElementById('hidden-fisik').value = item.catatan;
-                                        }
-                                    }
-                                });
+                            if (data && Object.keys(data).length > 0) {
+                                if (inputs.level) inputs.level.value = data.level || '';
+                                if (inputs.hal) inputs.hal.value = data.hal || '';
+                                if (inputs.nilai) inputs.nilai.value = data.nilai || '';
+                                if (inputs.keterangan) inputs.keterangan.value = data.keterangan || '';
                             }
                         })
                         .catch(error => console.error('Error fetching nilai:', error));
