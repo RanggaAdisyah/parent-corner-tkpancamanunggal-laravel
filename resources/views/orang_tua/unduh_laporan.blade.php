@@ -58,7 +58,7 @@
                                             </div>
                                             <div>
                                                 <span class="report-title">{{ $reportName }}</span>
-                                                <span class="report-meta">Format: Cetak Web</span>
+                                                <span class="report-meta">Format: .pdf</span>
                                             </div>
                                         </div>
                                     </td>
