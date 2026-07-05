@@ -57,7 +57,7 @@
                 <div class="category-body">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
                         <div class="form-group">
-                            <label class="form-label">Level / Jilid</label>
+                            <label class="form-label">Level</label>
                             <input type="text" name="level" class="form-input" placeholder="Contoh: Jilid 1, Iqro 2, dll" required>
                         </div>
                         <div class="form-group">

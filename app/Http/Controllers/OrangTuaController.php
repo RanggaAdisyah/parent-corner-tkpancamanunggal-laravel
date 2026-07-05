@@ -217,7 +217,40 @@ class OrangTuaController extends Controller
     {
         $siswa = $this->getSiswa();
         
-        return view('orang_tua.unduh_laporan', compact('siswa'));
+        $months = collect();
+        if ($siswa) {
+            $months = Nilai::where('siswa_id', $siswa->id)
+                ->pluck('tanggal')
+                ->map(function ($date) {
+                    return \Carbon\Carbon::parse($date)->format('Y-m');
+                })
+                ->unique()
+                ->sortDesc()
+                ->values();
+        }
+        
+        return view('orang_tua.unduh_laporan', compact('siswa', 'months'));
+    }
+
+    public function cetakLaporan(Request $request)
+    {
+        $siswa = $this->getSiswa();
+        if (!$siswa) return redirect()->back();
+
+        $monthYear = $request->query('month_year');
+        if (!$monthYear) return redirect()->back();
+
+        $parts = explode('-', $monthYear);
+        $year = $parts[0] ?? date('Y');
+        $month = $parts[1] ?? date('m');
+
+        $nilais = Nilai::where('siswa_id', $siswa->id)
+            ->whereYear('tanggal', $year)
+            ->whereMonth('tanggal', $month)
+            ->orderBy('tanggal', 'asc')
+            ->get();
+            
+        return view('orang_tua.cetak_laporan', compact('siswa', 'nilais', 'monthYear'));
     }
 
     public function profil()

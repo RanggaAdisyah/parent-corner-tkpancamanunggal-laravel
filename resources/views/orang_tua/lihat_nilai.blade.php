@@ -80,7 +80,7 @@
                         <div class="category-body">
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
                                 <div>
-                                    <span class="observation-label" style="display: block; margin-bottom: 4px;">Level / Jilid:</span>
+                                    <span class="observation-label" style="display: block; margin-bottom: 4px;">Level:</span>
                                     <div style="font-size: 15px; font-weight: 600; color: #1e293b;">{{ $nilai->level ?? '-' }}</div>
                                 </div>
                                 <div>
