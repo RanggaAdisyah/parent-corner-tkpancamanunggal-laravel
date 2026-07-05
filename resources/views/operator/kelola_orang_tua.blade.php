@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>Kelola Akun Orang\</title>
+    <title>Kelola Akun orang tua</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_orang_tua.css') }}">
 </head>
@@ -20,7 +20,7 @@
                         <div class="container-5">
                             <div class="container-6">
                                 <div class="div-2">
-                                    <h1 class="text-6">Kelola Akun Orang\</h1>
+                                    <h1 class="text-6">Kelola Akun orang tua</h1>
                                 </div>
                                 <div class="div-2">
                                     <p class="p">Pilih siswa untuk melihat detail informasi.</p>
@@ -28,10 +28,6 @@
                             </div>
 
                             <div class="action-buttons" aria-label="Aksi halaman">
-                                <button class="button-2" type="button">
-                                    <div class="text-wrapper-6">Backup Siswa</div>
-                                </button>
-
                                 <a href="{{ route('operator.kelola_orang_tua.buat') }}" class="button-3" style="text-decoration: none;">
                                     <div class="container-7">
                                         <img class="icon-7" src="{{ asset('img/icon-19.svg') }}" alt="" />
@@ -41,8 +37,8 @@
                             </div>
                         </div>
                         <div class="background-border">
-                            <form action="#" method="get" role="search" aria-label="Cari orang\" style="flex: 1; display: flex; align-items: center; max-width: 400px; margin-right: auto;">
-                                <input id="search-orang-tua" name="q" type="search" placeholder="Cari nama orang tua atau nama anak..." aria-label="Cari orang\" style="width: 100%; padding: 10px 16px; border: 1px solid #e2e8f0; border-radius: 8px; outline: none; font-size: 14px; background: white;" />
+                            <form action="#" method="get" role="search" aria-label="Cari orang tua" style="flex: 1; display: flex; align-items: center; max-width: 400px; margin-right: auto;">
+                                <input id="search-orang-tua" name="q" type="search" placeholder="Cari nama orang tua atau nama anak..." aria-label="Cari orang tua" style="width: 100%; padding: 10px 16px; border: 1px solid #e2e8f0; border-radius: 8px; outline: none; font-size: 14px; background: white;" />
                             </form>
                             
                             <div class="options-wrapper" style="display: flex; gap: 10px;">
@@ -52,8 +48,8 @@
                             </div>
                         </div>
                         
-                        <section class="table-wrapper" aria-label="Daftar akun orang\">
-                            <div class="table" role="table" aria-label="Tabel akun orang\">
+                        <section class="table-wrapper" aria-label="Daftar akun orang tua">
+                            <div class="table" role="table" aria-label="Tabel akun orang tua">
                                 <header class="header" role="rowgroup">
                                     <div class="row" role="row">
                                         <div class="cell" role="columnheader">
@@ -328,7 +324,7 @@
             if (btnHapusAkun) {
                 btnHapusAkun.addEventListener('click', () => {
                     if (activeRow && activeRow.dataset.id) {
-                        if (confirm('Apakah Anda yakin ingin menghapus akun orang\ ini beserta aksesnya? Data siswa tidak akan terhapus.')) {
+                        if (confirm('Apakah Anda yakin ingin menghapus akun orang tua ini beserta aksesnya? Data siswa tidak akan terhapus.')) {
                             formHapusAkun.action = '/operator/kelola_orang_tua/' + activeRow.dataset.id;
                             formHapusAkun.submit();
                         }

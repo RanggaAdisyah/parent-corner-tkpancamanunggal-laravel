@@ -753,4 +753,198 @@ class OperatorController extends Controller
 
         return redirect()->route('operator.profil')->with('success', 'Profil berhasil diperbarui!');
     }
+
+    public function backupOrangTua()
+    {
+        $data = \App\Models\OrangTua::with(['user', 'siswas'])->get();
+        $tanggal = now()->format('d-m-Y_H-i');
+        $filename = "backup_orang_tua_{$tanggal}.csv";
+
+        $headers = [
+            'Content-Type'        => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+        ];
+
+        $callback = function () use ($data) {
+            $handle = fopen('php://output', 'w');
+            // BOM agar Excel bisa baca UTF-8
+            fputs($handle, "\xEF\xBB\xBF");
+
+            fputcsv($handle, ['ID', 'Username (No HP)', 'Nama Ayah', 'Nama Ibu', 'No HP', 'Alamat', 'Daftar Anak', 'Dibuat Pada']);
+
+            foreach ($data as $ot) {
+                $anak = $ot->siswas->pluck('nama')->implode(', ');
+                fputcsv($handle, [
+                    $ot->id,
+                    $ot->user->username ?? '-',
+                    $ot->nama_ayah ?? '-',
+                    $ot->nama_ibu ?? '-',
+                    $ot->no_hp ?? '-',
+                    $ot->alamat ?? '-',
+                    $anak ?: '-',
+                    $ot->created_at->format('d/m/Y H:i'),
+                ]);
+            }
+
+            fclose($handle);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    public function backupGuru()
+    {
+        $data = \App\Models\Guru::with(['user', 'kelas'])->get();
+        $tanggal = now()->format('d-m-Y_H-i');
+        $filename = "backup_guru_{$tanggal}.csv";
+
+        $headers = [
+            'Content-Type'        => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+        ];
+
+        $callback = function () use ($data) {
+            $handle = fopen('php://output', 'w');
+            fputs($handle, "\xEF\xBB\xBF");
+
+            fputcsv($handle, ['ID', 'Nama Lengkap', 'NIP', 'Jabatan', 'Kelas', 'No HP', 'Email', 'Alamat', 'Jenis Kelamin', 'Tanggal Lahir', 'Dibuat Pada']);
+
+            foreach ($data as $guru) {
+                fputcsv($handle, [
+                    $guru->id,
+                    $guru->nama_lengkap ?? '-',
+                    $guru->nip ?? '-',
+                    $guru->jabatan ?? '-',
+                    $guru->kelas ? $guru->kelas->tingkat . ' - ' . $guru->kelas->nama_kelas : '-',
+                    $guru->no_hp ?? '-',
+                    $guru->user->email ?? '-',
+                    $guru->alamat ?? '-',
+                    $guru->jenis_kelamin ?? '-',
+                    $guru->tanggal_lahir ?? '-',
+                    $guru->created_at->format('d/m/Y H:i'),
+                ]);
+            }
+
+            fclose($handle);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    public function backupSemua()
+    {
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+
+        // ── Sheet 1: Orang Tua ─────────────────────────────────────────
+        $sheetOT = $spreadsheet->getActiveSheet();
+        $sheetOT->setTitle('Orang Tua');
+        $sheetOT->fromArray(['ID','Username (No HP)','Nama Ayah','Nama Ibu','No HP','Alamat','Daftar Anak','Dibuat Pada'], NULL, 'A1');
+        
+        $dataOT = [];
+        foreach (\App\Models\OrangTua::with(['user','siswas'])->get() as $ot) {
+            $dataOT[] = [
+                $ot->id,
+                $ot->user->username ?? '-',
+                $ot->nama_ayah ?? '-',
+                $ot->nama_ibu  ?? '-',
+                $ot->no_hp     ?? '-',
+                $ot->alamat    ?? '-',
+                $ot->siswas->pluck('nama')->implode(', ') ?: '-',
+                $ot->created_at->format('d/m/Y H:i'),
+            ];
+        }
+        $sheetOT->fromArray($dataOT, NULL, 'A2');
+
+        // ── Sheet 2: Guru ──────────────────────────────────────────────
+        $sheetGuru = $spreadsheet->createSheet();
+        $sheetGuru->setTitle('Guru');
+        $sheetGuru->fromArray(['ID','Nama Lengkap','NIP','Jabatan','Kelas','No HP','Email','Alamat','Jenis Kelamin','Tanggal Lahir','Dibuat Pada'], NULL, 'A1');
+        
+        $dataGuru = [];
+        foreach (\App\Models\Guru::with(['user','kelas'])->get() as $g) {
+            $dataGuru[] = [
+                $g->id,
+                $g->nama_lengkap  ?? '-',
+                $g->nip           ?? '-',
+                $g->jabatan       ?? '-',
+                $g->kelas ? $g->kelas->tingkat.' - '.$g->kelas->nama_kelas : '-',
+                $g->no_hp         ?? '-',
+                $g->user->email   ?? '-',
+                $g->alamat        ?? '-',
+                $g->jenis_kelamin ?? '-',
+                $g->tanggal_lahir ?? '-',
+                $g->created_at->format('d/m/Y H:i'),
+            ];
+        }
+        $sheetGuru->fromArray($dataGuru, NULL, 'A2');
+
+        // ── Sheet 3: Siswa ─────────────────────────────────────────────
+        $sheetSiswa = $spreadsheet->createSheet();
+        $sheetSiswa->setTitle('Siswa');
+        $sheetSiswa->fromArray(['ID','Nama','NIS','Kelas','Jenis Kelamin','Tanggal Lahir','Dibuat Pada'], NULL, 'A1');
+        
+        $dataSiswa = [];
+        foreach (\App\Models\Siswa::with('kelasLokal')->get() as $s) {
+            $dataSiswa[] = [
+                $s->id,
+                $s->nama           ?? '-',
+                $s->nis            ?? '-',
+                $s->kelasLokal ? $s->kelasLokal->tingkat.' - '.$s->kelasLokal->nama_kelas : '-',
+                $s->jenis_kelamin  ?? '-',
+                $s->tanggal_lahir  ?? '-',
+                $s->created_at->format('d/m/Y H:i'),
+            ];
+        }
+        $sheetSiswa->fromArray($dataSiswa, NULL, 'A2');
+
+        // ── Sheet 4: Nilai ─────────────────────────────────────────────
+        $sheetNilai = $spreadsheet->createSheet();
+        $sheetNilai->setTitle('Nilai');
+        $sheetNilai->fromArray(['ID','Siswa','Tanggal','Level','Hal','Nilai','Keterangan'], NULL, 'A1');
+        
+        $dataNilai = [];
+        foreach (\App\Models\Nilai::with('siswa')->get() as $n) {
+            $dataNilai[] = [
+                $n->id,
+                $n->siswa->nama ?? '-',
+                $n->tanggal     ?? '-',
+                $n->level       ?? '-',
+                $n->hal         ?? '-',
+                $n->nilai       ?? '-',
+                $n->keterangan  ?? '-',
+            ];
+        }
+        $sheetNilai->fromArray($dataNilai, NULL, 'A2');
+
+        // ── Sheet 5: Kehadiran ─────────────────────────────────────────
+        $sheetKehadiran = $spreadsheet->createSheet();
+        $sheetKehadiran->setTitle('Kehadiran');
+        $sheetKehadiran->fromArray(['ID','Siswa','Tanggal','Status'], NULL, 'A1');
+        
+        $dataKehadiran = [];
+        foreach (\App\Models\Kehadiran::with('siswa')->get() as $k) {
+            $dataKehadiran[] = [
+                $k->id,
+                $k->siswa->nama ?? '-',
+                $k->tanggal     ?? '-',
+                $k->status      ?? '-',
+            ];
+        }
+        $sheetKehadiran->fromArray($dataKehadiran, NULL, 'A2');
+
+        // Set active sheet to the first one
+        $spreadsheet->setActiveSheetIndex(0);
+
+        $tanggal = now()->format('d-m-Y_H-i');
+        $fileName = "backup_semua_{$tanggal}.xlsx";
+        $tempPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $fileName;
+
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        $writer->save($tempPath);
+
+        return response()->download($tempPath, $fileName, [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        ])->deleteFileAfterSend(true);
+    }
 }
+

@@ -26,10 +26,6 @@
                             </div>
 
                             <div class="action-buttons" aria-label="Aksi halaman">
-                                <button class="button-2" type="button">
-                                    <div class="text-wrapper-6">Backup Guru</div>
-                                </button>
-
                                 <a href="{{ route('operator.kelola-guru.buat') }}" class="button-3" style="text-decoration: none;">
                                     <div class="container-7">
                                         <img class="icon-7" src="{{ asset('img/icon-19.svg') }}" alt="" />
