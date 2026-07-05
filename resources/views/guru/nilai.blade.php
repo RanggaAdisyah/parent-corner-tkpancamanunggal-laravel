@@ -23,7 +23,7 @@
                 </div>
 
             </header>
-            <form action="{{ route('guru.nilai.store') }}" method="POST" style="display: contents;">
+            <form id="form-nilai" action="{{ route('guru.nilai.store') }}" method="POST" style="display: contents;">
                 @csrf
 
             <section class="selection-section">
@@ -106,11 +106,16 @@
             });
 
             // Form Submit Logic for Quill
-            const form = document.querySelector('form');
+            const form = document.getElementById('form-nilai');
             const hiddenKeterangan = document.getElementById('hidden-keterangan');
             
             form.addEventListener('submit', function() {
-                hiddenKeterangan.value = quill.root.innerHTML;
+                // Jika kosong bawaan quill, set null
+                if(quill.getText().trim().length === 0) {
+                    hiddenKeterangan.value = '';
+                } else {
+                    hiddenKeterangan.value = quill.root.innerHTML;
+                }
             });
 
             // AJAX Fetch logic

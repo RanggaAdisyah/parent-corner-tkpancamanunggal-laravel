@@ -22,8 +22,8 @@
 
             {{-- TAB NAVIGASI UTAMA --}}
             <div class="main-tabs">
-                <button class="main-tab active" data-tab="kalender">📅 Kalender Kegiatan</button>
-                <button class="main-tab" data-tab="harian">🕐 Jadwal Harian</button>
+                <button class="main-tab active" data-tab="kalender">Kalender Kegiatan</button>
+                <button class="main-tab" data-tab="harian">Jadwal Harian</button>
             </div>
 
             {{-- TAB PANEL: KALENDER --}}
