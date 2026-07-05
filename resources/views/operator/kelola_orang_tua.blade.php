@@ -42,7 +42,7 @@
                         </div>
                         <div class="background-border">
                             <form action="#" method="get" role="search" aria-label="Cari orang\" style="flex: 1; display: flex; align-items: center; max-width: 400px; margin-right: auto;">
-                                <input id="search-orang-tua" name="q" type="search" placeholder="Cari nama orang\ atau NAMA ANAK..." aria-label="Cari orang\" style="width: 100%; padding: 10px 16px; border: 1px solid #e2e8f0; border-radius: 8px; outline: none; font-size: 14px; background: white;" />
+                                <input id="search-orang-tua" name="q" type="search" placeholder="Cari nama orang tua atau nama anak..." aria-label="Cari orang\" style="width: 100%; padding: 10px 16px; border: 1px solid #e2e8f0; border-radius: 8px; outline: none; font-size: 14px; background: white;" />
                             </form>
                             
                             <div class="options-wrapper" style="display: flex; gap: 10px;">
@@ -74,7 +74,7 @@
                                         $nisSiswa = $siswa ? $siswa->nis : '-';
                                         $kelasSiswa = $siswa ? $siswa->kelas : '-';
                                         
-                                        $username = $orangTua->user->username ?? $orangTua->no_wa ?? '-';
+                                        $username = $orangTua->user->username ?? $orangTua->no_hp ?? '-';
                                         $inisial = strtoupper(substr($orangTua->nama_ayah, 0, 2));
                                         $emailOrangTua = $orangTua->user ? $orangTua->user->email : '';
                                     @endphp
@@ -82,7 +82,7 @@
                                         aria-label="Lihat detail Orang Tua {{ $orangTua->nama_ayah }}"
                                         data-ayah="{{ $orangTua->nama_ayah }}"
                                         data-ibu="{{ $orangTua->nama_ibu }}"
-                                        data-wa="{{ $orangTua->no_wa }}"
+                                        data-wa="{{ $orangTua->no_hp }}"
                                         data-alamat="{{ $orangTua->alamat }}"
                                         data-email="{{ $emailOrangTua }}"
                                         data-id="{{ $orangTua->user_id }}"

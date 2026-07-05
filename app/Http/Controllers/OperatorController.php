@@ -102,7 +102,7 @@ class OperatorController extends Controller
         ]);
 
         $request->validate([
-            'no_wa' => 'required|string|unique:users,username',
+            'no_hp' => 'required|string|unique:users,username',
             'password' => 'required|min:6',
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
@@ -112,7 +112,7 @@ class OperatorController extends Controller
         // 1. Buat User (Login)
         $user = User::create([
             'name' => $request->nama_ayah, // default menggunakan nama ayah
-            'username' => $request->no_wa,
+            'username' => $request->no_hp,
             'password' => Hash::make($request->password),
             'role' => 'orang_tua'
         ]);
@@ -122,7 +122,7 @@ class OperatorController extends Controller
             'user_id' => $user->id,
             'nama_ayah' => $request->nama_ayah,
             'nama_ibu' => $request->nama_ibu,
-            'no_wa' => $request->no_wa,
+            'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,
         ]);
 
@@ -165,7 +165,7 @@ class OperatorController extends Controller
         ]);
 
         $rules = [
-            'no_wa' => 'required|string|unique:users,username,'.$id,
+            'no_hp' => 'required|string|unique:users,username,'.$id,
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
             'siswa_id' => 'required|array|min:1',
@@ -178,7 +178,7 @@ class OperatorController extends Controller
         $request->validate($rules);
 
         $user->name = $request->nama_ayah;
-        $user->username = $request->no_wa;
+        $user->username = $request->no_hp;
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
@@ -189,7 +189,7 @@ class OperatorController extends Controller
             $orangTua->update([
                 'nama_ayah' => $request->nama_ayah,
                 'nama_ibu' => $request->nama_ibu,
-                'no_wa' => $request->no_wa,
+                'no_hp' => $request->no_hp,
                 'alamat' => $request->alamat,
             ]);
 
@@ -222,7 +222,7 @@ class OperatorController extends Controller
     public function storeGuru(Request $request)
     {
         $request->validate([
-            'no_wa' => 'required|unique:users,username', // Hybrid login dengan nomor WA sebagai username
+            'no_hp' => 'required|unique:users,username', // Hybrid login dengan nomor WA sebagai username
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
             'nama_lengkap' => 'required',
@@ -230,7 +230,7 @@ class OperatorController extends Controller
 
         $user = User::create([
             'name' => $request->nama_lengkap,
-            'username' => $request->no_wa,
+            'username' => $request->no_hp,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'guru'
@@ -242,7 +242,7 @@ class OperatorController extends Controller
             'jabatan' => $request->jabatan,
             'nip' => $request->nip,
             'kelas_id' => $request->kelas_id,
-            'no_wa' => $request->no_wa,
+            'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,
             'jenis_kelamin' => $request->jenis_kelamin,
             'tanggal_lahir' => $request->tanggal_lahir,
@@ -264,7 +264,7 @@ class OperatorController extends Controller
         
         $rules = [
             'email' => 'required|email|unique:users,email,'.$id,
-            'no_wa' => 'required|unique:users,username,'.$id,
+            'no_hp' => 'required|unique:users,username,'.$id,
             'nama_lengkap' => 'required',
         ];
 
@@ -275,7 +275,7 @@ class OperatorController extends Controller
         $request->validate($rules);
 
         $user->name = $request->nama_lengkap;
-        $user->username = $request->no_wa;
+        $user->username = $request->no_hp;
         $user->email = $request->email;
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
@@ -289,7 +289,7 @@ class OperatorController extends Controller
                 'jabatan' => $request->jabatan,
                 'nip' => $request->nip,
                 'kelas_id' => $request->kelas_id,
-                'no_wa' => $request->no_wa,
+                'no_hp' => $request->no_hp,
                 'alamat' => $request->alamat,
                 'jenis_kelamin' => $request->jenis_kelamin,
                 'tanggal_lahir' => $request->tanggal_lahir,

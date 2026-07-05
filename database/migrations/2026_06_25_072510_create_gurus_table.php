@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('jabatan')->nullable();
             $table->string('nip')->nullable();
             $table->foreignId('kelas_id')->nullable()->constrained('kelas')->onDelete('set null');
-            $table->string('no_wa')->nullable();
+            $table->string('no_hp')->nullable();
             $table->text('alamat')->nullable();
             $table->string('jenis_kelamin')->nullable();
             $table->date('tanggal_lahir')->nullable();

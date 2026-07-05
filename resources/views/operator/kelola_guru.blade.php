@@ -83,7 +83,7 @@
                                         data-jabatan="{{ $guru->jabatan }}"
                                         data-walikelas="{{ $guru->kelas_id }}"
                                         data-namakelas="{{ $guru->kelas ? $guru->kelas->tingkat . ' - ' . $guru->kelas->nama_kelas : 'Bukan Wali Kelas' }}"
-                                        data-wa="{{ $guru->no_wa }}"
+                                        data-wa="{{ $guru->no_hp }}"
                                         data-alamat="{{ $guru->alamat }}"
                                     >
                                         <div class="data" role="cell">
