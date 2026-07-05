@@ -141,9 +141,13 @@
                     <div id="modalGaleriBody" class="galeri-modal-content" style="line-height:1.6; color:#334155; margin-bottom:24px;"></div>
 
                     <div class="galeri-modal-lampiran">
-                        <div class="galeri-modal-image-wrap" style="background:#f8fafc; border:1px solid #e2e8f0;">
+                        <div class="galeri-modal-image-wrap" style="background:#f8fafc; border:1px solid #e2e8f0; position:relative;">
                             <img id="modalGaleriImage" class="galeri-modal-image" src="" alt="" style="border-radius:8px; aspect-ratio:auto; max-height:500px; object-fit:contain; width:100%;">
-                            <span id="modalGaleriBadge" class="galeri-modal-badge activity-badge"></span>
+                            <a id="btnDownloadFoto" href="#" download class="btn-download-foto" style="position:absolute; top:16px; right:16px; background:rgba(255,255,255,0.9); color:#3b82f6; padding:8px 12px; border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; display:flex; align-items:center; gap:6px; box-shadow:0 2px 4px rgba(0,0,0,0.1); transition:0.2s; z-index:10;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                Unduh Foto
+                            </a>
+                            <span id="modalGaleriBadge" class="galeri-modal-badge activity-badge" style="position:absolute; bottom:16px; left:16px; z-index:10;"></span>
                         </div>
                         <div id="modalGaleriThumbnails" style="display:flex; gap:8px; margin-top:12px; overflow-x:auto; padding-bottom:8px;"></div>
                     </div>
@@ -171,6 +175,7 @@
             const modalBody = document.getElementById('modalGaleriBody');
             const modalImage = document.getElementById('modalGaleriImage');
             const modalBadge = document.getElementById('modalGaleriBadge');
+            const btnDownloadFoto = document.getElementById('btnDownloadFoto');
 
             const openModalDetail = (card) => {
                 modalTitle.textContent = card.dataset.title || '';
@@ -184,6 +189,8 @@
                 
                 if (images.length > 0) {
                     modalImage.src = images[0];
+                    btnDownloadFoto.href = images[0];
+                    btnDownloadFoto.style.display = 'flex';
                     if (images.length > 1) {
                         images.forEach((imgSrc, idx) => {
                             const thumb = document.createElement('img');
@@ -195,6 +202,7 @@
                             }
                             thumb.addEventListener('click', () => {
                                 modalImage.src = imgSrc;
+                                btnDownloadFoto.href = imgSrc;
                                 Array.from(thumbnailsContainer.children).forEach(c => {
                                     c.style.opacity = '0.6';
                                     c.style.borderColor = 'transparent';
@@ -207,6 +215,7 @@
                     }
                 } else {
                     modalImage.src = 'https://placehold.co/600x400/e2e8f0/64748b?text=Tidak+Ada+Foto';
+                    btnDownloadFoto.style.display = 'none';
                 }
 
                 // Render HTML directly instead of raw text, replace newlines/etc if needed
