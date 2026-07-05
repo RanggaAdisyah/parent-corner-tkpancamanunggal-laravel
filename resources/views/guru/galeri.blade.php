@@ -94,7 +94,10 @@
                     <div class="activity-card-body">
                         <div class="activity-card-top">
                             <h3 class="activity-card-title">{{ $galeri->judul }}</h3>
-                            <div style="display: flex; gap: 4px;">
+                            <div style="display: flex; gap: 4px; align-items:center;">
+                                <a href="{{ route('guru.galeri.edit', $galeri->id) }}" class="activity-menu-btn" aria-label="Edit" title="Edit" tabindex="-1" style="color: #0ea5e9; background:transparent; border:none; text-decoration:none; display:inline-flex; padding:4px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                </a>
                                 <form action="{{ route('guru.galeri.destroy', $galeri->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus galeri ini?');" style="margin:0;">
                                     @csrf
                                     @method('DELETE')

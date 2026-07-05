@@ -168,7 +168,12 @@ class GuruController extends Controller
     public function galeri()
     {
         $guru = $this->getGuru();
-        $galeris = Galeri::latest()->get(); // Bisa difilter sesuai kelas nanti
+        $kelas_id = $guru->kelas_id ?? null;
+
+        $galeris = Galeri::whereHas('kelas', function($q) use ($kelas_id) {
+            $q->where('kelas_id', $kelas_id);
+        })->latest()->get();
+        
         return view('guru.galeri', compact('guru', 'galeris'));
     }
 
@@ -231,6 +236,92 @@ class GuruController extends Controller
         }
 
         return redirect()->route('guru.galeri')->with('success', 'Galeri berhasil dibuat!');
+    }
+
+    public function editGaleri($id)
+    {
+        $guru = $this->getGuru();
+        $kelas_id = $guru->kelas_id ?? null;
+        
+        $galeri = Galeri::whereHas('kelas', function($q) use ($kelas_id) {
+            $q->where('kelas_id', $kelas_id);
+        })->findOrFail($id);
+
+        return view('guru.edit_galeri', compact('galeri', 'guru'));
+    }
+
+    public function updateGaleri(Request $request, $id)
+    {
+        $guru = $this->getGuru();
+        $kelas_id = $guru->kelas_id ?? null;
+
+        $galeri = Galeri::whereHas('kelas', function($q) use ($kelas_id) {
+            $q->where('kelas_id', $kelas_id);
+        })->findOrFail($id);
+        
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi_kegiatan' => 'nullable|string',
+            'tanggal_kegiatan' => 'nullable|date',
+            'kategori' => 'nullable|array',
+            'foto' => 'nullable|array',
+            'foto.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
+        ]);
+
+        // Keep current photos that weren't deleted
+        $currentPhotos = is_array($galeri->foto) ? $galeri->foto : [];
+        if ($request->has('deleted_files')) {
+            foreach ($request->deleted_files as $deletedFile) {
+                if (($key = array_search($deletedFile, $currentPhotos)) !== false) {
+                    unset($currentPhotos[$key]);
+                    if (file_exists(public_path($deletedFile))) {
+                        unlink(public_path($deletedFile));
+                    }
+                }
+            }
+            $currentPhotos = array_values($currentPhotos);
+        }
+
+        // Add new photos
+        $newPathsMap = [];
+        if ($request->hasFile('foto')) {
+            foreach ($request->file('foto') as $file) {
+                $filename = time() . '_' . uniqid() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
+                $file->move(public_path('uploads/galeri'), $filename);
+                $path = 'uploads/galeri/' . $filename;
+                $currentPhotos[] = $path;
+                $newPathsMap[$file->getClientOriginalName()] = $path;
+            }
+        }
+
+        // Determine cover
+        if ($request->filled('cover_image')) {
+            $coverVal = $request->cover_image;
+            $coverPath = null;
+            if (str_starts_with($coverVal, 'old:')) {
+                $coverPath = substr($coverVal, 4);
+            } elseif (str_starts_with($coverVal, 'new:')) {
+                $origName = substr($coverVal, 4);
+                if (isset($newPathsMap[$origName])) {
+                    $coverPath = $newPathsMap[$origName];
+                }
+            }
+
+            if ($coverPath && in_array($coverPath, $currentPhotos)) {
+                $currentPhotos = array_diff($currentPhotos, [$coverPath]);
+                array_unshift($currentPhotos, $coverPath);
+            }
+        }
+
+        $galeri->update([
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi_kegiatan,
+            'tanggal_kegiatan' => $request->tanggal_kegiatan,
+            'kategori' => $request->kategori,
+            'foto' => !empty($currentPhotos) ? array_values($currentPhotos) : null,
+        ]);
+
+        return redirect()->route('guru.galeri')->with('success', 'Galeri berhasil diperbarui!');
     }
 
     public function destroyGaleri($id)

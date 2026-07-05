@@ -179,6 +179,8 @@ Route::middleware(['auth', 'role:guru'])->prefix('guru')->name('guru.')->group(f
     Route::get('/galeri-kegiatan', [App\Http\Controllers\GuruController::class, 'galeri'])->name('galeri');
     Route::get('/galeri-kegiatan/buat', [App\Http\Controllers\GuruController::class, 'createGaleri'])->name('galeri.buat');
     Route::post('/galeri-kegiatan', [App\Http\Controllers\GuruController::class, 'storeGaleri'])->name('galeri.store');
+    Route::get('/galeri-kegiatan/{id}/edit', [App\Http\Controllers\GuruController::class, 'editGaleri'])->name('galeri.edit');
+    Route::put('/galeri-kegiatan/{id}', [App\Http\Controllers\GuruController::class, 'updateGaleri'])->name('galeri.update');
     Route::delete('/galeri-kegiatan/{id}', [App\Http\Controllers\GuruController::class, 'destroyGaleri'])->name('galeri.destroy');
 
     Route::get('/buat-pengumuman', [App\Http\Controllers\GuruController::class, 'buatPengumuman'])->name('buat-pengumuman');
