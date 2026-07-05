@@ -173,8 +173,8 @@
                                 </select>
                             </div>
                             <div class="form-group" style="margin-top: 15px;">
-                                <label class="form-label">Nama Kelas (Grup)</label>
-                                <input type="text" name="nama_kelas" class="form-input" placeholder="Contoh: Bintang, Matahari..." required>
+                                <label class="form-label">Nama Kelas (Grup) <span style="color:#64748b; font-size:12px; font-weight:normal;">(Opsional, jika kosong akan mengikuti Tingkat)</span></label>
+                                <input type="text" name="nama_kelas" class="form-input" placeholder="Contoh: Bintang, Matahari...">
                             </div>
                         </div>
                     </div>

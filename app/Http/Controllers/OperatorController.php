@@ -318,10 +318,15 @@ class OperatorController extends Controller
     {
         $request->validate([
             'tingkat' => 'required',
-            'nama_kelas' => 'required',
+            'nama_kelas' => 'nullable|string',
         ]);
 
-        Kelas::create($request->all());
+        $data = $request->all();
+        if (empty($data['nama_kelas'])) {
+            $data['nama_kelas'] = $data['tingkat'];
+        }
+
+        Kelas::create($data);
 
         return redirect()->back()->with('success', 'Kelas berhasil ditambahkan!');
     }
@@ -331,10 +336,15 @@ class OperatorController extends Controller
         $kelas = Kelas::findOrFail($id);
         $request->validate([
             'tingkat' => 'required',
-            'nama_kelas' => 'required',
+            'nama_kelas' => 'nullable|string',
         ]);
 
-        $kelas->update($request->all());
+        $data = $request->all();
+        if (empty($data['nama_kelas'])) {
+            $data['nama_kelas'] = $data['tingkat'];
+        }
+
+        $kelas->update($data);
 
         return redirect()->back()->with('success', 'Kelas berhasil diperbarui!');
     }
