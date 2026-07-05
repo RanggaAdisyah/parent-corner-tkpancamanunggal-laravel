@@ -90,7 +90,7 @@
                             </div>
                             <span class="observation-label" style="display: block; margin-bottom: 4px;">Catatan Guru:</span>
                             <div class="observation-text" style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                                <div style="white-space: pre-line; word-break: break-all; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ $nilai->keterangan ?? '-' }}</div>
+                                <div style="word-break: break-all; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{!! $nilai->keterangan ?? '-' !!}</div>
                             </div>
                         </div>
                     </div>

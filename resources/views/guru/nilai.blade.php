@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/nilai.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/dashboard.css') }}">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 <body>
     <div class="dashboard-guru">
@@ -71,7 +72,8 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Keterangan / Catatan</label>
-                        <textarea name="keterangan" class="form-input" style="min-height: 120px; resize: vertical;" placeholder="Tuliskan keterangan atau catatan perkembangan siswa di sini..."></textarea>
+                        <div id="quill-editor" style="min-height: 120px; background: #fff;"></div>
+                        <input type="hidden" name="keterangan" id="hidden-keterangan">
                     </div>
                 </div>
             </section>
@@ -88,8 +90,29 @@
             @include('partials.footer')
         </main>
     </div>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            var quill = new Quill('#quill-editor', {
+                theme: 'snow',
+                placeholder: 'Tuliskan keterangan atau catatan perkembangan siswa di sini...',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['clean']
+                    ]
+                }
+            });
+
+            // Form Submit Logic for Quill
+            const form = document.querySelector('form');
+            const hiddenKeterangan = document.getElementById('hidden-keterangan');
+            
+            form.addEventListener('submit', function() {
+                hiddenKeterangan.value = quill.root.innerHTML;
+            });
+
             // AJAX Fetch logic
             const siswaSelect = document.querySelector('select[name="siswa_id"]');
             const tanggalInput = document.querySelector('input[name="tanggal"]');
@@ -97,15 +120,14 @@
             const inputs = {
                 level: document.querySelector('input[name="level"]'),
                 hal: document.querySelector('input[name="hal"]'),
-                nilai: document.querySelector('input[name="nilai"]'),
-                keterangan: document.querySelector('textarea[name="keterangan"]')
+                nilai: document.querySelector('input[name="nilai"]')
             };
 
             function clearForm() {
                 if (inputs.level) inputs.level.value = '';
                 if (inputs.hal) inputs.hal.value = '';
                 if (inputs.nilai) inputs.nilai.value = '';
-                if (inputs.keterangan) inputs.keterangan.value = '';
+                quill.root.innerHTML = '';
             }
 
             function fetchNilai() {
@@ -121,7 +143,7 @@
                                 if (inputs.level) inputs.level.value = data.level || '';
                                 if (inputs.hal) inputs.hal.value = data.hal || '';
                                 if (inputs.nilai) inputs.nilai.value = data.nilai || '';
-                                if (inputs.keterangan) inputs.keterangan.value = data.keterangan || '';
+                                quill.root.innerHTML = data.keterangan || '';
                             }
                         })
                         .catch(error => console.error('Error fetching nilai:', error));

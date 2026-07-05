@@ -79,7 +79,7 @@
                     <td class="text-center">{{ $nilai->level ?? '-' }}</td>
                     <td class="text-center">{{ $nilai->hal ?? '-' }}</td>
                     <td class="text-center"><strong>{{ $nilai->nilai ?? '-' }}</strong></td>
-                    <td>{{ $nilai->keterangan ?? '-' }}</td>
+                    <td>{!! $nilai->keterangan ?? '-' !!}</td>
                 </tr>
             @empty
                 <tr>
