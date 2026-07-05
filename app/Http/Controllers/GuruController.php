@@ -356,6 +356,8 @@ class GuruController extends Controller
             }
         }
         return redirect()->back()->with('success', 'Pengumuman berhasil dihapus.');
+    }
+
     public function profil()
     {
         $user = auth()->user();
