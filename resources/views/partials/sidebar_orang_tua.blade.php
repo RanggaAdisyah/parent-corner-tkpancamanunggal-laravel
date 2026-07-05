@@ -221,6 +221,30 @@
     </div>
 
     <nav class="nav" aria-label="Navigasi utama">
+@php
+    $user = auth()->user();
+    $orangTua = $user ? $user->orangTua : null;
+    $siswas = $orangTua ? $orangTua->siswas : collect();
+    $activeSiswaId = session('active_siswa_id') ?? ($siswas->first()->id ?? null);
+@endphp
+        @if($siswas->count() > 1)
+        <div style="padding: 0 16px 16px; border-bottom: 1px solid #f1f5f9; margin-bottom: 12px; margin-top: -16px;">
+            <div style="font-size: 11px; font-weight: 700; color: #94a3b8; margin-bottom: 8px; letter-spacing: 0.5px;">PILIH PROFIL ANAK</div>
+            <form action="{{ route('orang-tua.pilih-anak') }}" method="POST" style="margin: 0;">
+                @csrf
+                <select name="siswa_id" onchange="this.form.submit()" style="width: 100%; padding: 8px 12px; border-radius: 6px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 13px; font-weight: 600; color: #1e293b; cursor: pointer;">
+                    @foreach($siswas as $s)
+                        @php
+                            $namaArr = explode(' ', $s->nama);
+                            $namaPendek = implode(' ', array_slice($namaArr, 0, 2));
+                        @endphp
+                        <option value="{{ $s->id }}" {{ $activeSiswaId == $s->id ? 'selected' : '' }}>{{ $namaPendek }}</option>
+                    @endforeach
+                </select>
+            </form>
+        </div>
+        @endif
+
         <a href="{{ url('/orang-tua/dashboard') }}" class="{{ isset($active) && $active == 'beranda' ? 'link' : 'link-2' }}" {{ isset($active) && $active == 'beranda' ? 'aria-current="page"' : '' }} title="Dashboard">
             <div class="div"><img class="img" src="{{ asset('icon/guru/dashboard.svg') }}" alt="" /></div>
             <div class="div-wrapper"><div class="{{ isset($active) && $active == 'beranda' ? 'text-2' : 'text-3' }}">Dashboard</div></div>
@@ -269,10 +293,9 @@
     <div class="container-wrapper">
         <div class="container-2">
 @php
-    $user = auth()->user();
-    $siswa = $user && $user->orangTua ? $user->orangTua->siswas->first() : null;
+    $activeSiswa = $siswas->where('id', $activeSiswaId)->first();
     $nama = $user ? $user->name : 'Orang Tua';
-    $role = $siswa ? 'Orang Tua ' . $siswa->nama : 'Orang Tua Siswa';
+    $role = $activeSiswa ? 'Orang Tua ' . $activeSiswa->nama : 'Orang Tua Siswa';
     $initial = strtoupper(substr($nama, 0, 1));
 @endphp
             <a href="{{ url('/orang-tua/profil') }}" style="display:flex; align-items:center; text-decoration:none; color:inherit;">
@@ -332,6 +355,24 @@
     </div>
 
     <nav class="ot-drawer__nav">
+        @if($siswas->count() > 1)
+        <div style="padding: 0 20px 12px; border-bottom: 1px solid #f1f5f9; margin-bottom: 8px; margin-top: -4px;">
+            <div style="font-size: 11px; font-weight: 700; color: #94a3b8; margin-bottom: 8px; letter-spacing: 0.5px;">PILIH PROFIL ANAK</div>
+            <form action="{{ route('orang-tua.pilih-anak') }}" method="POST" style="margin: 0;">
+                @csrf
+                <select name="siswa_id" onchange="this.form.submit()" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 13px; font-weight: 600; color: #1e293b;">
+                    @foreach($siswas as $s)
+                        @php
+                            $namaArr = explode(' ', $s->nama);
+                            $namaPendek = implode(' ', array_slice($namaArr, 0, 2));
+                        @endphp
+                        <option value="{{ $s->id }}" {{ $activeSiswaId == $s->id ? 'selected' : '' }}>{{ $namaPendek }}</option>
+                    @endforeach
+                </select>
+            </form>
+        </div>
+        @endif
+
         {{-- Beranda --}}
         <a href="{{ url('/orang-tua/dashboard') }}" class="ot-drawer__link {{ isset($active) && $active == 'beranda' ? 'active' : '' }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>

@@ -25,7 +25,25 @@ class OrangTuaController extends Controller
         $user = Auth::user();
         if (!$user || !$user->orangTua) return null;
         
-        return $user->orangTua->siswas->first();
+        $siswas = $user->orangTua->siswas;
+        if ($siswas->isEmpty()) return null;
+
+        $activeId = session('active_siswa_id');
+        if ($activeId) {
+            $siswa = $siswas->where('id', $activeId)->first();
+            if ($siswa) return $siswa;
+        }
+
+        $first = $siswas->first();
+        session(['active_siswa_id' => $first->id]);
+        return $first;
+    }
+
+    public function pilihAnak(Request $request)
+    {
+        $request->validate(['siswa_id' => 'required|exists:siswas,id']);
+        session(['active_siswa_id' => $request->siswa_id]);
+        return back();
     }
 
     public function dashboard()

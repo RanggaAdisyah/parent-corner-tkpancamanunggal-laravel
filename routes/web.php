@@ -188,6 +188,7 @@ Route::middleware(['auth', 'role:guru'])->prefix('guru')->name('guru.')->group(f
 
 // Orang Tua Routes
 Route::middleware(['auth', 'role:orang_tua'])->prefix('orang-tua')->name('orang-tua.')->group(function () {
+    Route::post('/pilih-anak', [App\Http\Controllers\OrangTuaController::class, 'pilihAnak'])->name('pilih-anak');
     Route::get('/dashboard', [App\Http\Controllers\OrangTuaController::class, 'dashboard'])->name('dashboard');
     Route::get('/lihat-nilai', [App\Http\Controllers\OrangTuaController::class, 'lihatNilai'])->name('lihat-nilai');
     Route::get('/lihat-jadwal', [App\Http\Controllers\OrangTuaController::class, 'lihatJadwal'])->name('lihat-jadwal');
