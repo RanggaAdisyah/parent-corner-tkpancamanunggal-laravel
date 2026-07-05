@@ -151,6 +151,9 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
     Route::get('/galeri/{id}/edit', [App\Http\Controllers\OperatorController::class, 'editGaleri'])->name('galeri.edit');
     Route::put('/galeri/{id}', [App\Http\Controllers\OperatorController::class, 'updateGaleri'])->name('galeri.update');
     Route::delete('/galeri/{id}', [App\Http\Controllers\OperatorController::class, 'destroyGaleri'])->name('galeri.destroy');
+    
+    Route::get('/profil', [App\Http\Controllers\OperatorController::class, 'profil'])->name('profil');
+    Route::put('/profil', [App\Http\Controllers\OperatorController::class, 'updateProfil'])->name('profil.update');
 });
 
 // Guru Routes

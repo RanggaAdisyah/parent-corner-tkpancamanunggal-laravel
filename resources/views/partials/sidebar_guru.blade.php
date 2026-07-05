@@ -133,13 +133,15 @@
     $role = $guru && $guru->kelas ? 'Guru ' . $guru->kelas->nama_kelas : 'Guru';
     $initial = strtoupper(substr($nama, 0, 1));
 @endphp
-            <div class="admin-profile" role="img" aria-label="Foto profil Guru" style="display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border-radius: 50%; width: 40px; height: 40px; font-weight: bold; font-size: 16px;">{{ $initial }}</div>
-            <div class="margin">
-                <div class="div-2">
-                    <div class="div-2"><div class="text-wrapper-4" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ $nama }}">{{ $nama }}</div></div>
-                    <div class="div-2"><div class="text-wrapper-5" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ $role }}">{{ $role }}</div></div>
+            <a href="{{ route('guru.profil') }}" style="display:flex; align-items:center; text-decoration:none; color:inherit;">
+                <div class="admin-profile" role="img" aria-label="Foto profil Guru" style="display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border-radius: 50%; width: 40px; height: 40px; font-weight: bold; font-size: 16px;">{{ $initial }}</div>
+                <div class="margin">
+                    <div class="div-2">
+                        <div class="div-2"><div class="text-wrapper-4" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px; transition: color 0.2s;" onmouseover="this.style.color='#6366f1'" onmouseout="this.style.color=''" title="{{ $nama }}">{{ $nama }}</div></div>
+                        <div class="div-2"><div class="text-wrapper-5" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px;" title="{{ $role }}">{{ $role }}</div></div>
+                    </div>
                 </div>
-            </div>
+            </a>
             <div class="div-wrapper">
                 <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
                     @csrf
@@ -241,18 +243,20 @@
         <div class="ot-drawer__divider"></div>
 
         {{-- Profil --}}
-        <a href="#" class="ot-drawer__link {{ isset($active) && $active == 'profil' ? 'active' : '' }}">
+        <a href="{{ route('guru.profil') }}" class="ot-drawer__link {{ isset($active) && $active == 'profil' ? 'active' : '' }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             Profil
         </a>
     </nav>
 
     <div class="ot-drawer__footer">
-        <div class="ot-drawer__avatar" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">{{ $initial }}</div>
-        <div style="flex: 1; min-width: 0;">
-            <div class="ot-drawer__user-name" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $nama }}</div>
-            <div class="ot-drawer__user-role" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $role }}</div>
-        </div>
+        <a href="{{ route('guru.profil') }}" style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; text-decoration: none; color: inherit;">
+            <div class="ot-drawer__avatar" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">{{ $initial }}</div>
+            <div style="flex: 1; min-width: 0;">
+                <div class="ot-drawer__user-name" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $nama }}</div>
+                <div class="ot-drawer__user-role" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $role }}</div>
+            </div>
+        </a>
         <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
             @csrf
             <button type="submit" aria-label="Logout" style="background: none; border: none; cursor: pointer; color: #ef4444; padding: 8px; border-radius: 6px; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='#fee2e2'" onmouseout="this.style.background='none'">

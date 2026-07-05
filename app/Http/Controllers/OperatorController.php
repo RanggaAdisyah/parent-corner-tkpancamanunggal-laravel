@@ -713,4 +713,30 @@ class OperatorController extends Controller
         return redirect()->route('operator.galeri')
             ->with('success', 'Galeri berhasil dihapus!');
     }
+
+    public function profil()
+    {
+        $user = auth()->user();
+        return view('Operator.profil', compact('user'));
+    }
+
+    public function updateProfil(Request $request)
+    {
+        $user = auth()->user();
+        
+        $request->validate([
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:6|confirmed',
+        ]);
+
+        $user->email = $request->email;
+        
+        if ($request->filled('password')) {
+            $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return redirect()->route('operator.profil')->with('success', 'Profil berhasil diperbarui!');
+    }
 }

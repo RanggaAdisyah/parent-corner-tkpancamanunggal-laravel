@@ -13,11 +13,13 @@
         @include('partials.sidebar_orang_tua', ['active' => 'profil'])
 
         <main class="main">
-            <header class="section-header">
-                <h1 class="section-title" style="font-size: 24px;">Profil Pengguna</h1>
-            </header>
+            <div>
+                <div style="margin-bottom: 16px;">
+                <h1 style="font-size: 24px; font-weight: 700; color: #1e293b; margin: 0;">Profil Pengguna</h1>
+                <p style="font-size: 14px; color: #64748b; margin: 4px 0 0 0;">Informasi akun dan data terkait</p>
+            </div>
             
-            <div style="background: white; padding: 24px; border-radius: 12px; border: 1px solid #e2e8f0; margin-top: 10px;">
+            <div style="background: white; padding: 24px; border-radius: 12px; border: 1px solid #e2e8f0;">
                 <div style="display:flex; align-items:center; gap: 20px; margin-bottom: 24px;">
                     <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; display:flex; align-items:center; justify-content:center; font-size: 32px; font-weight:bold; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
                         {{ strtoupper(substr($user->name, 0, 1)) }}
