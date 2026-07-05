@@ -361,26 +361,7 @@ class GuruController extends Controller
     public function profil()
     {
         $user = auth()->user();
-        return view('guru.profil', compact('user'));
-    }
-
-    public function updateProfil(Request $request)
-    {
-        $user = auth()->user();
-        
-        $request->validate([
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|min:6|confirmed',
-        ]);
-
-        $user->email = $request->email;
-        
-        if ($request->filled('password')) {
-            $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
-        }
-
-        $user->save();
-
-        return redirect()->route('guru.profil')->with('success', 'Profil berhasil diperbarui!');
+        $guru = $this->getGuru();
+        return view('guru.profil', compact('user', 'guru'));
     }
 }

@@ -182,6 +182,8 @@ Route::middleware(['auth', 'role:guru'])->prefix('guru')->name('guru.')->group(f
     Route::get('/pengumuman/{id}/edit', [App\Http\Controllers\GuruController::class, 'editPengumuman'])->name('pengumuman.edit');
     Route::put('/pengumuman/{id}', [App\Http\Controllers\GuruController::class, 'updatePengumuman'])->name('pengumuman.update');
     Route::delete('/pengumuman/{id}', [App\Http\Controllers\GuruController::class, 'destroyPengumuman'])->name('pengumuman.destroy');
+
+    Route::get('/profil', [App\Http\Controllers\GuruController::class, 'profil'])->name('profil');
 });
 
 // Orang Tua Routes

@@ -75,7 +75,7 @@
 
 <aside class="aside" id="mainSidebar" aria-label="Sidebar navigasi">
     <div class="horizontal-border">
-        <div class="overlay" aria-hidden="true"><img class="icon" src="{{ asset('img/icon-6.svg') }}" alt="" /></div>
+
         <div class="div-wrapper">
             <div class="div">
                 <div class="div-2"><div class="text">TK Panca<br />Manunggal</div></div>
