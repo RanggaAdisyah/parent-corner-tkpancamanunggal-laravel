@@ -244,6 +244,8 @@ class OperatorController extends Controller
             'kelas_id' => $request->kelas_id,
             'no_wa' => $request->no_wa,
             'alamat' => $request->alamat,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tanggal_lahir' => $request->tanggal_lahir,
         ]);
 
         return redirect()->route('operator.kelola-guru')->with('success', 'Akun Guru berhasil ditambahkan!');
@@ -289,6 +291,8 @@ class OperatorController extends Controller
                 'kelas_id' => $request->kelas_id,
                 'no_wa' => $request->no_wa,
                 'alamat' => $request->alamat,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'tanggal_lahir' => $request->tanggal_lahir,
             ]);
         }
 

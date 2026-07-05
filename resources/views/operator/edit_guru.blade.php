@@ -114,6 +114,21 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="form-grid">
+                                <div class="form-group" style="margin-bottom: 20px;">
+                                    <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Jenis Kelamin</label>
+                                    <select name="jenis_kelamin" class="form-input" style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc; appearance: auto;">
+                                        <option value="">-- Pilih --</option>
+                                        <option value="Laki-Laki" {{ old('jenis_kelamin', $guru->jenis_kelamin) == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
+                                        <option value="Perempuan" {{ old('jenis_kelamin', $guru->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 20px;">
+                                    <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Tanggal Lahir</label>
+                                    <input type="date" name="tanggal_lahir" class="form-input" style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc;" value="{{ old('tanggal_lahir', $guru->tanggal_lahir ? date('Y-m-d', strtotime($guru->tanggal_lahir)) : '') }}" />
+                                </div>
+                            </div>
                             
                             <div class="form-group" style="margin-bottom: 20px;">
                                 <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Alamat Domisili</label>
