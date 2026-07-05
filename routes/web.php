@@ -82,15 +82,18 @@ Route::prefix('api/ppdb')->group(function () {
 
 Route::prefix('api/siswa')->group(function () {
     Route::get('/search', function (\Illuminate\Http\Request $request) {
-        $query = $request->get('q');
+        $query = strtolower($request->get('q'));
         if (!$query) return response()->json([]);
 
-        // Tampilkan siswa yang belum punya wali, atau jika mau mencari semua juga bisa, 
-        // tapi logikanya untuk ditautkan ke akun wali baru maka yang belum punya wali.
-        $data = \App\Models\Siswa::where('nama', 'like', "%{$query}%")
-            ->whereNull('orang_tua_id')
-            ->select('id', 'nama', 'nis')
-            ->take(10)->get();
+        // Karena nama sekarang dienkripsi, kita tidak bisa menggunakan SQL "LIKE".
+        // Kita ambil siswa yang belum punya wali, lalu filter namanya di PHP.
+        $allSiswas = \App\Models\Siswa::whereNull('orang_tua_id')->get();
+        
+        $data = $allSiswas->filter(function($siswa) use ($query) {
+            // str_contains case-insensitive di php 8, tapi untuk aman kita gunakan strtolower
+            return str_contains(strtolower($siswa->nama ?? ''), $query) || 
+                   str_contains(strtolower($siswa->nis ?? ''), $query);
+        })->take(10)->values();
 
         return response()->json($data);
     })->name('api.siswa.search');
