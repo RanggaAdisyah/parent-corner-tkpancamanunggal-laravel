@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('gurus', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('nama_lengkap');
+            $table->text('nama_lengkap');
             $table->string('jabatan')->nullable();
-            $table->string('nip')->nullable();
+            $table->text('nip')->nullable();
             $table->foreignId('kelas_id')->nullable()->constrained('kelas')->onDelete('set null');
-            $table->string('no_hp')->nullable();
+            $table->text('no_hp')->nullable();
             $table->text('alamat')->nullable();
             $table->string('jenis_kelamin')->nullable();
-            $table->date('tanggal_lahir')->nullable();
+            $table->text('tanggal_lahir')->nullable();
             $table->timestamps();
         });
     }

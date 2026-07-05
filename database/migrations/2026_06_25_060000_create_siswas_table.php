@@ -12,11 +12,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('orang_tua_id')->nullable()->constrained('orang_tuas')->onDelete('set null');
             $table->foreignId('kelas_id')->nullable()->constrained('kelas')->onDelete('set null');
-            $table->string('nama');
+            $table->text('nama');
             $table->string('nis')->nullable();
             $table->string('kelas')->nullable();
             $table->string('jenis_kelamin')->nullable();
-            $table->date('tanggal_lahir')->nullable();
+            $table->text('tanggal_lahir')->nullable();
             $table->timestamps();
         });
     }

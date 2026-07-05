@@ -113,7 +113,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         </div>
                     </div>
-                    <div class="heading-2"><div class="text-18" style="font-size: 16px; color: #dc2626;">Backup Database</div></div>
+                    <div class="heading-2"><div class="text-18" style="font-size: 16px; ">Backup Database</div></div>
                     <div class="container-7"><p class="text-19">Unduh seluruh data dalam format Excel.</p></div>
                     <div class="container-9"><div class="text-20" style="color: #dc2626;">Unduh Sekarang</div></div>
                 </a>
