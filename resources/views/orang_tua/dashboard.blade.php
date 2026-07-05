@@ -22,12 +22,8 @@
                 <h1 class="hero-greeting">Selamat {{ (date('H') < 15) ? ((date('H') < 12) ? 'Pagi' : 'Siang') : ((date('H') < 18) ? 'Sore' : 'Malam') }}, {{ Auth::user()->name }}!</h1>
                 <p class="hero-description">
                     Selamat datang di Dashboard Orang Tua. Pantau perkembangan ananda <strong>{{ $siswa ? $siswa->nama : '...' }}</strong>
-                    hari ini. {{ $pengumumanTerbaru ? 'Ada pengumuman baru mengenai ' . Str::limit($pengumumanTerbaru->judul, 30) : 'Belum ada pengumuman terbaru saat ini.' }}
+                    hari ini.
                 </p>
-                <button class="hero-btn" onclick="window.location.href='#'">
-                    Lihat Pengumuman Terbaru
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </button>
             </section>
 
             {{-- ===== AKSI CEPAT (Style Operator) ===== --}}

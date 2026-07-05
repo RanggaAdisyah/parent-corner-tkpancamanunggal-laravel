@@ -39,35 +39,13 @@
    ============================================ */
 
 .hero-banner {
-  background: linear-gradient(135deg, #3b5bdb 0%, #6741d9 60%, #9b59b6 100%);
+  background: #2563eb;
   border-radius: 20px;
   padding: 40px 48px;
   color: #ffffff;
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
-}
-
-.hero-banner::before {
-  content: '';
-  position: absolute;
-  top: -60px;
-  right: -60px;
-  width: 280px;
-  height: 280px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 50%;
-}
-
-.hero-banner::after {
-  content: '';
-  position: absolute;
-  bottom: -80px;
-  right: 120px;
-  width: 200px;
-  height: 200px;
-  background: rgba(255,255,255,0.04);
-  border-radius: 50%;
 }
 
 .hero-greeting {
