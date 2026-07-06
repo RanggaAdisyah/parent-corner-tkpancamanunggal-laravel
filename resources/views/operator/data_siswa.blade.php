@@ -79,7 +79,7 @@
                                 </header>
 
                                 <div class="body" role="rowgroup">
-                                    @foreach($daftarAnak as $anak)
+                                    @foreach($daftarSiswa as $anak)
                                     <button
                                         class="row-3"
                                         type="button"

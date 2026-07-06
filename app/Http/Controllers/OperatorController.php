@@ -30,14 +30,14 @@ class OperatorController extends Controller
         ));
     }
 
-    public function indexAnak()
+    public function indexSiswa()
     {
-        $daftarAnak = Siswa::with('orangTua')->get();
+        $daftarSiswa = Siswa::with('orangTua')->get();
         $kelasList = Kelas::all();
-        return view('operator.data_siswa', compact('daftarAnak', 'kelasList'));
+        return view('operator.data_siswa', compact('daftarSiswa', 'kelasList'));
     }
 
-    public function storeAnak(Request $request)
+    public function storeSiswa(Request $request)
     {
         $request->validate([
             'nama' => 'required|string|max:255',
@@ -53,10 +53,10 @@ class OperatorController extends Controller
         ]);
 
         Siswa::create($request->all());
-        return redirect()->back()->with('success', 'Data Anak berhasil ditambahkan!');
+        return redirect()->back()->with('success', 'Data Siswa berhasil ditambahkan!');
     }
 
-    public function updateAnak(Request $request, $id)
+    public function updateSiswa(Request $request, $id)
     {
         $siswa = Siswa::findOrFail($id);
         $request->validate([
@@ -73,13 +73,13 @@ class OperatorController extends Controller
         ]);
 
         $siswa->update($request->all());
-        return redirect()->back()->with('success', 'Data Anak berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Data Siswa berhasil diperbarui!');
     }
 
-    public function destroyAnak($id)
+    public function destroySiswa($id)
     {
         Siswa::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Data Anak berhasil dihapus!');
+        return redirect()->back()->with('success', 'Data Siswa berhasil dihapus!');
     }
 
     public function indexOrangTua()
