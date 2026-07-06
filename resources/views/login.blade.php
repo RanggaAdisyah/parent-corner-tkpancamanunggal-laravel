@@ -6,6 +6,7 @@
     <title>Parent Corner TK Panca Manunggal</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style.css') }}">
+    @include('partials.alert')
 </head>
 <body>
 <div class="body">
@@ -46,13 +47,6 @@
                     <form class="form-section" action="{{ route('login') }}" method="post">
                         @csrf
 
-                        @if ($errors->any())
-                            <div role="alert" aria-live="assertive">
-                                @foreach ($errors->all() as $error)
-                                    <p class="error-message">{{ $error }}</p>
-                                @endforeach
-                            </div>
-                        @endif
 
                         <div class="div-3">
                             <div class="div-wrapper-2">
