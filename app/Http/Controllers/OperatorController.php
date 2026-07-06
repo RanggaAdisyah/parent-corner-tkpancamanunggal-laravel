@@ -137,14 +137,15 @@ class OperatorController extends Controller
     public function destroyOrangTua($id)
     {
         $user = User::findOrFail($id);
-        $user->delete();
-        // Karena kita set cascade di migrasi, orang_tuas dan siswas yang terkait dengan user ini seharusnya terhapus jika di DB di-set cascade. 
-        // Jika tidak, mari kita hapus manual untuk aman.
+        
         $orangTua = OrangTua::where('user_id', $id)->first();
         if ($orangTua) {
-            Siswa::where('orang_tua_id', $orangTua->id)->delete();
-            $orangTua->delete();
+            // Unlink anak-anaknya agar tidak yatim piatu di database (jangan dihapus)
+            Siswa::where('orang_tua_id', $orangTua->id)->update(['orang_tua_id' => null]);
         }
+
+        // Hapus user (yang akan cascade menghapus orang_tuas jika sudah diatur di DB)
+        $user->delete();
 
         return redirect()->back()->with('success', 'Akun Orang Tua berhasil dihapus!');
     }
