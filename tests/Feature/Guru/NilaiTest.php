@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 /**
  * White-Box Testing — Modul Nilai Guru
- * UT-076 s/d UT-079
+ * UT-079 s/d UT-082
  */
 class NilaiTest extends TestCase
 {
@@ -41,7 +41,7 @@ class NilaiTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-076 — nilai: Menampilkan halaman daftar siswa untuk dinilai
+    // UT-079 — nilai: Menampilkan halaman daftar siswa untuk dinilai
     // ---------------------------------------------------------------
     public function test_nilai_displays_page_with_students(): void
     {
@@ -61,7 +61,7 @@ class NilaiTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-077 — storeNilai: Validasi gagal jika form kosong
+    // UT-080 — storeNilai: Validasi gagal jika form kosong
     // ---------------------------------------------------------------
     public function test_store_nilai_fails_validation_on_empty_fields(): void
     {
@@ -73,7 +73,7 @@ class NilaiTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-078 — storeNilai: Menyimpan atau update nilai
+    // UT-081 — storeNilai: Menyimpan atau update nilai
     // ---------------------------------------------------------------
     public function test_store_nilai_saves_or_updates_data(): void
     {
@@ -120,7 +120,7 @@ class NilaiTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-079 — getNilaiSiswa: Ambil JSON riwayat nilai
+    // UT-082 — getNilaiSiswa: Ambil JSON riwayat nilai
     // ---------------------------------------------------------------
     public function test_get_nilai_siswa_returns_json(): void
     {

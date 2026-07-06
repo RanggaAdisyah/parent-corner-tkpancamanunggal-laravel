@@ -326,12 +326,23 @@ class GuruController extends Controller
 
     public function destroyGaleri($id)
     {
-        $galeri = Galeri::findOrFail($id);
-        if ($galeri->user_id === Auth::id()) {
-            Storage::disk('public')->delete($galeri->file_path);
-            $galeri->delete();
+        $guru = $this->getGuru();
+        $kelas_id = $guru->kelas_id ?? null;
+
+        $galeri = Galeri::whereHas('kelas', function($q) use ($kelas_id) {
+            $q->where('kelas_id', $kelas_id);
+        })->findOrFail($id);
+
+        if (is_array($galeri->foto)) {
+            foreach ($galeri->foto as $path) {
+                if (file_exists(public_path($path))) {
+                    unlink(public_path($path));
+                }
+            }
         }
-        return redirect()->back()->with('success', 'Foto berhasil dihapus.');
+
+        $galeri->delete();
+        return redirect()->route('guru.galeri')->with('success', 'Galeri berhasil dihapus!');
     }
 
     public function buatPengumuman()
@@ -447,6 +458,8 @@ class GuruController extends Controller
         }
         return redirect()->back()->with('success', 'Pengumuman berhasil dihapus.');
     }
+
+
 
     public function profil()
     {

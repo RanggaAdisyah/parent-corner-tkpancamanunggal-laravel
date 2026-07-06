@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 /**
  * White-Box Testing — Modul Jadwal Guru
- * UT-080
+ * UT-083
  */
 class JadwalTest extends TestCase
 {
@@ -41,7 +41,7 @@ class JadwalTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-080 — jadwal: Menampilkan jadwal pelajaran dan kalender
+    // UT-083 — jadwal: Menampilkan jadwal pelajaran dan kalender
     // ---------------------------------------------------------------
     public function test_jadwal_displays_jadwal_pelajaran_and_kalender(): void
     {

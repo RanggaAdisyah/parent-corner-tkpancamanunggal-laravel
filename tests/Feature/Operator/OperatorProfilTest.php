@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * White-Box Testing — Modul Profil Operator
- * UT-081 s/d UT-083
+ * UT-071 s/d UT-073
  */
 class OperatorProfilTest extends TestCase
 {
@@ -30,7 +30,7 @@ class OperatorProfilTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-081 — profil: Menampilkan form edit profil
+    // UT-071 — profil: Menampilkan form edit profil
     // ---------------------------------------------------------------
     public function test_profil_displays_form(): void
     {
@@ -44,7 +44,7 @@ class OperatorProfilTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-082 — updateProfil: Gagal validasi jika email kosong / kembar
+    // UT-072 — updateProfil: Gagal validasi jika email kosong / kembar
     // ---------------------------------------------------------------
     public function test_update_profil_fails_validation(): void
     {
@@ -75,7 +75,7 @@ class OperatorProfilTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-083 — updateProfil: Sukses mengubah profil & password
+    // UT-073 — updateProfil: Sukses mengubah profil & password
     // ---------------------------------------------------------------
     public function test_update_profil_saves_data(): void
     {

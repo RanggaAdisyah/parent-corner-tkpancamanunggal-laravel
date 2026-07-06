@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * White-Box Testing — Guru Dashboard
- * UT-071
+ * UT-074
  */
 class DashboardTest extends TestCase
 {
@@ -45,7 +45,7 @@ class DashboardTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-071 — dashboard: Menampilkan data dashboard guru
+    // UT-074 — dashboard: Menampilkan data dashboard guru
     // ---------------------------------------------------------------
     public function test_guru_dashboard_displays_correct_data(): void
     {
