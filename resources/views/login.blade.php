@@ -30,13 +30,7 @@
         <section class="right-side-login" aria-label="Formulir masuk">
             <div class="login-card-container">
                 <header class="div-2">
-                    <div class="logo-placeholder">
-                        <div class="container-wrapper">
-                            <div class="div">
-                                <img class="icon" src="{{ asset('img/image.svg') }}" alt="Logo Parent Corner TK Panca Manunggal">
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="div-wrapper">
                         <div class="container-2">
                             <div class="div-2">
@@ -79,11 +73,6 @@
                                         required
                                     >
                                 </div>
-                                <div class="container-5" aria-hidden="true">
-                                    <div class="container-6">
-                                        <img class="img" src="{{ asset('img/icon-5.svg') }}" alt="">
-                                    </div>
-                                </div>
                             </div>
                             <span id="input-1-hint" class="sr-only">Masukkan username atau alamat email Anda</span>
                         </div>
@@ -106,67 +95,53 @@
                                         >
                                     </div>
                                 </div>
-                                <div class="container-5" aria-hidden="true">
-                                    <div class="container-6">
-                                        <img class="icon-2" src="{{ asset('img/icon.svg') }}" alt="">
-                                    </div>
-                                </div>
-                                <button class="button" type="button" aria-label="Tampilkan atau sembunyikan kata sandi">
+                                <button class="button" type="button" id="togglePassword" aria-label="Tampilkan atau sembunyikan kata sandi">
                                     <div class="div">
-                                        <img class="icon-3" src="{{ asset('img/icon-6.svg') }}" alt="">
+                                        <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye-off">
+                                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                                        </svg>
                                     </div>
                                 </button>
                             </div>
                         </div>
 
-                        <div class="forgot-password-link">
-                            <a class="link" href="#" aria-label="Lupa kata sandi">
-                                <div class="text-3">Lupa Kata Sandi?</div>
-                            </a>
-                        </div>
+
 
                         <button class="submit-button" type="submit">
                             <div class="submit-button-shadow" aria-hidden="true"></div>
                             <div class="div">
                                 <div class="text-4">Masuk</div>
                             </div>
-                            <div class="div">
-                                <img class="icon-4" src="{{ asset('img/icon-2.svg') }}" alt="">
-                            </div>
+
                         </button>
                     </form>
                 </div>
-                <div class="divider" aria-hidden="true">
-                    <div class="horizontal-divider"></div>
-                    <div class="margin-2">
-                        <div class="text-5">Butuh bantuan?</div>
-                    </div>
-                    <div class="horizontal-divider"></div>
-                </div>
-                <a class="link-help-admin" href="#" aria-label="Hubungi Admin Sekolah">
-                    <div class="background" aria-hidden="true">
-                        <div class="container-6">
-                            <img class="icon-5" src="{{ asset('img/icon-3.svg') }}" alt="">
-                        </div>
-                    </div>
-                    <div class="container-6">
-                        <div class="div-wrapper-2">
-                            <div class="text-6">Hubungi Admin Sekolah</div>
-                        </div>
-                        <div class="div-wrapper-2">
-                            <p class="text-7">Kami siap membantu kendala akses Anda</p>
-                        </div>
-                    </div>
-                    <div class="margin-3" aria-hidden="true">
-                        <div class="container-6">
-                            <img class="icon-6" src="{{ asset('img/icon-4.svg') }}" alt="">
-                        </div>
-                    </div>
-                </a>
+
             </div>
             @include('partials.footer')
         </section>
     </main>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('input-2');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        if(togglePassword && passwordInput && eyeIcon) {
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                if (type === 'text') {
+                    eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+                } else {
+                    eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

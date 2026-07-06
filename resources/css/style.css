@@ -315,7 +315,7 @@
 }
 
 .body .input {
-  padding: 17px 16px 17px 48px;
+  padding: 17px 16px;
   display: flex;
   flex-direction: column;
   height: 56px;
@@ -368,7 +368,7 @@
 }
 
 .body .input-2 {
-  padding: 17px 48px;
+  padding: 17px 48px 17px 16px;
   display: flex;
   flex-direction: column;
   height: 56px;
