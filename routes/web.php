@@ -114,8 +114,6 @@ Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator
     Route::get('/kelola_orang_tua/{id}/edit', [\App\Http\Controllers\OperatorController::class, 'editOrangTua'])->name('kelola_orang_tua.edit');
     Route::put('/kelola_orang_tua/{id}', [\App\Http\Controllers\OperatorController::class, 'updateOrangTua'])->name('kelola_orang_tua.update');
     Route::delete('/kelola_orang_tua/{id}', [\App\Http\Controllers\OperatorController::class, 'destroyOrangTua'])->name('kelola_orang_tua.destroy');
-    Route::get('/backup/orang-tua', [\App\Http\Controllers\OperatorController::class, 'backupOrangTua'])->name('backup.orang-tua');
-    Route::get('/backup/guru', [\App\Http\Controllers\OperatorController::class, 'backupGuru'])->name('backup.guru');
     Route::get('/backup/semua', [\App\Http\Controllers\OperatorController::class, 'backupSemua'])->name('backup.semua');
 
     Route::get('/kelola-kelas', [\App\Http\Controllers\OperatorController::class, 'indexKelas'])->name('kelola-kelas');
