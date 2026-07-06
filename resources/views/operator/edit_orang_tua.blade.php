@@ -43,8 +43,8 @@
                     Kembali
                 </a>
                 <div class="header-left">
-                    <h1 class="header-title">Ubah Akun Orang\</h1>
-                    <p class="header-subtitle">Perbarui data orang\ dan kelola tautan anak.</p>
+                    <h1 class="header-title">Ubah Akun Orang Tua</h1>
+                    <p class="header-subtitle">Perbarui data Orang Tua dan kelola tautan anak.</p>
                 </div>
             </header>
 
@@ -79,7 +79,7 @@
                         <div>
                             <h2 style="font-size: 16px; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 8px;">
                                 <div style="width: 28px; height: 28px; background: #0ea5e9; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">2</div>
-                                Data Orang\
+                                Data Orang Tua
                             </h2>
 
                             <div class="form-grid">
@@ -107,7 +107,7 @@
                                 <div style="width: 28px; height: 28px; background: #0ea5e9; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">3</div>
                                 Kelola Tautan Siswa <span style="color:#ef4444">*</span>
                             </h2>
-                            <p style="font-size:14px; color:#64748b; margin-bottom:24px;">Cari dan pilih siswa yang akan ditautkan ke akun orang\ ini. Maksimal 5 siswa (Siswa pertama wajib). Jika Anda menghapus baris siswa, tautan akan diputus.</p>
+                            <p style="font-size:14px; color:#64748b; margin-bottom:24px;">Cari dan pilih siswa yang akan ditautkan ke akun Orang Tua ini. Maksimal 5 siswa (Siswa pertama wajib). Jika Anda menghapus baris siswa, tautan akan diputus.</p>
 
                             <div id="siswa-container">
                                 @php
@@ -186,7 +186,7 @@
                             .then(data => {
                                 listEl.innerHTML = '';
                                 if(data.length === 0) {
-                                    listEl.innerHTML = '<div style="color:#ef4444;">Siswa tidak ditemukan atau sudah punya orang\</div>';
+                                    listEl.innerHTML = '<div style="color:#ef4444;">Siswa tidak ditemukan atau sudah punya Orang Tua</div>';
                                 } else {
                                     data.forEach(item => {
                                         const div = document.createElement('div');

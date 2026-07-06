@@ -87,7 +87,7 @@
                                                             onclick="openHarianModal('ubah', {id: {{ $j->id }}, hari: '{{ $j->hari }}', waktu_mulai: '{{ $j->jam_mulai }}', waktu_selesai: '{{ $j->jam_selesai }}', kegiatan: '{{ $j->kegiatan }}', keterangan: '{{ $j->keterangan }}'})">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                                         </button>
-                                                        <form method="POST" action="/operator/jadwal-kelas/{{ $j->id }}" style="display:inline; margin:0;" onsubmit="return confirm('Hapus jadwal ini?');">
+                                                        <form method="POST" action="{{ url('/operator/jadwal-kelas/'.$j->id) }}" style="display:inline; margin:0;" onsubmit="return confirm('Hapus jadwal ini?');">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn-icon-action btn-delete" title="Hapus" style="border:none; cursor:pointer; background:none; padding:0; display:flex;">
@@ -122,7 +122,7 @@
                     </button>
                 </div>
                 
-                <form id="harianForm" method="POST" action="/operator/kelola-kelas/{{ $kelas->id }}/jadwal">
+                <form id="harianForm" method="POST" action="{{ url('/operator/kelola-kelas/'.$kelas->id.'/jadwal') }}">
                     @csrf
                     <input type="hidden" name="_method" id="formMethod" value="POST" disabled>
                     <div class="modal-body">

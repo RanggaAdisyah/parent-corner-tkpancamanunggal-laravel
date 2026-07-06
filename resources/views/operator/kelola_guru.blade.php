@@ -332,7 +332,7 @@
             if (btnUbahData) {
                 btnUbahData.addEventListener('click', () => {
                     if (activeRow && activeRow.dataset.id) {
-                        window.location.href = `/operator/kelola-guru/${activeRow.dataset.id}/edit`;
+                        window.location.href = `{{ url('/operator/kelola-guru') }}/${activeRow.dataset.id}/edit`;
                     }
                 });
             }
@@ -341,7 +341,7 @@
                 btnHapusAkun.addEventListener('click', () => {
                     if (activeRow && activeRow.dataset.id) {
                         if (confirm('Apakah Anda yakin ingin menghapus akun guru ini?')) {
-                            formHapusAkun.action = '/operator/kelola-guru/' + activeRow.dataset.id;
+                            formHapusAkun.action = '{{ url("/operator/kelola-guru") }}/' + activeRow.dataset.id;
                             formHapusAkun.submit();
                         }
                     }

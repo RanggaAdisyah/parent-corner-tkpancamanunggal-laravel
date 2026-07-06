@@ -159,7 +159,7 @@
                     </button>
                 </div>
 
-                <form id="studentForm" method="POST" action="/operator/kelola-kelas">
+                <form id="studentForm" method="POST" action="{{ url('/operator/kelola-kelas') }}">
                     @csrf
                     <input type="hidden" name="_method" id="formMethod" value="POST" disabled>
                     <div class="modal-body">
@@ -259,7 +259,7 @@
                         document.querySelector('#studentForm [name="nama_kelas"]').value = d.nama || '';
                         document.querySelector('#studentForm [name="tingkat"]').value = d.tingkat || '';
 
-                        document.getElementById('studentForm').action = "/operator/kelola-kelas/" + d.id;
+                        document.getElementById('studentForm').action = "{{ url('/operator/kelola-kelas') }}/" + d.id;
                         document.getElementById('formMethod').value = "PUT";
                         document.getElementById('formMethod').disabled = false;
                     } else {
@@ -267,7 +267,7 @@
                         btnSubmitModal.innerText = 'Tambah Kelas';
                         document.getElementById('studentForm').reset();
                         
-                        document.getElementById('studentForm').action = "/operator/kelola-kelas";
+                        document.getElementById('studentForm').action = "{{ url('/operator/kelola-kelas') }}";
                         document.getElementById('formMethod').value = "POST";
                         document.getElementById('formMethod').disabled = true;
                     }
