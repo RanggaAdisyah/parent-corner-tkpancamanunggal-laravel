@@ -732,7 +732,7 @@ class OperatorController extends Controller
     public function profil()
     {
         $user = auth()->user();
-        return view('Operator.profil', compact('user'));
+        return view('operator.profil', compact('user'));
     }
 
     public function updateProfil(Request $request)
@@ -948,4 +948,3 @@ class OperatorController extends Controller
         ])->deleteFileAfterSend(true);
     }
 }
-
