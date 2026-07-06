@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * White-Box Testing — Galeri Kegiatan
- * UT-060 s/d UT-065
+ * UT-064 s/d UT-070
  */
 class GaleriTest extends TestCase
 {
@@ -29,7 +29,7 @@ class GaleriTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-060 — indexGaleri
+    // UT-064 — indexGaleri
     // ---------------------------------------------------------------
     public function test_index_galeri_displays_data(): void
     {
@@ -44,7 +44,7 @@ class GaleriTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-061 — createGaleri
+    // UT-065 — createGaleri
     // ---------------------------------------------------------------
     public function test_create_galeri_displays_form(): void
     {
@@ -59,7 +59,19 @@ class GaleriTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-062 — storeGaleri
+    // UT-066 — storeGaleri: Gagal validasi jika form kosong
+    // ---------------------------------------------------------------
+    public function test_store_galeri_fails_validation_on_empty_fields(): void
+    {
+        $operator = $this->createOperator();
+
+        $response = $this->actingAs($operator)->post('/operator/galeri', []);
+
+        $response->assertSessionHasErrors(['judul', 'target_kelas']);
+    }
+
+    // ---------------------------------------------------------------
+    // UT-067 — storeGaleri
     // ---------------------------------------------------------------
     public function test_store_galeri_creates_record_and_syncs_kelas(): void
     {
@@ -104,7 +116,7 @@ class GaleriTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-063 — editGaleri
+    // UT-068 — editGaleri
     // ---------------------------------------------------------------
     public function test_edit_galeri_displays_form(): void
     {
@@ -121,7 +133,7 @@ class GaleriTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-064 — updateGaleri
+    // UT-069 — updateGaleri
     // ---------------------------------------------------------------
     public function test_update_galeri_modifies_data_and_deletes_files(): void
     {
@@ -175,7 +187,7 @@ class GaleriTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-065 — destroyGaleri
+    // UT-070 — destroyGaleri
     // ---------------------------------------------------------------
     public function test_destroy_galeri_deletes_record_and_files(): void
     {

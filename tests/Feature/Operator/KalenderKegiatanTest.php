@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * White-Box Testing — Kalender Kegiatan
- * UT-050 s/d UT-053
+ * UT-052 s/d UT-056
  */
 class KalenderKegiatanTest extends TestCase
 {
@@ -27,7 +27,7 @@ class KalenderKegiatanTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-050 — indexKalenderKegiatan: Menampilkan kalender
+    // UT-052 — indexKalenderKegiatan: Menampilkan kalender
     // ---------------------------------------------------------------
     public function test_index_kalender_kegiatan_displays_data(): void
     {
@@ -44,7 +44,19 @@ class KalenderKegiatanTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-051 — storeKalenderKegiatan: Berhasil menyimpan kegiatan
+    // UT-053 — storeKalenderKegiatan: Validasi gagal jika form kosong
+    // ---------------------------------------------------------------
+    public function test_store_kalender_kegiatan_fails_validation_on_empty_fields(): void
+    {
+        $operator = $this->createOperator();
+
+        $response = $this->actingAs($operator)->post('/operator/kalender-kegiatan', []);
+
+        $response->assertSessionHasErrors(['judul', 'tanggal', 'waktu_mulai', 'kategori']);
+    }
+
+    // ---------------------------------------------------------------
+    // UT-054 — storeKalenderKegiatan: Berhasil menyimpan kegiatan
     // ---------------------------------------------------------------
     public function test_store_kalender_kegiatan_creates_record(): void
     {
@@ -72,7 +84,7 @@ class KalenderKegiatanTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-052 — updateKalenderKegiatan: Berhasil mengubah data kegiatan
+    // UT-055 — updateKalenderKegiatan: Berhasil mengubah data kegiatan
     // ---------------------------------------------------------------
     public function test_update_kalender_kegiatan_modifies_data(): void
     {
@@ -99,7 +111,7 @@ class KalenderKegiatanTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-053 — destroyKalenderKegiatan: Berhasil menghapus kegiatan
+    // UT-056 — destroyKalenderKegiatan: Berhasil menghapus kegiatan
     // ---------------------------------------------------------------
     public function test_destroy_kalender_kegiatan_deletes_record(): void
     {

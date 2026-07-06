@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 /**
  * White-Box Testing — Modul Kehadiran Guru
- * UT-067 s/d UT-070
+ * UT-072 s/d UT-075
  */
 class KehadiranTest extends TestCase
 {
@@ -41,7 +41,7 @@ class KehadiranTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-067 — kehadiran: Menampilkan daftar siswa untuk diabsen
+    // UT-072 — kehadiran: Menampilkan daftar siswa untuk diabsen
     // ---------------------------------------------------------------
     public function test_kehadiran_displays_page_with_students(): void
     {
@@ -64,7 +64,7 @@ class KehadiranTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-068 — storeKehadiran: Validasi gagal jika input kosong
+    // UT-073 — storeKehadiran: Validasi gagal jika input kosong
     // ---------------------------------------------------------------
     public function test_store_kehadiran_fails_validation_on_empty_fields(): void
     {
@@ -77,7 +77,7 @@ class KehadiranTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-069 — storeKehadiran: Menyimpan absensi
+    // UT-074 — storeKehadiran: Menyimpan absensi
     // ---------------------------------------------------------------
     public function test_store_kehadiran_saves_or_updates_data(): void
     {
@@ -117,7 +117,7 @@ class KehadiranTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-070 — getKehadiranTanggal: Ambil JSON data presensi
+    // UT-075 — getKehadiranTanggal: Ambil JSON data presensi
     // ---------------------------------------------------------------
     public function test_get_kehadiran_tanggal_returns_json(): void
     {

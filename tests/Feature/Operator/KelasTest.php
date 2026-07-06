@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * White-Box Testing — Kelola Kelas & Jadwal Pelajaran
- * UT-042 s/d UT-049
+ * UT-042 s/d UT-051
  */
 class KelasTest extends TestCase
 {
@@ -43,7 +43,19 @@ class KelasTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-043 — storeKelas: Berhasil membuat kelas dan fallback nama_kelas
+    // UT-043 — storeKelas: Gagal validasi jika tingkat kosong
+    // ---------------------------------------------------------------
+    public function test_store_kelas_fails_validation_on_empty_fields(): void
+    {
+        $operator = $this->createOperator();
+
+        $response = $this->actingAs($operator)->post('/operator/kelola-kelas', []);
+
+        $response->assertSessionHasErrors(['tingkat']);
+    }
+
+    // ---------------------------------------------------------------
+    // UT-044 — storeKelas: Berhasil membuat kelas dan fallback nama_kelas
     // ---------------------------------------------------------------
     public function test_store_kelas_creates_record(): void
     {
@@ -67,7 +79,7 @@ class KelasTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-044 — updateKelas: Berhasil mengubah data kelas
+    // UT-045 — updateKelas: Berhasil mengubah data kelas
     // ---------------------------------------------------------------
     public function test_update_kelas_modifies_data(): void
     {
@@ -92,7 +104,7 @@ class KelasTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-045 — destroyKelas: Berhasil menghapus kelas
+    // UT-046 — destroyKelas: Berhasil menghapus kelas
     // ---------------------------------------------------------------
     public function test_destroy_kelas_deletes_record(): void
     {
@@ -108,7 +120,7 @@ class KelasTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-046 — indexJadwalKelas: Menampilkan jadwal suatu kelas
+    // UT-047 — indexJadwalKelas: Menampilkan jadwal suatu kelas
     // ---------------------------------------------------------------
     public function test_index_jadwal_kelas_displays_data(): void
     {
@@ -127,7 +139,20 @@ class KelasTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-047 — storeJadwalKelas: Berhasil menyimpan jadwal
+    // UT-048 — storeJadwalKelas: Gagal validasi jika input kosong
+    // ---------------------------------------------------------------
+    public function test_store_jadwal_kelas_fails_validation_on_empty_fields(): void
+    {
+        $operator = $this->createOperator();
+        $kelas = Kelas::factory()->create();
+
+        $response = $this->actingAs($operator)->post("/operator/kelola-kelas/{$kelas->id}/jadwal", []);
+
+        $response->assertSessionHasErrors(['hari', 'jam_mulai', 'kegiatan']);
+    }
+
+    // ---------------------------------------------------------------
+    // UT-049 — storeJadwalKelas: Berhasil menyimpan jadwal
     // ---------------------------------------------------------------
     public function test_store_jadwal_kelas_creates_record(): void
     {
@@ -155,7 +180,7 @@ class KelasTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-048 — updateJadwalKelas: Berhasil mengubah jadwal
+    // UT-050 — updateJadwalKelas: Berhasil mengubah jadwal
     // ---------------------------------------------------------------
     public function test_update_jadwal_kelas_modifies_data(): void
     {
@@ -187,7 +212,7 @@ class KelasTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-049 — destroyJadwalKelas: Berhasil menghapus jadwal
+    // UT-051 — destroyJadwalKelas: Berhasil menghapus jadwal
     // ---------------------------------------------------------------
     public function test_destroy_jadwal_kelas_deletes_record(): void
     {

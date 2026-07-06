@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 /**
  * White-Box Testing — Pengumuman
- * UT-054 s/d UT-059
+ * UT-057 s/d UT-063
  */
 class PengumumanTest extends TestCase
 {
@@ -45,7 +45,7 @@ class PengumumanTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-054 — indexPengumuman: Menampilkan daftar
+    // UT-057 — indexPengumuman: Menampilkan daftar
     // ---------------------------------------------------------------
     public function test_index_pengumuman_displays_data(): void
     {
@@ -60,7 +60,7 @@ class PengumumanTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-055 — createPengumuman: Menampilkan form
+    // UT-058 — createPengumuman: Menampilkan form
     // ---------------------------------------------------------------
     public function test_create_pengumuman_displays_form(): void
     {
@@ -75,7 +75,19 @@ class PengumumanTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-056 — storePengumuman: Simpan pengumuman dan sync pivot
+    // UT-059 — storePengumuman: Gagal validasi jika form kosong
+    // ---------------------------------------------------------------
+    public function test_store_pengumuman_fails_validation_on_empty_fields(): void
+    {
+        $operator = $this->createOperator();
+
+        $response = $this->actingAs($operator)->post('/operator/pengumuman', []);
+
+        $response->assertSessionHasErrors(['judul', 'isi_pesan', 'target_kelas']);
+    }
+
+    // ---------------------------------------------------------------
+    // UT-060 — storePengumuman: Simpan pengumuman dan sync pivot
     // ---------------------------------------------------------------
     public function test_store_pengumuman_creates_record_and_syncs_kelas(): void
     {
@@ -116,7 +128,7 @@ class PengumumanTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-057 — editPengumuman: Menampilkan halaman edit
+    // UT-061 — editPengumuman: Menampilkan halaman edit
     // ---------------------------------------------------------------
     public function test_edit_pengumuman_displays_form(): void
     {
@@ -132,7 +144,7 @@ class PengumumanTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-058 — updatePengumuman: Mengubah data dan menghapus file lama
+    // UT-062 — updatePengumuman: Mengubah data dan menghapus file lama
     // ---------------------------------------------------------------
     public function test_update_pengumuman_modifies_data_and_deletes_files(): void
     {
@@ -177,7 +189,7 @@ class PengumumanTest extends TestCase
     }
 
     // ---------------------------------------------------------------
-    // UT-059 — destroyPengumuman: Menghapus data dan file
+    // UT-063 — destroyPengumuman: Menghapus data dan file
     // ---------------------------------------------------------------
     public function test_destroy_pengumuman_deletes_record_and_files(): void
     {
