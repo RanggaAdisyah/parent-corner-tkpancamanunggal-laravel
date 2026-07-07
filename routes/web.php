@@ -82,18 +82,16 @@ Route::prefix('api/ppdb')->group(function () {
 
 Route::prefix('api/siswa')->group(function () {
     Route::get('/search', function (\Illuminate\Http\Request $request) {
-        $query = strtolower($request->get('q'));
+        $query = $request->get('q');
         if (!$query) return response()->json([]);
 
-        // Karena nama sekarang dienkripsi, kita tidak bisa menggunakan SQL "LIKE".
-        // Kita ambil siswa yang belum punya wali, lalu filter namanya di PHP.
-        $allSiswas = \App\Models\Siswa::whereNull('orang_tua_id')->get();
-        
-        $data = $allSiswas->filter(function($siswa) use ($query) {
-            // str_contains case-insensitive di php 8, tapi untuk aman kita gunakan strtolower
-            return str_contains(strtolower($siswa->nama ?? ''), $query) || 
-                   str_contains(strtolower($siswa->nis ?? ''), $query);
-        })->take(10)->values();
+        $data = \App\Models\Siswa::whereNull('orang_tua_id')
+            ->where(function ($q) use ($query) {
+                $q->where('nama', 'LIKE', "%{$query}%")
+                  ->orWhere('nis', 'LIKE', "%{$query}%");
+            })
+            ->take(10)
+            ->get();
 
         return response()->json($data);
     })->name('api.siswa.search');

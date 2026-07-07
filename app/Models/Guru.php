@@ -10,13 +10,7 @@ class Guru extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'nama_lengkap'  => 'encrypted',
-        'nip'           => 'encrypted',
-        'no_hp'         => 'encrypted',
-        'alamat'        => 'encrypted',
-        'tanggal_lahir' => 'encrypted',
-    ];
+
 
     public function user()
     {

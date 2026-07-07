@@ -17,9 +17,7 @@ class Nilai extends Model
         'keterangan',
     ];
 
-    protected $casts = [
-        'keterangan' => 'encrypted',
-    ];
+
 
     public function siswa()
     {

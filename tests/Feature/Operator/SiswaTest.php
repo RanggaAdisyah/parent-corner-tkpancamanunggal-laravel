@@ -42,7 +42,7 @@ class SiswaTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertViewIs('operator.data_siswa');
-        $response->assertViewHas('daftarAnak');
+        $response->assertViewHas('daftarSiswa');
         $response->assertViewHas('kelasList');
     }
 
@@ -82,7 +82,7 @@ class SiswaTest extends TestCase
         $response = $this->actingAs($operator)->post('/operator/data_siswa', $payload);
 
         $response->assertRedirect();
-        $response->assertSessionHas('success', 'Data Anak berhasil ditambahkan!');
+        $response->assertSessionHas('success', 'Data Siswa berhasil ditambahkan!');
         
         $this->assertDatabaseHas('siswas', [
             'nis' => '123456',
@@ -144,7 +144,7 @@ class SiswaTest extends TestCase
         $response = $this->actingAs($operator)->put("/operator/data_siswa/{$siswa->id}", $payloadBaru);
 
         $response->assertRedirect();
-        $response->assertSessionHas('success', 'Data Anak berhasil diperbarui!');
+        $response->assertSessionHas('success', 'Data Siswa berhasil diperbarui!');
         
         // Refresh instansi dari database
         $siswa->refresh();
@@ -169,7 +169,7 @@ class SiswaTest extends TestCase
         $response = $this->actingAs($operator)->delete("/operator/data_siswa/{$siswa->id}");
 
         $response->assertRedirect();
-        $response->assertSessionHas('success', 'Data Anak berhasil dihapus!');
+        $response->assertSessionHas('success', 'Data Siswa berhasil dihapus!');
 
         // Pastikan terhapus (jadi 0)
         $this->assertDatabaseCount('siswas', 0);
