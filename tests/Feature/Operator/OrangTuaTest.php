@@ -82,7 +82,7 @@ class OrangTuaTest extends TestCase
         $response = $this->actingAs($operator)->post('/operator/kelola_orang_tua', []);
 
         $response->assertSessionHasErrors([
-            'no_hp', 'password', 'nama_ayah', 'nama_ibu', 'siswa_id'
+            'no_hp', 'email', 'password', 'nama_ayah', 'nama_ibu', 'siswa_id'
         ]);
     }
 
@@ -99,6 +99,7 @@ class OrangTuaTest extends TestCase
 
         $payload = [
             'no_hp' => '081299998888',
+            'email' => 'budi@test.com',
             'password' => 'rahasia123',
             'nama_ayah' => 'Bapak Budi',
             'nama_ibu' => 'Ibu Siti',
@@ -114,6 +115,7 @@ class OrangTuaTest extends TestCase
         // Cek User terbuat
         $this->assertDatabaseHas('users', [
             'username' => '081299998888',
+            'email' => 'budi@test.com',
             'role' => 'orang_tua',
         ]);
 
@@ -141,6 +143,7 @@ class OrangTuaTest extends TestCase
 
         $payload = [
             'no_hp' => '081299997777',
+            'email' => 'bapak_baru@test.com',
             'nama_ayah' => 'Bapak Baru',
             'nama_ibu' => 'Ibu Baru',
             'alamat' => 'Jl. Baru',

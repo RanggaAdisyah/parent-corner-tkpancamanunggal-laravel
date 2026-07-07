@@ -103,6 +103,7 @@ class OperatorController extends Controller
 
         $request->validate([
             'no_hp' => 'required|string|unique:users,username',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
@@ -113,6 +114,7 @@ class OperatorController extends Controller
         $user = User::create([
             'name' => $request->nama_ayah, // default menggunakan nama ayah
             'username' => $request->no_hp,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'orang_tua'
         ]);
@@ -167,6 +169,7 @@ class OperatorController extends Controller
 
         $rules = [
             'no_hp' => 'required|string|unique:users,username,'.$id,
+            'email' => 'required|email|unique:users,email,'.$id,
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
             'siswa_id' => 'required|array|min:1',
@@ -180,6 +183,7 @@ class OperatorController extends Controller
 
         $user->name = $request->nama_ayah;
         $user->username = $request->no_hp;
+        $user->email = $request->email;
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }

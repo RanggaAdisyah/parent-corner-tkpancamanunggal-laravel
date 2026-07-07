@@ -63,8 +63,12 @@
                             
                             <div class="form-grid">
                                 <div class="form-group" style="margin-bottom: 20px;">
-                                    <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Nomor HP (WhatsApp) <span style="color:#ef4444">*</span></label>
+                                    <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Nomor HP <span style="color:#ef4444">*</span></label>
                                     <input type="text" name="no_hp" class="form-input" style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc;" placeholder="Contoh: 081234567890" required value="{{ old('no_hp', $orangTua->no_hp) }}" />
+                                </div>
+                                <div class="form-group" style="margin-bottom: 20px;">
+                                    <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Email <span style="color:#ef4444">*</span></label>
+                                    <input type="email" name="email" class="form-input" style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc;" placeholder="Contoh: bapak@email.com" required value="{{ old('email', $orangTua->user->email ?? '') }}" />
                                 </div>
                                 <div class="form-group" style="margin-bottom: 20px;">
                                     <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Password Baru</label>
