@@ -9,7 +9,9 @@ class Guru extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-
+    protected $casts = [
+        'tanggal_lahir' => 'date',
+    ];
 
 
     public function user()

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nis')->nullable();
             $table->string('kelas')->nullable();
             $table->string('jenis_kelamin')->nullable();
-            $table->text('tanggal_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
             $table->timestamps();
         });
     }

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('no_hp')->nullable();
             $table->text('alamat')->nullable();
             $table->string('jenis_kelamin')->nullable();
-            $table->text('tanggal_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
             $table->timestamps();
         });
     }

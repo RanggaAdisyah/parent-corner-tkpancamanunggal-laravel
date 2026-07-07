@@ -9,7 +9,9 @@ class Siswa extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
+    protected $casts = [
+        'tanggal_lahir' => 'date',
+    ];
 
 
     public function orangTua() { return $this->belongsTo(OrangTua::class); }
