@@ -5,10 +5,10 @@
     <meta charset="utf-8" />
     <title>Data Siswa - Operator Panel</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_siswa.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_data.css') }}">
 </head>
 <body>
-    <div class="kelola-siswa-page">
+    <div class="kelola-data-page">
         @include('partials.sidebar', ['active' => 'kelola_siswa'])
 
         <main class="main">

@@ -1,4 +1,4 @@
-.kelola-akun-siswa {
+.kelola-data-page {
   display: flex;
   height: 100vh;
   overflow: hidden;
@@ -7,7 +7,7 @@
   background-color: #f3f4f6;
 }
 
-.kelola-akun-siswa .aside {
+.kelola-data-page .aside {
   display: flex;
   flex-direction: column;
   width: 256px;
@@ -21,7 +21,7 @@
   border-color: #e2e8f0;
 }
 
-.kelola-akun-siswa .horizontal-border {
+.kelola-data-page .horizontal-border {
   display: flex;
   align-items: center;
   padding: 24px;
@@ -34,7 +34,7 @@
   width: 100%;
 }
 
-.kelola-akun-siswa .overlay {
+.kelola-data-page .overlay {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
@@ -45,13 +45,13 @@
   border-radius: 8px;
 }
 
-.kelola-akun-siswa .icon {
+.kelola-data-page .icon {
   position: relative;
   width: 20.92px;
   height: 17.46px;
 }
 
-.kelola-akun-siswa .div-wrapper {
+.kelola-data-page .div-wrapper {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
@@ -60,7 +60,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .div {
+.kelola-data-page .div {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
@@ -68,7 +68,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .div-2 {
+.kelola-data-page .div-2 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -78,7 +78,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .text {
+.kelola-data-page .text {
   position: relative;
   width: 76.94px;
   height: 35px;
@@ -90,7 +90,7 @@
   line-height: 17.5px;
 }
 
-.kelola-akun-siswa .text-wrapper {
+.kelola-data-page .text-wrapper {
   position: relative;
   display: flex;
   align-items: center;
@@ -105,7 +105,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .nav {
+.kelola-data-page .nav {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -118,7 +118,7 @@
   flex-grow: 1;
 }
 
-.kelola-akun-siswa .link {
+.kelola-data-page .link {
   display: flex;
   align-items: center;
   padding: 10px 12px;
@@ -130,13 +130,13 @@
   border-radius: 8px;
 }
 
-.kelola-akun-siswa .img {
+.kelola-data-page .img {
   position: relative;
   width: 18px;
   height: 18px;
 }
 
-.kelola-akun-siswa .text-2 {
+.kelola-data-page .text-2 {
   position: relative;
   display: flex;
   align-items: center;
@@ -151,7 +151,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .container {
+.kelola-data-page .container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -162,7 +162,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .text-wrapper-2 {
+.kelola-data-page .text-wrapper-2 {
   position: relative;
   display: flex;
   align-items: center;
@@ -175,7 +175,7 @@
   line-height: 16px;
 }
 
-.kelola-akun-siswa .link-2 {
+.kelola-data-page .link-2 {
   display: flex;
   align-items: center;
   padding: 10px 12px;
@@ -186,13 +186,13 @@
   border-radius: 8px;
 }
 
-.kelola-akun-siswa .icon-2 {
+.kelola-data-page .icon-2 {
   position: relative;
   width: 22.03px;
   height: 16.03px;
 }
 
-.kelola-akun-siswa .text-wrapper-3 {
+.kelola-data-page .text-wrapper-3 {
   position: relative;
   display: flex;
   align-items: center;
@@ -207,13 +207,13 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .icon-3 {
+.kelola-data-page .icon-3 {
   position: relative;
   width: 18px;
   height: 19.97px;
 }
 
-.kelola-akun-siswa .text-3 {
+.kelola-data-page .text-3 {
   position: relative;
   display: flex;
   align-items: center;
@@ -228,13 +228,13 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .icon-4 {
+.kelola-data-page .icon-4 {
   position: relative;
   width: 19.97px;
   height: 15.21px;
 }
 
-.kelola-akun-siswa .text-4 {
+.kelola-data-page .text-4 {
   position: relative;
   display: flex;
   align-items: center;
@@ -249,13 +249,13 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .icon-5 {
+.kelola-data-page .icon-5 {
   position: relative;
   width: 19.97px;
   height: 19.97px;
 }
 
-.kelola-akun-siswa .text-5 {
+.kelola-data-page .text-5 {
   position: relative;
   display: flex;
   align-items: center;
@@ -270,7 +270,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .container-wrapper {
+.kelola-data-page .container-wrapper {
   flex-direction: column;
   align-items: flex-start;
   padding: 16px;
@@ -284,7 +284,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .container-2 {
+.kelola-data-page .container-2 {
   display: flex;
   align-items: center;
   padding: 8px 12px;
@@ -295,7 +295,7 @@
   border-radius: 8px;
 }
 
-.kelola-akun-siswa .admin-profile {
+.kelola-data-page .admin-profile {
   position: relative;
   max-width: 223px;
   width: 32px;
@@ -306,7 +306,7 @@
   background-position: 50% 50%;
 }
 
-.kelola-akun-siswa .margin {
+.kelola-data-page .margin {
   display: flex;
   padding: 0px 0px 0px 12px;
   position: relative;
@@ -316,7 +316,7 @@
   align-items: flex-start;
 }
 
-.kelola-akun-siswa .text-wrapper-4 {
+.kelola-data-page .text-wrapper-4 {
   position: relative;
   display: flex;
   align-items: center;
@@ -329,7 +329,7 @@
   line-height: 20px;
 }
 
-.kelola-akun-siswa .text-wrapper-5 {
+.kelola-data-page .text-wrapper-5 {
   position: relative;
   display: flex;
   align-items: center;
@@ -342,7 +342,7 @@
   line-height: 16px;
 }
 
-.kelola-akun-siswa .button {
+.kelola-data-page .button {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -351,7 +351,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .icon-wrapper {
+.kelola-data-page .icon-wrapper {
   display: inline-flex;
   align-items: flex-start;
   justify-content: center;
@@ -359,13 +359,13 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .icon-6 {
+.kelola-data-page .icon-6 {
   position: relative;
   width: 14.84px;
   height: 15px;
 }
 
-.kelola-akun-siswa .main {
+.kelola-data-page .main {
   display: flex;
   align-items: flex-start;
   position: relative;
@@ -375,7 +375,7 @@
   z-index: 0;
 }
 
-.kelola-akun-siswa .background {
+.kelola-data-page .background {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -388,7 +388,7 @@
   background-color: #f9fafb;
 }
 
-.kelola-akun-siswa .container-3 {
+.kelola-data-page .container-3 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -399,7 +399,7 @@
   flex-grow: 1;
 }
 
-.kelola-akun-siswa .container-4 {
+.kelola-data-page .container-4 {
   position: relative;
   width: 100%;
   display: flex;
@@ -408,7 +408,7 @@
   box-sizing: border-box;
 }
 
-.kelola-akun-siswa .container-5 {
+.kelola-data-page .container-5 {
   display: flex;
   width: 100%;
   align-items: center;
@@ -416,7 +416,7 @@
   margin-bottom: 24px;
 }
 
-.kelola-akun-siswa .container-6 {
+.kelola-data-page .container-6 {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
@@ -425,14 +425,14 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .action-buttons {
+.kelola-data-page .action-buttons {
   display: flex;
   align-items: center;
   gap: 12px;
   position: relative;
 }
 
-.kelola-akun-siswa .text-6 {
+.kelola-data-page .text-6 {
   position: relative;
   display: flex;
   align-items: center;
@@ -447,7 +447,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .p {
+.kelola-data-page .p {
   position: relative;
   display: flex;
   align-items: center;
@@ -462,7 +462,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .button-2 {
+.kelola-data-page .button-2 {
   all: unset;
   box-sizing: border-box;
   display: inline-flex;
@@ -477,7 +477,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .text-wrapper-6 {
+.kelola-data-page .text-wrapper-6 {
   position: relative;
   display: flex;
   align-items: center;
@@ -494,7 +494,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .button-3 {
+.kelola-data-page .button-3 {
   all: unset;
   box-sizing: border-box;
   display: inline-flex;
@@ -509,7 +509,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .container-7 {
+.kelola-data-page .container-7 {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -517,13 +517,13 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .icon-7 {
+.kelola-data-page .icon-7 {
   position: relative;
   width: 10.5px;
   height: 10.5px;
 }
 
-.kelola-akun-siswa .background-border {
+.kelola-data-page .background-border {
   display: flex;
   width: 100%;
   align-items: center;
@@ -534,7 +534,7 @@
   border: 1px solid #e5e7eb;
 }
 
-.kelola-akun-siswa .container-8 {
+.kelola-data-page .container-8 {
   display: flex;
   flex-direction: column;
   width: 372.67px;
@@ -542,7 +542,7 @@
   position: relative;
 }
 
-.kelola-akun-siswa .input {
+.kelola-data-page .input {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -558,7 +558,7 @@
   border-color: #e5e7eb;
 }
 
-.kelola-akun-siswa .text-wrapper-7 {
+.kelola-data-page .text-wrapper-7 {
   position: relative;
   display: flex;
   align-items: center;
@@ -571,7 +571,7 @@
   line-height: normal;
 }
 
-.kelola-akun-siswa .container-9 {
+.kelola-data-page .container-9 {
   display: inline-flex;
   height: 100%;
   align-items: center;
@@ -581,13 +581,13 @@
   left: 0;
 }
 
-.kelola-akun-siswa .icon-8 {
+.kelola-data-page .icon-8 {
   position: relative;
   width: 17.57px;
   height: 17.57px;
 }
 
-.kelola-akun-siswa .options-wrapper {
+.kelola-data-page .options-wrapper {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -595,7 +595,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .options {
+.kelola-data-page .options {
   position: relative;
   width: 153.33px;
   height: 38px;
@@ -605,7 +605,7 @@
   border-color: #e5e7eb;
 }
 
-.kelola-akun-siswa .image-fill {
+.kelola-data-page .image-fill {
   display: flex;
   flex-direction: column;
   width: 153px;
@@ -618,13 +618,13 @@
   left: 0;
 }
 
-.kelola-akun-siswa .SVG {
+.kelola-data-page .SVG {
   position: relative;
   width: 21px;
   height: 21px;
 }
 
-.kelola-akun-siswa .vector {
+.kelola-data-page .vector {
   position: absolute;
   width: 73.75%;
   height: 63.75%;
@@ -632,7 +632,7 @@
   left: 26.25%;
 }
 
-.kelola-akun-siswa .container-10 {
+.kelola-data-page .container-10 {
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
@@ -642,7 +642,7 @@
   left: 13px;
 }
 
-.kelola-akun-siswa .text-7 {
+.kelola-data-page .text-7 {
   position: relative;
   display: flex;
   align-items: center;
@@ -657,7 +657,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .table-wrapper {
+.kelola-data-page .table-wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -670,7 +670,7 @@
   box-shadow: 0px 1px 2px #0000000d;
 }
 
-.kelola-akun-siswa .table {
+.kelola-data-page .table {
   display: inline-flex;
   flex-direction: column;
   min-width: 576px;
@@ -680,7 +680,7 @@
   margin-right: -1px;
 }
 
-.kelola-akun-siswa .header {
+.kelola-data-page .header {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -691,7 +691,7 @@
   background-color: #f9fafb;
 }
 
-.kelola-akun-siswa .row {
+.kelola-data-page .row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -702,7 +702,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .cell {
+.kelola-data-page .cell {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -711,7 +711,7 @@
   position: relative;
 }
 
-.kelola-akun-siswa .text-8 {
+.kelola-data-page .text-8 {
   position: relative;
   display: flex;
   align-items: center;
@@ -726,7 +726,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .cell-2 {
+.kelola-data-page .cell-2 {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -735,7 +735,7 @@
   position: relative;
 }
 
-.kelola-akun-siswa .text-9 {
+.kelola-data-page .text-9 {
   position: relative;
   display: flex;
   align-items: center;
@@ -750,7 +750,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .cell-3 {
+.kelola-data-page .cell-3 {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -759,7 +759,7 @@
   position: relative;
 }
 
-.kelola-akun-siswa .text-10 {
+.kelola-data-page .text-10 {
   position: relative;
   display: flex;
   align-items: center;
@@ -774,7 +774,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .body {
+.kelola-data-page .body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -789,7 +789,7 @@
   border-color: #e5e7eb;
 }
 
-.kelola-akun-siswa .row-2 {
+.kelola-data-page .row-2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -800,14 +800,14 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .data {
+.kelola-data-page .data {
   display: flex;
   flex: 1;
   align-items: center;
   position: relative;
 }
 
-.kelola-akun-siswa .container-11 {
+.kelola-data-page .container-11 {
   display: flex;
   flex-direction: column;
   width: 40px;
@@ -816,7 +816,7 @@
   position: relative;
 }
 
-.kelola-akun-siswa .background-border-2 {
+.kelola-data-page .background-border-2 {
   display: flex;
   width: 40px;
   height: 40px;
@@ -829,7 +829,7 @@
   border-color: #bfdbfe;
 }
 
-.kelola-akun-siswa .text-11 {
+.kelola-data-page .text-11 {
   position: relative;
   display: flex;
   align-items: center;
@@ -844,7 +844,7 @@
   line-height: normal;
 }
 
-.kelola-akun-siswa .margin-2 {
+.kelola-data-page .margin-2 {
   display: inline-flex;
   padding: 0px 0px 0px 16px;
   position: relative;
@@ -853,7 +853,7 @@
   align-items: flex-start;
 }
 
-.kelola-akun-siswa .text-12 {
+.kelola-data-page .text-12 {
   position: relative;
   display: flex;
   align-items: center;
@@ -868,7 +868,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .text-13 {
+.kelola-data-page .text-13 {
   position: relative;
   display: flex;
   align-items: center;
@@ -883,7 +883,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .data-2 {
+.kelola-data-page .data-2 {
   flex: 1;
   align-items: center;
   justify-content: center;
@@ -892,7 +892,7 @@
   position: relative;
 }
 
-.kelola-akun-siswa .text-14 {
+.kelola-data-page .text-14 {
   position: relative;
   display: flex;
   align-items: center;
@@ -907,7 +907,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .background-wrapper {
+.kelola-data-page .background-wrapper {
   flex: 1;
   align-items: flex-end;
   justify-content: center;
@@ -917,7 +917,7 @@
   position: relative;
 }
 
-.kelola-akun-siswa .background-2 {
+.kelola-data-page .background-2 {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -928,7 +928,7 @@
   border-radius: 9999px;
 }
 
-.kelola-akun-siswa .background-3 {
+.kelola-data-page .background-3 {
   position: relative;
   width: 6px;
   height: 6px;
@@ -936,7 +936,7 @@
   border-radius: 9999px;
 }
 
-.kelola-akun-siswa .text-15 {
+.kelola-data-page .text-15 {
   position: relative;
   display: flex;
   align-items: center;
@@ -951,7 +951,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .img-wrapper {
+.kelola-data-page .img-wrapper {
   width: 50px;
   align-items: flex-end;
   padding: 0;
@@ -960,14 +960,14 @@
   position: relative;
 }
 
-.kelola-akun-siswa .icon-9 {
+.kelola-data-page .icon-9 {
   position: relative;
   width: 6.55px;
   height: 11.15px;
   margin-left: -4.55px;
 }
 
-.kelola-akun-siswa .row-3 {
+.kelola-data-page .row-3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -982,7 +982,7 @@
   border-color: #e5e7eb;
 }
 
-.kelola-akun-siswa .siswa-cantika {
+.kelola-data-page .siswa-cantika {
   background-image: url(./img/siswa-cantika.png);
   position: relative;
   max-width: 40px;
@@ -993,7 +993,7 @@
   background-position: 50% 50%;
 }
 
-.kelola-akun-siswa .text-16 {
+.kelola-data-page .text-16 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1008,7 +1008,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .text-17 {
+.kelola-data-page .text-17 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1023,7 +1023,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .text-18 {
+.kelola-data-page .text-18 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1038,7 +1038,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .background-4 {
+.kelola-data-page .background-4 {
   display: flex;
   width: 40px;
   height: 40px;
@@ -1049,7 +1049,7 @@
   border-radius: 9999px;
 }
 
-.kelola-akun-siswa .text-19 {
+.kelola-data-page .text-19 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1064,7 +1064,7 @@
   line-height: normal;
 }
 
-.kelola-akun-siswa .text-20 {
+.kelola-data-page .text-20 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1079,7 +1079,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .text-21 {
+.kelola-data-page .text-21 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1094,7 +1094,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .text-22 {
+.kelola-data-page .text-22 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1109,7 +1109,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .background-5 {
+.kelola-data-page .background-5 {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -1120,7 +1120,7 @@
   border-radius: 9999px;
 }
 
-.kelola-akun-siswa .background-6 {
+.kelola-data-page .background-6 {
   position: relative;
   width: 6px;
   height: 6px;
@@ -1128,7 +1128,7 @@
   border-radius: 9999px;
 }
 
-.kelola-akun-siswa .text-23 {
+.kelola-data-page .text-23 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1143,7 +1143,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .siswa-fajar {
+.kelola-data-page .siswa-fajar {
   background-image: url(./img/siswa-fajar.png);
   position: relative;
   max-width: 40px;
@@ -1154,7 +1154,7 @@
   background-position: 50% 50%;
 }
 
-.kelola-akun-siswa .text-24 {
+.kelola-data-page .text-24 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1169,7 +1169,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .text-25 {
+.kelola-data-page .text-25 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1184,7 +1184,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .data-3 {
+.kelola-data-page .data-3 {
   flex: 1;
   align-items: center;
   justify-content: center;
@@ -1193,7 +1193,7 @@
   position: relative;
 }
 
-.kelola-akun-siswa .text-26 {
+.kelola-data-page .text-26 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1208,7 +1208,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .data-4 {
+.kelola-data-page .data-4 {
   flex: 1;
   align-items: flex-end;
   justify-content: center;
@@ -1218,7 +1218,7 @@
   position: relative;
 }
 
-.kelola-akun-siswa .data-5 {
+.kelola-data-page .data-5 {
   width: 50px;
   align-items: flex-end;
   padding: 0;
@@ -1227,7 +1227,7 @@
   position: relative;
 }
 
-.kelola-akun-siswa .background-7 {
+.kelola-data-page .background-7 {
   display: none; /* Hide by default */
   flex-direction: column;
   width: 384px;
@@ -1241,11 +1241,11 @@
   border-left: 1px solid #e5e7eb;
 }
 
-.kelola-akun-siswa .background-7.active {
+.kelola-data-page .background-7.active {
   display: flex; /* Show when active */
 }
 
-.kelola-akun-siswa .overlay-shadow {
+.kelola-data-page .overlay-shadow {
   position: absolute;
   height: 100%;
   top: 0;
@@ -1260,13 +1260,13 @@
   display: none;
 }
 
-.kelola-akun-siswa .background-7.active + .overlay-shadow,
-.kelola-akun-siswa .background-7.active .overlay-shadow {
+.kelola-data-page .background-7.active + .overlay-shadow,
+.kelola-data-page .background-7.active .overlay-shadow {
   display: block;
 }
 
 
-.kelola-akun-siswa .horizontal-border-2 {
+.kelola-data-page .horizontal-border-2 {
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px;
@@ -1280,7 +1280,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .text-27 {
+.kelola-data-page .text-27 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1295,7 +1295,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .button-4 {
+.kelola-data-page .button-4 {
   display: inline-flex;
   flex-direction: column;
   padding: 8px;
@@ -1309,13 +1309,12 @@
   cursor: pointer;
 }
 
-
-.kelola-akun-siswa .button-4:hover {
+.kelola-data-page .button-4:hover {
   background-color: #dc2626; /* Merah lebih gelap saat hover */
   transform: scale(1.1);
 }
 
-.kelola-akun-siswa .icon-10 {
+.kelola-data-page .icon-10 {
   position: relative;
   width: 12px;
   height: 12px;
@@ -1323,7 +1322,7 @@
 }
 
 
-.kelola-akun-siswa .container-12 {
+.kelola-data-page .container-12 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1337,7 +1336,7 @@
   overflow-y: auto;
 }
 
-.kelola-akun-siswa .container-13 {
+.kelola-data-page .container-13 {
   position: relative;
   align-self: stretch;
   width: 100%;
@@ -1350,7 +1349,7 @@
   padding: 16px 0;
 }
 
-.kelola-akun-siswa .heading-ananda {
+.kelola-data-page .heading-ananda {
   position: relative;
   width: auto;
   height: auto;
@@ -1366,21 +1365,21 @@
   white-space: normal;
 }
 
-.kelola-akun-siswa .margin-3 {
+.kelola-data-page .margin-3 {
   display: flex;
   position: relative;
   flex-direction: column;
   align-items: center;
 }
 
-.kelola-akun-siswa .container-14 {
+.kelola-data-page .container-14 {
   display: inline-flex;
   align-items: center;
   position: relative;
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .text-28 {
+.kelola-data-page .text-28 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1397,7 +1396,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .container-15 {
+.kelola-data-page .container-15 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1406,7 +1405,7 @@
   margin-bottom: 4px;
 }
 
-.kelola-akun-siswa .background-border-3 {
+.kelola-data-page .background-border-3 {
   display: flex;
   width: 80px;
   height: 80px;
@@ -1421,7 +1420,7 @@
   box-shadow: 0px 1px 2px #0000000d;
 }
 
-.kelola-akun-siswa .text-29 {
+.kelola-data-page .text-29 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1437,7 +1436,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .background-border-4 {
+.kelola-data-page .background-border-4 {
   position: absolute;
   right: 0;
   bottom: 12px;
@@ -1449,7 +1448,7 @@
   border-color: #ffffff;
 }
 
-.kelola-akun-siswa .horizontal-divider {
+.kelola-data-page .horizontal-divider {
   height: 1px;
   border-top-width: 1px;
   border-top-style: solid;
@@ -1459,7 +1458,7 @@
   width: 100%;
 }
 
-.kelola-akun-siswa .container-16 {
+.kelola-data-page .container-16 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1470,7 +1469,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .heading {
+.kelola-data-page .heading {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1480,13 +1479,13 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .icon-11 {
+.kelola-data-page .icon-11 {
   position: relative;
   width: 15.69px;
   height: 13.09px;
 }
 
-.kelola-akun-siswa .text-30 {
+.kelola-data-page .text-30 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1501,7 +1500,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .container-17 {
+.kelola-data-page .container-17 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1512,7 +1511,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .text-wrapper-8 {
+.kelola-data-page .text-wrapper-8 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1525,7 +1524,7 @@
   line-height: 16px;
 }
 
-.kelola-akun-siswa .text-wrapper-9 {
+.kelola-data-page .text-wrapper-9 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1538,7 +1537,7 @@
   line-height: 20px;
 }
 
-.kelola-akun-siswa .container-18 {
+.kelola-data-page .container-18 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: 40px;
@@ -1546,7 +1545,7 @@
   gap: 16px;
 }
 
-.kelola-akun-siswa .container-19 {
+.kelola-data-page .container-19 {
   position: relative;
   grid-row: 1 / 2;
   grid-column: 1 / 2;
@@ -1558,7 +1557,7 @@
   gap: 4px;
 }
 
-.kelola-akun-siswa .container-20 {
+.kelola-data-page .container-20 {
   position: relative;
   grid-row: 1 / 2;
   grid-column: 2 / 3;
@@ -1570,13 +1569,13 @@
   gap: 4px;
 }
 
-.kelola-akun-siswa .icon-12 {
+.kelola-data-page .icon-12 {
   position: relative;
   width: 15.08px;
   height: 15px;
 }
 
-.kelola-akun-siswa .text-31 {
+.kelola-data-page .text-31 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1591,7 +1590,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .container-21 {
+.kelola-data-page .container-21 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1601,7 +1600,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .text-32 {
+.kelola-data-page .text-32 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1616,7 +1615,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .button-5 {
+.kelola-data-page .button-5 {
   display: inline-flex;
   flex-direction: column;
   padding: 6px;
@@ -1628,13 +1627,13 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .icon-13 {
+.kelola-data-page .icon-13 {
   position: relative;
   width: 13.33px;
   height: 12.4px;
 }
 
-.kelola-akun-siswa .container-22 {
+.kelola-data-page .container-22 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1645,7 +1644,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .jl-merpati-no-RT-wrapper {
+.kelola-data-page .jl-merpati-no-RT-wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1656,7 +1655,7 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .jl-merpati-no-RT {
+.kelola-data-page .jl-merpati-no-RT {
   position: relative;
   align-self: stretch;
   margin-top: -1px;
@@ -1667,7 +1666,7 @@
   line-height: 22.8px;
 }
 
-.kelola-akun-siswa .background-8 {
+.kelola-data-page .background-8 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1683,7 +1682,7 @@
   border-color: #e5e7eb;
 }
 
-.kelola-akun-siswa .button-6 {
+.kelola-data-page .button-6 {
   all: unset;
   box-sizing: border-box;
   display: flex;
@@ -1700,13 +1699,13 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .icon-14 {
+.kelola-data-page .icon-14 {
   position: relative;
   width: 15px;
   height: 15.02px;
 }
 
-.kelola-akun-siswa .text-33 {
+.kelola-data-page .text-33 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1723,7 +1722,7 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .button-7 {
+.kelola-data-page .button-7 {
   all: unset;
   box-sizing: border-box;
   display: flex;
@@ -1740,13 +1739,13 @@
   flex: 0 0 auto;
 }
 
-.kelola-akun-siswa .icon-15 {
+.kelola-data-page .icon-15 {
   position: relative;
   width: 12px;
   height: 13.5px;
 }
 
-.kelola-akun-siswa .text-34 {
+.kelola-data-page .text-34 {
   position: relative;
   display: flex;
   align-items: center;
@@ -1762,8 +1761,8 @@
   white-space: nowrap;
 }
 
-.kelola-akun-siswa .row-2.selected-row,
-.kelola-akun-siswa .row-3.selected-row {
+.kelola-data-page .row-2.selected-row,
+.kelola-data-page .row-3.selected-row {
   background-color: #eff6ff !important; /* Biru muda saat dipilih */
 }
 
@@ -1961,49 +1960,49 @@
 
 /* Original CSS code should be injected above this comment. */
 
-.kelola-akun-siswa .link,
-.kelola-akun-siswa .link-2 {
+.kelola-data-page .link,
+.kelola-data-page .link-2 {
   color: inherit;
 }
 
-.kelola-akun-siswa .button,
-.kelola-akun-siswa .button-4,
-.kelola-akun-siswa .button-5 {
+.kelola-data-page .button,
+.kelola-data-page .button-4,
+.kelola-data-page .button-5 {
   all: unset;
   box-sizing: border-box;
   cursor: pointer;
 }
 
-.kelola-akun-siswa .button-2,
-.kelola-akun-siswa .button-3,
-.kelola-akun-siswa .button-6,
-.kelola-akun-siswa .button-7,
-.kelola-akun-siswa .row-2,
-.kelola-akun-siswa .row-3 {
+.kelola-data-page .button-2,
+.kelola-data-page .button-3,
+.kelola-data-page .button-6,
+.kelola-data-page .button-7,
+.kelola-data-page .row-2,
+.kelola-data-page .row-3 {
   cursor: pointer;
 }
 
-.kelola-akun-siswa .container-5 {
+.kelola-data-page .container-5 {
   gap: 16px;
   flex-wrap: wrap;
 }
 
-.kelola-akun-siswa .background-border {
+.kelola-data-page .background-border {
   gap: 16px;
   flex-wrap: wrap;
 }
 
-.kelola-akun-siswa .container-8 {
+.kelola-data-page .container-8 {
   flex: 1 1 320px;
   width: auto;
   max-width: 372.67px;
 }
 
-.kelola-akun-siswa .input {
+.kelola-data-page .input {
   cursor: text;
 }
 
-.kelola-akun-siswa .text-wrapper-7 {
+.kelola-data-page .text-wrapper-7 {
   width: 100%;
   border: 0;
   outline: 0;
@@ -2012,17 +2011,17 @@
   min-width: 0;
 }
 
-.kelola-akun-siswa .text-wrapper-7::placeholder {
+.kelola-data-page .text-wrapper-7::placeholder {
   color: #6b7280;
   opacity: 1;
 }
 
-.kelola-akun-siswa .options {
+.kelola-data-page .options {
   display: block;
   cursor: pointer;
 }
 
-.kelola-akun-siswa .text-7 {
+.kelola-data-page .text-7 {
   width: 100%;
   height: 20px;
   border: 0;
@@ -2034,87 +2033,87 @@
   cursor: pointer;
 }
 
-.kelola-akun-siswa .table {
+.kelola-data-page .table {
   display: flex;
   min-width: 100%;
   width: 100%;
 }
 
-.kelola-akun-siswa .row-2,
-.kelola-akun-siswa .row-3 {
+.kelola-data-page .row-2,
+.kelola-data-page .row-3 {
   border: 0;
   text-align: left;
   font: inherit;
 }
 
-.kelola-akun-siswa .row-2:focus-visible,
-.kelola-akun-siswa .row-3:focus-visible,
-.kelola-akun-siswa .link:focus-visible,
-.kelola-akun-siswa .link-2:focus-visible,
-.kelola-akun-siswa .button:focus-visible,
-.kelola-akun-siswa .button-4:focus-visible,
-.kelola-akun-siswa .button-5:focus-visible,
-.kelola-akun-siswa .text-32:focus-visible,
-.kelola-akun-siswa .text-7:focus-visible,
-.kelola-akun-siswa .text-wrapper-7:focus-visible {
+.kelola-data-page .row-2:focus-visible,
+.kelola-data-page .row-3:focus-visible,
+.kelola-data-page .link:focus-visible,
+.kelola-data-page .link-2:focus-visible,
+.kelola-data-page .button:focus-visible,
+.kelola-data-page .button-4:focus-visible,
+.kelola-data-page .button-5:focus-visible,
+.kelola-data-page .text-32:focus-visible,
+.kelola-data-page .text-7:focus-visible,
+.kelola-data-page .text-wrapper-7:focus-visible {
   outline: 2px solid #4a90e2;
   outline-offset: 2px;
 }
 
-.kelola-akun-siswa .text-32 {
+.kelola-data-page .text-32 {
   text-decoration: none;
 }
 
 @media (max-width: 1200px) {
 
-  .kelola-akun-siswa .container-4 {
+  .kelola-data-page .container-4 {
     height: auto;
     padding-bottom: 32px;
   }
 
-  .kelola-akun-siswa .container-5,
-  .kelola-akun-siswa .background-border,
-  .kelola-akun-siswa .table-wrapper {
+  .kelola-data-page .container-5,
+  .kelola-data-page .background-border,
+  .kelola-data-page .table-wrapper {
     position: relative;
     top: auto;
     left: auto;
     width: calc(100% - 64px);
   }
 
-  .kelola-akun-siswa .table-wrapper {
+  .kelola-data-page .table-wrapper {
     margin: 0 32px 32px;
     overflow-x: auto;
   }
 
-  .kelola-akun-siswa .background-7 {
+  .kelola-data-page .background-7 {
     width: 100%;
   }
 
-  .kelola-akun-siswa .overlay-shadow {
+  .kelola-data-page .overlay-shadow {
     width: 100%;
   }
 }
 
 @media (max-width: 767px) {
-  .kelola-akun-siswa .container-5,
-  .kelola-akun-siswa .background-border,
-  .kelola-akun-siswa .table-wrapper {
+  .kelola-data-page .container-5,
+  .kelola-data-page .background-border,
+  .kelola-data-page .table-wrapper {
     width: calc(100% - 32px);
   }
 
-  .kelola-akun-siswa .container-5 {
+  .kelola-data-page .container-5 {
     margin: 16px;
   }
 
-  .kelola-akun-siswa .background-border {
+  .kelola-data-page .background-border {
     margin: 0 16px;
   }
 
-  .kelola-akun-siswa .table-wrapper {
+  .kelola-data-page .table-wrapper {
     margin: 0 16px 16px;
   }
 
-  .kelola-akun-siswa .container-18 {
+  .kelola-data-page .container-18 {
     grid-template-columns: minmax(0, 1fr);
   }
 }
@@ -2124,18 +2123,18 @@
    ============================================================ */
 
 /* Fix .background yang collapse jadi 0px akibat global flex-direction:column */
-.kelola-akun-siswa .main {
+.kelola-data-page .main {
   overflow: hidden;
 }
 
-.kelola-akun-siswa .background {
+.kelola-data-page .background {
   width: 100% !important;
   min-width: 0 !important;
   flex: 1 1 auto !important;
 }
 
 /* Panel tersembunyi di luar layar kanan */
-.kelola-akun-siswa .background-7 {
+.kelola-data-page .background-7 {
   position: fixed;
   top: 56px;
   right: -400px;
@@ -2152,12 +2151,12 @@
 }
 
 /* Panel muncul saat active */
-.kelola-akun-siswa .background-7.active {
+.kelola-data-page .background-7.active {
   right: 0;
 }
 
 /* Header panel */
-.kelola-akun-siswa .horizontal-border-2 {
+.kelola-data-page .horizontal-border-2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2167,13 +2166,13 @@
 }
 
 /* Konten panel */
-.kelola-akun-siswa .container-12 {
+.kelola-data-page .container-12 {
   flex: 1;
   overflow-y: auto;
 }
 
 /* Tombol aksi */
-.kelola-akun-siswa .background-8 {
+.kelola-data-page .background-8 {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -2183,7 +2182,7 @@
 }
 
 /* Overlay tidak digunakan */
-#detailOverlay {
+.kelola-data-page .overlay-shadow {
   display: none !important;
 }
 
@@ -2199,13 +2198,13 @@
   }
 
   /* Pastikan area tombol pada detail modal tidak tertutup bottom navbar */
-  .kelola-akun-siswa .background-8 {
+  .kelola-data-page .background-8 {
     padding-bottom: 96px !important;
   }
 
   /* Fix horizontal overflow */
-  .kelola-akun-siswa .background-border,
-  .kelola-akun-siswa .table-wrapper {
+  .kelola-data-page .background-border,
+  .kelola-data-page .table-wrapper {
     min-width: 0 !important;
     width: auto !important;
     margin-left: 16px !important;
@@ -2214,26 +2213,26 @@
     box-sizing: border-box !important;
   }
   
-  .kelola-akun-siswa .table {
+  .kelola-data-page .table {
     min-width: 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
   }
 
   /* Sembunyikan Header Tabel */
-  .kelola-akun-siswa .header {
+  .kelola-data-page .header {
     display: none !important;
   }
 
   /* Hilangkan border bawaan dari pembungkus list */
-  .kelola-akun-siswa .body {
+  .kelola-data-page .body {
     border: none !important;
     background: transparent !important;
     padding: 16px !important;
   }
 
   /* Ubah Row Tabel menjadi Card Vertikal */
-  .kelola-akun-siswa [class^="row-"] {
+  .kelola-data-page [class^="row-"] {
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-start !important;
@@ -2249,22 +2248,22 @@
     background-color: #ffffff !important;
   }
 
-  /* Area Profil (Avatar + Nama + NIS) */
-  .kelola-akun-siswa .data {
+  /* Area Profil (Avatar + Nama + NIP) */
+  .kelola-data-page .data {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
     width: 100% !important;
   }
 
-  .kelola-akun-siswa .margin-2 {
+  .kelola-data-page .margin-2 {
     min-width: 0 !important;
     flex: 1 !important;
     overflow: hidden !important;
   }
 
   /* Penyesuaian Teks Nama */
-  .kelola-akun-siswa div[class^="text-"] {
+  .kelola-data-page div[class^="text-"] {
     max-width: 100% !important;
     width: auto !important;
     overflow: hidden !important;
@@ -2272,11 +2271,11 @@
     white-space: nowrap !important;
   }
 
-  /* Container Kelas & Status */
-  .kelola-akun-siswa .data-2,
-  .kelola-akun-siswa .data-3,
-  .kelola-akun-siswa .background-wrapper,
-  .kelola-akun-siswa .data-4 {
+  /* Container Bidang & Status */
+  .kelola-data-page .data-2,
+  .kelola-data-page .data-3,
+  .kelola-data-page .background-wrapper,
+  .kelola-data-page .data-4 {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
@@ -2286,9 +2285,9 @@
   }
 
   /* Tambahkan Label Manual via ::before */
-  .kelola-akun-siswa .data-2::before,
-  .kelola-akun-siswa .data-3::before {
-    content: "Kelas :";
+  .kelola-data-page .data-2::before,
+  .kelola-data-page .data-3::before {
+    content: "Bidang :";
     font-size: 14px;
     font-weight: 600;
     color: #6b7280;
@@ -2297,8 +2296,8 @@
     text-align: left;
   }
 
-  .kelola-akun-siswa .background-wrapper::before,
-  .kelola-akun-siswa .data-4::before {
+  .kelola-data-page .background-wrapper::before,
+  .kelola-data-page .data-4::before {
     content: "Status :";
     font-size: 14px;
     font-weight: 600;
@@ -2309,7 +2308,7 @@
   }
 
   /* Posisi Icon Arrow */
-  .kelola-akun-siswa .img-wrapper {
+  .kelola-data-page .img-wrapper {
     position: absolute !important;
     right: 16px !important;
     top: 50% !important;

@@ -6,11 +6,11 @@
     <meta charset="utf-8" />
     <title>Kelola Akun orang tua</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_orang_tua.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_data.css') }}">
 </head>
 
 <body>
-    <div class="kelola-akun-siswa">
+    <div class="kelola-data-page">
         @include('partials.sidebar', ['active' => 'akun_orang_tua'])
 
         <main class="main">

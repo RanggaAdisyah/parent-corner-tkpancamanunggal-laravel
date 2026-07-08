@@ -5,10 +5,10 @@
     <meta charset="utf-8" />
     <title>Kelola Kelas</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/operator/kelola_orang_tua.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_data.css') }}">
 </head>
 <body>
-    <div class="kelola-akun-siswa">
+    <div class="kelola-data-page">
         @include('partials.sidebar', ['active' => 'kelola-kelas'])
 
         <main class="main">
