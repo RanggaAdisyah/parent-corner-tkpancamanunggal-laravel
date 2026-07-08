@@ -100,7 +100,7 @@
                             <div class="form-group">
                                 <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Lampiran (Opsional)</label>
                                 <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()" style="border: 2px dashed #cbd5e1; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; background: #f8fafc;">
-                                    <p style="margin:0; font-size:14px; color:#64748b;">Klik untuk upload gambar atau dokumen PDF (Maks 5MB)</p>
+                                    <p style="margin:0; font-size:14px; color:#64748b;">Klik untuk upload gambar atau dokumen PDF (Maks 50MB)</p>
                                 </div>
                                 <input type="file" id="fileInput" name="lampiran[]" multiple style="display:none;" accept=".jpg,.jpeg,.png,.pdf">
                                 <div id="fileNameDisplay" style="margin-top: 8px; font-size: 13px; color: #64748b; display:flex; flex-direction:column; gap:4px;"></div>
@@ -180,9 +180,9 @@
             fileInput.addEventListener('change', function() {
                 // Add new files to dataTransfer with validation
                 Array.from(this.files).forEach(file => {
-                    const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+                    const maxSizeInBytes = 50 * 1024 * 1024; // 50MB
                     if (file.size > maxSizeInBytes) {
-                        alert(`Gagal: Ukuran file "${file.name}" terlalu besar! Maksimal upload adalah 5MB.`);
+                        alert(`Gagal: Ukuran file "${file.name}" terlalu besar! Maksimal upload adalah 50MB.`);
                     } else {
                         dataTransfer.items.add(file);
                     }

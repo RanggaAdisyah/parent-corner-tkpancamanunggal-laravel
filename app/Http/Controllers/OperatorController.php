@@ -472,7 +472,7 @@ class OperatorController extends Controller
             'judul'        => 'required|string|max:255',
             'isi_pesan'    => 'required|string',
             'target_kelas' => 'required|array|min:1',
-            'lampiran.*'   => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'lampiran.*'   => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:51200',
         ]);
 
         $lampiranPaths = [];
@@ -511,7 +511,7 @@ class OperatorController extends Controller
             'judul'        => 'required|string|max:255',
             'isi_pesan'    => 'required|string',
             'target_kelas' => 'required|array|min:1',
-            'lampiran.*'   => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'lampiran.*'   => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:51200',
         ]);
 
         $currentFiles = is_array($pengumuman->lampiran) ? $pengumuman->lampiran : [];

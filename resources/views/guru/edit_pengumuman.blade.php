@@ -73,7 +73,6 @@
                 <form id="formPengumuman" method="POST" action="{{ route('guru.pengumuman.update', $pengumuman->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <input type="hidden" name="remove_file" id="removeFileInput" value="0">
                     
                     <div class="form-layout">
                         <!-- Form Detail -->
@@ -97,9 +96,9 @@
                             <div class="form-group">
                                 <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Lampiran (Opsional)</label>
                                 <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()" style="border: 2px dashed #cbd5e1; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; background: #f8fafc;">
-                                    <p style="margin:0; font-size:14px; color:#64748b;">Klik untuk upload gambar atau dokumen PDF (Maks 5MB)</p>
+                                    <p style="margin:0; font-size:14px; color:#64748b;">Klik untuk upload gambar atau dokumen PDF (Maks 50MB)</p>
                                 </div>
-                                <input type="file" id="fileInput" name="lampiran" style="display:none;" accept=".jpg,.jpeg,.png,.webp">
+                                <input type="file" id="fileInput" name="lampiran[]" multiple style="display:none;" accept=".jpg,.jpeg,.png,.pdf,.webp">
                                 
                                 <div id="fileNameDisplay" style="margin-top: 8px; font-size: 13px; color: #64748b; display:flex; flex-direction:column; gap:4px;">
                                     @if(!empty($pengumuman->lampiran) && is_array($pengumuman->lampiran))
@@ -109,7 +108,9 @@
                                                     <span style="flex-shrink:0; margin-top:2px;">📎</span> 
                                                     <span>{{ basename($lampiran) }}</span>
                                                 </span>
-                                                <button type="button" class="btnRemoveExisting" style="color:#ef4444; background:none; border:none; cursor:pointer; font-size:12px; font-weight:700; padding:4px; flex-shrink:0; white-space:nowrap;">✕ Hapus</button>
+                                                <label style="display:flex; align-items:center; gap:4px; font-size:12px; font-weight:700; color:#ef4444; cursor:pointer;">
+                                                    <input type="checkbox" name="deleted_files[]" value="{{ $lampiran }}" style="cursor:pointer;"> Hapus
+                                                </label>
                                             </div>
                                         @endforeach
                                     @endif
@@ -150,13 +151,7 @@
                 document.getElementById('isiPesanHidden').value = quill.root.innerHTML;
             });
 
-            const btnRemoveExisting = document.querySelector('.btnRemoveExisting');
-            if (btnRemoveExisting) {
-                btnRemoveExisting.addEventListener('click', function() {
-                    this.parentElement.remove();
-                    document.getElementById('removeFileInput').value = '1';
-                });
-            }
+            // Remove existing file logic is now handled by checkboxes
 
             // File upload display logic
             const fileInput = document.getElementById('fileInput');
@@ -164,16 +159,11 @@
             let dataTransfer = new DataTransfer();
             
             fileInput.addEventListener('change', function() {
-                document.getElementById('removeFileInput').value = '1';
-                // Remove existing file display if a new one is selected
-                document.querySelectorAll('.existing-file').forEach(el => el.remove());
-
                 Array.from(this.files).forEach(file => {
-                    const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+                    const maxSizeInBytes = 50 * 1024 * 1024; // 50MB
                     if (file.size > maxSizeInBytes) {
-                        alert(`Gagal: Ukuran file "${file.name}" terlalu besar! Maksimal upload adalah 5MB.`);
+                        alert(`Gagal: Ukuran file "${file.name}" terlalu besar! Maksimal upload adalah 50MB.`);
                     } else {
-                        dataTransfer = new DataTransfer(); // Allow only 1 file
                         dataTransfer.items.add(file);
                     }
                 });
@@ -200,7 +190,12 @@
 
                 document.querySelectorAll('.btnRemoveFile').forEach(btn => {
                     btn.addEventListener('click', function() {
-                        dataTransfer = new DataTransfer();
+                        const indexToRemove = parseInt(this.getAttribute('data-index'));
+                        const newDataTransfer = new DataTransfer();
+                        Array.from(dataTransfer.files).forEach((f, i) => {
+                            if (i !== indexToRemove) newDataTransfer.items.add(f);
+                        });
+                        dataTransfer = newDataTransfer;
                         fileInput.files = dataTransfer.files;
                         renderFileList();
                     });

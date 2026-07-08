@@ -355,17 +355,18 @@ class GuruController extends Controller
         $request->validate([
             'judul' => 'required|string',
             'isi_pengumuman' => 'required|string',
-            'lampiran' => 'nullable|file|mimes:jpg,jpeg,png,webp|max:5120',
+            'lampiran.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf,webp|max:51200',
         ]);
 
         $guru = $this->getGuru();
         
         $lampiranPaths = [];
         if ($request->hasFile('lampiran')) {
-            $file = $request->file('lampiran');
-            $filename = time() . '_' . uniqid() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
-            $file->move(public_path('uploads/pengumuman'), $filename);
-            $lampiranPaths[] = 'uploads/pengumuman/' . $filename;
+            foreach ($request->file('lampiran') as $file) {
+                $filename = time() . '_' . uniqid() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
+                $file->move(public_path('uploads/pengumuman'), $filename);
+                $lampiranPaths[] = 'uploads/pengumuman/' . $filename;
+            }
         }
 
         $pengumuman = Pengumuman::create([
@@ -419,20 +420,29 @@ class GuruController extends Controller
         $request->validate([
             'judul' => 'required|string',
             'isi_pengumuman' => 'required|string',
-            'lampiran' => 'nullable|file|mimes:jpg,jpeg,png,webp|max:5120',
+            'lampiran.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf,webp|max:51200',
         ]);
 
         $lampiranPaths = is_array($pengumuman->lampiran) ? $pengumuman->lampiran : [];
 
-        if ($request->has('remove_file') && $request->remove_file == '1') {
-            $lampiranPaths = [];
+        if ($request->has('deleted_files')) {
+            foreach ($request->deleted_files as $deletedFile) {
+                if (($key = array_search($deletedFile, $lampiranPaths)) !== false) {
+                    if (file_exists(public_path($deletedFile))) {
+                        unlink(public_path($deletedFile));
+                    }
+                    unset($lampiranPaths[$key]);
+                }
+            }
+            $lampiranPaths = array_values($lampiranPaths);
         }
 
         if ($request->hasFile('lampiran')) {
-            $file = $request->file('lampiran');
-            $filename = time() . '_' . uniqid() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
-            $file->move(public_path('uploads/pengumuman'), $filename);
-            $lampiranPaths = ['uploads/pengumuman/' . $filename];
+            foreach ($request->file('lampiran') as $file) {
+                $filename = time() . '_' . uniqid() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
+                $file->move(public_path('uploads/pengumuman'), $filename);
+                $lampiranPaths[] = 'uploads/pengumuman/' . $filename;
+            }
         }
 
         $pengumuman->update([
