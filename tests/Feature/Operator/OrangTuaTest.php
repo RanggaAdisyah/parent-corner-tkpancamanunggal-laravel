@@ -38,7 +38,7 @@ class OrangTuaTest extends TestCase
         $operator = $this->createOperator();
         OrangTua::factory()->count(2)->create();
 
-        $response = $this->actingAs($operator)->get('/operator/kelola_orang_tua');
+        $response = $this->actingAs($operator)->get('/operator/kelola-orang-tua');
 
         $response->assertStatus(200);
         $response->assertViewIs('operator.kelola_orang_tua');
@@ -61,7 +61,7 @@ class OrangTuaTest extends TestCase
         Siswa::factory()->create(['kelas_id' => $kelas->id, 'orang_tua_id' => null]);
         Siswa::factory()->create(['kelas_id' => $kelas->id, 'orang_tua_id' => null]);
 
-        $response = $this->actingAs($operator)->get('/operator/kelola_orang_tua/buat');
+        $response = $this->actingAs($operator)->get('/operator/kelola-orang-tua/buat');
 
         $response->assertStatus(200);
         $response->assertViewIs('operator.buat_orang_tua');
@@ -79,7 +79,7 @@ class OrangTuaTest extends TestCase
     {
         $operator = $this->createOperator();
 
-        $response = $this->actingAs($operator)->post('/operator/kelola_orang_tua', []);
+        $response = $this->actingAs($operator)->post('/operator/kelola-orang-tua', []);
 
         $response->assertSessionHasErrors([
             'no_hp', 'email', 'password', 'nama_ayah', 'nama_ibu', 'siswa_id'
@@ -107,7 +107,7 @@ class OrangTuaTest extends TestCase
             'siswa_id' => [$siswa1->id, $siswa2->id],
         ];
 
-        $response = $this->actingAs($operator)->post('/operator/kelola_orang_tua', $payload);
+        $response = $this->actingAs($operator)->post('/operator/kelola-orang-tua', $payload);
 
         $response->assertRedirect(route('operator.kelola_orang_tua'));
         $response->assertSessionHas('success');
@@ -150,7 +150,7 @@ class OrangTuaTest extends TestCase
             'siswa_id' => [$siswaBaru->id], // Siswa lama dilepas, siswa baru dipasang
         ];
 
-        $response = $this->actingAs($operator)->put("/operator/kelola_orang_tua/{$ortuLama->user_id}", $payload);
+        $response = $this->actingAs($operator)->put("/operator/kelola-orang-tua/{$ortuLama->user_id}", $payload);
 
         $response->assertRedirect();
         
@@ -175,7 +175,7 @@ class OrangTuaTest extends TestCase
         
         $userId = $ortu->user_id;
 
-        $response = $this->actingAs($operator)->delete("/operator/kelola_orang_tua/{$userId}");
+        $response = $this->actingAs($operator)->delete("/operator/kelola-orang-tua/{$userId}");
 
         $response->assertRedirect();
 

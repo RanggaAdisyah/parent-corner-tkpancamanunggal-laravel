@@ -44,7 +44,7 @@
                 </a>
                 <div class="header-left">
                     <h1 class="header-title">Tambah Akun Orang Tua Baru</h1>
-                    <p class="header-subtitle">Lengkapi data orang\ dan tautkan dengan data siswa.</p>
+                    <p class="header-subtitle">Lengkapi data orang dan tautkan dengan data siswa.</p>
                 </div>
             </header>
 
@@ -82,7 +82,7 @@
                         <div>
                             <h2 style="font-size: 16px; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 8px;">
                                 <div style="width: 28px; height: 28px; background: #0ea5e9; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">2</div>
-                                Data Orang\
+                                Data Orang
                             </h2>
 
                             <div class="form-grid">
@@ -110,7 +110,7 @@
                                 <div style="width: 28px; height: 28px; background: #0ea5e9; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">3</div>
                                 Tautkan Data Siswa <span style="color:#ef4444">*</span>
                             </h2>
-                            <p style="font-size:14px; color:#64748b; margin-bottom:24px;">Cari dan pilih siswa yang akan ditautkan ke akun orang\ ini. Maksimal 5 siswa (Siswa pertama wajib).</p>
+                            <p style="font-size:14px; color:#64748b; margin-bottom:24px;">Cari dan pilih siswa yang akan ditautkan ke akun orang ini. Maksimal 5 siswa (Siswa pertama wajib).</p>
 
                             <div id="siswa-container">
                                 <!-- Baris Siswa Pertama -->
@@ -138,7 +138,7 @@
                     <!-- Footer -->
                     <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 16px;">
                         <a href="{{ route('operator.kelola_orang_tua') }}" style="padding: 12px 24px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; border-radius: 8px; text-decoration: none; display: flex; align-items: center;">Batal</a>
-                        <button type="submit" style="padding: 12px 24px; background: #3b82f6; color: white; border: none; font-weight: 600; border-radius: 8px; cursor: pointer;">Simpan Akun Orang\</button>
+                        <button type="submit" style="padding: 12px 24px; background: #3b82f6; color: white; border: none; font-weight: 600; border-radius: 8px; cursor: pointer;">Simpan Akun Orang</button>
                     </div>
                 </form>
             </div>
@@ -173,7 +173,7 @@
                             .then(data => {
                                 listEl.innerHTML = '';
                                 if(data.length === 0) {
-                                    listEl.innerHTML = '<div style="color:#ef4444;">Siswa tidak ditemukan atau sudah punya orang\</div>';
+                                    listEl.innerHTML = '<div style="color:#ef4444;">Siswa tidak ditemukan atau sudah punya orang</div>';
                                 } else {
                                     data.forEach(item => {
                                         const div = document.createElement('div');

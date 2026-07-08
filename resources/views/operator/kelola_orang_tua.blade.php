@@ -316,7 +316,7 @@
             if (btnUbahData) {
                 btnUbahData.addEventListener('click', () => {
                     if (activeRow && activeRow.dataset.id) {
-                        window.location.href = `{{ url('/operator/kelola_orang_tua') }}/${activeRow.dataset.id}/edit`;
+                        window.location.href = `{{ url('/operator/kelola-orang-tua') }}/${activeRow.dataset.id}/edit`;
                     }
                 });
             }
@@ -325,7 +325,7 @@
                 btnHapusAkun.addEventListener('click', () => {
                     if (activeRow && activeRow.dataset.id) {
                         if (confirm('Apakah Anda yakin ingin menghapus akun orang tua ini beserta aksesnya? Data siswa tidak akan terhapus.')) {
-                            formHapusAkun.action = '{{ url("/operator/kelola_orang_tua") }}/' + activeRow.dataset.id;
+                            formHapusAkun.action = '{{ url("/operator/kelola-orang-tua") }}/' + activeRow.dataset.id;
                             formHapusAkun.submit();
                         }
                     }

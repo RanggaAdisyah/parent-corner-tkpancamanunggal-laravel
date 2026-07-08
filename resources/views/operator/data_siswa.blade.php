@@ -89,7 +89,7 @@
                                         data-kelasid="{{ $anak->kelas_id }}"
                                         data-kelas="{{ $anak->kelasLokal ? $anak->kelasLokal->tingkat . ' - ' . $anak->kelasLokal->nama_kelas : $anak->kelas }}"
                                         data-jk="{{ $anak->jenis_kelamin }}"
-                                        data-tgllahir="{{ $anak->tanggal_lahir }}"
+                                        data-tgllahir="{{ $anak->tanggal_lahir ? \Carbon\Carbon::parse($anak->tanggal_lahir)->format('Y-m-d') : '' }}"
                                         data-status="{{ $anak->orang_tua_id ? 'Terkait' : 'Belum' }}"
                                         data-orangtua="{{ $anak->orangTua ? $anak->orangTua->nama_ayah . ' / ' . $anak->orangTua->nama_ibu : 'Belum Ditautkan' }}"
                                     >
@@ -273,7 +273,7 @@
                     </button>
                 </div>
                 
-                <form id="anakForm" method="POST" action="{{ url('/operator/data_siswa') }}">
+                <form id="anakForm" method="POST" action="{{ url('/operator/data-siswa') }}">
                     @csrf
                     <input type="hidden" name="_method" id="formMethodAnak" value="POST">
                     <div class="modal-body">
@@ -360,7 +360,7 @@
                             document.getElementById('detailJk').innerText = d.jk || '-';
                             document.getElementById('detailTgllahir').innerText = d.tgllahir || '-';
                             document.getElementById('detailOrangTua').innerText = d.orangtua || '-';
-                            document.getElementById('formHapusAnak').action = `/operator/data_siswa/${d.id}`;
+                            document.getElementById('formHapusAnak').action = `/operator/data-siswa/${d.id}`;
                         }
                     });
                 }
@@ -391,7 +391,7 @@
                     btnSubmitAnakModal.innerText = 'Simpan Perubahan';
                     
                     const d = activeRow.dataset;
-                    anakForm.action = `/operator/data_siswa/${d.id}`;
+                    anakForm.action = `/operator/data-siswa/${d.id}`;
                     formMethodAnak.value = 'PUT';
 
                     document.getElementById('anakNama').value = d.nama || '';
@@ -405,7 +405,7 @@
                     btnSubmitAnakModal.innerText = 'Tambah Siswa';
                     
                     anakForm.reset();
-                    anakForm.action = `/operator/data_siswa`;
+                    anakForm.action = `/operator/data-siswa`;
                     formMethodAnak.value = 'POST';
                 }
                 modalAnak.classList.add('active');

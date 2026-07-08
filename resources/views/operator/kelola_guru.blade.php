@@ -235,13 +235,13 @@
                                 </div>
                                 <div class="container-21">
                                     <div class="div">
-                                        <a class="text-32" href="#" id="detailWaL">-</a>
+                                        <a class="text-32" href="#" id="detailWaL" target="_blank">-</a>
                                     </div>
-                                    <button class="button-5" type="button" aria-label="Hubungi melalui WhatsApp">
+                                    <a class="button-5" href="#" id="detailWaBtn" target="_blank" aria-label="Hubungi melalui WhatsApp" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
                                         <div class="icon-wrapper">
                                             <img class="icon-13" src="{{ asset('img/icon-8.svg') }}" alt="" />
                                         </div>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
 
@@ -309,7 +309,20 @@
                             document.getElementById('detailKelas').innerText = d.namakelas;
                             document.getElementById('detailEmail').innerText = d.email;
                             document.getElementById('detailWaL').innerText = d.wa || '-';
-                            document.getElementById('detailWaL').href = d.wa ? 'tel:' + d.wa : '#';
+                            
+                            let waLink = '#';
+                            if (d.wa) {
+                                let formattedWa = d.wa.replace(/^0/, '62');
+                                waLink = 'https://wa.me/' + formattedWa;
+                            }
+                            
+                            document.getElementById('detailWaL').href = waLink;
+                            const btnWa = document.getElementById('detailWaBtn');
+                            if (btnWa) {
+                                btnWa.href = waLink;
+                                btnWa.style.opacity = d.wa ? '1' : '0.5';
+                                btnWa.style.pointerEvents = d.wa ? 'auto' : 'none';
+                            }
                             document.getElementById('detailAlamat').innerText = d.alamat || '-';
                         }
                     });

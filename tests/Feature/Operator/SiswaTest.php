@@ -38,7 +38,7 @@ class SiswaTest extends TestCase
         $kelas = Kelas::factory()->create();
         Siswa::factory()->count(3)->create(['kelas_id' => $kelas->id]);
 
-        $response = $this->actingAs($operator)->get('/operator/data_siswa');
+        $response = $this->actingAs($operator)->get('/operator/data-siswa');
 
         $response->assertStatus(200);
         $response->assertViewIs('operator.data_siswa');
@@ -53,7 +53,7 @@ class SiswaTest extends TestCase
     {
         $operator = $this->createOperator();
 
-        $response = $this->actingAs($operator)->post('/operator/data_siswa', []);
+        $response = $this->actingAs($operator)->post('/operator/data-siswa', []);
 
         $response->assertSessionHasErrors([
             'nama', 'kelas_id', 'nis', 'jenis_kelamin', 'tanggal_lahir'
@@ -79,7 +79,7 @@ class SiswaTest extends TestCase
             'tanggal_lahir' => '2015-05-15',
         ];
 
-        $response = $this->actingAs($operator)->post('/operator/data_siswa', $payload);
+        $response = $this->actingAs($operator)->post('/operator/data-siswa', $payload);
 
         $response->assertRedirect();
         $response->assertSessionHas('success', 'Data Siswa berhasil ditambahkan!');
@@ -107,7 +107,7 @@ class SiswaTest extends TestCase
 
         // Route update: PUT /operator/data_siswa/{id}
         // Menggunakan method route fallback karena tidak ada name() di web.php untuk put data_siswa/{id}
-        $response = $this->actingAs($operator)->put("/operator/data_siswa/{$siswa->id}", []);
+        $response = $this->actingAs($operator)->put("/operator/data-siswa/{$siswa->id}", []);
 
         $response->assertSessionHasErrors([
             'nama', 'kelas_id', 'nis', 'jenis_kelamin', 'tanggal_lahir'
@@ -141,7 +141,7 @@ class SiswaTest extends TestCase
             'tanggal_lahir' => '2016-02-02',
         ];
 
-        $response = $this->actingAs($operator)->put("/operator/data_siswa/{$siswa->id}", $payloadBaru);
+        $response = $this->actingAs($operator)->put("/operator/data-siswa/{$siswa->id}", $payloadBaru);
 
         $response->assertRedirect();
         $response->assertSessionHas('success', 'Data Siswa berhasil diperbarui!');
@@ -166,7 +166,7 @@ class SiswaTest extends TestCase
         // Pastikan ada 1
         $this->assertDatabaseCount('siswas', 1);
 
-        $response = $this->actingAs($operator)->delete("/operator/data_siswa/{$siswa->id}");
+        $response = $this->actingAs($operator)->delete("/operator/data-siswa/{$siswa->id}");
 
         $response->assertRedirect();
         $response->assertSessionHas('success', 'Data Siswa berhasil dihapus!');
