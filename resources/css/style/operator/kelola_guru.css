@@ -2065,19 +2065,6 @@
 }
 
 @media (max-width: 1200px) {
-  .kelola-akun-guru {
-    flex-direction: column;
-  }
-
-  .kelola-akun-guru .aside {
-    width: 100%;
-    height: auto;
-  }
-
-  .kelola-akun-guru .main {
-    width: 100%;
-    flex-direction: column;
-  }
 
   .kelola-akun-guru .container-4 {
     height: auto;
@@ -2217,7 +2204,15 @@
 
   /* Fix horizontal overflow */
   .kelola-akun-guru .background-border,
-  .kelola-akun-guru .table-wrapper,
+  .kelola-akun-guru .table-wrapper {
+    min-width: 0 !important;
+    width: auto !important;
+    margin-left: 16px !important;
+    margin-right: 16px !important;
+    align-self: stretch !important;
+    box-sizing: border-box !important;
+  }
+  
   .kelola-akun-guru .table {
     min-width: 0 !important;
     width: 100% !important;
