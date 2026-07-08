@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>Profil - Portal Guru | TK Panca Manunggal</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/guru/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/dashboard_master.css') }}">
 </head>
 <body>
     <div class="dashboard-guru">

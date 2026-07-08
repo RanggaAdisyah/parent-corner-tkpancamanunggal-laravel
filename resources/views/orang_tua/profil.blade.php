@@ -5,9 +5,7 @@
     <meta charset="utf-8" />
     <title>Profil - Portal Orang Tua | TK Panca Manunggal</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/guru/dashboard.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/operator/dashboard.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/orang_tua/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/dashboard_master.css') }}">
 <body>
     <div class="dashboard-guru">
         @include('partials.sidebar_orang_tua', ['active' => 'profil'])

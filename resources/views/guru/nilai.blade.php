@@ -6,7 +6,7 @@
     <title>Input Nilai Perkembangan - Dashboard Guru</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/guru/nilai.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/guru/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/dashboard_master.css') }}">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 <body>

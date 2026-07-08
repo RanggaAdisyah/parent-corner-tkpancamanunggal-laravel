@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>Dashboard Operator</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/operator/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/dashboard_master.css') }}">
 </head>
 <body>
     <div class="dashboard-operator">
