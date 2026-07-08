@@ -9,8 +9,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('nilais', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('siswa_id')->constrained('siswas')->onDelete('cascade');
+            $table->increments('id');
+            $table->unsignedInteger('siswa_id');
+            $table->foreign('siswa_id')->references('id')->on('siswas')->onDelete('cascade');
             $table->date('tanggal');
             $table->string('level');
             $table->string('hal');

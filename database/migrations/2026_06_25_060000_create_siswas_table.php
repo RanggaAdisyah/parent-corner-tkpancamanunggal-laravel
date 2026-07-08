@@ -9,9 +9,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('siswas', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('orang_tua_id')->nullable()->constrained('orang_tuas')->onDelete('set null');
-            $table->foreignId('kelas_id')->nullable()->constrained('kelas')->onDelete('set null');
+            $table->increments('id');
+            $table->unsignedInteger('orang_tua_id')->nullable();
+            $table->foreign('orang_tua_id')->references('id')->on('orang_tuas')->onDelete('set null');
+            $table->unsignedInteger('kelas_id')->nullable();
+            $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('set null');
             $table->text('nama');
             $table->string('nis')->nullable();
             $table->string('kelas')->nullable();

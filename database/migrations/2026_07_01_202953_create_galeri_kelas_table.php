@@ -12,9 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('galeri_kelas', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('galeri_id')->constrained('galeris')->onDelete('cascade');
-            $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
+            $table->increments('id');
+            $table->unsignedInteger('galeri_id');
+            $table->foreign('galeri_id')->references('id')->on('galeris')->onDelete('cascade');
+            $table->unsignedInteger('kelas_id');
+            $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
             $table->timestamps();
         });
     }

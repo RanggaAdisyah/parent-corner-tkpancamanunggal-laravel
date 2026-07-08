@@ -12,12 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('gurus', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->increments('id');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('nama_lengkap');
             $table->string('jabatan')->nullable();
             $table->text('nip')->nullable();
-            $table->foreignId('kelas_id')->nullable()->constrained('kelas')->onDelete('set null');
+            $table->unsignedInteger('kelas_id')->nullable();
+            $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('set null');
             $table->text('no_hp')->nullable();
             $table->text('alamat')->nullable();
             $table->string('jenis_kelamin')->nullable();

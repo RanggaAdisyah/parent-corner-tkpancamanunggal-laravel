@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jadwal_pelajarans', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
+            $table->increments('id');
+            $table->unsignedInteger('kelas_id');
+            $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
             $table->string('hari');
             $table->string('jam_mulai');
             $table->string('jam_selesai')->nullable();
