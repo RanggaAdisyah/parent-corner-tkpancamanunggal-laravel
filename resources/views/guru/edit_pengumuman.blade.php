@@ -103,11 +103,11 @@
                                 <div id="fileNameDisplay" style="margin-top: 8px; font-size: 13px; color: #64748b; display:flex; flex-direction:column; gap:4px;">
                                     @if(!empty($pengumuman->lampiran) && is_array($pengumuman->lampiran))
                                         @foreach($pengumuman->lampiran as $lampiran)
-                                            <div class="existing-file" style="display:flex; align-items:flex-start; gap:8px; padding:8px 12px; background:#f1f5f9; border-radius:6px;">
-                                                <span style="flex-grow:1; color:#111827; word-break: break-all; display:flex; align-items:flex-start; gap:6px;">
-                                                    <span style="flex-shrink:0; margin-top:2px;">📎</span> 
-                                                    <span>{{ basename($lampiran) }}</span>
-                                                </span>
+                                            <div class="existing-file" style="display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 12px; background:#e0f2fe; border-radius:6px;">
+                                                <a href="{{ asset($lampiran) }}" target="_blank" style="flex-grow:1; display:flex; align-items:center; gap:6px; text-decoration:none;">
+                                                    <span style="flex-shrink:0; font-size:16px;">📎</span>
+                                                    <span style="color:#0284c7; font-weight:600; word-break: break-all;">Lampiran Lama: {{ basename($lampiran) }}</span>
+                                                </a>
                                                 <label style="display:flex; align-items:center; gap:4px; font-size:12px; font-weight:700; color:#ef4444; cursor:pointer;">
                                                     <input type="checkbox" name="deleted_files[]" value="{{ $lampiran }}" style="cursor:pointer;"> Hapus
                                                 </label>
@@ -173,17 +173,20 @@
             });
 
             function renderFileList() {
-                fileNameDisplay.innerHTML = '';
+                document.querySelectorAll('.new-file-item').forEach(el => el.remove());
                 Array.from(dataTransfer.files).forEach((file, index) => {
                     const fileItem = document.createElement('div');
-                    fileItem.style.cssText = 'display:flex; align-items:flex-start; gap:8px; padding:8px 12px; background:#f1f5f9; border-radius:6px;';
+                    fileItem.className = 'new-file-item';
+                    fileItem.style.cssText = 'display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 12px; background:#f1f5f9; border-radius:6px;';
                     
                     fileItem.innerHTML = `
-                        <span style="flex-grow:1; color:#111827; word-break: break-all; display:flex; align-items:flex-start; gap:6px;">
-                            <span style="flex-shrink:0; margin-top:2px;">📎</span> 
+                        <span style="flex-grow:1; color:#111827; word-break: break-all; display:flex; align-items:center; gap:6px;">
+                            <span style="flex-shrink:0; font-size:16px;">📎</span> 
                             <span>${file.name}</span>
                         </span>
-                        <button type="button" class="btnRemoveFile" data-index="${index}" style="color:#ef4444; background:none; border:none; cursor:pointer; font-size:12px; font-weight:700; padding:4px; flex-shrink:0; white-space:nowrap;">✕ Hapus</button>
+                        <div style="display:flex; align-items:center; gap:4px;">
+                            <button type="button" class="btnRemoveFile" data-index="${index}" style="color:#ef4444; background:none; border:none; cursor:pointer; font-size:12px; font-weight:700; padding:4px; flex-shrink:0; white-space:nowrap;">✕ Batal</button>
+                        </div>
                     `;
                     fileNameDisplay.appendChild(fileItem);
                 });

@@ -107,12 +107,14 @@
                                 <div id="fileNameDisplay" style="margin-top: 8px; font-size: 13px; color: #64748b; display:flex; flex-direction:column; gap:4px;">
                                     @if(is_array($pengumuman->lampiran))
                                         @foreach($pengumuman->lampiran as $lampiranFile)
-                                            <div class="existing-file-item" style="display:flex; align-items:flex-start; gap:8px; padding:8px 12px; background:#e0f2fe; border-radius:6px;">
-                                                <a href="{{ asset($lampiranFile) }}" target="_blank" style="flex-grow:1; color:#0284c7; font-weight:600; text-decoration:none; display:flex; align-items:flex-start; gap:6px; word-break: break-all;">
-                                                    <svg style="flex-shrink:0; margin-top: 2px;" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                                                    Lampiran Lama: {{ basename($lampiranFile) }}
+                                            <div class="existing-file" style="display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 12px; background:#e0f2fe; border-radius:6px;">
+                                                <a href="{{ asset($lampiranFile) }}" target="_blank" style="flex-grow:1; display:flex; align-items:center; gap:6px; text-decoration:none;">
+                                                    <span style="flex-shrink:0; font-size:16px;">📎</span>
+                                                    <span style="color:#0284c7; font-weight:600; word-break: break-all;">Lampiran Lama: {{ basename($lampiranFile) }}</span>
                                                 </a>
-                                                <button type="button" class="btnDeleteExisting" data-filepath="{{ $lampiranFile }}" style="color:#ef4444; background:none; border:none; cursor:pointer; font-size:12px; font-weight:700; padding:4px; flex-shrink:0; white-space:nowrap;">✕ Hapus</button>
+                                                <label style="display:flex; align-items:center; gap:4px; font-size:12px; font-weight:700; color:#ef4444; cursor:pointer;">
+                                                    <input type="checkbox" name="deleted_files[]" value="{{ $lampiranFile }}" style="cursor:pointer;"> Hapus
+                                                </label>
                                             </div>
                                         @endforeach
                                     @endif
@@ -194,23 +196,7 @@
                 document.getElementById('isiPesanHidden').value = quill.root.innerHTML;
             });
 
-            // Handle delete existing files
-            document.querySelectorAll('.btnDeleteExisting').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const filepath = this.getAttribute('data-filepath');
-                    const form = document.getElementById('formPengumuman');
-                    
-                    // Buat hidden input untuk di-submit
-                    const hiddenInput = document.createElement('input');
-                    hiddenInput.type = 'hidden';
-                    hiddenInput.name = 'deleted_files[]';
-                    hiddenInput.value = filepath;
-                    form.appendChild(hiddenInput);
-
-                    // Sembunyikan elemen UI nya
-                    this.closest('.existing-file-item').style.display = 'none';
-                });
-            });
+            // Handle delete existing files (now handled by checkboxes)
 
             // File upload display & remove logic for new files
             const fileInput = document.getElementById('fileInput');
@@ -233,20 +219,20 @@
             });
 
             function renderFileList() {
-                // Hapus preview file baru yang sebelumnya, biarkan .existing-file-item
+                // Hapus preview file baru yang sebelumnya, biarkan .existing-file
                 document.querySelectorAll('.new-file-item').forEach(el => el.remove());
 
                 Array.from(dataTransfer.files).forEach((file, index) => {
                     const fileItem = document.createElement('div');
                     fileItem.className = 'new-file-item';
-                    fileItem.style.cssText = 'display:flex; align-items:flex-start; gap:8px; padding:8px 12px; background:#f1f5f9; border-radius:6px;';
+                    fileItem.style.cssText = 'display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 12px; background:#f1f5f9; border-radius:6px;';
                     
                     fileItem.innerHTML = `
-                        <span style="flex-grow:1; color:#111827; word-break: break-all; display:flex; align-items:flex-start; gap:6px;">
-                            <span style="flex-shrink:0; margin-top:2px;">📎</span> 
+                        <span style="flex-grow:1; color:#111827; word-break: break-all; display:flex; align-items:center; gap:6px;">
+                            <span style="flex-shrink:0;">📎</span> 
                             <span>${file.name}</span>
                         </span>
-                        <button type="button" class="btnRemoveNewFile" data-index="${index}" style="color:#ef4444; background:none; border:none; cursor:pointer; font-size:12px; font-weight:700; padding:4px; flex-shrink:0; white-space:nowrap;">✕ Batal</button>
+                        <button type="button" class="btnRemoveNewFile" data-index="${index}" style="color:#ef4444; background:none; border:none; cursor:pointer; font-size:12px; font-weight:700; padding:4px; flex-shrink:0; white-space:nowrap;">✕ Hapus</button>
                     `;
                     fileNameDisplay.appendChild(fileItem);
                 });

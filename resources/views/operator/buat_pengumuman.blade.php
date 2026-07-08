@@ -199,11 +199,13 @@
                     fileItem.style.cssText = 'display:flex; align-items:flex-start; gap:8px; padding:8px 12px; background:#f1f5f9; border-radius:6px;';
                     
                     fileItem.innerHTML = `
-                        <span style="flex-grow:1; color:#111827; word-break: break-all; display:flex; align-items:flex-start; gap:6px;">
-                            <span style="flex-shrink:0; margin-top:2px;">📎</span> 
+                        <span style="flex-grow:1; color:#111827; word-break: break-all; display:flex; align-items:center; gap:6px;">
+                            <span style="flex-shrink:0; font-size:16px;">📎</span> 
                             <span>${file.name}</span>
                         </span>
-                        <button type="button" class="btnRemoveFile" data-index="${index}" style="color:#ef4444; background:none; border:none; cursor:pointer; font-size:12px; font-weight:700; padding:4px; flex-shrink:0; white-space:nowrap;">✕ Hapus</button>
+                        <div style="display:flex; align-items:center; gap:4px;">
+                            <button type="button" class="btnRemoveFile" data-index="${index}" style="color:#ef4444; background:none; border:none; cursor:pointer; font-size:12px; font-weight:700; padding:4px; flex-shrink:0; white-space:nowrap;">✕ Batal</button>
+                        </div>
                     `;
                     fileNameDisplay.appendChild(fileItem);
                 });
