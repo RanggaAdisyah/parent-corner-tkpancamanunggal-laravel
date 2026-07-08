@@ -431,13 +431,7 @@
             </div>
         </div>
 
-        <div class="ot-drawer__divider"></div>
 
-        {{-- Profil --}}
-        <a href="#" class="ot-drawer__link {{ isset($active) && $active == 'profil' ? 'active' : '' }}">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            Profil
-        </a>
     </nav>
 
     <div class="ot-drawer__footer">

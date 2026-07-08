@@ -127,7 +127,7 @@
                             <h2 class="text-21" id="pengumuman-terkini-title">Pengumuman Terkini</h2>
                         </div>
                         <div class="div">
-                            <a class="text-22" href="#">Lihat Semua</a>
+                            <a class="text-22" href="{{ route('operator.pengumuman') }}">Lihat Semua</a>
                         </div>
                     </div>
 
