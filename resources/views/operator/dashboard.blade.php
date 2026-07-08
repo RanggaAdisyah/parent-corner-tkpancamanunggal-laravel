@@ -41,7 +41,7 @@
                     <div class="container-8"><div class="text-11">Akses Menu</div></div>
                 </a>
 
-                <a class="link-3" href="{{ route('operator.data_siswa') }}" aria-label="Data Siswa" style="grid-column: auto; grid-row: auto;">
+                <a class="link-3" href="{{ route('operator.kelola_siswa') }}" aria-label="Data Siswa" style="grid-column: auto; grid-row: auto;">
                     <div class="background-2" style="background-color: #dbeafe;">
                         <div class="div">
                             <img class="icon-2" src="{{ asset('icon/operator/akun.svg') }}" alt="" />

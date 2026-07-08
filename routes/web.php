@@ -101,10 +101,10 @@ Route::prefix('api/siswa')->group(function () {
 Route::middleware(['auth', 'role:operator'])->prefix('operator')->name('operator.')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\OperatorController::class, 'indexDashboard'])->name('dashboard');
 
-    Route::get('/data-siswa', [\App\Http\Controllers\OperatorController::class, 'indexSiswa'])->name('data_siswa');
-    Route::post('/data-siswa', [\App\Http\Controllers\OperatorController::class, 'storeSiswa']);
-    Route::put('/data-siswa/{id}', [\App\Http\Controllers\OperatorController::class, 'updateSiswa'])->name('data_siswa.update');
-    Route::delete('/data-siswa/{id}', [\App\Http\Controllers\OperatorController::class, 'destroySiswa'])->name('data_siswa.destroy');
+    Route::get('/kelola-siswa', [\App\Http\Controllers\OperatorController::class, 'indexSiswa'])->name('kelola_siswa');
+    Route::post('/kelola-siswa', [\App\Http\Controllers\OperatorController::class, 'storeSiswa']);
+    Route::put('/kelola-siswa/{id}', [\App\Http\Controllers\OperatorController::class, 'updateSiswa'])->name('kelola_siswa.update');
+    Route::delete('/kelola-siswa/{id}', [\App\Http\Controllers\OperatorController::class, 'destroySiswa'])->name('kelola_siswa.destroy');
 
     Route::get('/kelola-orang-tua', [\App\Http\Controllers\OperatorController::class, 'indexOrangTua'])->name('kelola_orang_tua');
     Route::get('/kelola-orang-tua/buat', [\App\Http\Controllers\OperatorController::class, 'createOrangTua'])->name('kelola_orang_tua.buat');

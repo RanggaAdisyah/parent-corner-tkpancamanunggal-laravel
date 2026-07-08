@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <title>Data Siswa - Operator Panel</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_guru.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_siswa.css') }}">
 </head>
 <body>
-    <div class="kelola-akun-guru">
-        @include('partials.sidebar', ['active' => 'data_siswa'])
+    <div class="kelola-siswa-page">
+        @include('partials.sidebar', ['active' => 'kelola_siswa'])
 
         <main class="main">
             <section class="background">
@@ -273,7 +273,7 @@
                     </button>
                 </div>
                 
-                <form id="anakForm" method="POST" action="{{ url('/operator/data-siswa') }}">
+                <form id="anakForm" method="POST" action="{{ url('/operator/kelola-siswa') }}">
                     @csrf
                     <input type="hidden" name="_method" id="formMethodAnak" value="POST">
                     <div class="modal-body">
@@ -360,7 +360,7 @@
                             document.getElementById('detailJk').innerText = d.jk || '-';
                             document.getElementById('detailTgllahir').innerText = d.tgllahir || '-';
                             document.getElementById('detailOrangTua').innerText = d.orangtua || '-';
-                            document.getElementById('formHapusAnak').action = `/operator/data-siswa/${d.id}`;
+                            document.getElementById('formHapusAnak').action = `/operator/kelola-siswa/${d.id}`;
                         }
                     });
                 }
@@ -391,7 +391,7 @@
                     btnSubmitAnakModal.innerText = 'Simpan Perubahan';
                     
                     const d = activeRow.dataset;
-                    anakForm.action = `/operator/data-siswa/${d.id}`;
+                    anakForm.action = `/operator/kelola-siswa/${d.id}`;
                     formMethodAnak.value = 'PUT';
 
                     document.getElementById('anakNama').value = d.nama || '';
@@ -405,7 +405,7 @@
                     btnSubmitAnakModal.innerText = 'Tambah Siswa';
                     
                     anakForm.reset();
-                    anakForm.action = `/operator/data-siswa`;
+                    anakForm.action = `/operator/kelola-siswa`;
                     formMethodAnak.value = 'POST';
                 }
                 modalAnak.classList.add('active');

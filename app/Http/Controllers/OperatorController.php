@@ -34,7 +34,7 @@ class OperatorController extends Controller
     {
         $daftarSiswa = Siswa::with('orangTua')->get();
         $kelasList = Kelas::all();
-        return view('operator.data_siswa', compact('daftarSiswa', 'kelasList'));
+        return view('operator.kelola_siswa', compact('daftarSiswa', 'kelasList'));
     }
 
     public function storeSiswa(Request $request)
