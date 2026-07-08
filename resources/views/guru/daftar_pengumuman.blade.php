@@ -5,9 +5,8 @@
     <meta charset="utf-8" />
     <title>Daftar Pengumuman - Dashboard Guru</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/guru/daftar_pengumuman.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/pengumuman_master.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/dashboard_master.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/buat_pengumuman.css') }}">
 </head>
 <body>
     <div class="dashboard-guru">

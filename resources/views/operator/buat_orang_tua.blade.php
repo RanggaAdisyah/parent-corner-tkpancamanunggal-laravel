@@ -5,9 +5,8 @@
     <meta charset="utf-8" />
     <title>Buat Akun Orang Tua - Operator Panel</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/guru/daftar_pengumuman.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/pengumuman_master.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/dashboard_master.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/buat_pengumuman.css') }}">
     <style>
         .buat-orang-tua-page { max-width: 860px; margin: 0 auto; padding: 32px 24px 48px; }
         .page-back { display: inline-flex; align-items: center; gap: 8px; color: #64748b; font-size: 14px; font-weight: 500; margin-bottom: 24px; text-decoration: none; transition: color 0.15s; }

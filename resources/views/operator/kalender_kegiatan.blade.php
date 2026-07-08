@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>Kalender Kegiatan</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_jadwal.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/jadwal_master.css') }}">
     <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
 </head>

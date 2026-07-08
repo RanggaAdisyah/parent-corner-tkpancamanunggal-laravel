@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>Jadwal Kelas: {{ $kelas->tingkat }} - {{ $kelas->nama_kelas }}</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_jadwal.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/jadwal_master.css') }}">
     <style>
         .back-btn { display: inline-flex; align-items: center; gap: 8px; color: #64748b; text-decoration: none; font-weight: 500; margin-bottom: 16px; transition: color 0.2s; }
         .back-btn:hover { color: #3b82f6; }

@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>Jadwal Pelajaran - Dashboard Orang Tua</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/operator/kelola_jadwal.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/jadwal_master.css') }}">
 </head>
 <body>
     <div class="kelola-jadwal">

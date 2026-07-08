@@ -6,8 +6,7 @@
     <title>Galeri Kegiatan - Dashboard Guru</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/dashboard_master.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/orang_tua/foto_kegiatan.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/galeri_kegiatan.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/galeri_master.css') }}">
     <style>
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
         .modal-overlay.active { display: flex; }

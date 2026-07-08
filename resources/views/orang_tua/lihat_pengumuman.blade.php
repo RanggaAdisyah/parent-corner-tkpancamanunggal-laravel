@@ -6,7 +6,7 @@
     <title>Lihat Pengumuman - Dashboard Orang Tua</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
     <link rel="stylesheet" href="{{ url('/css/style/dashboard_master.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/orang_tua/pengumuman.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/pengumuman_master.css') }}">
 </head>
 <body>
     <div class="dashboard-guru">
