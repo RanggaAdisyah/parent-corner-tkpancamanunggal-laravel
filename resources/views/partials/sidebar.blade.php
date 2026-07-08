@@ -47,7 +47,6 @@
     .ot-drawer.open { transform: translateX(0); }
     .ot-drawer__header { padding: 20px 16px 16px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; }
     .ot-drawer__logo { font-size: 15px; font-weight: 700; color: #1e293b; }
-    .ot-drawer__logo span { color: #3b82f6; }
     .ot-drawer__close { background: none; border: none; cursor: pointer; color: #94a3b8; padding: 4px; }
     .ot-drawer__nav { flex: 1; padding: 12px 0; }
     .ot-drawer__link { display: flex; align-items: center; gap: 12px; padding: 12px 20px; text-decoration: none; color: #475569; font-size: 14px; font-weight: 500; transition: background 0.15s, color 0.15s; border-radius: 0; }
@@ -190,7 +189,7 @@
 {{-- Drawer --}}
 <div class="ot-drawer" id="otDrawer" aria-label="Menu navigasi">
     <div class="ot-drawer__header">
-        <div class="ot-drawer__logo">Operator <span>Panel</span></div>
+        <div class="ot-drawer__logo">Operator Panel</div>
         <button class="ot-drawer__close" id="otDrawerClose" aria-label="Tutup menu">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
