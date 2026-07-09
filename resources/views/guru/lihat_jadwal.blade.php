@@ -256,7 +256,7 @@
                         modalEventTitle.textContent = eventEl.dataset.title || 'Detail Kegiatan';
                         modalEventTime.textContent = eventEl.dataset.time || '-';
                         modalEventCategory.textContent = eventEl.dataset.category || 'Lain-lain';
-                        modalEventDesc.textContent = eventEl.dataset.desc || 'Tidak ada deskripsi.';
+                        modalEventDesc.innerHTML = eventEl.dataset.desc || 'Tidak ada deskripsi.';
                         eventModal.classList.add('active');
                     });
                 }
