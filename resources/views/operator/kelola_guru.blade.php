@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>Kelola Akun Guru</title>
     <link rel="stylesheet" href="{{ url('/css/global.css') }}">
-    <link rel="stylesheet" href="{{ url('/css/style/Operator/kelola_data.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/style/operator/kelola_data.css') }}">
 </head>
 <body>
     <div class="kelola-data-page">
