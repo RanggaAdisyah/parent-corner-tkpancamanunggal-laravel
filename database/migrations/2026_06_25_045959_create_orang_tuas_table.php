@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('orang_tuas', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->unique();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->text('nama_ayah')->nullable();
-            $table->text('nama_ibu')->nullable();
-            $table->text('no_hp')->nullable();
+            $table->string('nama_ayah')->nullable();
+            $table->string('nama_ibu')->nullable();
+            $table->string('no_hp', 20)->nullable();
             $table->text('alamat')->nullable();
             $table->timestamps();
+            $table->index(['nama_ayah', 'nama_ibu']);
         });
     }
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nilai');
             $table->text('keterangan')->nullable();
             $table->timestamps();
+            $table->unique(['siswa_id', 'tanggal', 'level', 'hal']);
         });
     }
 

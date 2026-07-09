@@ -295,7 +295,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Kelas</label>
-                                    <select name="kelas_id" id="anakKelas" class="form-select" required>
+                                    <select name="kelas_id" id="anakKelas" class="form-select">
                                         <option value="">Pilih Kelas</option>
                                         @foreach($kelasList as $kelas)
                                             <option value="{{ $kelas->id }}">{{ $kelas->tingkat }} - {{ $kelas->nama_kelas }}</option>

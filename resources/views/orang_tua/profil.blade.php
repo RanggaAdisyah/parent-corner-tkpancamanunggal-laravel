@@ -81,7 +81,7 @@
                         </div>
                         <div>
                             <label style="display:block; color: #94a3b8; font-size: 13px; font-weight: 500; margin-bottom: 6px;">Kelas</label>
-                            <div style="font-size: 15px; font-weight: 600; color: #334155;">{{ $siswa->kelasLokal ? $siswa->kelasLokal->tingkat . ' - ' . $siswa->kelasLokal->nama_kelas : ($siswa->kelas ?? '-') }}</div>
+                            <div style="font-size: 15px; font-weight: 600; color: #334155;">{{ $siswa->kelasLokal ? $siswa->kelasLokal->tingkat . ' - ' . $siswa->kelasLokal->nama_kelas : '-' }}</div>
                         </div>
                         <div>
                             <label style="display:block; color: #94a3b8; font-size: 13px; font-weight: 500; margin-bottom: 6px;">Jenis Kelamin</label>

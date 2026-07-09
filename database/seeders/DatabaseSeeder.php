@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             OperatorSeeder::class,
             JadwalSeeder::class,
+            DummySeeder::class,
         ]);
     }
 }

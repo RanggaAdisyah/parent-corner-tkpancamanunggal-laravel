@@ -14,12 +14,13 @@ return new class extends Migration
             $table->foreign('orang_tua_id')->references('id')->on('orang_tuas')->onDelete('set null');
             $table->unsignedInteger('kelas_id')->nullable();
             $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('set null');
-            $table->text('nama');
-            $table->string('nis')->nullable();
-            $table->string('kelas')->nullable();
+            $table->string('nama');
+            $table->string('nis')->unique()->nullable();
             $table->string('jenis_kelamin')->nullable();
             $table->date('tanggal_lahir')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+            $table->index('nama');
         });
     }
 

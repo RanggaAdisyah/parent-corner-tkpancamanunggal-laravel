@@ -120,7 +120,7 @@ class OrangTuaController extends Controller
     public function lihatJadwal(Request $request)
     {
         $siswa = $this->getSiswa();
-        $jadwals = [];
+        $jadwals = collect();
         if ($siswa && $siswa->kelas_id) {
             $jadwals = JadwalPelajaran::where('kelas_id', $siswa->kelas_id)->get();
         }
@@ -179,7 +179,7 @@ class OrangTuaController extends Controller
     public function lihatPengumuman()
     {
         $siswa = $this->getSiswa();
-        $pengumumans = [];
+        $pengumumans = collect();
         if ($siswa && $siswa->kelas_id) {
             $pengumumans = Pengumuman::whereHas('kelas', function($q) use ($siswa) {
                 $q->where('kelas_id', $siswa->kelas_id);
@@ -192,7 +192,7 @@ class OrangTuaController extends Controller
     public function fotoKegiatan()
     {
         $siswa = $this->getSiswa();
-        $galeris = [];
+        $galeris = collect();
         if ($siswa && $siswa->kelas_id) {
             $galeris = Galeri::whereHas('kelas', function($q) use ($siswa) {
                 $q->where('kelas_id', $siswa->kelas_id);

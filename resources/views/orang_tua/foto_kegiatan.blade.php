@@ -102,7 +102,7 @@
                 @endforeach
             </section>
             
-            @if($galeris->isEmpty())
+            @if(empty($galeris) || count($galeris) == 0)
                 <div style="grid-column: 1 / -1; padding: 40px; text-align: center; color: #64748b; background: white; border-radius: 12px; border: 1px solid #e2e8f0; margin-top: 24px;">
                     <h3 style="color: #64748b; font-size: 16px;">Belum ada Galeri Kegiatan</h3>
                     <p style="color: #94a3b8; font-size: 14px; margin-top: 8px;">Tidak ada foto kegiatan yang diunggah untuk kelas anak Anda.</p>

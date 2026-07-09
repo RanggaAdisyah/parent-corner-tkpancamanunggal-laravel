@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('kelas_id');
             $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
             $table->timestamps();
+            $table->unique(['galeri_id', 'kelas_id']);
         });
     }
 

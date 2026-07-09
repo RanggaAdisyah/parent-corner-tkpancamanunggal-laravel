@@ -68,7 +68,7 @@
                                         $siswa = $orangTua->siswas->first();
                                         $namaSiswa = $siswa ? $siswa->nama : 'Belum ada data siswa';
                                         $nisSiswa = $siswa ? $siswa->nis : '-';
-                                        $kelasSiswa = $siswa ? $siswa->kelas : '-';
+                                        $kelasSiswa = ($siswa && $siswa->kelasLokal) ? $siswa->kelasLokal->nama_kelas : '-';
                                         
                                         $username = $orangTua->user->username ?? $orangTua->no_hp ?? '-';
                                         $inisial = strtoupper(substr($orangTua->nama_ayah, 0, 2));

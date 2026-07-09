@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('kegiatan');
             $table->text('keterangan')->nullable();
             $table->timestamps();
+            $table->unique(['kelas_id', 'hari', 'jam_mulai']);
         });
     }
 

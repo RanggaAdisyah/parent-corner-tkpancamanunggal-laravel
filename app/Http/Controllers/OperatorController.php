@@ -41,15 +41,10 @@ class OperatorController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'kelas_id' => 'required',
-            'nis' => 'required',
+            'kelas_id' => 'nullable|exists:kelas,id',
+            'nis' => 'required|unique:siswas,nis',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',
-        ]);
-
-        $kelas = Kelas::find($request->kelas_id);
-        $request->merge([
-            'kelas' => $kelas ? ($kelas->tingkat . ' - ' . $kelas->nama_kelas) : ''
         ]);
 
         Siswa::create($request->all());
@@ -61,15 +56,10 @@ class OperatorController extends Controller
         $siswa = Siswa::findOrFail($id);
         $request->validate([
             'nama' => 'required|string|max:255',
-            'kelas_id' => 'required',
-            'nis' => 'required',
+            'kelas_id' => 'nullable|exists:kelas,id',
+            'nis' => 'required|unique:siswas,nis,'.$id,
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required|date',
-        ]);
-
-        $kelas = Kelas::find($request->kelas_id);
-        $request->merge([
-            'kelas' => $kelas ? ($kelas->tingkat . ' - ' . $kelas->nama_kelas) : ''
         ]);
 
         $siswa->update($request->all());
@@ -231,6 +221,7 @@ class OperatorController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
             'nama_lengkap' => 'required',
+            'nip' => 'nullable|string|unique:gurus,nip',
         ]);
 
         $user = User::create([
@@ -266,11 +257,13 @@ class OperatorController extends Controller
     public function updateGuru(Request $request, $id)
     {
         $user = User::findOrFail($id);
+        $guru = Guru::where('user_id', $id)->first();
         
         $rules = [
             'email' => 'required|email|unique:users,email,'.$id,
             'no_hp' => 'required|unique:users,username,'.$id,
             'nama_lengkap' => 'required',
+            'nip' => 'nullable|string|unique:gurus,nip,' . ($guru ? $guru->id : 'NULL'),
         ];
 
         if ($request->filled('password')) {
@@ -287,7 +280,6 @@ class OperatorController extends Controller
         }
         $user->save();
 
-        $guru = Guru::where('user_id', $id)->first();
         if ($guru) {
             $guru->update([
                 'nama_lengkap' => $request->nama_lengkap,

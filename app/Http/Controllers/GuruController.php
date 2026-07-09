@@ -28,7 +28,6 @@ class GuruController extends Controller
         $jumlahMurid = 0;
         if ($guru && $guru->kelas_id) {
             $jumlahMurid = Siswa::where('kelas_id', $guru->kelas_id)
-                                ->orWhere('kelas', optional($guru->kelas)->nama_kelas) // Fallback for old string mapping
                                 ->count();
         }
 
@@ -38,10 +37,9 @@ class GuruController extends Controller
     public function kehadiran()
     {
         $guru = $this->getGuru();
-        $siswas = [];
+        $siswas = collect();
         if ($guru && $guru->kelas_id) {
             $siswas = Siswa::where('kelas_id', $guru->kelas_id)
-                           ->orWhere('kelas', optional($guru->kelas)->nama_kelas)
                            ->get();
         }
 
@@ -82,7 +80,6 @@ class GuruController extends Controller
         }
 
         $siswaIds = Siswa::where('kelas_id', $guru->kelas_id)
-                         ->orWhere('kelas', optional($guru->kelas)->nama_kelas)
                          ->pluck('id');
 
         $kehadirans = \App\Models\Kehadiran::whereIn('siswa_id', $siswaIds)
@@ -95,10 +92,9 @@ class GuruController extends Controller
     public function nilai()
     {
         $guru = $this->getGuru();
-        $siswas = [];
+        $siswas = collect();
         if ($guru && $guru->kelas_id) {
             $siswas = Siswa::where('kelas_id', $guru->kelas_id)
-                           ->orWhere('kelas', optional($guru->kelas)->nama_kelas)
                            ->get();
         }
 
@@ -149,7 +145,7 @@ class GuruController extends Controller
     public function jadwal(Request $request)
     {
         $guru = $this->getGuru();
-        $jadwals = [];
+        $jadwals = collect();
         if ($guru && $guru->kelas_id) {
             $jadwals = JadwalPelajaran::where('kelas_id', $guru->kelas_id)->get();
         }
