@@ -95,7 +95,7 @@
                                     @if(isset($kalenderByDay[$d]))
                                         @foreach($kalenderByDay[$d] as $event)
                                             @php $color = $catColors[$event->kategori] ?? 'gray'; @endphp
-                                            <div class="event {{ $color }}" data-category="{{ $event->kategori }}" data-title="{{ $event->judul }}" data-time="{{ \Carbon\Carbon::parse($event->waktu_mulai)->format('H:i') }}" data-desc="{{ $event->deskripsi }}">{{ \Illuminate\Support\Str::limit($event->judul, 10) }}</div>
+                                            <div class="event {{ $color }}" data-category="{{ $event->kategori }}" data-title="{{ $event->judul }}" data-time="{{ \Carbon\Carbon::parse($event->waktu_mulai)->format('H:i') }}{{ $event->waktu_selesai ? ' - ' . \Carbon\Carbon::parse($event->waktu_selesai)->format('H:i') : '' }}" data-desc="{{ $event->deskripsi }}">{{ \Illuminate\Support\Str::limit($event->judul, 10) }}</div>
                                         @endforeach
                                     @endif
                                 </div>

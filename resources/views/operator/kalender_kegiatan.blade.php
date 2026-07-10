@@ -241,7 +241,7 @@
                             <div class="event ${colorClass}" 
                                 data-id="${e.id}"
                                 data-title="${e.judul}" 
-                                data-time="${e.waktu_mulai}" 
+                                data-time="${timeStr}" 
                                 data-time-end="${e.waktu_selesai || ''}" 
                                 data-category="${e.kategori}" 
                                 data-desc="${e.deskripsi || ''}">
