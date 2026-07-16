@@ -48,8 +48,7 @@
                     data-title="{{ $p->judul }}"
                     data-datetime="{{ \Carbon\Carbon::parse($p->created_at)->translatedFormat('d F Y • H:i') }} WIB"
                     data-body="{{ strip_tags(str_replace(['<br>', '</p>'], ['|||', '|||'], $p->isi_pesan)) }}"
-                    data-attachment-name="{{ is_array($p->lampiran) && count($p->lampiran) > 0 ? basename($p->lampiran[0]) : (is_string($p->lampiran) ? basename($p->lampiran) : '') }}"
-                    data-attachment-url="{{ is_array($p->lampiran) && count($p->lampiran) > 0 ? asset($p->lampiran[0]) : (is_string($p->lampiran) ? asset($p->lampiran) : '') }}"
+                    data-attachments="{{ json_encode(is_array($p->lampiran) ? array_map(fn($path) => ['name' => basename($path), 'url' => asset($path)], $p->lampiran) : ($p->lampiran ? [['name' => basename($p->lampiran), 'url' => asset($p->lampiran)]] : [])) }}"
                     data-has-gallery="false">
                     <time class="announcement-time" datetime="{{ \Carbon\Carbon::parse($p->created_at)->toIso8601String() }}">{{ \Carbon\Carbon::parse($p->created_at)->translatedFormat('d F Y • H:i') }} WIB</time>
                     <h3 class="announcement-title">{{ $p->judul }}</h3>
@@ -94,18 +93,7 @@
 
                 <div id="modalAttachmentSection" class="detail-attachment-section" hidden>
                     <span class="detail-attachment-label">Lampiran</span>
-                    <div class="detail-attachment-card">
-                        <span class="detail-attachment-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                        </span>
-                        <div class="detail-attachment-info">
-                            <span id="modalAttachmentName" class="detail-attachment-name"></span>
-                            <span id="modalAttachmentSize" class="detail-attachment-size"></span>
-                        </div>
-                        <a href="#" id="modalAttachmentDownload" class="detail-attachment-download" aria-label="Unduh lampiran" download>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        </a>
-                    </div>
+                    <div id="modalAttachmentList"></div>
                 </div>
 
                 <div id="modalGallerySection" class="detail-gallery-section" hidden>
@@ -135,8 +123,7 @@
             const modalDatetime = document.getElementById('modalDatetime');
             const modalBody = document.getElementById('modalBody');
             const modalAttachmentSection = document.getElementById('modalAttachmentSection');
-            const modalAttachmentName = document.getElementById('modalAttachmentName');
-            const modalAttachmentSize = document.getElementById('modalAttachmentSize');
+            const modalAttachmentList = document.getElementById('modalAttachmentList');
             const modalGallerySection = document.getElementById('modalGallerySection');
 
             // Logika Pencarian (Filter)
@@ -163,13 +150,25 @@
                 const paragraphs = (card.dataset.body || '').split('|||').filter(Boolean);
                 modalBody.innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
 
-                if (card.dataset.attachmentName) {
+                let attachments = [];
+                try { attachments = JSON.parse(card.dataset.attachments || '[]'); } catch(e) {}
+                if (attachments.length > 0) {
                     modalAttachmentSection.hidden = false;
-                    modalAttachmentName.textContent = card.dataset.attachmentName;
-                    modalAttachmentSize.textContent = card.dataset.attachmentSize || '';
-                    document.getElementById('modalAttachmentDownload').href = card.dataset.attachmentUrl || '#';
+                    modalAttachmentList.innerHTML = attachments.map(att => `
+                        <div class="detail-attachment-card">
+                            <span class="detail-attachment-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                            </span>
+                            <div class="detail-attachment-info">
+                                <span class="detail-attachment-name">${att.name}</span>
+                            </div>
+                            <a href="${att.url}" class="detail-attachment-download" aria-label="Unduh lampiran" download>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            </a>
+                        </div>`).join('');
                 } else {
                     modalAttachmentSection.hidden = true;
+                    modalAttachmentList.innerHTML = '';
                 }
 
                 modalGallerySection.hidden = card.dataset.hasGallery !== 'true';
