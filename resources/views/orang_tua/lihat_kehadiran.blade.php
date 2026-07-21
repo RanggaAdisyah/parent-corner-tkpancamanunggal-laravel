@@ -17,7 +17,7 @@
 
             <header class="page-header">
                 <div class="header-left">
-                    <h1 class="page-title">Rekap Absensi</h1>
+                    <h1 class="page-title">Rekap Kehadiran</h1>
                     <p class="page-subtitle">Pantau kehadiran Ananda {{ $siswa ? $siswa->nama : '...' }} (Kelas {{ $siswa && $siswa->kelasLokal ? $siswa->kelasLokal->nama_kelas : '-' }}).</p>
                 </div>
             </header>
