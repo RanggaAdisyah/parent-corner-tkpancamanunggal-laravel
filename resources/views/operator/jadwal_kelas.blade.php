@@ -148,7 +148,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Kegiatan / Mata Pelajaran</label>
+                            <label class="form-label">Kegiatan</label>
                             <input type="text" name="kegiatan" class="form-input" id="harianKegiatan" placeholder="Contoh: Kegiatan Pembukaan" required>
                         </div>
 
