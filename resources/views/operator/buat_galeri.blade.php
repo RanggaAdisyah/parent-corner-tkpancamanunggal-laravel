@@ -126,44 +126,74 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Unggah Foto</label>
+                                <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Unggah Foto <span style="color:#ef4444">*</span></label>
                                 <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()" style="border: 2px dashed #cbd5e1; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; background: #f8fafc;">
                                     <p style="margin:0; font-size:14px; color:#64748b;">Klik untuk upload gambar (JPG/PNG/WEBP Maks 5MB)</p>
                                 </div>
                                 <input type="file" id="fileInput" name="foto[]" multiple style="display:none;" accept=".jpg,.jpeg,.png,.webp">
+                                <p id="fileError" style="display:none; color:#ef4444; font-size:13px; margin-top:8px; font-weight:600;"></p>
                                 <div id="fileNameDisplay" style="margin-top: 8px; font-size: 13px; color: #64748b; display:flex; flex-direction:column; gap:4px;"></div>
                             </div>
                         </div>
 
-                        <!-- Target Kelas -->
+                        <!-- Target Galeri (Kelas atau Siswa) -->
                         <div>
                             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
                                 <h2 style="font-size: 16px; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 8px;">
                                     <div style="width: 28px; height: 28px; background: #0ea5e9; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">2</div>
-                                    Target Kelas
+                                    Target Galeri
                                 </h2>
-                                <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:14px; font-weight:600; background:#f1f5f9; padding:6px 12px; border-radius:6px;" id="labelPilihSemua">
+                                <label id="labelPilihSemua" style="display:none; align-items:center; gap:8px; cursor:pointer; font-size:14px; font-weight:600; background:#f1f5f9; padding:6px 12px; border-radius:6px;">
                                     <div class="radio-circle check-all-circle" style="width:16px; height:16px; border:1px solid #cbd5e1; border-radius:4px; display:flex; justify-content:center; align-items:center;" id="checkAllCircle"></div>
                                     Pilih Semua
                                 </label>
                             </div>
-                            
-                            <div class="class-grid-responsive">
-                                @foreach($kelasList as $kelas)
-                                <div class="class-card target-class-card" style="border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; background:#fff; transition:0.2s;">
-                                    <input type="checkbox" name="target_kelas[]" value="{{ $kelas->id }}" style="display:none;" class="kelas-checkbox">
-                                    <div style="display:flex; align-items:center; gap:12px;">
-                                        <div style="width:40px; height:40px; border-radius:50%; background:#e0f2fe; color:#0284c7; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:14px;">
-                                            {{ strtoupper(substr($kelas->nama_kelas, 0, 2)) }}
-                                        </div>
-                                        <div>
-                                            <h4 style="margin:0 0 4px; font-size:14px; font-weight:700;">{{ $kelas->tingkat }}</h4>
-                                            <p style="margin:0; font-size:12px; color:#64748b;">{{ $kelas->nama_kelas }}</p>
-                                        </div>
+
+                            <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+                                <label class="category-card" style="flex:1; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="target_type" value="kelas" checked style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;">
+                                    <div>
+                                        <h4 style="margin: 0; font-size: 14px;">Untuk Beberapa Kelas</h4>
+                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b;">Galeri untuk banyak kelas sekaligus</p>
                                     </div>
-                                    <div class="radio-circle kelas-indicator" style="width:20px; height:20px; border:1px solid #cbd5e1; border-radius:50%; display:flex; justify-content:center; align-items:center;"></div>
+                                </label>
+                                <label class="category-card" style="flex:1; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="target_type" value="siswa" style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;">
+                                    <div>
+                                        <h4 style="margin: 0; font-size: 14px;">Untuk Siswa Tertentu</h4>
+                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b;">Galeri hanya untuk satu anak</p>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div id="kelasSelectWrapper">
+                                <div class="class-grid-responsive">
+                                    @foreach($kelasList as $kelas)
+                                    <div class="class-card target-class-card" style="border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; background:#fff; transition:0.2s;">
+                                        <input type="checkbox" name="target_kelas[]" value="{{ $kelas->id }}" style="display:none;" class="kelas-checkbox">
+                                        <div style="display:flex; align-items:center; gap:12px;">
+                                            <div style="width:40px; height:40px; border-radius:50%; background:#e0f2fe; color:#0284c7; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:14px;">
+                                                {{ strtoupper(substr($kelas->nama_kelas, 0, 2)) }}
+                                            </div>
+                                            <div>
+                                                <h4 style="margin:0 0 4px; font-size:14px; font-weight:700;">{{ $kelas->tingkat }}</h4>
+                                                <p style="margin:0; font-size:12px; color:#64748b;">{{ $kelas->nama_kelas }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="radio-circle kelas-indicator" style="width:20px; height:20px; border:1px solid #cbd5e1; border-radius:50%; display:flex; justify-content:center; align-items:center;"></div>
+                                    </div>
+                                    @endforeach
                                 </div>
-                                @endforeach
+                            </div>
+
+                            <div id="siswaSelectWrapper" style="display: none;">
+                                <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Pilih Siswa</label>
+                                <select name="target_siswa_id" class="form-input" style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc;">
+                                    <option value="">-- Pilih Siswa --</option>
+                                    @foreach(($siswaList ?? collect()) as $siswa)
+                                        <option value="{{ $siswa->id }}">{{ $siswa->nama }} - {{ $siswa->kelas->nama_kelas ?? '' }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
@@ -231,12 +261,25 @@
                 }
             });
 
-            document.getElementById('formGaleri').addEventListener('submit', () => {
-                document.getElementById('deskripsiKegiatanHidden').value = quill.root.innerHTML;
-            });
-
-            // File upload logic
+            // Custom validation for hidden file input
+            const fileError = document.getElementById('fileError');
             const fileInput = document.getElementById('fileInput');
+            const formGaleri = document.getElementById('formGaleri');
+            if (formGaleri) {
+                formGaleri.addEventListener('submit', function(e) {
+                    if (!fileInput.files || fileInput.files.length === 0) {
+                        e.preventDefault();
+                        fileError.textContent = '⚠ Wajib unggah minimal 1 foto!';
+                        fileError.style.display = 'block';
+                        document.getElementById('uploadArea').style.borderColor = '#ef4444';
+                        document.getElementById('uploadArea').style.background = '#fef2f2';
+                        document.getElementById('uploadArea').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        return false;
+                    }
+                    fileError.style.display = 'none';
+                    document.getElementById('deskripsiKegiatanHidden').value = quill.root.innerHTML;
+                });
+            }
             const fileNameDisplay = document.getElementById('fileNameDisplay');
             let dataTransfer = new DataTransfer();
             
@@ -308,6 +351,26 @@
                     });
                 });
             }
+
+            // Toggle siswa/kelas select
+            const targetRadios = document.querySelectorAll('input[name="target_type"]');
+            const kelasWrapper = document.getElementById('kelasSelectWrapper');
+            const siswaWrapper = document.getElementById('siswaSelectWrapper');
+            const labelPilihSemua = document.getElementById('labelPilihSemua');
+            function toggleTarget() {
+                const selected = document.querySelector('input[name="target_type"]:checked')?.value;
+                if (selected === 'siswa') {
+                    if (kelasWrapper) kelasWrapper.style.display = 'none';
+                    if (siswaWrapper) siswaWrapper.style.display = 'block';
+                    if (labelPilihSemua) labelPilihSemua.style.display = 'none';
+                } else {
+                    if (kelasWrapper) kelasWrapper.style.display = 'block';
+                    if (siswaWrapper) siswaWrapper.style.display = 'none';
+                    if (labelPilihSemua) labelPilihSemua.style.display = 'flex';
+                }
+            }
+            targetRadios.forEach(r => r.addEventListener('change', toggleTarget));
+            toggleTarget();
 
             // Target Kelas Logic
             const classCards = document.querySelectorAll('.target-class-card');

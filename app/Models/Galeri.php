@@ -20,4 +20,9 @@ class Galeri extends Model
     {
         return $this->belongsToMany(Kelas::class, 'galeri_kelas', 'galeri_id', 'kelas_id');
     }
+
+    public function siswa()
+    {
+        return $this->belongsToMany(Siswa::class, 'galeri_siswa', 'galeri_id', 'siswa_id');
+    }
 }

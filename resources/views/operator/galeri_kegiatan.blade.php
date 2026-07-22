@@ -29,7 +29,7 @@
                 <div class="galeri-filters" style="display: flex; gap: 12px;">
                     <div class="search-wrapper" style="position: relative; display: flex; align-items: center;">
                         <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 12px; color: #94a3b8;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input type="text" id="search-galeri" class="search-input" placeholder="Cari galeri..." style="padding: 10px 16px 10px 36px; border: 1px solid #e2e8f0; border-radius: 8px; width: 250px; outline: none; font-size: 14px;">
+                        <input type="text" id="search-galeri" class="search-input" placeholder="Cari judul, siswa, atau kelas..." style="padding: 10px 16px 10px 36px; border: 1px solid #e2e8f0; border-radius: 8px; width: 280px; outline: none; font-size: 14px;">
                     </div>
                     
                     <select id="filter-kategori" style="padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px; outline: none; font-size: 14px; background: white; cursor: pointer; min-width: 130px; appearance: auto;">
@@ -66,6 +66,15 @@
                     elseif (str_contains(strtolower($firstCat), 'olahraga')) $badgeClass = 'badge-olahraga';
                     elseif (str_contains(strtolower($firstCat), 'perayaan')) $badgeClass = 'badge-perayaan';
                 @endphp
+                @php
+                    $targetKelasList = $galeri->kelas->pluck('nama_kelas')->implode(', ');
+                    $targetSiswaList = $galeri->siswa->pluck('nama')->implode(', ');
+                    $isSiswa = $galeri->siswa->count() > 0;
+                    $targetType = $isSiswa ? 'siswa' : 'kelas';
+                    $targetText = $isSiswa
+                        ? 'Siswa: ' . $targetSiswaList
+                        : 'Kelas: ' . ($targetKelasList ?: '-');
+                @endphp
                 <article class="activity-card" role="button" tabindex="0"
                     data-title="{{ $galeri->judul }}"
                     data-categories="{{ !empty($galeri->kategori) && is_array($galeri->kategori) ? implode(',', $galeri->kategori) : 'Umum' }}"
@@ -74,11 +83,19 @@
                     data-date="{{ $galeri->tanggal_kegiatan ? \Carbon\Carbon::parse($galeri->tanggal_kegiatan)->translatedFormat('d F Y') : '-' }}"
                     data-photo-count="{{ $photoCount }} Foto"
                     data-images="{{ json_encode(is_array($galeri->foto) ? array_map('asset', $galeri->foto) : []) }}"
-                    data-body="{{ htmlspecialchars($galeri->deskripsi ?? '') }}">
-                    
+                    data-body="{{ htmlspecialchars($galeri->deskripsi ?? '') }}"
+                    data-target-type="{{ $targetType }}"
+                    data-target-text="{{ $targetText }}"
+                    data-search-extra="{{ $targetKelasList }} {{ $targetSiswaList }} {{ $galeri->kelas->pluck('tingkat')->implode(' ') }}">
+
                     <div class="activity-card-image">
                         <img src="{{ $firstPhoto ? asset($firstPhoto) : 'https://placehold.co/400x260/e2e8f0/64748b?text=No+Image' }}" alt="{{ $galeri->judul }}" loading="lazy">
                         <span class="activity-badge {{ $badgeClass }}">{{ $firstCat }}</span>
+                        @if($isSiswa)
+                            <span style="position:absolute; top:12px; right:12px; background:#fef3c7; color:#92400e; padding:4px 10px; border-radius:6px; font-size:11px; font-weight:700; box-shadow:0 2px 4px rgba(0,0,0,0.1);">👤 Personal</span>
+                        @else
+                            <span style="position:absolute; top:12px; right:12px; background:#dbeafe; color:#1e40af; padding:4px 10px; border-radius:6px; font-size:11px; font-weight:700; box-shadow:0 2px 4px rgba(0,0,0,0.1);">🏫 Kelas</span>
+                        @endif
                     </div>
                     
                     <div class="activity-card-body">
@@ -136,6 +153,10 @@
                     <div class="galeri-modal-datetime" style="display:flex; gap:8px; color:#64748b; font-size:14px; align-items:center; margin-bottom:16px;">
                         <span id="modalGaleriDate"></span> &bull; <span id="modalGaleriPhotos"></span>
                     </div>
+                    <div id="modalGaleriTarget" style="display:flex; align-items:center; gap:8px; padding:10px 14px; border-radius:8px; margin-bottom:16px; font-size:13px; font-weight:600;">
+                        <span id="modalGaleriTargetIcon"></span>
+                        <span id="modalGaleriTargetText"></span>
+                    </div>
                     <div id="modalGaleriBody" class="galeri-modal-content" style="line-height:1.6; color:#334155; margin-bottom:24px;"></div>
 
                     <div class="galeri-modal-lampiran">
@@ -174,12 +195,33 @@
             const modalImage = document.getElementById('modalGaleriImage');
             const modalBadge = document.getElementById('modalGaleriBadge');
             const btnDownloadFoto = document.getElementById('btnDownloadFoto');
+            const modalTarget = document.getElementById('modalGaleriTarget');
+            const modalTargetIcon = document.getElementById('modalGaleriTargetIcon');
+            const modalTargetText = document.getElementById('modalGaleriTargetText');
 
             const openModalDetail = (card) => {
                 modalTitle.textContent = card.dataset.title || '';
                 modalDate.textContent = card.dataset.date || '';
                 modalPhotos.textContent = card.dataset.photoCount || '';
                 modalImage.alt = card.dataset.title || '';
+
+                // Populate target info
+                const targetType = card.dataset.targetType || 'kelas';
+                const targetText = card.dataset.targetText || '';
+                if (targetType === 'siswa') {
+                    modalTarget.style.background = '#fef3c7';
+                    modalTarget.style.color = '#92400e';
+                    modalTarget.style.border = '1px solid #fde68a';
+                    modalTargetIcon.textContent = '👤';
+                    modalTargetText.textContent = 'Galeri Personal — Dikirim ke: ' + targetText.replace('Siswa: ', '');
+                } else {
+                    modalTarget.style.background = '#dbeafe';
+                    modalTarget.style.color = '#1e40af';
+                    modalTarget.style.border = '1px solid #bfdbfe';
+                    modalTargetIcon.textContent = '🏫';
+                    modalTargetText.textContent = 'Galeri Kelas — Dikirim ke: ' + targetText.replace('Kelas: ', '');
+                }
+                modalTarget.style.display = 'flex';
 
                 const images = JSON.parse(card.dataset.images || '[]');
                 const thumbnailsContainer = document.getElementById('modalGaleriThumbnails');
@@ -269,14 +311,15 @@
             const filterGaleri = () => {
                 const query = searchInput ? searchInput.value.toLowerCase() : '';
                 const kategori = filterKategori ? filterKategori.value.toLowerCase() : '';
-                
+
                 cards.forEach(card => {
                     const title = (card.dataset.title || '').toLowerCase();
                     const cardKategories = (card.dataset.categories || '').toLowerCase();
-                    
-                    const matchTitle = title.includes(query);
+                    const searchExtra = (card.dataset.searchExtra || '').toLowerCase();
+
+                    const matchTitle = !query || title.includes(query) || searchExtra.includes(query);
                     const matchKategori = kategori === '' || cardKategories.includes(kategori);
-                    
+
                     if (matchTitle && matchKategori) {
                         card.style.display = '';
                     } else {
@@ -284,7 +327,7 @@
                     }
                 });
             };
-            
+
             if (searchInput) {
                 searchInput.addEventListener('input', filterGaleri);
             }

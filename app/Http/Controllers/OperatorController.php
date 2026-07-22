@@ -561,14 +561,15 @@ class OperatorController extends Controller
 
     public function indexGaleri()
     {
-        $galeris = Galeri::with('kelas')->latest('tanggal_kegiatan')->get();
+        $galeris = Galeri::with(['kelas', 'siswa'])->latest('tanggal_kegiatan')->get();
         return view('operator.galeri_kegiatan', compact('galeris'));
     }
 
     public function createGaleri()
     {
         $kelasList = \App\Models\Kelas::all();
-        return view('operator.buat_galeri', compact('kelasList'));
+        $siswaList = \App\Models\Siswa::with('kelas')->orderBy('nama')->get();
+        return view('operator.buat_galeri', compact('kelasList', 'siswaList'));
     }
 
     public function storeGaleri(Request $request)
@@ -578,8 +579,10 @@ class OperatorController extends Controller
             'deskripsi_kegiatan' => 'nullable|string',
             'tanggal_kegiatan' => 'nullable|date',
             'kategori' => 'nullable|array',
-            'target_kelas' => 'required|array',
+            'target_type' => 'required|in:kelas,siswa',
+            'target_kelas' => 'required_if:target_type,kelas|nullable|array',
             'target_kelas.*' => 'exists:kelas,id',
+            'target_siswa_id' => 'required_if:target_type,siswa|nullable|integer|exists:siswas,id',
             'foto' => 'nullable|array',
             'foto.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
@@ -619,7 +622,11 @@ class OperatorController extends Controller
             'foto' => !empty($uploadedPhotos) ? $uploadedPhotos : null,
         ]);
 
-        $galeri->kelas()->attach($request->target_kelas);
+        if ($request->target_type === 'siswa' && $request->filled('target_siswa_id')) {
+            $galeri->siswa()->attach($request->target_siswa_id);
+        } else {
+            $galeri->kelas()->attach($request->target_kelas);
+        }
 
         return redirect()->route('operator.galeri')
             ->with('success', 'Galeri "' . $galeri->judul . '" berhasil dibuat!');
@@ -627,10 +634,13 @@ class OperatorController extends Controller
 
     public function editGaleri($id)
     {
-        $galeri = Galeri::with('kelas')->findOrFail($id);
+        $galeri = Galeri::with(['kelas', 'siswa'])->findOrFail($id);
         $kelasList = \App\Models\Kelas::all();
+        $siswaList = \App\Models\Siswa::all();
         $selectedKelas = $galeri->kelas->pluck('id')->toArray();
-        return view('operator.edit_galeri', compact('galeri', 'kelasList', 'selectedKelas'));
+        $selectedSiswaId = $galeri->siswa->first()?->id;
+        $targetType = $galeri->siswa->count() > 0 ? 'siswa' : 'kelas';
+        return view('operator.edit_galeri', compact('galeri', 'kelasList', 'siswaList', 'selectedKelas', 'selectedSiswaId', 'targetType'));
     }
 
     public function updateGaleri(Request $request, $id)
@@ -642,8 +652,10 @@ class OperatorController extends Controller
             'deskripsi_kegiatan' => 'nullable|string',
             'tanggal_kegiatan' => 'nullable|date',
             'kategori' => 'nullable|array',
-            'target_kelas' => 'required|array',
+            'target_type' => 'required|in:kelas,siswa',
+            'target_kelas' => 'required_if:target_type,kelas|nullable|array',
             'target_kelas.*' => 'exists:kelas,id',
+            'target_siswa_id' => 'required_if:target_type,siswa|nullable|integer|exists:siswas,id',
             'foto' => 'nullable|array',
             'foto.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
@@ -701,7 +713,13 @@ class OperatorController extends Controller
             'foto' => !empty($currentPhotos) ? array_values($currentPhotos) : null,
         ]);
 
-        $galeri->kelas()->sync($request->target_kelas);
+        if ($request->target_type === 'siswa' && $request->filled('target_siswa_id')) {
+            $galeri->kelas()->detach();
+            $galeri->siswa()->sync([$request->target_siswa_id]);
+        } else {
+            $galeri->siswa()->detach();
+            $galeri->kelas()->sync($request->target_kelas);
+        }
 
         return redirect()->route('operator.galeri')
             ->with('success', 'Galeri "' . $galeri->judul . '" berhasil diperbarui!');

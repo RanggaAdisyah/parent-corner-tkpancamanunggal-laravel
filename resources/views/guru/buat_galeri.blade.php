@@ -125,8 +125,46 @@
                                 <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()" style="border: 2px dashed #cbd5e1; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; background: #f8fafc;">
                                     <p style="margin:0; font-size:14px; color:#64748b;">Klik untuk upload gambar (JPG/PNG/WEBP Maks 5MB)</p>
                                 </div>
-                                <input type="file" id="fileInput" name="foto[]" multiple style="display:none;" accept=".jpg,.jpeg,.png,.webp" required>
+                                <input type="file" id="fileInput" name="foto[]" multiple style="display:none;" accept=".jpg,.jpeg,.png,.webp">
+                                <p id="fileError" style="display:none; color:#ef4444; font-size:13px; margin-top:8px; font-weight:600;"></p>
                                 <div id="fileNameDisplay" style="margin-top: 8px; font-size: 13px; color: #64748b; display:flex; flex-direction:column; gap:4px;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Target Galeri (Kelas atau Siswa) -->
+                        <div>
+                            <div style="margin-bottom: 24px;">
+                                <h2 style="font-size: 16px; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 8px;">
+                                    <div style="width: 28px; height: 28px; background: #0ea5e9; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">2</div>
+                                    Target Galeri
+                                </h2>
+                            </div>
+
+                            <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+                                <label class="category-card" style="flex:1; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="target_type" value="kelas" checked style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;">
+                                    <div>
+                                        <h4 style="margin: 0; font-size: 14px;">Untuk Seluruh Kelas</h4>
+                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b;">Galeri tampil untuk semua orang tua di kelas ini</p>
+                                    </div>
+                                </label>
+                                <label class="category-card" style="flex:1; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="target_type" value="siswa" style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;">
+                                    <div>
+                                        <h4 style="margin: 0; font-size: 14px;">Untuk Siswa Tertentu</h4>
+                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b;">Galeri hanya untuk satu anak</p>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div id="siswaSelectWrapper" style="display: none; margin-top: 8px;">
+                                <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Pilih Siswa</label>
+                                <select name="target_siswa_id" class="form-input" style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc;">
+                                    <option value="">-- Pilih Siswa --</option>
+                                    @foreach($siswaList ?? [] as $siswa)
+                                        <option value="{{ $siswa->id }}">{{ $siswa->nama }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
@@ -134,7 +172,7 @@
                         <div>
                             <div style="margin-bottom: 24px;">
                                 <h2 style="font-size: 16px; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 8px;">
-                                    <div style="width: 28px; height: 28px; background: #0ea5e9; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">2</div>
+                                    <div style="width: 28px; height: 28px; background: #0ea5e9; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">3</div>
                                     Pilih Kategori
                                 </h2>
                             </div>
@@ -181,6 +219,18 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Toggle siswa select based on target_type radio
+            const targetRadios = document.querySelectorAll('input[name="target_type"]');
+            const siswaWrapper = document.getElementById('siswaSelectWrapper');
+            function toggleSiswa() {
+                const selected = document.querySelector('input[name="target_type"]:checked')?.value;
+                if (siswaWrapper) {
+                    siswaWrapper.style.display = (selected === 'siswa') ? 'block' : 'none';
+                }
+            }
+            targetRadios.forEach(r => r.addEventListener('change', toggleSiswa));
+            toggleSiswa();
+
             // Quill
             const quill = new Quill('#editor-galeri', {
                 theme: 'snow',
@@ -194,12 +244,27 @@
                 }
             });
 
-            document.getElementById('formGaleri').addEventListener('submit', () => {
-                document.getElementById('deskripsiKegiatanHidden').value = quill.root.innerHTML;
-            });
+            // Custom validation for hidden file input
+            const fileError = document.getElementById('fileError');
+            const fileInput = document.getElementById('fileInput');
+            const formGaleri = document.getElementById('formGaleri');
+            if (formGaleri) {
+                formGaleri.addEventListener('submit', function(e) {
+                    if (!fileInput.files || fileInput.files.length === 0) {
+                        e.preventDefault();
+                        fileError.textContent = '⚠ Wajib unggah minimal 1 foto!';
+                        fileError.style.display = 'block';
+                        document.getElementById('uploadArea').style.borderColor = '#ef4444';
+                        document.getElementById('uploadArea').style.background = '#fef2f2';
+                        document.getElementById('uploadArea').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        return false;
+                    }
+                    fileError.style.display = 'none';
+                    document.getElementById('deskripsiKegiatanHidden').value = quill.root.innerHTML;
+                });
+            }
 
             // File upload logic
-            const fileInput = document.getElementById('fileInput');
             const fileNameDisplay = document.getElementById('fileNameDisplay');
             let dataTransfer = new DataTransfer();
             

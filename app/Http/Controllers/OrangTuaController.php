@@ -193,9 +193,16 @@ class OrangTuaController extends Controller
     {
         $siswa = $this->getSiswa();
         $galeris = collect();
-        if ($siswa && $siswa->kelas_id) {
-            $galeris = Galeri::whereHas('kelas', function($q) use ($siswa) {
-                $q->where('kelas_id', $siswa->kelas_id);
+        if ($siswa) {
+            $galeris = Galeri::where(function($q) use ($siswa) {
+                if ($siswa->kelas_id) {
+                    $q->whereHas('kelas', function($qq) use ($siswa) {
+                        $qq->where('kelas_id', $siswa->kelas_id);
+                    });
+                }
+                $q->orWhereHas('siswa', function($qq) use ($siswa) {
+                    $qq->where('siswa_id', $siswa->id);
+                });
             })->orderBy('tanggal_kegiatan', 'desc')->get();
         }
 

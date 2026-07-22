@@ -166,17 +166,34 @@ class GuruController extends Controller
         $guru = $this->getGuru();
         $kelas_id = $guru->kelas_id ?? null;
 
-        $galeris = Galeri::whereHas('kelas', function($q) use ($kelas_id) {
-            $q->where('kelas_id', $kelas_id);
-        })->latest()->get();
-        
+        $galeris = collect();
+        if ($guru) {
+            $galeris = Galeri::where(function($q) use ($kelas_id, $guru) {
+                if ($kelas_id) {
+                    $q->whereHas('kelas', function($qq) use ($kelas_id) {
+                        $qq->where('kelas_id', $kelas_id);
+                    });
+                }
+                // Include galeri yang ditargetkan ke siswa di kelas guru ini
+                $siswaIds = Siswa::where('kelas_id', $kelas_id)->pluck('id');
+                if ($siswaIds->isNotEmpty()) {
+                    $q->orWhereHas('siswa', function($qq) use ($siswaIds) {
+                        $qq->whereIn('siswa_id', $siswaIds);
+                    });
+                }
+            })->with(['kelas', 'siswa'])->latest()->get();
+        }
+
         return view('guru.galeri', compact('guru', 'galeris'));
     }
 
     public function createGaleri()
     {
         $guru = $this->getGuru();
-        return view('guru.buat_galeri', compact('guru'));
+        $siswaList = $guru && $guru->kelas_id
+            ? Siswa::where('kelas_id', $guru->kelas_id)->orderBy('nama')->get()
+            : collect();
+        return view('guru.buat_galeri', compact('guru', 'siswaList'));
     }
 
     public function storeGaleri(Request $request)
@@ -188,6 +205,8 @@ class GuruController extends Controller
             'kategori' => 'nullable|array',
             'foto' => 'required|array',
             'foto.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
+            'target_type' => 'required|in:kelas,siswa',
+            'target_siswa_id' => 'required_if:target_type,siswa|nullable|integer|exists:siswas,id',
         ]);
 
         $uploadedPhotos = [];
@@ -228,7 +247,16 @@ class GuruController extends Controller
         ]);
 
         if ($guru && $guru->kelas_id) {
-            $galeri->kelas()->attach($guru->kelas_id);
+            if ($request->target_type === 'siswa' && $request->filled('target_siswa_id')) {
+                $siswa = Siswa::where('id', $request->target_siswa_id)
+                    ->where('kelas_id', $guru->kelas_id)
+                    ->first();
+                if ($siswa) {
+                    $galeri->siswa()->attach($siswa->id);
+                }
+            } else {
+                $galeri->kelas()->attach($guru->kelas_id);
+            }
         }
 
         return redirect()->route('guru.galeri')->with('success', 'Galeri berhasil dibuat!');
@@ -238,12 +266,17 @@ class GuruController extends Controller
     {
         $guru = $this->getGuru();
         $kelas_id = $guru->kelas_id ?? null;
-        
+
         $galeri = Galeri::whereHas('kelas', function($q) use ($kelas_id) {
             $q->where('kelas_id', $kelas_id);
         })->findOrFail($id);
 
-        return view('guru.edit_galeri', compact('galeri', 'guru'));
+        $galeri->load('siswa');
+        $siswaList = Siswa::where('kelas_id', $kelas_id)->orderBy('nama')->get();
+        $selectedSiswaId = $galeri->siswa->first()?->id;
+        $targetType = $galeri->siswa->count() > 0 ? 'siswa' : 'kelas';
+
+        return view('guru.edit_galeri', compact('galeri', 'guru', 'siswaList', 'selectedSiswaId', 'targetType'));
     }
 
     public function updateGaleri(Request $request, $id)
@@ -262,6 +295,8 @@ class GuruController extends Controller
             'kategori' => 'nullable|array',
             'foto' => 'nullable|array',
             'foto.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
+            'target_type' => 'required|in:kelas,siswa',
+            'target_siswa_id' => 'required_if:target_type,siswa|nullable|integer|exists:siswas,id',
         ]);
 
         // Keep current photos that weren't deleted
@@ -316,6 +351,20 @@ class GuruController extends Controller
             'kategori' => $request->kategori,
             'foto' => !empty($currentPhotos) ? array_values($currentPhotos) : null,
         ]);
+
+        if ($guru && $guru->kelas_id) {
+            if ($request->target_type === 'siswa' && $request->filled('target_siswa_id')) {
+                $siswa = Siswa::where('id', $request->target_siswa_id)
+                    ->where('kelas_id', $guru->kelas_id)
+                    ->first();
+                if ($siswa) {
+                    $galeri->siswa()->sync([$siswa->id]);
+                }
+            } else {
+                $galeri->siswa()->detach();
+                $galeri->kelas()->sync([$guru->kelas_id]);
+            }
+        }
 
         return redirect()->route('guru.galeri')->with('success', 'Galeri berhasil diperbarui!');
     }

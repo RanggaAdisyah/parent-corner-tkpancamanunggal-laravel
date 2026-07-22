@@ -17,4 +17,9 @@ class Siswa extends Model
 
     public function orangTua() { return $this->belongsTo(OrangTua::class); }
     public function kelasLokal() { return $this->belongsTo(Kelas::class, 'kelas_id'); }
+    public function kelas() { return $this->belongsTo(Kelas::class, 'kelas_id'); }
+    public function galeri()
+    {
+        return $this->belongsToMany(Galeri::class, 'galeri_siswa', 'siswa_id', 'galeri_id');
+    }
 }

@@ -165,36 +165,65 @@
                             </div>
                         </div>
 
-                        <!-- Target Kelas -->
+                        <!-- Target Galeri (Kelas atau Siswa) -->
                         <div>
                             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
                                 <h2 style="font-size: 16px; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 8px;">
                                     <div style="width: 28px; height: 28px; background: #0ea5e9; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">2</div>
-                                    Target Kelas
+                                    Target Galeri
                                 </h2>
-                                <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-size:14px; font-weight:600; background:#f1f5f9; padding:6px 12px; border-radius:6px;" id="labelPilihSemua">
+                                <label id="labelPilihSemua" style="display:{{ ($targetType ?? 'kelas') === 'kelas' ? 'flex' : 'none' }}; align-items:center; gap:8px; cursor:pointer; font-size:14px; font-weight:600; background:#f1f5f9; padding:6px 12px; border-radius:6px;">
                                     <div class="radio-circle check-all-circle {{ count($selectedKelas) === count($kelasList) ? 'checked' : '' }}" style="width:16px; height:16px; border:1px solid #cbd5e1; border-radius:4px; display:flex; justify-content:center; align-items:center;" id="checkAllCircle"></div>
                                     Pilih Semua
                                 </label>
                             </div>
-                            
-                            <div class="class-grid-responsive">
-                                @foreach($kelasList as $kelas)
-                                @php $isChecked = in_array($kelas->id, old('target_kelas', $selectedKelas)); @endphp
-                                <div class="class-card target-class-card {{ $isChecked ? 'active' : '' }}" style="border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; background:#fff; transition:0.2s;">
-                                    <input type="checkbox" name="target_kelas[]" value="{{ $kelas->id }}" style="display:none;" class="kelas-checkbox" {{ $isChecked ? 'checked' : '' }}>
-                                    <div style="display:flex; align-items:center; gap:12px;">
-                                        <div style="width:40px; height:40px; border-radius:50%; background:#e0f2fe; color:#0284c7; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:14px;">
-                                            {{ strtoupper(substr($kelas->nama_kelas, 0, 2)) }}
-                                        </div>
-                                        <div>
-                                            <h4 style="margin:0 0 4px; font-size:14px; font-weight:700;">{{ $kelas->tingkat }}</h4>
-                                            <p style="margin:0; font-size:12px; color:#64748b;">{{ $kelas->nama_kelas }}</p>
-                                        </div>
+
+                            <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+                                <label class="category-card" style="flex:1; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="target_type" value="kelas" {{ ($targetType ?? 'kelas') === 'kelas' ? 'checked' : '' }} style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;">
+                                    <div>
+                                        <h4 style="margin: 0; font-size: 14px;">Untuk Beberapa Kelas</h4>
+                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b;">Galeri untuk banyak kelas sekaligus</p>
                                     </div>
-                                    <div class="radio-circle kelas-indicator {{ $isChecked ? 'checked' : '' }}" style="width:20px; height:20px; border:1px solid #cbd5e1; border-radius:50%; display:flex; justify-content:center; align-items:center;"></div>
+                                </label>
+                                <label class="category-card" style="flex:1; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="target_type" value="siswa" {{ ($targetType ?? 'kelas') === 'siswa' ? 'checked' : '' }} style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;">
+                                    <div>
+                                        <h4 style="margin: 0; font-size: 14px;">Untuk Siswa Tertentu</h4>
+                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b;">Galeri hanya untuk satu anak</p>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div id="kelasSelectWrapper" style="display: {{ ($targetType ?? 'kelas') === 'kelas' ? 'block' : 'none' }};">
+                                <div class="class-grid-responsive">
+                                    @foreach($kelasList as $kelas)
+                                    @php $isChecked = in_array($kelas->id, old('target_kelas', $selectedKelas)); @endphp
+                                    <div class="class-card target-class-card {{ $isChecked ? 'active' : '' }}" style="border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; background:#fff; transition:0.2s;">
+                                        <input type="checkbox" name="target_kelas[]" value="{{ $kelas->id }}" style="display:none;" class="kelas-checkbox" {{ $isChecked ? 'checked' : '' }}>
+                                        <div style="display:flex; align-items:center; gap:12px;">
+                                            <div style="width:40px; height:40px; border-radius:50%; background:#e0f2fe; color:#0284c7; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:14px;">
+                                                {{ strtoupper(substr($kelas->nama_kelas, 0, 2)) }}
+                                            </div>
+                                            <div>
+                                                <h4 style="margin:0 0 4px; font-size:14px; font-weight:700;">{{ $kelas->tingkat }}</h4>
+                                                <p style="margin:0; font-size:12px; color:#64748b;">{{ $kelas->nama_kelas }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="radio-circle kelas-indicator {{ $isChecked ? 'checked' : '' }}" style="width:20px; height:20px; border:1px solid #cbd5e1; border-radius:50%; display:flex; justify-content:center; align-items:center;"></div>
+                                    </div>
+                                    @endforeach
                                 </div>
-                                @endforeach
+                            </div>
+
+                            <div id="siswaSelectWrapper" style="display: {{ ($targetType ?? 'kelas') === 'siswa' ? 'block' : 'none' }};">
+                                <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Pilih Siswa</label>
+                                <select name="target_siswa_id" class="form-input" style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px; background:#f8fafc;">
+                                    <option value="">-- Pilih Siswa --</option>
+                                    @foreach(($siswaList ?? collect()) as $siswa)
+                                        <option value="{{ $siswa->id }}" {{ ($selectedSiswaId ?? null) == $siswa->id ? 'selected' : '' }}>{{ $siswa->nama }} - {{ $siswa->kelas->nama_kelas ?? '' }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
@@ -366,6 +395,26 @@
                 });
             }
             bindCoverButtons();
+
+            // Toggle siswa/kelas select
+            const targetRadios = document.querySelectorAll('input[name="target_type"]');
+            const kelasWrapper = document.getElementById('kelasSelectWrapper');
+            const siswaWrapper = document.getElementById('siswaSelectWrapper');
+            const labelPilihSemua = document.getElementById('labelPilihSemua');
+            function toggleTarget() {
+                const selected = document.querySelector('input[name="target_type"]:checked')?.value;
+                if (selected === 'siswa') {
+                    if (kelasWrapper) kelasWrapper.style.display = 'none';
+                    if (siswaWrapper) siswaWrapper.style.display = 'block';
+                    if (labelPilihSemua) labelPilihSemua.style.display = 'none';
+                } else {
+                    if (kelasWrapper) kelasWrapper.style.display = 'block';
+                    if (siswaWrapper) siswaWrapper.style.display = 'none';
+                    if (labelPilihSemua) labelPilihSemua.style.display = 'flex';
+                }
+            }
+            targetRadios.forEach(r => r.addEventListener('change', toggleTarget));
+            toggleTarget();
 
             // Target Kelas Logic
             const classCards = document.querySelectorAll('.target-class-card');
