@@ -155,7 +155,7 @@
                                         <tbody>
                                             @forelse($jadwalByHari[$hari] as $row)
                                                 <tr>
-                                                    <td>{{ \Carbon\Carbon::parse($row->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($row->jam_selesai)->format('H:i') }}</td>
+                                                    <td>{{ $row->jam_mulai }}{{ $row->jam_selesai ? ' - ' . $row->jam_selesai : ' - Selesai' }}</td>
                                                     <td>{{ $row->kegiatan }}</td>
                                                     <td>{{ $row->keterangan }}</td>
                                                 </tr>

@@ -79,7 +79,7 @@
                                             @php $jadwalHariIni = $jadwalList->where('hari', $hari); @endphp
                                             @forelse($jadwalHariIni as $j)
                                                 <tr>
-                                                    <td data-label="Waktu">{{ $j->jam_mulai }} {{ $j->jam_selesai ? '- '.$j->jam_selesai : '' }}</td>
+                                                    <td data-label="Waktu">{{ $j->jam_mulai }}{{ $j->jam_selesai ? ' - '.$j->jam_selesai : ' - Selesai' }}</td>
                                                     <td data-label="Kegiatan">{{ $j->kegiatan }}</td>
                                                     <td data-label="Keterangan" class="td-keterangan">{{ $j->keterangan }}</td>
                                                     <td data-label="Aksi" class="td-aksi">

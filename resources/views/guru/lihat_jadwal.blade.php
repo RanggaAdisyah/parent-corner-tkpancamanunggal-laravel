@@ -155,7 +155,7 @@
                                         <tbody>
                                             @forelse($jadwalByHari[$hari] as $row)
                                                 <tr>
-                                                    <td>{{ $row->jam_mulai }} - {{ $row->jam_selesai }}</td>
+                                                    <td>{{ $row->jam_mulai }}{{ $row->jam_selesai ? ' - ' . $row->jam_selesai : ' - Selesai' }}</td>
                                                     <td>{{ $row->kegiatan }}</td>
                                                     <td>{{ $row->keterangan }}</td>
                                                 </tr>
