@@ -55,7 +55,7 @@ class OperatorController extends Controller
 
     public function updateSiswa(Request $request, $id)
     {
-        $siswa = Siswa::withTrashed()->find($id);
+        $siswa = Siswa::find($id);
         if (!$siswa) {
             return redirect()->back()->with('error', 'Data Siswa tidak ditemukan.');
         }
@@ -73,9 +73,9 @@ class OperatorController extends Controller
 
     public function destroySiswa($id)
     {
-        $siswa = Siswa::withTrashed()->find($id);
+        $siswa = Siswa::find($id);
         if ($siswa) {
-            $siswa->delete();
+            $siswa->forceDelete();
         }
         return redirect()->back()->with('success', 'Data Siswa berhasil dihapus!');
     }
@@ -142,12 +142,12 @@ class OperatorController extends Controller
         if ($orangTua) {
             // Unlink anak-anaknya agar tidak yatim piatu di database (jangan dihapus)
             Siswa::where('orang_tua_id', $orangTua->id)->update(['orang_tua_id' => null]);
-            $orangTua->delete();
+            $orangTua->forceDelete();
         }
 
         // Hapus user
         if ($user) {
-            $user->delete();
+            $user->forceDelete();
         }
 
         return redirect()->route('operator.kelola_orang_tua')->with('success', 'Akun Orang Tua berhasil dihapus!');
@@ -155,8 +155,8 @@ class OperatorController extends Controller
 
     public function editOrangTua($id)
     {
-        // Cari user-nya dulu (termasuk yang sudah soft delete)
-        $user = User::withTrashed()->find($id);
+        // Cari user-nya
+        $user = User::find($id);
         if (!$user) {
             return redirect()->route('operator.kelola_orang_tua')
                 ->with('error', 'Akun pengguna untuk orang tua ini tidak ditemukan.');
@@ -181,7 +181,7 @@ class OperatorController extends Controller
 
     public function updateOrangTua(Request $request, $id)
     {
-        $user = User::withTrashed()->find($id);
+        $user = User::find($id);
         if (!$user) {
             return redirect()->route('operator.kelola_orang_tua')
                 ->with('error', 'Akun pengguna untuk orang tua ini tidak ditemukan.');
@@ -293,8 +293,8 @@ class OperatorController extends Controller
 
     public function editGuru($id)
     {
-        // Cek apakah User-nya ada (termasuk yang sudah soft delete)
-        $user = User::withTrashed()->find($id);
+        // Cek apakah User-nya ada
+        $user = User::find($id);
         if (!$user) {
             return redirect()->route('operator.kelola-guru')
                 ->with('error', 'Akun pengguna untuk guru ini tidak ditemukan.');
@@ -317,8 +317,8 @@ class OperatorController extends Controller
 
     public function updateGuru(Request $request, $id)
     {
-        // Cari user, termasuk yang mungkin soft-deleted (untuk konsistensi dengan editGuru)
-        $user = User::withTrashed()->find($id);
+        // Cari user
+        $user = User::find($id);
         if (!$user) {
             return redirect()->route('operator.kelola-guru')
                 ->with('error', 'Akun pengguna untuk guru ini tidak ditemukan.');
@@ -379,12 +379,12 @@ class OperatorController extends Controller
     {
         $user = User::find($id);
         if ($user) {
-            $user->delete();
+            $user->forceDelete();
         }
         
         $guru = Guru::where('user_id', $id)->first();
         if ($guru) {
-            $guru->delete();
+            $guru->forceDelete();
         }
 
         return redirect()->route('operator.kelola-guru')->with('success', 'Akun Guru berhasil dihapus!');
