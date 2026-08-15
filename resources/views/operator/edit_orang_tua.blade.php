@@ -48,6 +48,20 @@
             </header>
 
             <div class="responsive-container">
+                @if (session('warning'))
+                    <div style="background-color: #fef3c7; border: 1px solid #f59e0b; color: #92400e; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+                        ⚠️ {{ session('warning') }}
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div style="background-color: #fee2e2; border: 1px solid #ef4444; color: #b91c1c; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+                        <ul style="margin: 0; padding-left: 20px;">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form method="POST" action="{{ route('operator.kelola_orang_tua.update', $orangTua->user_id) }}">
                     @csrf
                     @method('PUT')

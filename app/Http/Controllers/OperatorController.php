@@ -787,7 +787,7 @@ class OperatorController extends Controller
     {
         $galeri = Galeri::with(['kelas', 'siswa'])->findOrFail($id);
         $kelasList = \App\Models\Kelas::all();
-        $siswaList = \App\Models\Siswa::all();
+        $siswaList = \App\Models\Siswa::with('kelas')->orderBy('nama')->get();
         $selectedKelas = $galeri->kelas->pluck('id')->toArray();
         $selectedSiswaId = $galeri->siswa->first()?->id;
         $targetType = $galeri->siswa->count() > 0 ? 'siswa' : 'kelas';

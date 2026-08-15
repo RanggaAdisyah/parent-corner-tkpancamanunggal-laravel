@@ -74,7 +74,7 @@
                                         aria-label="Lihat detail {{ $guru->nama_lengkap }}"
                                         data-id="{{ $guru->user_id }}"
                                         data-nama="{{ $guru->nama_lengkap }}"
-                                        data-email="{{ $guru->user->email }}"
+                                        data-email="{{ $guru->user?->email }}"
                                         data-nip="{{ $guru->nip }}"
                                         data-jabatan="{{ $guru->jabatan }}"
                                         data-walikelas="{{ $guru->kelas_id }}"
