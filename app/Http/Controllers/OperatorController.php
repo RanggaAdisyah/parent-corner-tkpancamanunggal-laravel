@@ -307,7 +307,12 @@ class OperatorController extends Controller
 
     public function updateGuru(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        // Cari user, termasuk yang mungkin soft-deleted (untuk konsistensi dengan editGuru)
+        $user = User::withTrashed()->find($id);
+        if (!$user) {
+            return redirect()->route('operator.kelola-guru')
+                ->with('error', 'Akun pengguna untuk guru ini tidak ditemukan.');
+        }
         $guru = Guru::where('user_id', $id)->first();
         
         $rules = [
