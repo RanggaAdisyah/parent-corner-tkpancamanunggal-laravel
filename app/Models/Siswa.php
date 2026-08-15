@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Siswa extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $guarded = [];
     protected $casts = [
         'tanggal_lahir' => 'date',
@@ -23,3 +23,4 @@ class Siswa extends Model
         return $this->belongsToMany(Galeri::class, 'galeri_siswa', 'siswa_id', 'galeri_id');
     }
 }
+

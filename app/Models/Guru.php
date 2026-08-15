@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Guru extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $guarded = ['id'];
     protected $casts = [
         'tanggal_lahir' => 'date',
@@ -25,3 +25,4 @@ class Guru extends Model
         return $this->belongsTo(Kelas::class);
     }
 }
+
