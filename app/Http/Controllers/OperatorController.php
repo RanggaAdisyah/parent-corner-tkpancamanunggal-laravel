@@ -55,7 +55,10 @@ class OperatorController extends Controller
 
     public function updateSiswa(Request $request, $id)
     {
-        $siswa = Siswa::findOrFail($id);
+        $siswa = Siswa::withTrashed()->find($id);
+        if (!$siswa) {
+            return redirect()->back()->with('error', 'Data Siswa tidak ditemukan.');
+        }
         $request->validate([
             'nama' => 'required|string|max:255',
             'kelas_id' => 'nullable|exists:kelas,id',
@@ -70,7 +73,10 @@ class OperatorController extends Controller
 
     public function destroySiswa($id)
     {
-        Siswa::findOrFail($id)->delete();
+        $siswa = Siswa::withTrashed()->find($id);
+        if ($siswa) {
+            $siswa->delete();
+        }
         return redirect()->back()->with('success', 'Data Siswa berhasil dihapus!');
     }
 
@@ -175,7 +181,11 @@ class OperatorController extends Controller
 
     public function updateOrangTua(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::withTrashed()->find($id);
+        if (!$user) {
+            return redirect()->route('operator.kelola_orang_tua')
+                ->with('error', 'Akun pengguna untuk orang tua ini tidak ditemukan.');
+        }
         
         $request->merge([
             'siswa_id' => array_filter($request->siswa_id ?? [])
