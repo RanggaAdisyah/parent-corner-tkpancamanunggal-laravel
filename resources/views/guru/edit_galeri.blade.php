@@ -97,6 +97,11 @@
             </header>
 
             <div class="responsive-container">
+                @if (session('warning'))
+                    <div style="background-color: #fef3c7; border: 1px solid #f59e0b; color: #92400e; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+                        ⚠️ {{ session('warning') }}
+                    </div>
+                @endif
                 @if ($errors->any())
                     <div style="background-color: #fee2e2; color: #991b1b; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
                         <ul style="margin: 0; padding-left: 20px;">
@@ -138,25 +143,52 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Unggah Foto</label>
-                                
+                                <label class="form-label" style="display:block; margin-bottom:8px; font-weight:600; font-size:14px;">Unggah Foto <span style="color:#ef4444;">*</span> <span style="font-weight:400; color:#64748b; font-size:12px;">(minimal 1 foto)</span></label>
+
+                                <div id="fotoCountWarning" style="display:none; align-items:center; gap:8px; padding:10px 12px; background:#fee2e2; color:#991b1b; border-radius:8px; margin-bottom:12px; font-size:13px; font-weight:500;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                    <span id="fotoCountText">Galeri harus memiliki minimal 1 foto!</span>
+                                </div>
+
                                 <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()" style="border: 2px dashed #cbd5e1; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; background: #f8fafc;">
                                     <p style="margin:0; font-size:14px; color:#64748b;">Klik untuk tambah foto baru (JPG/PNG/WEBP Maks 5MB)</p>
                                 </div>
                                 <input type="file" id="fileInput" name="foto[]" multiple style="display:none;" accept=".jpg,.jpeg,.png,.webp">
                                 
                                 <div id="fileNameDisplay" style="margin-top: 8px; font-size: 13px; color: #64748b; display:flex; flex-direction:column; gap:4px;">
+                                    @php
+                                        $fotoArr = $galeri->foto ?? [];
+                                        if (is_string($fotoArr)) {
+                                            $decoded = json_decode($fotoArr, true);
+                                            $fotoArr = is_array($decoded) ? $decoded : [];
+                                        }
+                                        $fotoArr = is_array($fotoArr) ? array_values($fotoArr) : [];
+                                        $currentCover = $fotoArr[0] ?? null;
+                                    @endphp
                                     <!-- Existing Photos -->
-                                    @if(is_array($galeri->foto) && count($galeri->foto) > 0)
-                                        @foreach($galeri->foto as $file)
-                                            <div class="existing-file-item" style="display:flex; align-items:flex-start; gap:8px; padding:8px 12px; background:#e0f2fe; border-radius:6px;" data-file="{{ $file }}">
+                                    @if(count($fotoArr) > 0)
+                                        @foreach($fotoArr as $idx => $file)
+                                            @php
+                                                $isCover = ($idx === 0);
+                                                $filePath = public_path(ltrim($file, '/'));
+                                                $fileExists = file_exists($filePath);
+                                            @endphp
+                                            <div class="existing-file-item" style="display:flex; align-items:flex-start; gap:8px; padding:8px 12px; {{ $fileExists ? ($isCover ? 'background:#fef9c3; border:2px solid #eab308;' : 'background:#e0f2fe;') : 'background:#fee2e2; border:2px solid #ef4444;' }} border-radius:6px;" data-file="{{ $file }}" data-iscover="{{ $isCover ? '1' : '0' }}" data-missing="{{ $fileExists ? '0' : '1' }}">
                                                 <a href="{{ asset($file) }}" target="_blank" style="flex-grow:1; display:flex; align-items:center; gap:6px; text-decoration:none;">
                                                     <img src="{{ asset($file) }}" alt="Preview" style="width:24px; height:24px; object-fit:cover; border-radius:4px;">
-                                                    <span style="color:#0284c7; font-weight:600; word-break: break-all;">Foto Lama: {{ basename($file) }}</span>
+                                                    <span style="color:{{ $fileExists ? ($isCover ? '#854d0e' : '#0284c7') : '#991b1b' }}; font-weight:600; word-break: break-all;">
+                                                        @if(!$fileExists)⚠️ FILE HILANG DI FOLDER: @endif{{ $isCover ? '⭐ Sampul: ' : 'Foto Lama: ' }}{{ basename($file) }}
+                                                    </span>
                                                 </a>
                                                 <div style="display:flex; align-items:center; gap:4px;">
-                                                    <button type="button" class="btnSetCover" data-cover="old:{{ $file }}" style="color:#64748b; background:none; border:none; cursor:pointer; font-size:12px; font-weight:600; padding:4px;">☆ Jadikan Sampul</button>
-                                                    <button type="button" class="btnDeleteExisting" style="color:#ef4444; background:none; border:none; cursor:pointer; font-size:12px; font-weight:700; padding:4px; flex-shrink:0; white-space:nowrap;">✕ Hapus</button>
+                                                    @if($fileExists)
+                                                        <button type="button" class="btnSetCover" data-cover="old:{{ $file }}" style="color:{{ $isCover ? '#eab308' : '#64748b' }}; background:none; border:none; cursor:pointer; font-size:12px; font-weight:600; padding:4px;">{{ $isCover ? '★ Sampul' : '☆ Jadikan Sampul' }}</button>
+                                                        @if(!$isCover)
+                                                            <button type="button" class="btnDeleteExisting" style="color:#ef4444; background:none; border:none; cursor:pointer; font-size:12px; font-weight:700; padding:4px; flex-shrink:0; white-space:nowrap;">✕ Hapus</button>
+                                                        @endif
+                                                    @else
+                                                        <button type="button" class="btnDeleteExisting" style="color:#991b1b; background:#fecaca; border:1px solid #ef4444; cursor:pointer; font-size:12px; font-weight:700; padding:4px 8px; flex-shrink:0; white-space:nowrap;">🗑️ Bersihkan dari DB</button>
+                                                    @endif
                                                 </div>
                                             </div>
                                         @endforeach
@@ -176,19 +208,19 @@
                                 </h2>
                             </div>
 
-                            <div style="display: flex; gap: 16px; margin-bottom: 16px;">
-                                <label class="category-card" style="flex:1; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
-                                    <input type="radio" name="target_type" value="kelas" {{ ($targetType ?? 'kelas') === 'kelas' ? 'checked' : '' }} style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;">
-                                    <div>
+                            <div style="display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;">
+                                <label class="category-card target-radio" style="flex:1 1 280px; min-width:0; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="target_type" value="kelas" {{ ($targetType ?? 'kelas') === 'kelas' ? 'checked' : '' }} style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9; flex-shrink:0;">
+                                    <div style="min-width:0;">
                                         <h4 style="margin: 0; font-size: 14px;">Untuk Seluruh Kelas</h4>
-                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b;">Galeri tampil untuk semua orang tua di kelas ini</p>
+                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b; word-wrap:break-word;">Galeri tampil untuk semua orang tua di kelas ini</p>
                                     </div>
                                 </label>
-                                <label class="category-card" style="flex:1; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
-                                    <input type="radio" name="target_type" value="siswa" {{ ($targetType ?? 'kelas') === 'siswa' ? 'checked' : '' }} style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;">
-                                    <div>
+                                <label class="category-card target-radio" style="flex:1 1 280px; min-width:0; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="target_type" value="siswa" {{ ($targetType ?? 'kelas') === 'siswa' ? 'checked' : '' }} style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9; flex-shrink:0;">
+                                    <div style="min-width:0;">
                                         <h4 style="margin: 0; font-size: 14px;">Untuk Siswa Tertentu</h4>
-                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b;">Galeri hanya untuk satu anak</p>
+                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b; word-wrap:break-word;">Galeri hanya untuk satu anak</p>
                                     </div>
                                 </label>
                             </div>
@@ -290,29 +322,72 @@
             // Deleted Files Logic
             const deletedFilesContainer = document.getElementById('deletedFilesContainer');
             const btnsDeleteExisting = document.querySelectorAll('.btnDeleteExisting');
-            let currentExistingCount = {{ is_array($galeri->foto) ? count($galeri->foto) : 0 }};
 
             btnsDeleteExisting.forEach(btn => {
                 btn.addEventListener('click', function() {
                     const item = this.closest('.existing-file-item');
                     const filePath = item.getAttribute('data-file');
-                    
+
                     const input = document.createElement('input');
                     input.type = 'hidden';
                     input.name = 'deleted_files[]';
                     input.value = filePath;
                     deletedFilesContainer.appendChild(input);
-                    
+
                     item.remove();
                     currentExistingCount--;
+                    updateFotoCount();
                 });
             });
+
+            // Real-time foto counter & alert
+            const fotoCountWarning = document.getElementById('fotoCountWarning');
+            const fotoCountText = document.getElementById('fotoCountText');
 
             // File upload logic
             const fileInput = document.getElementById('fileInput');
             const fileNameDisplay = document.getElementById('fileNameDisplay');
             let dataTransfer = new DataTransfer();
-            
+            @php
+                $fotoArr = $galeri->foto ?? [];
+                if (is_string($fotoArr)) {
+                    $decoded = json_decode($fotoArr, true);
+                    $fotoArr = is_array($decoded) ? $decoded : [];
+                }
+                $fotoArr = is_array($fotoArr) ? $fotoArr : [];
+            @endphp
+            let currentExistingCount = {{ count($fotoArr) }};
+
+            function updateFotoCount() {
+                const newCount = dataTransfer.files.length;
+                const total = currentExistingCount + newCount;
+                if (total === 0) {
+                    fotoCountWarning.style.display = 'flex';
+                    fotoCountText.textContent = 'Galeri harus memiliki minimal 1 foto!';
+                } else {
+                    fotoCountWarning.style.display = 'none';
+                }
+            }
+
+            // Form submit: client-side validation minimal 1 foto
+            document.getElementById('formGaleri').addEventListener('submit', function(e) {
+                document.getElementById('deskripsiKegiatanHidden').value = quill.root.innerHTML;
+
+                const newCount = dataTransfer.files.length;
+                const total = currentExistingCount + newCount;
+                if (total < 1) {
+                    e.preventDefault();
+                    alert('Galeri harus memiliki minimal 1 foto!\n\nSilakan tambahkan foto baru sebelum menghapus semua foto lama.');
+                    updateFotoCount();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return false;
+                }
+            });
+
+            // Initial check
+            updateFotoCount();
+
+            // File upload logic handlers
             fileInput.addEventListener('change', function() {
                 Array.from(this.files).forEach(file => {
                     const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
@@ -384,6 +459,11 @@
                 });
             }
             bindCoverButtons();
+
+            // Set initial cover value from server-side (foto[0])
+            @if(!empty($currentCover))
+                document.getElementById('coverImageInput').value = 'old:{{ $currentCover }}';
+            @endif
         });
     </script>
 </body>

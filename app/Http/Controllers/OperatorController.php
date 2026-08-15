@@ -12,6 +12,8 @@ use App\Models\KalenderKegiatan;
 use App\Models\Guru;
 use App\Models\Pengumuman;
 use App\Models\Galeri;
+use App\Jobs\SendGaleriNotificationJob;
+use App\Jobs\SendPengumumanNotificationJob;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -128,25 +130,47 @@ class OperatorController extends Controller
 
     public function destroyOrangTua($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
         
         $orangTua = OrangTua::where('user_id', $id)->first();
         if ($orangTua) {
             // Unlink anak-anaknya agar tidak yatim piatu di database (jangan dihapus)
             Siswa::where('orang_tua_id', $orangTua->id)->update(['orang_tua_id' => null]);
+            $orangTua->delete();
         }
 
-        // Hapus user (yang akan cascade menghapus orang_tuas jika sudah diatur di DB)
-        $user->delete();
+        // Hapus user
+        if ($user) {
+            $user->delete();
+        }
 
-        return redirect()->back()->with('success', 'Akun Orang Tua berhasil dihapus!');
+        return redirect()->route('operator.kelola-orang-tua')->with('success', 'Akun Orang Tua berhasil dihapus!');
     }
 
     public function editOrangTua($id)
     {
-        $orangTua = OrangTua::with(['siswas', 'user'])->where('user_id', $id)->firstOrFail();
-        $siswas = Siswa::whereNull('orang_tua_id')->orWhere('orang_tua_id', $orangTua->id)->get();
-        return view('operator.edit_orang_tua', compact('orangTua', 'siswas'));
+        // Cari user-nya dulu (termasuk yang sudah soft delete)
+        $user = User::withTrashed()->find($id);
+        if (!$user) {
+            return redirect()->route('operator.kelola_orang_tua')
+                ->with('error', 'Akun pengguna untuk orang tua ini tidak ditemukan.');
+        }
+
+        $orangTua = OrangTua::with(['siswas', 'user'])->where('user_id', $id)->first();
+
+        if (!$orangTua) {
+            // Profil belum ada → buat objek kosong dengan fallback dari User
+            $orangTua = new OrangTua();
+            $orangTua->user_id = $id;
+            $orangTua->no_hp = $user->username;
+            // Attach user relation manual agar view bisa pakai $orangTua->user
+            $orangTua->setRelation('user', $user);
+            $orangTua->setRelation('siswas', collect());
+            session()->flash('warning', 'Profil orang tua belum lengkap. Silakan lengkapi data di bawah ini.');
+        }
+
+        $siswas = Siswa::whereNull('orang_tua_id')->orWhere('orang_tua_id', $orangTua->id ?? null)->get();
+        return view('operator.edit_orang_tua', compact('orangTua', 'siswas', 'user'));
     }
 
     public function updateOrangTua(Request $request, $id)
@@ -192,8 +216,18 @@ class OperatorController extends Controller
             Siswa::where('orang_tua_id', $orangTua->id)
                  ->whereNotIn('id', $request->siswa_id)
                  ->update(['orang_tua_id' => null]);
-            
+
             // Attach selected students
+            Siswa::whereIn('id', $request->siswa_id)->update(['orang_tua_id' => $orangTua->id]);
+        } else {
+            // Profil orang tua belum ada → buat baru
+            $orangTua = OrangTua::create([
+                'user_id' => $user->id,
+                'nama_ayah' => $request->nama_ayah,
+                'nama_ibu' => $request->nama_ibu,
+                'no_hp' => $request->no_hp,
+                'alamat' => $request->alamat,
+            ]);
             Siswa::whereIn('id', $request->siswa_id)->update(['orang_tua_id' => $orangTua->id]);
         }
 
@@ -249,9 +283,26 @@ class OperatorController extends Controller
 
     public function editGuru($id)
     {
-        $guru = Guru::where('user_id', $id)->firstOrFail();
+        // Cek apakah User-nya ada (termasuk yang sudah soft delete)
+        $user = User::withTrashed()->find($id);
+        if (!$user) {
+            return redirect()->route('operator.kelola-guru')
+                ->with('error', 'Akun pengguna untuk guru ini tidak ditemukan.');
+        }
+
+        $guru = Guru::where('user_id', $id)->first();
+        if (!$guru) {
+            // Jika profil guru tidak ada, buat objek kosong untuk mencegah 404
+            $guru = new Guru();
+            $guru->user_id = $id;
+            $guru->nama_lengkap = $user->name;
+            $guru->no_hp = $user->username;
+            // Simpan flash message untuk informasi ke user
+            session()->flash('warning', 'Profil guru belum lengkap. Silakan lengkapi data di bawah ini.');
+        }
+        
         $kelasList = Kelas::all();
-        return view('operator.edit_guru', compact('guru', 'kelasList'));
+        return view('operator.edit_guru', compact('guru', 'kelasList', 'user'));
     }
 
     public function updateGuru(Request $request, $id)
@@ -291,6 +342,19 @@ class OperatorController extends Controller
                 'jenis_kelamin' => $request->jenis_kelamin,
                 'tanggal_lahir' => $request->tanggal_lahir,
             ]);
+        } else {
+            // Jika profil guru tidak ada, buat baru
+            Guru::create([
+                'user_id' => $user->id,
+                'nama_lengkap' => $request->nama_lengkap,
+                'jabatan' => $request->jabatan,
+                'nip' => $request->nip,
+                'kelas_id' => $request->kelas_id,
+                'no_hp' => $request->no_hp,
+                'alamat' => $request->alamat,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'tanggal_lahir' => $request->tanggal_lahir,
+            ]);
         }
 
         return redirect()->route('operator.kelola-guru')->with('success', 'Akun Guru berhasil diperbarui!');
@@ -298,9 +362,16 @@ class OperatorController extends Controller
 
     public function destroyGuru($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete(); // Cascades ke guru jika diset foreign key on delete cascade
+        $user = User::find($id);
+        if ($user) {
+            $user->delete();
+        }
         
+        $guru = Guru::where('user_id', $id)->first();
+        if ($guru) {
+            $guru->delete();
+        }
+
         return redirect()->route('operator.kelola-guru')->with('success', 'Akun Guru berhasil dihapus!');
     }
 
@@ -370,14 +441,32 @@ class OperatorController extends Controller
             'kegiatan' => 'required'
         ]);
 
-        JadwalPelajaran::create([
-            'kelas_id' => $kelas_id,
-            'hari' => $request->hari,
-            'jam_mulai' => $request->jam_mulai,
-            'jam_selesai' => $request->jam_selesai,
-            'kegiatan' => $request->kegiatan,
-            'keterangan' => $request->keterangan,
-        ]);
+        // Cek duplikat jadwal berdasarkan kelas, hari, dan jam mulai
+        $exists = JadwalPelajaran::where('kelas_id', $kelas_id)
+            ->where('hari', $request->hari)
+            ->where('jam_mulai', $request->jam_mulai)
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['jam_mulai' => 'Jadwal untuk kelas ini pada hari ' . $request->hari . ' jam ' . $request->jam_mulai . ' sudah ada. Silakan pilih jam yang berbeda.']);
+        }
+
+        try {
+            JadwalPelajaran::create([
+                'kelas_id' => $kelas_id,
+                'hari' => $request->hari,
+                'jam_mulai' => $request->jam_mulai,
+                'jam_selesai' => $request->jam_selesai,
+                'kegiatan' => $request->kegiatan,
+                'keterangan' => $request->keterangan,
+            ]);
+        } catch (\Illuminate\Database\UniqueConstraintViolationException $e) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['jam_mulai' => 'Jadwal bentrok dengan jadwal yang sudah ada. Silakan pilih hari atau jam yang berbeda.']);
+        }
 
         return redirect()->back()->with('success', 'Jadwal berhasil ditambahkan!');
     }
@@ -484,8 +573,51 @@ class OperatorController extends Controller
 
         $pengumuman->kelas()->attach($request->target_kelas);
 
+        $this->dispatchPengumumanNotifications($pengumuman, 'created');
+
         return redirect()->route('operator.pengumuman')
             ->with('success', 'Pengumuman "' . $request->judul . '" berhasil dikirim!');
+    }
+
+    private function dispatchPengumumanNotifications(Pengumuman $pengumuman, string $event = 'created'): void
+    {
+        try {
+            $resolver = new \App\Services\NotificationRecipientResolver();
+            $recipients = $resolver->forPengumuman($pengumuman);
+
+            foreach ($recipients as $user) {
+                SendPengumumanNotificationJob::dispatch(
+                    $pengumuman->id,
+                    $user->id,
+                    $user->email,
+                    $user->name ?? 'Orang Tua',
+                    $event,
+                );
+            }
+        } catch (\Throwable $e) {
+            \Log::error('Pengumuman notification dispatch failed: ' . $e->getMessage());
+        }
+    }
+
+    private function dispatchGaleriNotifications(Galeri $galeri, string $event = 'created'): void
+    {
+        try {
+            $galeri->loadMissing('kelas', 'siswa');
+            $resolver = new \App\Services\NotificationRecipientResolver();
+            $recipients = $resolver->forGaleri($galeri);
+
+            foreach ($recipients as $user) {
+                SendGaleriNotificationJob::dispatch(
+                    $galeri->id,
+                    $user->id,
+                    $user->email,
+                    $user->name ?? 'Orang Tua',
+                    $event,
+                );
+            }
+        } catch (\Throwable $e) {
+            \Log::error('Galeri notification dispatch failed: ' . $e->getMessage());
+        }
     }
 
     public function editPengumuman($id)
@@ -537,6 +669,8 @@ class OperatorController extends Controller
         $pengumuman->save();
 
         $pengumuman->kelas()->sync($request->target_kelas);
+
+        $this->dispatchPengumumanNotifications($pengumuman, 'updated');
 
         return redirect()->route('operator.pengumuman')
             ->with('success', 'Pengumuman "' . $pengumuman->judul . '" berhasil diperbarui!');
@@ -628,6 +762,8 @@ class OperatorController extends Controller
             $galeri->kelas()->attach($request->target_kelas);
         }
 
+        $this->dispatchGaleriNotifications($galeri, 'created');
+
         return redirect()->route('operator.galeri')
             ->with('success', 'Galeri "' . $galeri->judul . '" berhasil dibuat!');
     }
@@ -646,7 +782,15 @@ class OperatorController extends Controller
     public function updateGaleri(Request $request, $id)
     {
         $galeri = Galeri::findOrFail($id);
-        
+
+        // Count existing photos yang akan di-keep
+        $existingPhotos = is_array($galeri->foto) ? $galeri->foto : [];
+        $deletedFiles = $request->input('deleted_files', []);
+        $keptExisting = array_diff($existingPhotos, $deletedFiles);
+
+        $newFileCount = $request->hasFile('foto') ? count($request->file('foto')) : 0;
+        $totalPhotosAfter = count($keptExisting) + $newFileCount;
+
         $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi_kegiatan' => 'nullable|string',
@@ -660,19 +804,23 @@ class OperatorController extends Controller
             'foto.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
+        // Validasi minimal 1 foto
+        if ($totalPhotosAfter < 1) {
+            return back()
+                ->withInput()
+                ->withErrors(['foto' => 'Galeri harus memiliki minimal 1 foto. Silakan tambahkan foto baru sebelum menghapus semua foto lama.']);
+        }
+
         // Keep current photos that weren't deleted
-        $currentPhotos = is_array($galeri->foto) ? $galeri->foto : [];
-        if ($request->has('deleted_files')) {
-            foreach ($request->deleted_files as $deletedFile) {
-                if (($key = array_search($deletedFile, $currentPhotos)) !== false) {
-                    unset($currentPhotos[$key]);
-                    if (file_exists(public_path($deletedFile))) {
-                        unlink(public_path($deletedFile));
-                    }
+        $currentPhotos = $keptExisting;
+        if (!empty($deletedFiles)) {
+            foreach ($deletedFiles as $deletedFile) {
+                if (file_exists(public_path($deletedFile))) {
+                    @unlink(public_path($deletedFile));
                 }
             }
-            $currentPhotos = array_values($currentPhotos);
         }
+        $currentPhotos = array_values($currentPhotos);
 
         // Add new photos
         $newPathsMap = [];
@@ -720,6 +868,8 @@ class OperatorController extends Controller
             $galeri->siswa()->detach();
             $galeri->kelas()->sync($request->target_kelas);
         }
+
+        $this->dispatchGaleriNotifications($galeri, 'updated');
 
         return redirect()->route('operator.galeri')
             ->with('success', 'Galeri "' . $galeri->judul . '" berhasil diperbarui!');

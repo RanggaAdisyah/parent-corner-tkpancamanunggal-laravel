@@ -84,37 +84,40 @@ class OrangTuaController extends Controller
     public function lihatNilai(Request $request)
     {
         $siswa = $this->getSiswa();
-        
-        $monthYear = $request->get('month_year', date('Y-m'));
-        $parts = explode('-', $monthYear);
-        $year = $parts[0] ?? date('Y');
-        $month = $parts[1] ?? date('m');
-        $week = $request->get('week', 'all');
 
-        $nilais = [];
+        $bulan = $request->get('bulan', date('n'));
+        $minggu = $request->get('minggu_ke');
+        $kategoriFilter = $request->get('kategori');
+
+        $kategoriList = Nilai::kategoriList();
+        $skalaList = Nilai::skalaList();
+
+        $kategoriData = []; // ['sosial_emosional' => ['latest' => ..., 'timeline' => [...]]]
+
         if ($siswa) {
-            $query = Nilai::where('siswa_id', $siswa->id)
-                          ->whereMonth('tanggal', $month)
-                          ->whereYear('tanggal', $year)
-                          ->orderBy('tanggal', 'desc');
-            
-            $collection = $query->get();
+            foreach ($kategoriList as $key => $meta) {
+                $q = Nilai::where('siswa_id', $siswa->id)
+                          ->where('level', $key);
+                if ($bulan) $q->where('bulan', $bulan);
+                if ($minggu) $q->where('minggu_ke', $minggu);
 
-            if ($week !== 'all') {
-                $collection = $collection->filter(function($n) use ($week) {
-                    return \Carbon\Carbon::parse($n->tanggal)->weekOfMonth == $week;
-                });
+                $timeline = $q->orderBy('tanggal', 'asc')->get();
+                $latest = $timeline->sortByDesc('tanggal')->first();
+
+                $kategoriData[$key] = [
+                    'meta' => $meta,
+                    'timeline' => $timeline,
+                    'latest' => $latest,
+                ];
             }
-            $nilais = $collection;
         }
 
-        // Kelompokkan nilai per tanggal
-        $groupedNilai = [];
-        foreach($nilais as $n) {
-            $groupedNilai[$n->tanggal][] = $n;
-        }
+        $selectedKategori = $kategoriFilter;
 
-        return view('orang_tua.lihat_nilai', compact('siswa', 'groupedNilai', 'monthYear', 'week'));
+        return view('orang_tua.lihat_nilai', compact(
+            'siswa', 'kategoriList', 'skalaList', 'kategoriData',
+            'bulan', 'minggu', 'selectedKategori'
+        ));
     }
 
     public function lihatJadwal(Request $request)
@@ -254,10 +257,13 @@ class OrangTuaController extends Controller
         $nilais = Nilai::where('siswa_id', $siswa->id)
             ->whereYear('tanggal', $year)
             ->whereMonth('tanggal', $month)
+            ->orderBy('level', 'asc')
             ->orderBy('tanggal', 'asc')
             ->get();
             
-        return view('orang_tua.cetak_laporan', compact('siswa', 'nilais', 'monthYear'));
+        $skalaList = \App\Models\Nilai::skalaList();
+
+        return view('orang_tua.cetak_laporan', compact('siswa', 'nilais', 'monthYear', 'skalaList'));
     }
 
     public function profil()

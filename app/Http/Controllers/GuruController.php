@@ -13,6 +13,8 @@ use App\Models\Pengumuman;
 use App\Models\KalenderKegiatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Jobs\SendGaleriNotificationJob;
+use App\Jobs\SendPengumumanNotificationJob;
 
 class GuruController extends Controller
 {
@@ -89,57 +91,151 @@ class GuruController extends Controller
         return response()->json($kehadirans);
     }
 
-    public function nilai()
+    public function nilai(Request $request)
     {
         $guru = $this->getGuru();
         $siswas = collect();
         if ($guru && $guru->kelas_id) {
             $siswas = Siswa::where('kelas_id', $guru->kelas_id)
+                           ->orderBy('nama')
                            ->get();
         }
 
-        return view('guru.nilai', compact('guru', 'siswas'));
+        $kategoriList = Nilai::kategoriList();
+        $skalaList = Nilai::skalaList();
+
+        $existingNilai = [];
+        $selectedSiswaId = $request->get('siswa_id');
+
+        if ($selectedSiswaId) {
+            // Filter by current week (auto-derive dari tanggal hari ini)
+            $today = \Carbon\Carbon::now();
+            $bulan = (int) $today->format('n');
+            $minggu = (int) ceil($today->day / 7);
+
+            $rows = Nilai::where('siswa_id', $selectedSiswaId)
+                      ->whereIn('level', array_keys($kategoriList))
+                      ->where('bulan', $bulan)
+                      ->where('minggu_ke', $minggu)
+                      ->get();
+
+            foreach ($rows as $n) {
+                $existingNilai[$n->level] = $n;
+            }
+        }
+
+        return view('guru.nilai', compact(
+            'guru', 'siswas', 'kategoriList', 'skalaList', 'existingNilai', 'selectedSiswaId'
+        ));
     }
 
     public function storeNilai(Request $request)
     {
+        $kategoriKeys = array_keys(Nilai::kategoriList());
+        $skalaValues = array_keys(Nilai::skalaList());
+
         $request->validate([
             'siswa_id' => 'required|exists:siswas,id',
             'tanggal' => 'required|date',
-            'level' => 'required|string',
-            'hal' => 'required|string',
-            'nilai' => 'required|string',
-            'keterangan' => 'nullable|string',
+            'nilai' => 'required|array',
+            'nilai.*.skala' => 'nullable|in:' . implode(',', $skalaValues),
+            'nilai.*.keterangan' => 'nullable|string',
         ]);
 
-        \App\Models\Nilai::updateOrCreate(
-            [
-                'siswa_id' => $request->siswa_id, 
-                'tanggal' => $request->tanggal,
-            ],
-            [
-                'level' => $request->level,
-                'hal' => $request->hal,
-                'nilai' => $request->nilai,
-                'keterangan' => $request->keterangan,
-            ]
-        );
+        $tanggal = \Carbon\Carbon::parse($request->tanggal);
+        $bulan = (int) $tanggal->format('n');
+        $mingguKe = (int) ceil($tanggal->day / 7); // 1-5
+        $siswaId = $request->siswa_id;
 
-        return redirect()->back()->with('success', 'Data nilai berhasil disimpan.');
+        foreach ($kategoriKeys as $kategori) {
+            $entry = $request->input("nilai.$kategori", []);
+            $skala = $entry['skala'] ?? null;
+            $keterangan = $entry['keterangan'] ?? null;
+            $shouldDelete = !empty($entry['_delete']);
+
+            // Cari existing record
+            $existing = Nilai::where([
+                'siswa_id' => $siswaId,
+                'tanggal' => $request->tanggal,
+                'level' => $kategori,
+            ])->first();
+
+            // Toggle OFF (frontend kirim _delete=1) → hapus record
+            if ($shouldDelete) {
+                if ($existing) {
+                    $existing->delete();
+                }
+                continue;
+            }
+
+            // Kalau skala null DAN keterangan null/kosong, lewati
+            if (!$skala && (is_null($keterangan) || trim(strip_tags($keterangan)) === '')) {
+                continue;
+            }
+
+            // Kalau skala null (kosong) tapi record sudah ada → skip supaya tidak timpa nilai
+            if (!$skala) {
+                if ($existing) {
+                    // Hanya update keterangan jika ada perubahan
+                    if (!is_null($keterangan)) {
+                        $existing->update(['keterangan' => $keterangan]);
+                    }
+                    continue;
+                }
+                // Kalau belum ada record, tetap skip (nilai wajib)
+                continue;
+            }
+
+            Nilai::updateOrCreate(
+                [
+                    'siswa_id' => $siswaId,
+                    'tanggal' => $request->tanggal,
+                    'level' => $kategori,
+                ],
+                [
+                    'bulan' => $bulan,
+                    'minggu_ke' => $mingguKe,
+                    'nilai' => $skala,
+                    'keterangan' => $keterangan,
+                ]
+            );
+        }
+
+        return redirect()
+            ->route('guru.nilai', [
+                'siswa_id' => $siswaId,
+                'bulan' => $bulan,
+                'minggu_ke' => $mingguKe,
+            ])
+            ->with('success', 'Penilaian perkembangan berhasil disimpan.');
     }
 
     public function getNilaiSiswa(Request $request)
     {
         $request->validate([
             'siswa_id' => 'required|exists:siswas,id',
-            'tanggal' => 'required|date'
+            'tanggal' => 'required|date',
         ]);
 
-        $nilai = \App\Models\Nilai::where('siswa_id', $request->siswa_id)
-                                   ->where('tanggal', $request->tanggal)
-                                   ->first();
+        $kategoriList = Nilai::kategoriList();
 
-        return response()->json($nilai);
+        $rows = Nilai::where('siswa_id', $request->siswa_id)
+                  ->where('tanggal', $request->tanggal)
+                  ->whereIn('level', array_keys($kategoriList))
+                  ->get();
+
+        $byKategori = [];
+        foreach ($kategoriList as $key => $meta) {
+            $row = $rows->firstWhere('level', $key);
+            $byKategori[$key] = $row ? [
+                'skala' => $row->nilai,
+                'keterangan' => $row->keterangan,
+            ] : null;
+        }
+
+        return response()->json([
+            'kategori' => $byKategori,
+        ]);
     }
 
     public function jadwal(Request $request)
@@ -259,7 +355,51 @@ class GuruController extends Controller
             }
         }
 
+        // Dispatch notification jobs ke semua ortu terkait
+        $this->dispatchGaleriNotifications($galeri, 'created');
+
         return redirect()->route('guru.galeri')->with('success', 'Galeri berhasil dibuat!');
+    }
+
+    private function dispatchGaleriNotifications(Galeri $galeri, string $event = 'created'): void
+    {
+        try {
+            $galeri->loadMissing('kelas', 'siswa');
+            $resolver = new \App\Services\NotificationRecipientResolver();
+            $recipients = $resolver->forGaleri($galeri);
+
+            foreach ($recipients as $user) {
+                SendGaleriNotificationJob::dispatch(
+                    $galeri->id,
+                    $user->id,
+                    $user->email,
+                    $user->name ?? 'Orang Tua',
+                    $event,
+                );
+            }
+        } catch (\Throwable $e) {
+            \Log::error('Galeri notification dispatch failed: ' . $e->getMessage());
+        }
+    }
+
+    private function findGaleriForGuru($id)
+    {
+        $guru = $this->getGuru();
+        $kelas_id = $guru->kelas_id ?? null;
+
+        // Galeri yang bisa diakses guru:
+        // 1. Galeri kelas (ada di pivot galeri_kelas dengan kelas_id guru)
+        // 2. Galeri personal (target_type=siswa DAN siswa ada di kelas guru)
+        return Galeri::where(function($q) use ($kelas_id) {
+            $q->whereHas('kelas', function($sub) use ($kelas_id) {
+                $sub->where('kelas_id', $kelas_id);
+            });
+            if ($kelas_id) {
+                $q->orWhereHas('siswa', function($sub) use ($kelas_id) {
+                    $sub->where('kelas_id', $kelas_id);
+                });
+            }
+        })->findOrFail($id);
     }
 
     public function editGaleri($id)
@@ -267,9 +407,7 @@ class GuruController extends Controller
         $guru = $this->getGuru();
         $kelas_id = $guru->kelas_id ?? null;
 
-        $galeri = Galeri::whereHas('kelas', function($q) use ($kelas_id) {
-            $q->where('kelas_id', $kelas_id);
-        })->findOrFail($id);
+        $galeri = $this->findGaleriForGuru($id);
 
         $galeri->load('siswa');
         $siswaList = Siswa::where('kelas_id', $kelas_id)->orderBy('nama')->get();
@@ -284,10 +422,17 @@ class GuruController extends Controller
         $guru = $this->getGuru();
         $kelas_id = $guru->kelas_id ?? null;
 
-        $galeri = Galeri::whereHas('kelas', function($q) use ($kelas_id) {
-            $q->where('kelas_id', $kelas_id);
-        })->findOrFail($id);
-        
+        $galeri = $this->findGaleriForGuru($id);
+
+        // Count existing photos yang akan di-keep
+        $existingPhotos = is_array($galeri->foto) ? $galeri->foto : [];
+        $deletedFiles = $request->input('deleted_files', []);
+        $keptExisting = array_diff($existingPhotos, $deletedFiles);
+
+        // Validasi: minimal 1 foto (existing yang di-keep + baru)
+        $newFileCount = $request->hasFile('foto') ? count($request->file('foto')) : 0;
+        $totalPhotosAfter = count($keptExisting) + $newFileCount;
+
         $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi_kegiatan' => 'nullable|string',
@@ -297,21 +442,27 @@ class GuruController extends Controller
             'foto.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120',
             'target_type' => 'required|in:kelas,siswa',
             'target_siswa_id' => 'required_if:target_type,siswa|nullable|integer|exists:siswas,id',
+        ], [
+            'judul.required' => 'Judul kegiatan wajib diisi.',
         ]);
 
+        // Validasi minimal 1 foto (setelah proses delete)
+        if ($totalPhotosAfter < 1) {
+            return back()
+                ->withInput()
+                ->withErrors(['foto' => 'Galeri harus memiliki minimal 1 foto. Silakan tambahkan foto baru sebelum menghapus semua foto lama.']);
+        }
+
         // Keep current photos that weren't deleted
-        $currentPhotos = is_array($galeri->foto) ? $galeri->foto : [];
-        if ($request->has('deleted_files')) {
-            foreach ($request->deleted_files as $deletedFile) {
-                if (($key = array_search($deletedFile, $currentPhotos)) !== false) {
-                    unset($currentPhotos[$key]);
-                    if (file_exists(public_path($deletedFile))) {
-                        unlink(public_path($deletedFile));
-                    }
+        $currentPhotos = $keptExisting;
+        if (!empty($deletedFiles)) {
+            foreach ($deletedFiles as $deletedFile) {
+                if (file_exists(public_path($deletedFile))) {
+                    @unlink(public_path($deletedFile));
                 }
             }
-            $currentPhotos = array_values($currentPhotos);
         }
+        $currentPhotos = array_values($currentPhotos);
 
         // Add new photos
         $newPathsMap = [];
@@ -366,6 +517,8 @@ class GuruController extends Controller
             }
         }
 
+        $this->dispatchGaleriNotifications($galeri, 'updated');
+
         return redirect()->route('guru.galeri')->with('success', 'Galeri berhasil diperbarui!');
     }
 
@@ -374,9 +527,7 @@ class GuruController extends Controller
         $guru = $this->getGuru();
         $kelas_id = $guru->kelas_id ?? null;
 
-        $galeri = Galeri::whereHas('kelas', function($q) use ($kelas_id) {
-            $q->where('kelas_id', $kelas_id);
-        })->findOrFail($id);
+        $galeri = $this->findGaleriForGuru($id);
 
         if (is_array($galeri->foto)) {
             foreach ($galeri->foto as $path) {
@@ -424,7 +575,29 @@ class GuruController extends Controller
             $pengumuman->kelas()->attach($guru->kelas_id);
         }
 
+        $this->dispatchPengumumanNotifications($pengumuman, 'created');
+
         return redirect()->route('guru.daftar-pengumuman')->with('success', 'Pengumuman berhasil dibuat.');
+    }
+
+    private function dispatchPengumumanNotifications(Pengumuman $pengumuman, string $event = 'created'): void
+    {
+        try {
+            $resolver = new \App\Services\NotificationRecipientResolver();
+            $recipients = $resolver->forPengumuman($pengumuman);
+
+            foreach ($recipients as $user) {
+                SendPengumumanNotificationJob::dispatch(
+                    $pengumuman->id,
+                    $user->id,
+                    $user->email,
+                    $user->name ?? 'Orang Tua',
+                    $event,
+                );
+            }
+        } catch (\Throwable $e) {
+            \Log::error('Pengumuman notification dispatch failed: ' . $e->getMessage());
+        }
     }
 
     public function daftarPengumuman()
@@ -495,6 +668,8 @@ class GuruController extends Controller
             'isi_pesan' => $request->isi_pengumuman,
             'lampiran' => !empty($lampiranPaths) ? $lampiranPaths : null,
         ]);
+
+        $this->dispatchPengumumanNotifications($pengumuman, 'updated');
 
         return redirect()->route('guru.daftar-pengumuman')->with('success', 'Pengumuman berhasil diperbarui.');
     }

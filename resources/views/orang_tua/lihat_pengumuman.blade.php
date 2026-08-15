@@ -45,6 +45,7 @@
                 <article class="announcement-card"
                     role="button"
                     tabindex="0"
+                    data-id="{{ $p->id }}"
                     data-title="{{ $p->judul }}"
                     data-datetime="{{ \Carbon\Carbon::parse($p->created_at)->translatedFormat('d F Y • H:i') }} WIB"
                     data-body="{{ strip_tags(str_replace(['<br>', '</p>'], ['|||', '|||'], $p->isi_pesan)) }}"
@@ -204,6 +205,21 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
             });
+
+            // Auto-open modal kalau ada ?focus=ID (untuk link dari email notifikasi)
+            const urlParams = new URLSearchParams(window.location.search);
+            const focusId = urlParams.get('focus');
+            if (focusId) {
+                const targetCard = document.querySelector(`.announcement-card[data-id="${focusId}"]`);
+                if (targetCard) {
+                    // Scroll ke card dulu, lalu open modal
+                    targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => openModal(targetCard), 400);
+                } else {
+                    // Fallback: kalau ID tidak ketemu, tampilkan notifikasi kecil
+                    console.warn('Auto-open: pengumuman ID ' + focusId + ' tidak ditemukan di list ini');
+                }
+            }
         })();
     </script>
 </body>
