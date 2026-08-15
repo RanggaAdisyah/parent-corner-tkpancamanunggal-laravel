@@ -150,7 +150,7 @@ class OperatorController extends Controller
             $user->delete();
         }
 
-        return redirect()->route('operator.kelola-orang-tua')->with('success', 'Akun Orang Tua berhasil dihapus!');
+        return redirect()->route('operator.kelola_orang_tua')->with('success', 'Akun Orang Tua berhasil dihapus!');
     }
 
     public function editOrangTua($id)
