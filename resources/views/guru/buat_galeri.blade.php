@@ -140,19 +140,19 @@
                                 </h2>
                             </div>
 
-                            <div style="display: flex; gap: 16px; margin-bottom: 16px;">
-                                <label class="category-card" style="flex:1; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
-                                    <input type="radio" name="target_type" value="kelas" checked style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;">
-                                    <div>
+                            <div style="display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;">
+                                <label class="category-card target-radio" style="flex:1 1 280px; min-width:0; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="target_type" value="kelas" checked style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9; flex-shrink:0;">
+                                    <div style="min-width:0;">
                                         <h4 style="margin: 0; font-size: 14px;">Untuk Seluruh Kelas</h4>
-                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b;">Galeri tampil untuk semua orang tua di kelas ini</p>
+                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b; word-wrap:break-word;">Galeri tampil untuk semua orang tua di kelas ini</p>
                                     </div>
                                 </label>
-                                <label class="category-card" style="flex:1; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
-                                    <input type="radio" name="target_type" value="siswa" style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9;">
-                                    <div>
+                                <label class="category-card target-radio" style="flex:1 1 280px; min-width:0; border:1px solid #e2e8f0; border-radius:12px; padding:16px; cursor:pointer; display:flex; align-items:center; gap:12px; background:#fff; transition:0.2s;">
+                                    <input type="radio" name="target_type" value="siswa" style="width:18px; height:18px; cursor:pointer; accent-color:#0ea5e9; flex-shrink:0;">
+                                    <div style="min-width:0;">
                                         <h4 style="margin: 0; font-size: 14px;">Untuk Siswa Tertentu</h4>
-                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b;">Galeri hanya untuk satu anak</p>
+                                        <p style="margin: 4px 0 0; font-size: 12px; color: #64748b; word-wrap:break-word;">Galeri hanya untuk satu anak</p>
                                     </div>
                                 </label>
                             </div>

@@ -64,11 +64,10 @@
         <thead>
             <tr>
                 <th width="5%">No</th>
-                <th width="15%">Tanggal</th>
-                <th width="15%">Level</th>
-                <th width="15%">Halaman</th>
-                <th width="10%">Nilai</th>
-                <th width="40%">Catatan Guru</th>
+                <th width="5%">Tanggal</th>
+                <th width="10%">Aspek Perkembangan</th>
+                <th width="5%">Nilai</th>
+                <th width="75%">Catatan Guru</th>
             </tr>
         </thead>
         <tbody>
@@ -77,17 +76,36 @@
                     <td class="text-center">{{ $index + 1 }}</td>
                     <td class="text-center">{{ \Carbon\Carbon::parse($nilai->tanggal)->format('d/m/Y') }}</td>
                     <td class="text-center">{{ $nilai->level ?? '-' }}</td>
-                    <td class="text-center">{{ $nilai->hal ?? '-' }}</td>
                     <td class="text-center"><strong>{{ $nilai->nilai ?? '-' }}</strong></td>
                     <td>{!! $nilai->keterangan ?? '-' !!}</td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6" class="text-center" style="padding: 20px;">Tidak ada rekap nilai untuk bulan ini.</td>
+                    <td colspan="5" class="text-center" style="padding: 20px;">Tidak ada rekap nilai untuk bulan ini.</td>
                 </tr>
             @endforelse
         </tbody>
     </table>
+
+    <div style="margin-top: 30px;">
+        <h3 style="font-size: 14px; margin-bottom: 8px; color: #333;">Keterangan Definisi Nilai:</h3>
+        <table class="report-table" style="width: 20%;">
+            <thead>
+                <tr>
+                    <th width="15%">Kode</th>
+                    <th width="85%">Definisi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($skalaList as $kode => $meta)
+                    <tr>
+                        <td class="text-center"><strong>{{ $kode }}</strong></td>
+                        <td>{{ $meta['label'] }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
     <div style="margin-top: 50px; text-align: right;">
         <p style="margin-bottom: 80px;">Mengetahui,<br>Guru Kelas</p>

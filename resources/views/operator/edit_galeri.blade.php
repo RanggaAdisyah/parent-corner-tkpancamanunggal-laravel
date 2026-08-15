@@ -355,9 +355,10 @@
             // Real-time foto counter & alert
             const fotoCountWarning = document.getElementById('fotoCountWarning');
             const fotoCountText = document.getElementById('fotoCountText');
+            let dataTransfer = new DataTransfer();
 
             function updateFotoCount() {
-                const newCount = dataTransfer.files.length;
+                const newCount = dataTransfer ? dataTransfer.files.length : 0;
                 const total = currentExistingCount + newCount;
                 if (total === 0) {
                     fotoCountWarning.style.display = 'flex';
@@ -371,7 +372,7 @@
             document.getElementById('formGaleri').addEventListener('submit', function(e) {
                 document.getElementById('deskripsiKegiatanHidden').value = quill.root.innerHTML;
 
-                const newCount = dataTransfer.files.length;
+                const newCount = dataTransfer ? dataTransfer.files.length : 0;
                 const total = currentExistingCount + newCount;
                 if (total < 1) {
                     e.preventDefault();
@@ -388,7 +389,6 @@
             // File upload logic
             const fileInput = document.getElementById('fileInput');
             const fileNameDisplay = document.getElementById('fileNameDisplay');
-            let dataTransfer = new DataTransfer();
             
             fileInput.addEventListener('change', function() {
                 Array.from(this.files).forEach(file => {

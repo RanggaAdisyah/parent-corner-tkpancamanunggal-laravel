@@ -68,6 +68,7 @@
                     elseif (str_contains(strtolower($firstCat), 'perayaan')) $badgeClass = 'badge-perayaan';
                 @endphp
                 <article class="activity-card" role="button" tabindex="0"
+                    data-id="{{ $galeri->id }}"
                     data-title="{{ $galeri->judul }}"
                     data-categories="{{ !empty($galeri->kategori) && is_array($galeri->kategori) ? implode(',', $galeri->kategori) : 'Umum' }}"
                     data-category="{{ $firstCat }}"
@@ -276,6 +277,19 @@
             }
             if (filterKategori) {
                 filterKategori.addEventListener('change', filterGaleri);
+            }
+
+            // Auto-open modal kalau ada ?focus=ID (untuk link dari email notifikasi)
+            const urlParams = new URLSearchParams(window.location.search);
+            const focusId = urlParams.get('focus');
+            if (focusId) {
+                const targetCard = document.querySelector(`.activity-card[data-id="${focusId}"]`);
+                if (targetCard) {
+                    targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setTimeout(() => openModalDetail(targetCard), 400);
+                } else {
+                    console.warn('Auto-open: galeri ID ' + focusId + ' tidak ditemukan di list ini');
+                }
             }
         });
     </script>

@@ -39,13 +39,32 @@ return [
 
         'smtp' => [
             'transport' => 'smtp',
-            'scheme' => env('MAIL_SCHEME'),
+            // Symfony Mailer 7.x: scheme=ssl → use smtps transport
+            // Untuk tls, pakai 'encryption' key (STARTTLS auto), BUKAN scheme
+            'scheme' => (env('MAIL_SCHEME') === 'ssl' || strtolower((string) env('MAIL_ENCRYPTION')) === 'ssl')
+                ? null
+                : (env('MAIL_SCHEME') === 'ssl' ? null : null),
+            'encryption' => env('MAIL_SCHEME') === 'tls' || strtolower((string) env('MAIL_ENCRYPTION')) === 'tls'
+                ? 'tls'
+                : null,
+            'verify_peer' => env('MAIL_VERIFY_PEER', true),
             'url' => env('MAIL_URL'),
             'host' => env('MAIL_HOST', '127.0.0.1'),
             'port' => env('MAIL_PORT', 2525),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
+            'timeout' => env('MAIL_TIMEOUT', 30),
+            'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
+        ],
+
+        // Smtps transport (untuk ssl/465)
+        'smtps' => [
+            'transport' => 'smtps',
+            'host' => env('MAIL_HOST', '127.0.0.1'),
+            'port' => env('MAIL_PORT', 465),
+            'username' => env('MAIL_USERNAME'),
+            'password' => env('MAIL_PASSWORD'),
+            'timeout' => env('MAIL_TIMEOUT', 30),
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
 
